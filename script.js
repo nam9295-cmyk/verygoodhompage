@@ -12,9 +12,16 @@ function toggleLanguage() {
 function updateLanguageUI() {
   const isKr = currentLang === "KR";
 
-  // 1. Update Toggle Button Text
+  // 1. Update Toggle Button UI
   const toggleBtn = $("#langToggle");
-  if (toggleBtn) toggleBtn.textContent = isKr ? "EN" : "KR"; // Show target language to switch to
+  if (toggleBtn) {
+    // Toggle class for CSS animation
+    toggleBtn.classList.toggle("is-kr", isKr);
+
+    // Update text inside the circle
+    const circle = toggleBtn.querySelector(".toggle-circle");
+    if (circle) circle.textContent = isKr ? "KR" : "EN";
+  }
 
   // 2. Re-render Products
   const activeTab = document.querySelector(".tab.is-active")?.dataset?.tab || "new";

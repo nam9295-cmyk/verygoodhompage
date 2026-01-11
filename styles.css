@@ -1149,22 +1149,51 @@ body.is-header-visible .hero-bleed-logo {
   opacity: 0.9;
 }
 
-.lang-btn {
-    background: none;
-    border: none;
-    font-family: var(--body-font);
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 8px 12px;
-    margin-right: 8px;
-    color: var(--ink);
-    opacity: 0.7;
-    transition: opacity 0.2s;
+/* Language Toggle Switch */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  background: #f0f0f0;
+  border-radius: 20px;
+  padding: 4px;
+  cursor: pointer;
+  border: none;
+  margin-right: 12px;
+  position: relative;
+  width: 64px;
+  height: 32px;
+  transition: background 0.3s;
 }
-.lang-btn:hover {
-    opacity: 1;
+
+.lang-switch .toggle-circle {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--brand);
 }
+
+.lang-switch.is-kr {
+  background: var(--brand);
+}
+
+.lang-switch.is-kr .toggle-circle {
+  transform: translateX(32px);
+  color: #333;
+}
+
+/* Label text inside using pseudo elements or separate spans if needed, 
+   but simplistic circle text is cleaner for this size */
 
 @media (max-width: 768px) {
   .contact-grid {
