@@ -881,3 +881,14 @@ body.is-header-visible .hero-bleed-logo{
     order: -1; /* Show map above form on mobile if preferred, or remove this line */
   }
 }
+
+.story-slogan {
+  margin-top: 24px;
+  font-weight: 900;
+  font-family: var(--menu-font);
+  font-size: 20px;
+  letter-spacing: 0.05em;
+  color: var(--brand);
+  text-transform: uppercase;
+}
+
