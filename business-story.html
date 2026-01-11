@@ -78,17 +78,18 @@
         /* Background decorative map */
         .biz-map-bg {
             position: absolute;
-            top: -150px;
-            right: -350px;
-            /* Push further right */
-            width: 900px;
-            /* Even larger to fill space */
+            top: 50%;
+            /* Center vertically */
+            transform: translateY(-50%) rotate(5deg);
+            /* Center adjustment + rotation */
+            right: -150px;
+            /* Subtle right shift */
+            width: 800px;
+            /* Large size */
             opacity: 0.15;
             z-index: 0;
-            /* Behind text */
             pointer-events: none;
             mix-blend-mode: multiply;
-            transform: rotate(10deg);
         }
 
         .biz-text-col p {
@@ -104,7 +105,9 @@
             padding-top: 30px;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
-
+    </style>
+    <style>
+        /* Mobile Layout */
         @media (max-width: 900px) {
             .biz-story-page {
                 padding: 0 24px;
@@ -120,11 +123,13 @@
                 position: static;
             }
 
+            /* Mobile Map Watermark - subtle behind text */
             .biz-map-bg {
-                width: 300px;
-                top: 0;
-                right: -20px;
-                opacity: 0.1;
+                width: 400px;
+                top: 20%;
+                right: -80px;
+                opacity: 0.12;
+                transform: rotate(5deg);
             }
         }
     </style>
