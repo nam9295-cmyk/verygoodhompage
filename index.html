@@ -122,28 +122,45 @@
     </section>
 
     <!-- Inquiry / Contact Form Section (Replaces old Story/Map) -->
-    <section class="section" id="inquiry">
+    <section class="section" id="contact">
       <div class="section-head">
-        <h2 class="section-title">INQUIRY</h2>
-        <p class="section-sub">Send us a message.</p>
+        <h2 class="section-title">CONTACT</h2>
+        <p class="section-sub">Visit us or send a message.</p>
       </div>
 
-      <div class="inquiry-container">
-        <form class="inquiry-form" action="https://formspree.io/f/mwvveyoj" method="POST">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <div class="contact-grid">
+        <!-- Left: Inquiry Form -->
+        <div class="inquiry-container">
+          <form class="inquiry-form" action="https://formspree.io/f/mwvveyoj" method="POST">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="How can we help you?" required></textarea>
+            </div>
+            <button type="submit" class="cta form-submit">SEND MESSAGE</button>
+          </form>
+        </div>
+
+        <!-- Right: Store Location Map -->
+        <div class="map-container">
+          <iframe class="map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=대구광역시%20수성구%20상록로11길%2013%201층&output=embed">
+          </iframe>
+          <div class="map-info">
+            <p class="map-address">대구광역시 수성구 상록로11길 13 1층</p>
+            <a class="map-link-btn" target="_blank" rel="noopener"
+              href="https://www.google.com/maps?q=대구광역시%20수성구%20상록로11길%2013%201층">
+              Google Maps ↗
+            </a>
           </div>
-          <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="Your Email Address" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="How can we help you?" required></textarea>
-          </div>
-          <button type="submit" class="cta form-submit">SEND MESSAGE</button>
-        </form>
+        </div>
       </div>
     </section>
 
