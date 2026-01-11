@@ -892,3 +892,7 @@ body.is-header-visible .hero-bleed-logo{
   text-transform: uppercase;
 }
 
+.instagram-feed {
+  margin-top: 24px;
+  min-height: 400px; /* Placeholder height to prevent layout shift */
+}
