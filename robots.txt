@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nam9295-cmyk.github.io/verygoodhompage/sitemap.xml

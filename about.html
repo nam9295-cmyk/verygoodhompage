@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Verygood Chocolate</title>
+    <meta name="description"
+        content="Discover the philosophy behind Verygood Chocolate. Less sweet, more deep. We craft moments of comfort and gratitude through premium bean-to-bar chocolate.">
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        .about-page {
+            max-width: 900px;
+            margin: 120px auto 80px;
+            padding: 0 24px;
+        }
+
+        .about-hero {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .about-title {
+            font-family: var(--menu-font);
+            font-size: clamp(40px, 5vw, 60px);
+            margin-bottom: 16px;
+            font-weight: 300;
+        }
+
+        .about-sub {
+            font-size: 18px;
+            opacity: 0.7;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .about-section {
+            margin-bottom: 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-section.reverse {
+            direction: rtl;
+        }
+
+        .about-section.reverse .about-text {
+            direction: ltr;
+        }
+
+        .about-text h2 {
+            font-family: var(--menu-font);
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 17px;
+            line-height: 1.75;
+            opacity: 0.85;
+            margin-bottom: 20px;
+            color: var(--ink);
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        @media (max-width: 768px) {
+            .about-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                direction: ltr !important;
+            }
+
+            .about-text {
+                direction: ltr !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="topbar-left">
+            <a href="./index.html" class="icon-btn">
+                <span class="txt">← Back</span>
+            </a>
+        </div>
+        <a class="brand" href="./index.html" style="opacity:1; transform:none; pointer-events:auto;">
+            <img class="brand-img" src="./assets/logo-type.png" alt="VERYGOOD">
+        </a>
+        <div class="topbar-actions">
+            <a class="cta" href="./index.html#shop">ORDER</a>
+        </div>
+    </header>
+
+    <main class="about-page">
+        <div class="about-hero">
+            <h1 class="about-title">Less Sweet, More Deep.</h1>
+            <p class="about-sub">The Philosophy of Verygood</p>
+        </div>
+
+        <section class="about-section">
+            <div class="about-text">
+                <h2>Crafting Moments, Not Just Chocolate</h2>
+                <p>At Verygood Chocolate, we believe that chocolate is more than just a sweet treat. It is a medium for
+                    connection, a comfort in solitude, and a catalyst for celebration. In a world that moves too fast,
+                    we invite you to pause and savor the depth of the moment.</p>
+                <p>We asked ourselves: "What sentiment would you like to convey today?" Whether it is gratitude to a
+                    friend, comfort for yourself, or the celebration of a milestone, we discovered a way to preserve
+                    those sentiments in cacao.</p>
+            </div>
+            <div class="about-img">
+                <img src="./assets/story/story-1.png" alt="Crafting Chocolate">
+            </div>
+        </section>
+
+        <section class="about-section reverse">
+            <div class="about-text">
+                <h2>The Art of Bean-to-Bar</h2>
+                <p>Our process begins with the careful selection of premium cacao beans. We adhere to the "Bean-to-Bar"
+                    philosophy, overseeing every step of the chocolate-making process to ensure purity and depth of
+                    flavor.</p>
+                <p>Unlike mass-produced chocolates that rely heavily on sugar and additives, we focus on the raw
+                    potential of the cacao bean itself. We roast, crack, winnow, and conch our beans in small batches.
+                    This labor-intensive process allows us to control the acidity and unlock the complex flavor
+                    notes—fruity, nutty, or floral—hidden within each bean.</p>
+            </div>
+            <div class="about-img">
+                <!-- Placeholder for another image, reusing existing asset for now -->
+                <img src="./assets/products/british.png" alt="Bean to Bar Process" style="background:#f4f4f4;">
+            </div>
+        </section>
+
+        <section class="about-section">
+            <div class="about-text">
+                <h2>Ingredients You Can Trust</h2>
+                <p>Transparency is at the heart of our kitchen. We use only real ingredients: ethical cacao, pure cocoa
+                    butter, and unrefined cane sugar. For our flavored collections, we source premium teas like Earl
+                    Grey, detox blends, and real fruits.</p>
+                <p>We promise: No artificial preservatives, no shiny glaze agents, and no compromises. Just honest, very
+                    good chocolate that is gentle on your body and rich on your palate.</p>
+                <p><strong>Think Chocolate, Think Very Good.</strong></p>
+            </div>
+            <div class="about-img">
+                <img src="./assets/products/almond.png" alt="Natural Ingredients" style="background:#f4f4f4;">
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <div class="footer-brand">VERYGOOD CHOCOLATE</div>
+                <div class="footer-small">© <span id="year">2026</span> Verygood. All rights reserved.</div>
+            </div>
+            <div class="footer-right">
+                <a href="./privacy.html"
+                    style="font-size:13px; opacity:0.7; margin-right:15px; text-decoration:none;">Privacy Policy</a>
+                <a href="./terms.html" style="font-size:13px; opacity:0.7; text-decoration:none;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+
+</html>
