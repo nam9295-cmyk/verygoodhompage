@@ -9,79 +9,122 @@
     <link rel="stylesheet" href="./styles.css">
     <style>
         .biz-story-page {
-            max-width: 1000px;
-            margin: 120px auto 80px;
-            padding: 0 24px;
+            max-width: 1100px;
+            margin: 140px auto 100px;
+            padding: 0 40px;
         }
 
         .biz-header {
-            margin-bottom: 60px;
+            margin-bottom: 80px;
+            position: relative;
         }
 
         .biz-title {
             font-family: var(--menu-font);
-            font-size: clamp(40px, 5vw, 64px);
-            margin-bottom: 16px;
+            font-size: clamp(48px, 6vw, 72px);
+            margin-bottom: 24px;
             font-weight: 700;
-            line-height: 1.1;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
         }
 
         .biz-sub {
-            font-size: 18px;
-            opacity: 0.85;
-            font-weight: 500;
+            font-size: 20px;
+            opacity: 0.7;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            margin-left: 4px;
         }
 
         .biz-content {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 60px;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 80px;
             align-items: start;
+            position: relative;
         }
 
         .biz-img-col {
-            position: relative;
+            position: sticky;
+            top: 100px;
         }
 
         .biz-img-col img {
             width: 100%;
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .biz-img-col:hover img {
+            transform: translateY(-5px);
         }
 
         .biz-text-col {
-            font-size: 16px;
-            line-height: 1.8;
-            opacity: 0.85;
+            font-size: 17px;
+            line-height: 1.9;
+            opacity: 0.9;
             word-break: keep-all;
             color: var(--ink);
+            position: relative;
+            padding-top: 20px;
+            z-index: 1;
+            overflow: hidden;
+            /* Crop the map */
+            /* Text above map */
+        }
+
+        /* Background decorative map */
+        .biz-map-bg {
+            position: absolute;
+            top: -120px;
+            right: -250px;
+            /* Shift right to crop 1/4 */
+            width: 750px;
+            /* Much larger */
+            opacity: 0.15;
+            z-index: 0;
+            /* Behind text */
+            pointer-events: none;
+            mix-blend-mode: multiply;
+            transform: rotate(5deg);
         }
 
         .biz-text-col p {
-            margin-bottom: 24px;
-        }
-
-        .biz-text-col strong {
-            font-weight: 700;
-            color: #000;
+            margin-bottom: 32px;
         }
 
         .biz-slogan {
-            margin-top: 40px;
-            font-weight: 800;
-            font-size: 18px;
+            margin-top: 60px;
+            font-family: var(--menu-font);
+            font-weight: 700;
+            font-size: 28px;
             color: var(--brand);
+            padding-top: 30px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        @media (max-width: 768px) {
-            .biz-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
+        @media (max-width: 900px) {
+            .biz-story-page {
+                padding: 0 24px;
+                margin-top: 100px;
             }
 
-            .biz-title {
-                font-size: 36px;
+            .biz-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .biz-img-col {
+                position: static;
+            }
+
+            .biz-map-bg {
+                width: 300px;
+                top: 0;
+                right: -20px;
+                opacity: 0.1;
             }
         }
     </style>
@@ -110,11 +153,13 @@
 
         <div class="biz-content">
             <div class="biz-img-col">
-                <!-- Using a placeholder/existing asset effectively here. Ideally this would be the collage from the user's design -->
                 <img src="./assets/story/story-1.png" alt="Le Cordon Bleu and Verygood Journey">
             </div>
 
             <div class="biz-text-col">
+                <!-- Background Map Image -->
+                <img src="./assets/story/australia-map.png" class="biz-map-bg" alt="">
+
                 <p>처음은 초콜릿이 좋아서, 그냥 파리로 떠난 일에서 시작됐습니다.<br>
                     파리의 공기와 낯선 골목, 그리고 르꼬르동블루에서 만난 수업들.<br>
                     그곳에서 배운 건 레시피만이 아니었어요.<br>
