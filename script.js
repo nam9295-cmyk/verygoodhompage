@@ -1,71 +1,47 @@
 const $ = (sel, el = document) => el.querySelector(sel);
 const $$ = (sel, el = document) => Array.from(el.querySelectorAll(sel));
 
-const products = [
-  { id: "new-1", tab: "new", title: "Almond Chocoball", price: "₩11,000", tags: ["CHOC", "BEST"], img:"/assets/products/almond.png" },
-  { id: "new-2", tab: "new", title: "Ruby berry Chocoball", price: "₩12,000", tags: ["CHOC", "FRUITY"], img:"/assets/products/ruby.png" },
-  { id: "new-3", tab: "new", title: "Strawberry Bonbon", price: "₩10,000", tags: ["STRAW", "CRUNCH"],img:"/assets/products/straw.png" },
-  { id: "new-4", tab: "new", title: "Matcha berry", price: "₩12,000", tags: ["DIP", "MATCHA"], img:"/assets/products/matcha.png" },
+// NOTE: 'products' array is now loaded from ./assets/data/products.js
 
-  { id: "best-1", tab: "best", title: "British Black", price: "₩10,000", tags: ["DETOX", "SIGNATURE"], img:"./assets/products/british.png" },
-  { id: "best-2", tab: "best", title: "Hibiscus Fruit", price: "₩10,000", tags: ["DETOX", "FRUIT"], img:"/assets/products/hibis.png" },
-  { id: "best-3", tab: "best", title: "Almond Chocoball", price: "₩11,000", tags: ["CHOC", "ALMOND"], img:"/assets/products/almond.png" },
-  { id: "best-4", tab: "best", title: "Rubby berry Chocoball", price: "₩12,000", tags: ["CHOC", "BLUEBERRY"], img:"/assets/products/ruby.png" },
-
-  { id: "gift-1", tab: "gift", title: "Gift 2 set", price: "₩29,800", tags: ["GIFT", "BOX"], img:"/assets/products/2set.png" },
-  { id: "gift-2", tab: "gift", title: "Gift 4 set", price: "₩39,800", tags: ["GIFT", "PREMIUM"], img:"/assets/products/4set.png" },
-  { id: "gift-3", tab: "gift", title: "Hogirl key-ring", price: "₩3,000", tags: ["ADD-ON"], img:"/assets/products/hogirl.png" },
-  { id: "gift-4", tab: "gift", title: "Horse key-ring", price: "₩3,000", tags: ["ADD-ON"], img:"/assets/products/horse.png" },
-
-  { id: "tea-1", tab: "tea", title: "British Black", price: "₩10,000", tags: ["DETOX", "EARLGREY"], img:"./assets/products/british.png" },
-  { id: "tea-2", tab: "tea", title: "Asian Gold", price: "₩10,000", tags: ["DETOX", "OOLONG"], img:"./assets/products/asian.png" },
-  { id: "tea-3", tab: "tea", title: "Hibiscus Fruit", price: "₩10,000", tags: ["DETOX", "FRUIT"], img:"./assets/products/hibis.png" },
-  { id: "tea-4", tab: "tea", title: "Minty Chocolat", price: "₩10,000", tags: ["DETOX", "MINT"], img:"./assets/products/minty.png" },
-];
-
-function renderProducts(tabKey){
+function renderProducts(tabKey) {
   const grid = $("#productGrid");
-  const list = products.filter(p => p.tab === tabKey);
+
+  // Filter products that include the current tabKey in their 'tabs' array
+  const list = products.filter(p => p.tabs.includes(tabKey));
 
   grid.innerHTML = list.map(p => `
     <article class="card product" data-id="${p.id}">
        <div class="thumb">
-  <img src="${p.img}" alt="${p.title}" loading="lazy">
+  <img src="${p.mainImage}" alt="${p.name}" loading="lazy">
 </div>
 
       <div class="body">
-        <div class="title">${p.title}</div>
+        <div class="title">${p.name}</div>
         <div class="meta">
-          <div class="price">${p.price}</div>
+          <div class="price">${p.priceStr}</div>
           <div class="pills">
-            ${p.tags.slice(0,2).map(t => `<span class="mini">${t}</span>`).join("")}
+            ${p.tags.slice(0, 2).map(t => `<span class="mini">${t}</span>`).join("")}
           </div>
         </div>
         <div class="btns">
-          <button class="btn" type="button" data-action="detail">Detail</button>
+          <a class="btn" href="./product-detail.html?id=${p.id}">Detail</a>
           <button class="btn primary" type="button" data-action="buy">Buy</button>
         </div>
       </div>
     </article>
   `).join("");
 
-  $$(".product .btn").forEach(btn => {
+  // Buy button handler only (Detail is now a link)
+  $$(".product .btn.primary").forEach(btn => {
     btn.addEventListener("click", (e) => {
       const card = e.target.closest(".product");
       const id = card?.dataset?.id || "";
-      const action = e.target.dataset.action;
-
-      if(action === "detail"){
-        alert(`상세 페이지 연결 예정: ${id}\n(스마트스토어/자사몰 링크로 교체)`);
-      }
-      if(action === "buy"){
-        alert(`장바구니/구매 연결 예정: ${id}\n(결제 링크로 교체)`);
-      }
+      alert(`장바구니/구매 연결 예정: ${id}\n(결제 링크로 교체)`);
     });
   });
 }
 
-function initTabs(){
+function initTabs() {
   const tabs = $$(".tab");
   tabs.forEach(t => t.addEventListener("click", () => {
     tabs.forEach(x => {
@@ -79,7 +55,7 @@ function initTabs(){
   renderProducts("new");
 }
 
-function initMenu(){
+function initMenu() {
   const menuBtn = $("#menuBtn");
   const closeBtn = $("#menuCloseBtn");
   const dialog = $("#menuDialog");
@@ -99,23 +75,23 @@ function initMenu(){
   closeBtn.addEventListener("click", close);
 
   dialog.addEventListener("click", (e) => {
-    if(e.target === dialog) close();
+    if (e.target === dialog) close();
   });
 
   $$("[data-close-menu]").forEach(a => a.addEventListener("click", close));
 
   window.addEventListener("keydown", (e) => {
-    if(!dialog.hidden && e.key === "Escape") close();
+    if (!dialog.hidden && e.key === "Escape") close();
   });
 }
 
-function initYear(){
+function initYear() {
   $("#year").textContent = new Date().getFullYear();
 }
 
-function initScrollHeader(){
+function initScrollHeader() {
   const hero = document.querySelector(".hero-bleed");
-  if(!hero) return;
+  if (!hero) return;
 
   const onScroll = () => {
     const rect = hero.getBoundingClientRect();
@@ -128,10 +104,10 @@ function initScrollHeader(){
 }
 
 
-function initMarquee(){
+function initMarquee() {
   const track = document.querySelector(".marquee-track");
   const set1 = document.querySelector(".marquee-set");
-  if(!track || !set1) return;
+  if (!track || !set1) return;
 
   const apply = () => {
     // set1 실제 폭(px)
