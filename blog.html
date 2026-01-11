@@ -191,12 +191,40 @@
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        import { db } from "./assets/js/firebase-config.js";
+        import { collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
         document.getElementById("year").textContent = new Date().getFullYear();
 
         // 1. Language State
         const params = new URLSearchParams(window.location.search);
         let currentLang = params.get("lang") || "EN";
+        let allBlogs = [...blogs]; // Start with static blogs
+
+        async function fetchPosts() {
+            try {
+                const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+
+                const firebasePosts = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    firebasePosts.push({
+                        id: doc.id,
+                        ...data
+                    });
+                });
+
+                // Merge: Firestore posts first (newest), then static posts
+                allBlogs = [...firebasePosts, ...blogs];
+                updateUI();
+
+            } catch (e) {
+                console.warn("Firestore fetch error (likely no config yet). Showing static only.", e);
+                updateUI();
+            }
+        }
 
         function updateUI() {
             const isKr = currentLang === "KR";
@@ -213,10 +241,10 @@
 
             // Render Grid
             const grid = document.getElementById("blogGrid");
-            grid.innerHTML = blogs.map(post => `
+            grid.innerHTML = allBlogs.map(post => `
                 <a href="./blog-detail.html?id=${post.id}&lang=${currentLang}" class="blog-card">
                     <div class="blog-thumb">
-                        <img src="${post.thumbnail}" alt="${post.title}" loading="lazy">
+                        <img src="${post.thumbnail}" alt="${post.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
                     </div>
                     <div class="blog-meta">${post.date}</div>
                     <div class="blog-card-title">${(isKr && post.title_ko) ? post.title_ko : post.title}</div>
@@ -226,17 +254,15 @@
         }
 
         // Init
-        updateUI();
+        fetchPosts();
 
         // Toggle Event
         document.getElementById("langToggle").addEventListener("click", () => {
             currentLang = currentLang === "EN" ? "KR" : "EN";
-
-            // Update URL without reload if possible, or just re-render
+            // Update URL
             const newUrl = new URL(window.location);
             newUrl.searchParams.set("lang", currentLang);
             window.history.replaceState({}, "", newUrl);
-
             updateUI();
         });
     </script>
