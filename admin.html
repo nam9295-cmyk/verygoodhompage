@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Verygood Chocolate</title>
+    <link rel="stylesheet" href="./styles.css">
+    <!-- Quill Text Editor Style -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f9f9f9;
+        }
+
+        .admin-container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 24px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-screen {
+            text-align: center;
+            padding: 40px 0;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .dashboard {
+            display: none;
+            /* Hidden by default */
+        }
+
+        .login-btn {
+            background: #4285F4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .login-btn:hover {
+            background: #357ae8;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .editor-container {
+            height: 300px;
+        }
+
+        .btn-submit {
+            background: var(--brand);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        .post-list {
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .post-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .btn-delete {
+            color: red;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 12px;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+        }
+
+        .btn-logout {
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            background: none;
+            border: none;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-container">
+        <!-- 1. LOGIN SCREEN -->
+        <div id="loginScreen" class="login-screen">
+            <h2>Verygood Admin</h2>
+            <p style="margin-bottom: 20px; color:#666;">Please login to manage blog posts.</p>
+            <button class="login-btn" id="googleLoginBtn">Login with Google</button>
+        </div>
+
+        <!-- 2. DASHBOARD -->
+        <div id="dashboard" class="dashboard">
+            <div class="user-info">
+                <span>Welcome, <b id="userName">User</b></span>
+                <button class="btn-logout" id="logoutBtn">Logout</button>
+            </div>
+
+            <h3>Write New Post</h3>
+            <div class="form-group">
+                <label class="form-label">Title (제목)</label>
+                <input type="text" id="title" class="form-input" placeholder="Enter post title">
+            </div>
+            <!-- Optional: KR Title for i18n support later -->
+            <div class="form-group">
+                <label class="form-label">Title (한국어 제목) - Optional</label>
+                <input type="text" id="titleKo" class="form-input" placeholder="한글 제목 입력">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Date (YYYY.MM.DD)</label>
+                <input type="text" id="date" class="form-input" placeholder="e.g. 2026.01.01">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Thumbnail URL (Image Link)</label>
+                <input type="text" id="thumbnail" class="form-input" placeholder="https://...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Summary (Short Description)</label>
+                <input type="text" id="summary" class="form-input" placeholder="Short description for the list view">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Content (본문)</label>
+                <!-- Quill Editor -->
+                <div id="editor" class="editor-container"></div>
+            </div>
+
+            <button class="btn-submit" id="saveBtn">Save Post</button>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts (Module Type) -->
+    <script type="module">
+        import { auth, provider, db } from "./assets/js/firebase-config.js";
+        import { signInWithPopup, onAuthStateChanged, signOut }
+            from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { collection, addDoc, serverTimestamp }
+            from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Quill Setup
+        const quill = new Quill('#editor', {
+            theme: 'snow',
+            placeholder: 'Write something amazing...',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['blockquote', 'code-block'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    ['link', 'image']
+                ]
+            }
+        });
+
+        const loginScreen = document.getElementById("loginScreen");
+        const dashboard = document.getElementById("dashboard");
+        const userDisplay = document.getElementById("userName");
+
+        // 1. Auth State Observer
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                loginScreen.style.display = "none";
+                dashboard.style.display = "block";
+                userDisplay.textContent = user.displayName || user.email;
+
+                // Set default date to today
+                const today = new Date();
+                document.getElementById("date").value = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
+
+            } else {
+                // User is signed out
+                loginScreen.style.display = "block";
+                dashboard.style.display = "none";
+            }
+        });
+
+        // 2. Login Logic
+        document.getElementById("googleLoginBtn").addEventListener("click", async () => {
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                console.error("Login failed", error);
+                alert("Login failed: " + error.message);
+            }
+        });
+
+        // 3. Logout Logic
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            signOut(auth);
+        });
+
+        // 4. Save Logic
+        document.getElementById("saveBtn").addEventListener("click", async () => {
+            const title = document.getElementById("title").value;
+            const titleKo = document.getElementById("titleKo").value;
+            const date = document.getElementById("date").value;
+            const thumbnail = document.getElementById("thumbnail").value;
+            const summary = document.getElementById("summary").value;
+            const content = quill.root.innerHTML; // Get HTML from Quill
+
+            if (!title || !content) {
+                alert("Please fill in Title and Content at least.");
+                return;
+            }
+
+            try {
+                const docRef = await addDoc(collection(db, "blogs"), {
+                    title: title,
+                    title_ko: titleKo || title, // Fallback if empty
+                    date: date,
+                    thumbnail: thumbnail,
+                    summary: summary,
+                    summary_ko: summary, // Simple fallback
+                    content: content,
+                    content_ko: content, // Simple fallback, or add another editor for KR
+                    createdAt: serverTimestamp()
+                });
+                alert("Post saved successfully! ID: " + docRef.id);
+                // Reset form
+                document.getElementById("title").value = "";
+                document.getElementById("titleKo").value = "";
+                quill.setContents([]);
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                alert("Error saving post.");
+            }
+        });
+
+    </script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+</body>
+
+</html>

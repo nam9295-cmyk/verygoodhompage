@@ -201,17 +201,40 @@
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        import { db } from "./assets/js/firebase-config.js";
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
         document.getElementById("year").textContent = new Date().getFullYear();
 
         // 1. Parse params
         const params = new URLSearchParams(window.location.search);
         const pid = params.get("id");
         let currentLang = params.get("lang") || "EN";
+        let postData = null;
+
+        async function initPage() {
+            // First check static data
+            postData = blogs.find(b => b.id === pid);
+
+            // If not found, check Firestore
+            if (!postData && pid) {
+                try {
+                    const docRef = doc(db, "blogs", pid);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        postData = { id: docSnap.id, ...docSnap.data() };
+                    }
+                } catch (e) {
+                    console.log("Firestore fetch skipped or failed", e);
+                }
+            }
+
+            renderPost();
+        }
 
         function renderPost() {
             const isKr = currentLang === "KR";
-            const post = blogs.find(b => b.id === pid);
 
             // Update Header UI
             const toggleBtn = document.getElementById("langToggle");
@@ -224,7 +247,7 @@
             // Update Content
             const main = document.getElementById("mainContent");
 
-            if (!post) {
+            if (!postData) {
                 main.innerHTML = `
                     <div style="text-align:center; padding:100px 0;">
                         <h2>${isKr ? "글을 찾을 수 없습니다" : "Post not found"}</h2>
@@ -234,13 +257,13 @@
                 return;
             }
 
-            const title = (isKr && post.title_ko) ? post.title_ko : post.title;
-            const content = (isKr && post.content_ko) ? post.content_ko : post.content;
+            const title = (isKr && postData.title_ko) ? postData.title_ko : postData.title;
+            const content = (isKr && postData.content_ko) ? postData.content_ko : postData.content;
 
             main.innerHTML = `
                 <article>
                     <div class="bd-header">
-                        <div class="bd-meta">${post.date}</div>
+                        <div class="bd-meta">${postData.date}</div>
                         <h1 class="bd-title">${title}</h1>
                     </div>
                     <div class="bd-content">
@@ -254,7 +277,7 @@
         }
 
         // Init
-        renderPost();
+        initPage();
 
         // Toggle Event
         document.getElementById("langToggle").addEventListener("click", () => {
