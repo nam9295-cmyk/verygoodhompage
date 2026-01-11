@@ -152,7 +152,7 @@
 <body>
     <header class="topbar">
         <div class="topbar-left">
-            <a href="./index.html#shop" class="icon-btn">
+            <a href="javascript:history.back()" class="icon-btn" id="backBtn">
                 <span class="txt">← Back to Shop</span>
             </a>
         </div>
@@ -209,9 +209,19 @@
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // 1. Parse ID from URL
+        // 1. Parse ID and Lang from URL
         const params = new URLSearchParams(window.location.search);
         const pid = params.get("id");
+        const lang = params.get("lang") || "EN"; // Default EN
+        const isKr = lang === "KR";
+
+        // Update UI Text based on Lang
+        if (isKr) {
+            document.getElementById("backBtn").querySelector(".txt").textContent = "← 뒤로가기";
+            document.querySelectorAll(".pd-btn.primary")[0].textContent = "구매하기";
+            document.querySelectorAll(".pd-btn.outline")[0].textContent = "장바구니 담기";
+            // Update other static text if needed
+        }
 
         // 2. Find product
         const product = products.find(p => p.id === pid);
@@ -219,18 +229,22 @@
         if (!product) {
             document.getElementById("mainContent").innerHTML = `
                 <div style="text-align:center; padding:100px 0;">
-                    <h2>Product not found</h2>
-                    <p>Sorry, the product you are looking for does not exist.</p>
-                    <a href="./index.html#shop" style="text-decoration:underline;">Back to Shop</a>
+                    <h2>${isKr ? "제품을 찾을 수 없습니다" : "Product not found"}</h2>
+                    <p>${isKr ? "요청하신 제품정보가 없습니다." : "Sorry, the product you are looking for does not exist."}</p>
+                    <a href="./index.html#shop" style="text-decoration:underline;">${isKr ? "돌아가기" : "Back to Shop"}</a>
                 </div>
             `;
         } else {
             // 3. Inject Data
             document.getElementById("pMainImg").src = product.mainImage;
             document.getElementById("pCategory").textContent = product.category;
-            document.getElementById("pTitle").textContent = product.name;
+
+            // Name & Description based on Lang
+            document.getElementById("pTitle").textContent = (isKr && product.name_ko) ? product.name_ko : product.name;
+            document.getElementById("pDesc").textContent = (isKr && product.description_ko) ? product.description_ko : product.description;
+
             document.getElementById("pPrice").textContent = product.priceStr;
-            document.getElementById("pDesc").textContent = product.description;
+
             // Use placeholder if descImage is present, else standard placeholder
             document.getElementById("pDescImg").src = product.descImage || "https://via.placeholder.com/800x2000?text=Detail+Description+Image";
         }

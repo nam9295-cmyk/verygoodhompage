@@ -1,6 +1,31 @@
 const $ = (sel, el = document) => el.querySelector(sel);
 const $$ = (sel, el = document) => Array.from(el.querySelectorAll(sel));
 
+// LANGUAGE STATE (default: English)
+let currentLang = "EN"; // "EN" or "KR"
+
+function toggleLanguage() {
+  currentLang = currentLang === "EN" ? "KR" : "EN";
+  updateLanguageUI();
+}
+
+function updateLanguageUI() {
+  const isKr = currentLang === "KR";
+
+  // 1. Update Toggle Button Text
+  const toggleBtn = $("#langToggle");
+  if (toggleBtn) toggleBtn.textContent = isKr ? "EN" : "KR"; // Show target language to switch to
+
+  // 2. Re-render Products
+  const activeTab = document.querySelector(".tab.is-active")?.dataset?.tab || "new";
+  renderProducts(activeTab);
+
+  // 3. Update Menu Items (Optional: Extend this to object mapping if needed)
+  // For now, simple text replacement example or just keep menu in English as designed
+
+  // We can also update static texts if we tag them (e.g. data-i18n="shop-title")
+}
+
 // NOTE: 'products' array is now loaded from ./assets/data/products.js
 
 function renderProducts(tabKey) {
@@ -8,6 +33,7 @@ function renderProducts(tabKey) {
 
   // Filter products that include the current tabKey in their 'tabs' array
   const list = products.filter(p => p.tabs.includes(tabKey));
+  const isKr = currentLang === "KR";
 
   grid.innerHTML = list.map(p => `
     <article class="card product" data-id="${p.id}">
@@ -16,7 +42,7 @@ function renderProducts(tabKey) {
 </div>
 
       <div class="body">
-        <div class="title">${p.name}</div>
+        <div class="title">${isKr && p.name_ko ? p.name_ko : p.name}</div>
         <div class="meta">
           <div class="price">${p.priceStr}</div>
           <div class="pills">
@@ -24,8 +50,8 @@ function renderProducts(tabKey) {
           </div>
         </div>
         <div class="btns">
-          <a class="btn" href="./product-detail.html?id=${p.id}">Detail</a>
-          <button class="btn primary" type="button" data-action="buy">Buy</button>
+          <a class="btn" href="./product-detail.html?id=${p.id}&lang=${currentLang}">${isKr ? "상세보기" : "Detail"}</a>
+          <button class="btn primary" type="button" data-action="buy">${isKr ? "구매하기" : "Buy"}</button>
         </div>
       </div>
     </article>
@@ -128,7 +154,15 @@ function initMarquee() {
   });
 }
 
+function initLanguage() {
+  const btn = $("#langToggle");
+  if (btn) {
+    btn.addEventListener("click", toggleLanguage);
+  }
+}
+
 initTabs();
 initMenu();
 initYear();
 initScrollHeader();
+initLanguage();
