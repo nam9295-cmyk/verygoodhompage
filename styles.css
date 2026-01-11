@@ -1153,7 +1153,7 @@ body.is-header-visible .hero-bleed-logo {
 .lang-switch {
   display: flex;
   align-items: center;
-  background: #f0f0f0;
+  background: #714f4f;
   border-radius: 20px;
   padding: 4px;
   cursor: pointer;
@@ -1163,6 +1163,8 @@ body.is-header-visible .hero-bleed-logo {
   width: 64px;
   height: 32px;
   transition: background 0.3s;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .lang-switch .toggle-circle {
