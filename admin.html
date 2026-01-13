@@ -180,7 +180,13 @@
                 <div id="editor" class="editor-container"></div>
             </div>
 
-            <button class="btn-submit" id="saveBtn">Save Post</button>
+
+            <div style="display:flex; gap:10px;">
+                <button class="btn-submit" id="saveBtn" style="flex:1;">Save Post</button>
+                <button id="cancelEditBtn"
+                    style="flex:0 0 auto; display:none; margin-top:20px; padding:12px 20px; cursor:pointer;"
+                    onclick="location.reload()">Cancel</button>
+            </div>
 
             <div class="post-list" id="postListSection">
                 <h3>Manage Posts (작성된 글 관리)</h3>
@@ -197,7 +203,7 @@
         import { auth, provider, db } from "./assets/js/firebase-config.js";
         import { signInWithPopup, onAuthStateChanged, signOut }
             from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc }
+        import { collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc, updateDoc, getDoc }
             from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // Quill Setup
@@ -227,6 +233,8 @@
         const loginScreen = document.getElementById("loginScreen");
         const dashboard = document.getElementById("dashboard");
         const userDisplay = document.getElementById("userName");
+
+        let currentEditingId = null; // Track which post is being edited
 
         // 1. Auth State Observer
         onAuthStateChanged(auth, (user) => {
@@ -263,7 +271,7 @@
             signOut(auth);
         });
 
-        // 4. Save Logic
+        // 4. Save / Update Logic
         document.getElementById("saveBtn").addEventListener("click", async () => {
             const title = document.getElementById("title").value;
             const titleKo = document.getElementById("titleKo").value;
@@ -278,28 +286,73 @@
             }
 
             try {
-                const docRef = await addDoc(collection(db, "blogs"), {
-                    title: title,
-                    title_ko: titleKo || title, // Fallback if empty
-                    date: date,
-                    thumbnail: thumbnail,
-                    summary: summary,
-                    summary_ko: summary, // Simple fallback
-                    content: content,
-                    content_ko: content, // Simple fallback, or add another editor for KR
-                    createdAt: serverTimestamp()
-                });
-                alert("Post saved successfully! ID: " + docRef.id);
+                if (currentEditingId) {
+                    // Update existing
+                    const docRef = doc(db, "blogs", currentEditingId);
+                    await updateDoc(docRef, {
+                        title: title,
+                        title_ko: titleKo || title,
+                        date: date,
+                        thumbnail: thumbnail,
+                        summary: summary,
+                        summary_ko: summary,
+                        content: content,
+                        content_ko: content,
+                        // updatedAt: serverTimestamp() // Optional: track updates
+                    });
+                    alert("Post updated successfully!");
+
+                    // Reset State
+                    currentEditingId = null;
+                    document.getElementById("saveBtn").textContent = "Save Post";
+
+                    // Optional: Hide Cancel button if we added one (not yet added but good practice to clear)
+                    const cancelBtn = document.getElementById("cancelEditBtn");
+                    if (cancelBtn) cancelBtn.style.display = "none";
+
+                } else {
+                    // Create new
+                    const docRef = await addDoc(collection(db, "blogs"), {
+                        title: title,
+                        title_ko: titleKo || title, // Fallback if empty
+                        date: date,
+                        thumbnail: thumbnail,
+                        summary: summary,
+                        summary_ko: summary, // Simple fallback
+                        content: content,
+                        content_ko: content, // Simple fallback, or add another editor for KR
+                        createdAt: serverTimestamp()
+                    });
+                    alert("Post saved successfully! ID: " + docRef.id);
+                }
+
                 // Reset form
                 document.getElementById("title").value = "";
                 document.getElementById("titleKo").value = "";
+                // document.getElementById("date").value = ... (keep date or reset? keep current date usually)
+                document.getElementById("thumbnail").value = "";
+                document.getElementById("summary").value = "";
                 quill.setContents([]);
+
                 fetchPosts(); // Refresh list after saving
             } catch (e) {
-                console.error("Error adding document: ", e);
+                console.error("Error saving/updating document: ", e);
                 alert("Error saving post.");
             }
         });
+
+        // Helper: Cancel Edit
+        function cancelEdit() {
+            currentEditingId = null;
+            document.getElementById("saveBtn").textContent = "Save Post";
+            document.getElementById("title").value = "";
+            document.getElementById("titleKo").value = "";
+            document.getElementById("thumbnail").value = "";
+            document.getElementById("summary").value = "";
+            quill.setContents([]);
+            const cancelBtn = document.getElementById("cancelEditBtn");
+            if (cancelBtn) cancelBtn.style.display = "none";
+        }
 
         // 5. Fetch & Render Posts
         async function fetchPosts() {
@@ -322,7 +375,10 @@
                                 <div style="font-weight:600; font-size:15px;">${data.title}</div>
                                 <div style="font-size:12px; color:#888;">${data.date}</div>
                             </div>
-                            <button class="btn-delete" data-id="${doc.id}">[Delete]</button>
+                            <div>
+                                <button class="btn-edit" data-id="${doc.id}" style="margin-right:8px; cursor:pointer;">[Edit]</button>
+                                <button class="btn-delete" data-id="${doc.id}">[Delete]</button>
+                            </div>
                         </div>
                     `;
                 });
@@ -345,9 +401,55 @@
                     });
                 });
 
+                // Attach Edit Event Listeners
+                document.querySelectorAll(".btn-edit").forEach(btn => {
+                    btn.addEventListener("click", async (e) => {
+                        const id = e.target.dataset.id;
+                        await loadPostForEdit(id);
+                    });
+                });
+
             } catch (e) {
                 console.error("Error fetching posts:", e);
                 listContainer.innerHTML = '<div style="color:red;">Error loading posts.</div>';
+            }
+        }
+
+        async function loadPostForEdit(id) {
+            try {
+                const docRef = doc(db, "blogs", id);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+
+                    currentEditingId = id; // Set global editing ID
+
+                    // Populate Form
+                    document.getElementById("title").value = data.title || "";
+                    document.getElementById("titleKo").value = data.title_ko || "";
+                    document.getElementById("date").value = data.date || "";
+                    document.getElementById("thumbnail").value = data.thumbnail || "";
+                    document.getElementById("summary").value = data.summary || "";
+
+                    // Quill Content
+                    // Note: If using proper Delta, use setContents. If HTML, use clipboard.dangerouslyPasteHTML
+                    const delta = quill.clipboard.convert(data.content || "");
+                    quill.setContents(delta, 'silent');
+
+                    // Change Save Button Text
+                    document.getElementById("saveBtn").textContent = "Update Post";
+
+                    // Show Cancel Button (if we add one in HTML) - for now just UI text change is enough feedback + form population
+
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                } else {
+                    console.log("No such document!");
+                }
+            } catch (e) {
+                console.error("Error loading doc:", e);
+                alert("Failed to load post for editing.");
             }
         }
 
