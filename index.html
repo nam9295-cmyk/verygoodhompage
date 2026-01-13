@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="./styles.css" />
   <!-- CMS Data -->
   <script src="./assets/data/products.js"></script>
+  <script src="./assets/data/blogs.js"></script>
 </head>
 
 <body>
@@ -138,8 +139,24 @@
           <p class="story-slogan">Think Chocolate, Think Very Good!</p>
         </div>
         <div class="story-img-block">
-          <img src="./assets/story/story-1.png" alt="Brand Story Image">
+          <img src="./assets/story/story-hogirl.png" alt="Brand Story Image">
         </div>
+      </div>
+    </section>
+
+    <!-- Recent Blogs Section -->
+    <section class="section" id="recent-blog">
+      <div class="section-head">
+        <h2 class="section-title">JOURNAL</h2>
+        <p class="section-sub">Stories from Verygood Chocolate.</p>
+      </div>
+
+      <div id="homeBlogGrid" class="home-blog-grid">
+        <!-- Loaded via JS -->
+      </div>
+
+      <div class="section-foot centered">
+        <a href="./blog.html" class="btn-read-more">READ MORE</a>
       </div>
     </section>
 
@@ -217,6 +234,71 @@
     </div>
   </footer>
 
+  <script type="module">
+    import { db } from "./assets/js/firebase-config.js";
+    import { collection, getDocs, orderBy, query, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    // blogs.js is loaded as global script, so we access window.blogs 
+    // Actually blogs.js is loaded as global script in head, so 'blogs' variable is available globally, but inside module we can access window.blogs if needed.
+
+    // However, to keep it clean and robust:
+
+    async function fetchHomePosts() {
+      const grid = document.getElementById("homeBlogGrid");
+      if (!grid) return;
+
+      try {
+        const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"), limit(3));
+        const querySnapshot = await getDocs(q);
+
+        const posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({ id: doc.id, ...doc.data() });
+        });
+
+        // If less than 3, maybe pad with static? For now just show what we have.
+        // If 0 from firebase, maybe fallback to static 'blogs' global variable?
+        let displayPosts = posts;
+        if (posts.length === 0 && window.blogs) {
+          displayPosts = window.blogs.slice(0, 3);
+        }
+
+        renderHomePosts(displayPosts);
+
+      } catch (e) {
+        console.warn("Home blog fetch error:", e);
+        // Fallback to static if available
+        if (window.blogs) {
+          renderHomePosts(window.blogs.slice(0, 3));
+        }
+      }
+    }
+
+    function renderHomePosts(posts) {
+      const grid = document.getElementById("homeBlogGrid");
+      const currentLang = window.currentLang || "EN"; // fallback
+      const isKr = currentLang === "KR"; // Logic should ideally sync with script.js but script.js is non-module. 
+      // We can just check the toggle button state or listen to changes, but for initial load it's fine.
+      // Better: render generic and let script.js update? or just render once. 
+      // Given complexity, let's just render based on 'EN' default or check URL param like blog.html
+
+      const params = new URLSearchParams(window.location.search);
+      // Note: index.html usually doesn't have lang param, it uses internal state.
+      // We will default to EN here. Real-time toggle might need event listener.
+
+      grid.innerHTML = posts.map(p => `
+            <a href="./blog-detail.html?id=${p.id}" class="home-blog-card">
+                <div class="hb-thumb">
+                    <img src="${p.thumbnail}" alt="${p.title}" loading="lazy">
+                </div>
+                <div class="hb-meta">${p.date}</div>
+                <div class="hb-title">${p.title}</div>
+                <div class="hb-summary">${p.summary}</div>
+            </a>
+        `).join("");
+    }
+
+    fetchHomePosts();
+  </script>
   <script src="./script.js"></script>
 </body>
 
