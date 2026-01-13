@@ -1292,6 +1292,7 @@ body.is-header-visible .hero-bleed-logo {
   /* 2 lines truncate */
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1304,6 +1305,7 @@ body.is-header-visible .hero-bleed-logo {
   /* 3 lines truncate */
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
