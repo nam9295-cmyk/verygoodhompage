@@ -57,21 +57,12 @@ function renderProducts(tabKey) {
           </div>
         </div>
         <div class="btns">
-          <a class="btn" href="./product-detail.html?id=${p.id}&lang=${currentLang}">${isKr ? "상세보기" : "Detail"}</a>
-          <button class="btn primary" type="button" data-action="buy">${isKr ? "구매하기" : "Buy"}</button>
+          <a class="btn primary" href="./product-detail.html?id=${p.id}&lang=${currentLang}">${isKr ? "상세보기" : "Detail"}</a>
+          <a class="btn" href="#contact">${isKr ? "문의하기" : "Inquiry"}</a>
         </div>
       </div>
     </article>
   `).join("");
-
-  // Buy button handler only (Detail is now a link)
-  $$(".product .btn.primary").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const card = e.target.closest(".product");
-      const id = card?.dataset?.id || "";
-      alert(`장바구니/구매 연결 예정: ${id}\n(결제 링크로 교체)`);
-    });
-  });
 }
 
 function initTabs() {

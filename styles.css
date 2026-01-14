@@ -638,6 +638,12 @@ body.is-header-visible .topbar {
   background: rgba(255, 255, 255, .7);
   font-weight: 900;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
 }
 
 .product .btn.primary {
