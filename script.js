@@ -57,8 +57,7 @@ function renderProducts(tabKey) {
           </div>
         </div>
         <div class="btns">
-          <a class="btn primary" href="./product-detail.html?id=${p.id}&lang=${currentLang}">${isKr ? "상세보기" : "Detail"}</a>
-          <a class="btn" href="#contact">${isKr ? "문의하기" : "Inquiry"}</a>
+          <a class="btn primary" href="./product-detail.html?id=${p.id}&lang=${currentLang}">${isKr ? "상세보기" : "more info"}</a>
         </div>
       </div>
     </article>
