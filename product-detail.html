@@ -194,23 +194,10 @@
     <!-- Modals -->
     <div id="detailsModal" class="modal">
         <div class="modal-backdrop"></div>
-        <div class="modal-content">
+        <div class="modal-content nutrition-modal">
             <button class="modal-close">&times;</button>
-            <div class="modal-body">
-                <h2 style="font-family: var(--menu-font); margin-bottom: 20px;">Product Information</h2>
-                <div style="line-height: 1.6; color: rgba(0,0,0,0.8);">
-                    <p><strong>Nutrition & Details:</strong></p>
-                    <p>Below is a summary of the product's nutritional components and detailed specifications.</p>
-                    <ul style="margin-top: 15px; padding-left: 20px;">
-                        <li>Energy: --- kcal</li>
-                        <li>Total Fat: -- g</li>
-                        <li>Saturated Fat: -- g</li>
-                        <li>Sugars: -- g</li>
-                        <li>Protein: -- g</li>
-                    </ul>
-                    <p style="margin-top: 20px; font-style: italic; opacity: 0.7;">(This is dummy text for product
-                        details)</p>
-                </div>
+            <div class="modal-body" id="nutritionModalBody">
+                <!-- Content will be injected dynamically -->
             </div>
         </div>
     </div>
@@ -285,6 +272,26 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             z-index: 10;
             animation: modalIn 0.3s ease-out;
+        }
+
+        .modal-content.nutrition-modal {
+            max-width: 420px;
+            padding: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .nutrition-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .nutrition-placeholder {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(0, 0, 0, 0.6);
         }
 
         .modal-notice {
@@ -417,7 +424,20 @@
             document.body.style.overflow = "";
         }
 
-        viewDetailsBtn.addEventListener("click", () => openModal(detailsModal));
+        viewDetailsBtn.addEventListener("click", () => {
+            const nutritionBody = document.getElementById("nutritionModalBody");
+            if (product && product.nutritionImage) {
+                nutritionBody.innerHTML = `<img src="${product.nutritionImage}" alt="${isKr ? '영양정보' : 'Nutrition Facts'}" class="nutrition-image">`;
+            } else {
+                nutritionBody.innerHTML = `
+                    <div class="nutrition-placeholder">
+                        <h3 style="font-family: var(--menu-font); margin-bottom: 12px;">${isKr ? '표기사항' : 'Product Information'}</h3>
+                        <p>${isKr ? '영양정보가 곧 업데이트됩니다.' : 'Nutrition information coming soon.'}</p>
+                    </div>
+                `;
+            }
+            openModal(detailsModal);
+        });
         buyNowBtn.addEventListener("click", () => openModal(buyModal));
 
         document.querySelectorAll(".modal-close, .modal-backdrop").forEach(el => {

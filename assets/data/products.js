@@ -10,6 +10,7 @@ const products = [
         tags: ["CHOC", "BEST", "ALMOND"],
         mainImage: "./assets/products/almond.png",
         descImage: "./assets/products/detail-sample.jpg",
+        nutritionImage: "./assets/products/almond-nutrition.png",
         description: "Savory almonds coated in premium dark chocolate. A perfect balance of nutty crunch and rich cocoa.",
         description_ko: "고소한 아몬드를 프리미엄 다크 초콜릿으로 감쌌습니다. 견과의 바삭함과 카카오의 풍미가 완벽한 조화를 이룹니다."
     },
@@ -24,6 +25,7 @@ const products = [
         tags: ["CHOC", "FRUITY", "BLUEBERRY"],
         mainImage: "./assets/products/ruby.png",
         descImage: "./assets/products/detail-sample.jpg",
+        nutritionImage: "./assets/products/ruby-nutrition.png",
         description: "Natural ruby chocolate with distinct berry notes, wrapping a sweet fruit core.",
         description_ko: "천연 루비 초콜릿 특유의 산뜻한 베리 향이 달콤한 과일 코어를 감싸 안습니다."
     },
