@@ -36,96 +36,212 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3053552886884428"
         crossorigin="anonymous"></script>
 
+    <!-- Google Fonts: Academic Serif Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Noto+Serif+KR:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
     <style>
+        /* ===== Academic Essay / Typst-Inspired Blog Detail Styles ===== */
+
+        :root {
+            --essay-bg: #FAFAFA;
+            --essay-text: #2D2D2D;
+            --essay-accent: #555;
+            --essay-border: #E0E0E0;
+            --essay-font-serif: 'Merriweather', 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+        }
+
+        /* Page Background Override */
+        body:has(.blog-detail-page) {
+            background-color: var(--essay-bg);
+        }
+
         .blog-detail-page {
-            max-width: 800px;
+            max-width: 900px;
             margin: 140px auto 120px;
             padding: 0 24px;
+            background-color: var(--essay-bg);
         }
 
         .bd-header {
             text-align: center;
-            margin-bottom: 60px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 40px;
+            margin-bottom: 56px;
+            border-bottom: 1px solid var(--essay-border);
+            padding-bottom: 48px;
         }
 
         .bd-meta {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 16px;
+            font-family: var(--essay-font-serif);
+            font-size: 13px;
+            color: var(--essay-accent);
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.12em;
+            font-weight: 400;
         }
 
         .bd-title {
-            font-family: var(--menu-font);
-            font-size: 38px;
-            line-height: 1.25;
+            font-family: var(--essay-font-serif);
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.4;
             margin-bottom: 0;
-            color: var(--ink);
+            color: var(--essay-text);
+            letter-spacing: -0.02em;
         }
 
-        /* Rich Text Content Styles */
+        /* ===== Rich Text Content (Academic Essay Style) ===== */
         .bd-content {
-            font-family: var(--body-font);
-            line-height: 1.8;
+            font-family: var(--essay-font-serif);
             font-size: 17px;
-            color: #333;
+            line-height: 1.8;
+            color: var(--essay-text);
+            text-align: justify;
+            letter-spacing: -0.02em;
+            word-break: keep-all;
+            hyphens: auto;
+            -webkit-hyphens: auto;
         }
 
         .bd-content p {
-            margin-bottom: 24px;
+            margin-bottom: 1.6em;
+            text-indent: 0;
+            /* No indent for web readability */
         }
 
         .bd-content h2 {
-            font-family: var(--menu-font);
-            font-size: 28px;
-            margin-top: 60px;
-            margin-bottom: 24px;
+            font-family: var(--essay-font-serif);
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 2.5em;
+            margin-bottom: 1em;
+            color: var(--essay-text);
+            letter-spacing: -0.02em;
+            text-align: left;
+            border-bottom: 1px solid var(--essay-border);
+            padding-bottom: 0.5em;
         }
 
         .bd-content h3 {
-            font-size: 22px;
+            font-family: var(--essay-font-serif);
+            font-size: 20px;
             font-weight: 700;
-            margin-top: 40px;
-            margin-bottom: 16px;
+            margin-top: 2em;
+            margin-bottom: 0.8em;
+            color: var(--essay-text);
+            letter-spacing: -0.01em;
+            text-align: left;
         }
 
         .bd-content ul,
         .bd-content ol {
-            margin-bottom: 24px;
-            padding-left: 20px;
+            margin-bottom: 1.6em;
+            padding-left: 1.5em;
+            text-align: left;
         }
 
         .bd-content li {
-            margin-bottom: 8px;
+            margin-bottom: 0.5em;
+            line-height: 1.7;
         }
 
+        .bd-content blockquote {
+            margin: 2em 0;
+            padding: 1em 1.5em;
+            border-left: 3px solid var(--essay-accent);
+            background: rgba(0, 0, 0, 0.02);
+            font-style: italic;
+            color: var(--essay-accent);
+        }
+
+        /* ===== Magazine-Style Zigzag Image Layout ===== */
         .bd-content img {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            border-radius: 8px;
-            display: block;
-            margin: 40px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            width: 50%;
+            max-width: 420px;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.2em;
+            transition: box-shadow 0.3s ease;
         }
 
+        .bd-content img:hover {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        /* First image: Full-width Hero */
+        .bd-content img.img-hero {
+            float: none;
+            width: 100%;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto 2em auto;
+            border-radius: 6px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        /* JS-applied classes for zigzag layout */
+        .bd-content img.img-left {
+            float: left;
+            margin-right: 1.5em;
+            margin-left: 0;
+            margin-top: 0.3em;
+        }
+
+        .bd-content img.img-right {
+            float: right;
+            margin-left: 1.5em;
+            margin-right: 0;
+            margin-top: 0.3em;
+        }
+
+        /* Clearfix for content container only */
+        .bd-content::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .bd-content a {
+            color: var(--essay-text);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: rgba(45, 45, 45, 0.3);
+            transition: text-decoration-color 0.2s;
+        }
+
+        .bd-content a:hover {
+            text-decoration-color: var(--essay-text);
+        }
+
+        .bd-content strong {
+            font-weight: 700;
+        }
+
+        .bd-content em {
+            font-style: italic;
+        }
+
+        /* Footer */
         .bd-footer {
-            margin-top: 80px;
-            padding-top: 40px;
-            border-top: 1px solid #eee;
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid var(--essay-border);
             text-align: center;
         }
 
         .btn-text {
             display: inline-block;
+            font-family: var(--essay-font-serif);
             text-decoration: none;
-            color: var(--ink);
-            border-bottom: 1px solid var(--ink);
+            color: var(--essay-accent);
+            border-bottom: 1px solid var(--essay-accent);
             padding-bottom: 2px;
             font-size: 14px;
+            letter-spacing: 0.02em;
             transition: opacity 0.2s;
         }
 
@@ -178,13 +294,45 @@
             color: #333;
         }
 
+        /* ===== Responsive ===== */
         @media (max-width: 768px) {
+            .blog-detail-page {
+                padding: 0 20px;
+                margin-top: 100px;
+            }
+
             .bd-title {
-                font-size: 28px;
+                font-size: 26px;
+                line-height: 1.35;
             }
 
             .bd-content {
                 font-size: 16px;
+                line-height: 1.75;
+                text-align: left;
+                /* Left align on mobile for readability */
+            }
+
+            .bd-content h2 {
+                font-size: 20px;
+            }
+
+            .bd-content h3 {
+                font-size: 18px;
+            }
+
+            /* Mobile: Reset float, full-width centered images */
+            .bd-content img,
+            .bd-content img.img-hero,
+            .bd-content img.img-left,
+            .bd-content img.img-right {
+                float: none;
+                width: 100%;
+                max-width: 100%;
+                margin: 1.5em auto;
+                margin-left: 0;
+                margin-right: 0;
+                display: block;
             }
         }
     </style>
@@ -300,6 +448,29 @@
                     </div>
                 </article>
             `;
+
+            // Apply alternating float classes to images (zigzag layout)
+            applyZigzagImages();
+        }
+
+        function applyZigzagImages() {
+            const images = document.querySelectorAll('.bd-content img');
+            images.forEach((img, index) => {
+                // Remove any existing classes
+                img.classList.remove('img-hero', 'img-left', 'img-right');
+
+                if (index === 0) {
+                    // First image: full-width hero
+                    img.classList.add('img-hero');
+                } else {
+                    // Rest: alternating left/right (index 1 → left, 2 → right, 3 → left...)
+                    if (index % 2 === 1) {
+                        img.classList.add('img-left');
+                    } else {
+                        img.classList.add('img-right');
+                    }
+                }
+            });
         }
 
         // Init
