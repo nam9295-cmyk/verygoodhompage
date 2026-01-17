@@ -1,4 +1,12 @@
+# Robots.txt for verygood-chocolate.com
+
 User-agent: *
 Allow: /
 
+# Disallow admin and data directories
+Disallow: /admin.html
+Disallow: /assets/data/
+Disallow: /assets/js/
+
+# Sitemap location
 Sitemap: https://verygood-chocolate.com/sitemap.xml
