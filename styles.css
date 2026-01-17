@@ -1362,3 +1362,55 @@ body.is-header-visible .hero-bleed-logo {
     margin-bottom: 12px;
   }
 }
+/* FAQ Section Styles */
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 0;
+}
+
+.faq-question {
+  padding: 24px 0;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-question::after {
+  content: '+';
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--brand);
+  transition: transform 0.3s;
+}
+
+.faq-item[open] .faq-question::after {
+  transform: rotate(45deg);
+}
+
+.faq-item[open] .faq-question {
+  color: var(--brand);
+}
+
+.faq-answer {
+  padding: 0 0 24px 0;
+  line-height: 1.8;
+  color: rgba(0,0,0,0.7);
+}
+
+.faq-answer p {
+  margin: 0;
+}

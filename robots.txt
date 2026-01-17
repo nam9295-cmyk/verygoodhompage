@@ -8,5 +8,28 @@ Disallow: /admin.html
 Disallow: /assets/data/
 Disallow: /assets/js/
 
-# Sitemap location
+# AI Bot Access - Explicitly Allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Sitemap and LLMs.txt locations
 Sitemap: https://verygood-chocolate.com/sitemap.xml
+LLMs: https://verygood-chocolate.com/llms.txt
