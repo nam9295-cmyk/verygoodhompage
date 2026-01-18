@@ -1,0 +1,56 @@
+# Very Good Chocolate (베리굿초콜릿)
+
+> Premium handcrafted bean-to-bar chocolates from Daegu, Korea.
+> Founded by a Le Cordon Bleu Paris trained chocolatier.
+> Philosophy: "Less Sweet, More Deep" - focusing on cacao depth over sweetness.
+
+## About
+Very Good Chocolate is a premium artisan chocolate brand based in Daegu, South Korea. We specialize in bean-to-bar chocolates using Belgian couverture chocolate and HACCP-certified production facilities. Our founder trained at Le Cordon Bleu Paris and brings international expertise to traditional Korean aesthetics.
+
+## Products
+- **Almond Chocoball** (아몬드 초코볼) - ₩11,000: Savory almonds coated in premium dark chocolate
+- **Ruby Berry Chocoball** (루비 베리 초코볼) - ₩12,000: Natural ruby chocolate with berry notes
+- **Strawberry Bonbon** (딸기 봉봉) - ₩10,000: Freeze-dried strawberries with white chocolate
+- **Matcha Berry** (말차 베리) - ₩12,000: Premium matcha chocolate with berry center
+- **British Black** (브리티시 블랙) - ₩10,000: Deep and aromatic black tea blend
+- **Hibiscus Fruit** (히비스커스 후르츠) - ₩10,000: Refreshing detox tea
+- **Gift 2 Set** (선물 2구 세트) - ₩29,800: Curated set in signature triangular box
+- **Gift 4 Set** (선물 4구 세트) - ₩39,800: Ultimate collection, 4 varieties
+
+## Key Features
+- Bean-to-bar production process
+- Belgian couverture chocolate
+- HACCP certified facility
+- Nationwide shipping (South Korea)
+- Eco-friendly recycled paper packaging
+- Bilingual support (Korean/English)
+
+## Technical
+- Built with React + Vite
+- Single Page Application (SPA)
+- Firebase backend integration
+- SEO optimized with react-helmet-async
+
+## Contact
+- Address: 상록로11길 13 1층, 수성구, 대구광역시 42166, South Korea
+- Email: hello@verygood-chocolate.com
+- Instagram: @verygood_chocolate
+- Naver Smartstore: https://smartstore.naver.com/verygood
+
+## Pages
+- Home: https://verygood-chocolate.com/
+- About: https://verygood-chocolate.com/about
+- Business Story: https://verygood-chocolate.com/business-story
+- Blog: https://verygood-chocolate.com/blog
+- Privacy Policy: https://verygood-chocolate.com/privacy
+- Terms of Service: https://verygood-chocolate.com/terms
+
+## Products (Direct Links)
+- Almond Chocoball: https://verygood-chocolate.com/product/almond-chocoball
+- Ruby Berry: https://verygood-chocolate.com/product/ruby-berry-chocoball
+- Strawberry Bonbon: https://verygood-chocolate.com/product/strawberry-bonbon
+- Matcha Berry: https://verygood-chocolate.com/product/matcha-berry
+- British Black Tea: https://verygood-chocolate.com/product/british-black
+- Hibiscus Fruit Tea: https://verygood-chocolate.com/product/hibiscus-fruit
+- Gift 2 Set: https://verygood-chocolate.com/product/gift-2-set
+- Gift 4 Set: https://verygood-chocolate.com/product/gift-4-set
