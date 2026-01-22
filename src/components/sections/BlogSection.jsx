@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import { blogs as staticBlogs } from '../../data/blogs';
@@ -7,7 +7,8 @@ import { collection, getDocs, orderBy, query, limit } from 'firebase/firestore';
 
 export default function BlogSection() {
     const [posts, setPosts] = useState(staticBlogs.slice(0, 3));
-    const { isKr, lang } = useLanguage();
+    const { isKr } = useLanguage();
+    const gridRef = useRef(null);
 
     useEffect(() => {
         async function fetchPosts() {
@@ -32,14 +33,29 @@ export default function BlogSection() {
         fetchPosts();
     }, []);
 
+    const handleScroll = (direction) => {
+        if (!gridRef.current) return;
+        const scrollAmount = gridRef.current.offsetWidth * 0.8;
+        gridRef.current.scrollBy({
+            left: direction === 'left' ? -scrollAmount : scrollAmount,
+            behavior: 'smooth'
+        });
+    };
+
     return (
         <section className="section" id="recent-blog">
             <div className="section-head">
-                <h2 className="section-title">JOURNAL</h2>
-                <p className="section-sub">{isKr ? '베리굿초콜릿의 이야기들.' : 'Stories from Verygood Chocolate.'}</p>
+                <div>
+                    <h2 className="section-title">JOURNAL</h2>
+                    <p className="section-sub">{isKr ? '베리굿초콜릿의 이야기들.' : 'Stories from Verygood Chocolate.'}</p>
+                </div>
+                <div className="slider-controls">
+                    <button className="slider-btn" onClick={() => handleScroll('left')} aria-label="Previous">←</button>
+                    <button className="slider-btn" onClick={() => handleScroll('right')} aria-label="Next">→</button>
+                </div>
             </div>
 
-            <div className="home-blog-grid">
+            <div className="home-blog-grid" ref={gridRef}>
                 {posts.map(post => (
                     <Link key={post.id} to={`/blog/${post.id}`} className="home-blog-card">
                         <div className="hb-thumb">

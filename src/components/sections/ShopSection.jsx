@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { products } from '../../data/products';
 import Tabs from '../common/Tabs';
@@ -41,16 +41,32 @@ const cardVariants = {
 
 export default function ShopSection() {
     const [activeTab, setActiveTab] = useState('new');
+    const gridRef = useRef(null);
 
     const filteredProducts = products.filter(p => p.tabs.includes(activeTab));
 
+    const handleScroll = (direction) => {
+        if (!gridRef.current) return;
+        const scrollAmount = gridRef.current.offsetWidth * 0.8;
+        gridRef.current.scrollBy({
+            left: direction === 'left' ? -scrollAmount : scrollAmount,
+            behavior: 'smooth'
+        });
+    };
+
     return (
         <section className="section" id="shop">
-            <div className="section-head" />
+            <div className="section-head">
+                <div className="slider-controls">
+                    <button className="slider-btn" onClick={() => handleScroll('left')} aria-label="Previous">←</button>
+                    <button className="slider-btn" onClick={() => handleScroll('right')} aria-label="Next">→</button>
+                </div>
+            </div>
 
             <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
             <motion.div
+                ref={gridRef}
                 className="grid"
                 aria-live="polite"
                 variants={containerVariants}

@@ -306,6 +306,38 @@ body.is-header-visible .topbar {
     }
 }
 
+/* ===== Slider Controls ===== */
+.slider-controls {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.slider-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .2s ease;
+    font-size: 18px;
+    padding-bottom: 2px;
+    /* vertical alignment adjustment for unicode arrows */
+}
+
+.slider-btn:hover {
+    background: var(--brand);
+    border-color: rgba(0, 0, 0, .1);
+}
+
+.slider-btn:active {
+    transform: scale(0.95);
+}
+
 /* ===== Grid ===== */
 .grid {
     margin-top: 14px;
@@ -327,24 +359,39 @@ body.is-header-visible .topbar {
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         gap: 16px;
-        padding: 10px 4px 30px;
-        /* added bottom padding for shadow and breathing room */
-        scrollbar-width: none;
-        /* Firefox */
+        padding: 10px 16px 30px;
+        /* added horizontal padding for alignment */
+        scrollbar-width: thin;
+        scrollbar-color: var(--brand) transparent;
         -webkit-overflow-scrolling: touch;
     }
 
-    .grid::-webkit-scrollbar {
-        display: none;
-        /* Chrome, Safari, Opera */
+    /* Styled scrollbar for Chrome/Safari/Edge */
+    .grid::-webkit-scrollbar,
+    .home-blog-grid::-webkit-scrollbar {
+        height: 4px;
+        display: block;
+        /* Show on mobile as progress indicator */
+    }
+
+    .grid::-webkit-scrollbar-track,
+    .home-blog-grid::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        margin: 0 16px;
+    }
+
+    .grid::-webkit-scrollbar-thumb,
+    .home-blog-grid::-webkit-scrollbar-thumb {
+        background: var(--brand);
+        border-radius: 10px;
     }
 
     .card.product {
-        flex: 0 0 85%;
-        /* Shows one card and a bit of the next */
+        flex: 0 0 82%;
+        /* Slightly smaller to show more of next card */
         scroll-snap-align: center;
         margin-bottom: 10px;
-        /* space for hover shadow if any */
     }
 }
 
