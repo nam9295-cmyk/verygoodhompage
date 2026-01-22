@@ -1,11 +1,25 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 
-export default function ProductCard({ product }) {
-    const { isKr, lang } = useLanguage();
+export default function ProductCard({ product, variants }) {
+    const { isKr } = useLanguage();
 
     return (
-        <article className="card product">
+        <motion.article
+            className="card product"
+            variants={variants}
+            whileHover={{
+                y: -10,
+                scale: 1.02,
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
+            }}
+            transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 20,
+            }}
+        >
             <div className="thumb">
                 <img src={product.mainImage} alt={product.name} loading="lazy" />
             </div>
@@ -30,6 +44,6 @@ export default function ProductCard({ product }) {
                     </Link>
                 </div>
             </div>
-        </article>
+        </motion.article>
     );
 }
