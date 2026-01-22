@@ -13,46 +13,83 @@ const styles = {
     },
     pdGrid: {
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
+        gridTemplateColumns: '1.2fr 1fr',
         gap: '60px',
         marginBottom: '80px',
     },
     pdImgArea: {
-        background: '#f8f8f8',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+    },
+    pdMainImgWrapper: {
+        background: '#fff',
         borderRadius: 'var(--radius)',
+        border: '1px solid var(--line)',
         overflow: 'hidden',
+        aspectRatio: '1 / 1',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        boxShadow: 'var(--shadow)',
     },
     pdImg: {
         width: '100%',
-        height: 'auto',
-        objectFit: 'cover',
+        height: '100%',
+        objectFit: 'contain',
         display: 'block',
     },
-    pdInfoArea: {
-        paddingTop: '20px',
+    pdThumbnails: {
+        display: 'flex',
+        gap: '12px',
+        overflowX: 'auto',
+        padding: '4px 0 12px',
+        scrollbarWidth: 'none',
     },
+    pdThumb: {
+        width: '80px',
+        height: '80px',
+        borderRadius: '12px',
+        border: '2px solid transparent',
+        overflow: 'hidden',
+        cursor: 'pointer',
+        flexShrink: 0,
+        background: '#fff',
+        transition: 'all 0.2s ease',
+    },
+    activeThumb: {
+        borderColor: 'var(--brand)',
+        transform: 'translateY(-2px)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    },
+    pdThumbImg: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+    },
+    pdInfoArea: {
+        paddingTop: '0',
+    },
+    /* ... rest of styles remain similar, adjusting some spacings ... */
     pdCategory: {
         fontSize: '14px',
         textTransform: 'uppercase',
         letterSpacing: '0.1em',
         color: 'var(--brand)',
-        marginBottom: '12px',
+        marginBottom: '8px',
         fontWeight: 700,
     },
     pdTitle: {
         fontFamily: 'var(--menu-font)',
-        fontSize: '36px',
+        fontSize: 'clamp(32px, 4vw, 48px)',
         fontWeight: 700,
-        marginBottom: '20px',
-        lineHeight: 1.2,
+        marginBottom: '16px',
+        lineHeight: 1.1,
     },
     pdPrice: {
-        fontSize: '24px',
-        fontWeight: 500,
-        marginBottom: '30px',
+        fontSize: '28px',
+        fontWeight: 600,
+        marginBottom: '32px',
         color: 'var(--ink)',
     },
     pdDesc: {
@@ -62,7 +99,7 @@ const styles = {
         marginBottom: '40px',
         borderTop: '1px solid #eee',
         borderBottom: '1px solid #eee',
-        padding: '20px 0',
+        padding: '24px 0',
     },
     pdActions: {
         display: 'flex',
@@ -70,23 +107,25 @@ const styles = {
     },
     pdBtn: {
         flex: 1,
-        height: '56px',
+        height: '60px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontWeight: 700,
-        borderRadius: '4px',
+        fontWeight: 800,
+        borderRadius: '12px',
         cursor: 'pointer',
-        fontSize: '16px',
+        fontSize: '15px',
         border: 'none',
+        transition: 'all 0.2s ease',
     },
     pdBtnPrimary: {
         background: 'var(--brand)',
         color: '#fff',
+        boxShadow: '0 8px 20px rgba(237, 197, 196, 0.4)',
     },
     pdBtnOutline: {
-        background: 'transparent',
-        border: '1px solid var(--ink)',
+        background: '#fff',
+        border: '1.5px solid var(--ink)',
         color: 'var(--ink)',
     },
     pdDetailContent: {
@@ -95,10 +134,11 @@ const styles = {
         paddingTop: '80px',
     },
     pdDetailImg: {
-        maxWidth: '800px',
+        maxWidth: '900px',
         width: '100%',
         margin: '0 auto',
         display: 'block',
+        borderRadius: '12px',
     },
     notFound: {
         textAlign: 'center',
@@ -113,6 +153,7 @@ export default function ProductDetailPage() {
     const [showBuyModal, setShowBuyModal] = useState(false);
 
     const product = products.find(p => p.id === id);
+    const [activeImage, setActiveImage] = useState(product?.mainImage);
 
     if (!product) {
         return (
@@ -131,6 +172,13 @@ export default function ProductDetailPage() {
         );
     }
 
+    // Prepare gallery images
+    const galleryImages = [
+        product.mainImage,
+        product.descImage,
+        product.nutritionImage
+    ].filter(Boolean);
+
     return (
         <>
             <Helmet>
@@ -140,11 +188,34 @@ export default function ProductDetailPage() {
             </Helmet>
 
             <main style={styles.productDetailPage}>
-                <div style={styles.pdGrid}>
+                <div style={styles.pdGrid} className="pd-grid-mobile">
                     <div style={styles.pdImgArea}>
-                        <img style={styles.pdImg} src={product.mainImage} alt={product.name} />
+                        <div style={styles.pdMainImgWrapper} className="pd-main-img-wrapper-mobile">
+                            <img
+                                style={styles.pdImg}
+                                src={activeImage || product.mainImage}
+                                alt={product.name}
+                            />
+                        </div>
+                        {galleryImages.length > 1 && (
+                            <div style={styles.pdThumbnails}>
+                                {galleryImages.map((img, idx) => (
+                                    <div
+                                        key={idx}
+                                        style={{
+                                            ...styles.pdThumb,
+                                            ...(activeImage === img ? styles.activeThumb : {})
+                                        }}
+                                        className="pd-thumb-mobile"
+                                        onClick={() => setActiveImage(img)}
+                                    >
+                                        <img src={img} alt={`${product.name} ${idx}`} style={styles.pdThumbImg} />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
-                    <div style={styles.pdInfoArea}>
+                    <div style={styles.pdInfoArea} className="pd-info-area-mobile">
                         <div style={styles.pdCategory}>{product.category}</div>
                         <h1 style={styles.pdTitle}>
                             {isKr && product.name_ko ? product.name_ko : product.name}
@@ -153,7 +224,7 @@ export default function ProductDetailPage() {
                         <div style={styles.pdDesc}>
                             {isKr && product.description_ko ? product.description_ko : product.description}
                         </div>
-                        <div style={styles.pdActions}>
+                        <div style={styles.pdActions} className="pd-actions-mobile">
                             <button
                                 style={{ ...styles.pdBtn, ...styles.pdBtnOutline }}
                                 onClick={() => setShowDetailsModal(true)}

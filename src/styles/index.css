@@ -1000,3 +1000,30 @@ body.is-header-visible .topbar {
 .modal-close:hover {
     opacity: 1;
 }
+
+/* ===== Responsive Product Detail ===== */
+@media (max-width: 768px) {
+    .pd-grid-mobile {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    .pd-info-area-mobile {
+        padding-top: 20px !important;
+    }
+
+    .pd-main-img-wrapper-mobile {
+        aspect-ratio: 1 / 1 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .pd-actions-mobile {
+        flex-direction: column !important;
+    }
+
+    .pd-thumb-mobile {
+        width: 60px !important;
+        height: 60px !important;
+    }
+}
