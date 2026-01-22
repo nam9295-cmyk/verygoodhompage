@@ -669,6 +669,28 @@ body.is-header-visible .topbar {
     }
 }
 
+@media (max-width: 520px) {
+    .home-blog-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding: 10px 4px 20px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .home-blog-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .home-blog-card {
+        flex: 0 0 85%;
+        scroll-snap-align: center;
+    }
+}
+
 /* ===== Contact Grid ===== */
 .contact-grid {
     display: grid;
