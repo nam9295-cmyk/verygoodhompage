@@ -322,7 +322,29 @@ body.is-header-visible .topbar {
 
 @media (max-width: 520px) {
     .grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding: 10px 4px 30px;
+        /* added bottom padding for shadow and breathing room */
+        scrollbar-width: none;
+        /* Firefox */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .grid::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari, Opera */
+    }
+
+    .card.product {
+        flex: 0 0 85%;
+        /* Shows one card and a bit of the next */
+        scroll-snap-align: center;
+        margin-bottom: 10px;
+        /* space for hover shadow if any */
     }
 }
 
