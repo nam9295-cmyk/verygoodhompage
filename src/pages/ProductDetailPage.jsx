@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
@@ -213,6 +213,10 @@ export default function ProductDetailPage() {
     };
 
     const product = products.find(p => p.id === id);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [id]);
 
 
     if (!product) {
