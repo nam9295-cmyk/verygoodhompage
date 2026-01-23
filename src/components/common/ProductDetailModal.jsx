@@ -8,14 +8,49 @@ import {
     ResponsiveContainer
 } from 'recharts';
 
-// Radar chart data for British Black
-const radarData = [
-    { subject: '호흡기(Respiratory)', value: 95, fullMark: 100 },
-    { subject: '면역(Immunity)', value: 55, fullMark: 100 },
-    { subject: '소화/해독(Digestion)', value: 40, fullMark: 100 },
-    { subject: '활력(Energy)', value: 70, fullMark: 100 },
-    { subject: '이완(Relaxation)', value: 30, fullMark: 100 },
-];
+// Product-specific data for modal
+const productsData = {
+    'british-black': {
+        name: 'British black',
+        subtitle: 'with Geochang Doraji',
+        description: 'The pleasant bitterness of balloon flower root (doraji) meets the deep richness of black tea, creating a warm and comforting cup.',
+        popImage: '/assets/products/british-black/british_pop.webp',
+        chartColor: '#806D6E',
+        radarData: [
+            { subject: '호흡기(Respiratory)', value: 95, fullMark: 100 },
+            { subject: '면역(Immunity)', value: 55, fullMark: 100 },
+            { subject: '소화/해독(Digestion)', value: 40, fullMark: 100 },
+            { subject: '활력(Energy)', value: 70, fullMark: 100 },
+            { subject: '이완(Relaxation)', value: 30, fullMark: 100 },
+        ],
+        icons: [
+            { src: '/assets/products/british-black/respiratory_b.svg', label: 'respiratory\ncare' },
+            { src: '/assets/products/british-black/dust_b.svg', label: 'fine-dust\ndefense' },
+            { src: '/assets/products/british-black/immune_b.svg', label: 'Immune foundation\ncare' },
+            { src: '/assets/products/british-black/antiviral_b.svg', label: 'Antiviral\nsupport' },
+        ]
+    },
+    'asian-gold': {
+        name: 'Asian gold',
+        subtitle: 'with Goheung Yuja',
+        description: 'The bright, citrusy freshness of yuja (yuzu) blends with the deep taste of oolong, delivering vitamins you can drink.',
+        popImage: '/assets/products/asian-gold/asian_pop.webp',
+        chartColor: '#bca591',
+        radarData: [
+            { subject: '호흡기(Respiratory)', value: 30, fullMark: 100 },
+            { subject: '면역(Immunity)', value: 90, fullMark: 100 },
+            { subject: '소화/해독(Digestion)', value: 55, fullMark: 100 },
+            { subject: '활력(Energy)', value: 85, fullMark: 100 },
+            { subject: '이완(Relaxation)', value: 60, fullMark: 100 },
+        ],
+        icons: [
+            { src: '/assets/products/asian-gold/recovery_a.svg', label: 'Fatigue\nrecovery' },
+            { src: '/assets/products/asian-gold/imflammation_a.svg', label: 'Inflammation\nrelief' },
+            { src: '/assets/products/asian-gold/neutral_a.svg', label: 'Neutral fat\nbreakdown' },
+            { src: '/assets/products/asian-gold/skin_a.svg', label: 'Skin-beautifying\neffect' },
+        ]
+    }
+};
 
 const styles = {
     overlay: {
@@ -133,14 +168,6 @@ const styles = {
     },
 };
 
-// Icon data for British Black
-const benefitIcons = [
-    { src: '/assets/products/british-black/respiratory_b.svg', label: 'respiratory\ncare' },
-    { src: '/assets/products/british-black/dust_b.svg', label: 'fine-dust\ndefense' },
-    { src: '/assets/products/british-black/immune_b.svg', label: 'Immune foundation\ncare' },
-    { src: '/assets/products/british-black/antiviral_b.svg', label: 'Antiviral\nsupport' },
-];
-
 export default function ProductDetailModal({ isOpen, onClose, product }) {
     useEffect(() => {
         if (isOpen) {
@@ -163,7 +190,13 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
         };
     }, [isOpen, onClose]);
 
-    if (!isOpen) return null;
+    if (!isOpen || !product) return null;
+
+    const data = productsData[product.id];
+
+    // If no specific modal data exists for this product, don't show custom modal
+    // (Or handle fallback if needed, for now assuming data exists for target products)
+    if (!data) return null;
 
     return (
         <motion.div
@@ -202,8 +235,8 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
                 <div style={styles.topSection} className="product-detail-modal-top">
                     <div>
                         <img
-                            src="/assets/products/british-black/british_pop.webp"
-                            alt={product?.name || 'British Black'}
+                            src={data.popImage}
+                            alt={data.name}
                             style={styles.productImage}
                         />
                     </div>
@@ -218,7 +251,7 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
                         }}
                     >
                         <ResponsiveContainer width="100%" height="100%">
-                            <RadarChart cx="50%" cy="50%" outerRadius="65%" data={radarData} startAngle={90} endAngle={-270}>
+                            <RadarChart cx="50%" cy="50%" outerRadius="65%" data={data.radarData} startAngle={90} endAngle={-270}>
                                 <PolarGrid
                                     stroke="#d0d0d0"
                                     strokeWidth={1}
@@ -236,8 +269,8 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
                                 <Radar
                                     name="Benefits"
                                     dataKey="value"
-                                    stroke="#806D6E"
-                                    fill="#806D6E"
+                                    stroke={data.chartColor}
+                                    fill={data.chartColor}
                                     fillOpacity={0.7}
                                     strokeWidth={2}
                                     isAnimationActive={true}
@@ -252,15 +285,14 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
 
                 {/* Bottom Section: Description + Icons */}
                 <div style={styles.bottomSection} className="product-detail-modal-bottom">
-                    <h2 style={styles.productTitle}>British black</h2>
-                    <p style={styles.productSubtitle}>with Geochang Doraji</p>
+                    <h2 style={styles.productTitle}>{data.name}</h2>
+                    <p style={styles.productSubtitle}>{data.subtitle}</p>
                     <p style={styles.productDescription}>
-                        The pleasant bitterness of balloon flower root (doraji) meets the
-                        deep richness of black tea, creating a warm and comforting cup.
+                        {data.description}
                     </p>
 
                     <div style={styles.iconsContainer} className="product-detail-modal-icons">
-                        {benefitIcons.map((icon, idx) => (
+                        {data.icons.map((icon, idx) => (
                             <div key={idx} style={styles.iconItem}>
                                 <img
                                     src={icon.src}
