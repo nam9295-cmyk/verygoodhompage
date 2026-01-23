@@ -1031,9 +1031,19 @@ body.is-header-visible .topbar {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .pd-actions-mobile {
         flex-direction: column !important;
+        gap: 12px !important;
+        display: flex !important;
+        width: 100% !important;
+    }
+
+    .pd-actions-mobile button {
+        width: 100% !important;
+        height: 64px !important;
+        font-size: 16px !important;
+        flex: auto !important;
     }
 
     .pd-thumb-mobile {
@@ -1049,11 +1059,11 @@ body.is-header-visible .topbar {
         gap: 16px !important;
         padding: 20px !important;
     }
-    
+
     .product-detail-modal-bottom {
         padding: 20px !important;
     }
-    
+
     .product-detail-modal-icons {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 20px !important;

@@ -228,12 +228,14 @@ export default function ProductDetailPage() {
                         <div style={styles.pdActions} className="pd-actions-mobile">
                             <button
                                 style={{ ...styles.pdBtn, ...styles.pdBtnOutline }}
+                                className="mobile-action-btn"
                                 onClick={() => setShowDetailsModal(true)}
                             >
                                 {isKr ? '상세 정보 보기' : 'VIEW DETAILS'}
                             </button>
                             <button
                                 style={{ ...styles.pdBtn, ...styles.pdBtnPrimary }}
+                                className="mobile-action-btn"
                                 onClick={() => setShowBuyModal(true)}
                             >
                                 {isKr ? '구매하기' : 'BUY NOW'}
