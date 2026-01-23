@@ -49,6 +49,26 @@ const productsData = {
             { src: '/assets/products/asian-gold/neutral_a.svg', label: 'Neutral fat\nbreakdown' },
             { src: '/assets/products/asian-gold/skin_a.svg', label: 'Skin-beautifying\neffect' },
         ]
+    },
+    'hibiscus-fruit': {
+        name: 'Hibiscus fruit',
+        subtitle: 'with Mungyeong Omija',
+        description: 'Omija’s liver-cleansing support meets hibiscus’ diuretic action, helping a complete body cleanse.',
+        popImage: '/assets/products/hibiscus-fruit/hibis_pop.webp',
+        chartColor: '#c09696',
+        radarData: [
+            { subject: '호흡기(Respiratory)', value: 20, fullMark: 100 },
+            { subject: '면역(Immunity)', value: 40, fullMark: 100 },
+            { subject: '소화/해독(Digestion)', value: 95, fullMark: 100 },
+            { subject: '활력(Energy)', value: 40, fullMark: 100 },
+            { subject: '이완(Relaxation)', value: 30, fullMark: 100 },
+        ],
+        icons: [
+            { src: '/assets/products/hibiscus-fruit/liver_h.svg', label: 'Liver detox\nsupport' },
+            { src: '/assets/products/hibiscus-fruit/stomach_h.svg', label: 'Improved stomach\nfunction' },
+            { src: '/assets/products/hibiscus-fruit/carbohydrate_h.svg', label: 'Carbohydrate\nmetabolism blocking' },
+            { src: '/assets/products/hibiscus-fruit/swelling_h.svg', label: 'Reduced\nswelling' },
+        ]
     }
 };
 
