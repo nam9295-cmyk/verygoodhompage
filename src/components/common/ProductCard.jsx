@@ -1,9 +1,16 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function ProductCard({ product, variants }) {
     const { isKr } = useLanguage();
+    const [isHovered, setIsHovered] = useState(false);
+
+    // Determine which image to show
+    const displayImage = isHovered && product.hoverImage
+        ? product.hoverImage
+        : product.mainImage;
 
     return (
         <motion.article
@@ -19,9 +26,16 @@ export default function ProductCard({ product, variants }) {
                 stiffness: 300,
                 damping: 20,
             }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
             <div className="thumb">
-                <img src={product.mainImage} alt={product.name} loading="lazy" />
+                <img
+                    src={displayImage}
+                    alt={product.name}
+                    loading="lazy"
+                    style={{ transition: 'opacity 0.3s ease' }}
+                />
             </div>
             <div className="body">
                 <div className="title">

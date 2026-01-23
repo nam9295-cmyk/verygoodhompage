@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
 import { products } from '../data/products';
 import Modal from '../components/common/Modal';
+import ProductDetailModal from '../components/common/ProductDetailModal';
 
 const styles = {
     productDetailPage: {
@@ -253,18 +254,11 @@ export default function ProductDetailPage() {
                 </div>
             </main>
 
-            <Modal isOpen={showDetailsModal} onClose={() => setShowDetailsModal(false)}>
-                {product.nutritionImage ? (
-                    <img src={product.nutritionImage} alt={isKr ? '영양정보' : 'Nutrition Facts'} style={{ width: '100%' }} />
-                ) : (
-                    <div style={{ textAlign: 'center', padding: '40px 20px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                        <h3 style={{ fontFamily: 'var(--menu-font)', marginBottom: '12px' }}>
-                            {isKr ? '표기사항' : 'Product Information'}
-                        </h3>
-                        <p>{isKr ? '영양정보가 곧 업데이트됩니다.' : 'Nutrition information coming soon.'}</p>
-                    </div>
-                )}
-            </Modal>
+            <ProductDetailModal
+                isOpen={showDetailsModal}
+                onClose={() => setShowDetailsModal(false)}
+                product={product}
+            />
 
             <Modal isOpen={showBuyModal} onClose={() => setShowBuyModal(false)}>
                 <div style={{ marginTop: '20px' }}>

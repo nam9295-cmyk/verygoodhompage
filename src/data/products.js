@@ -67,7 +67,8 @@ export const products = [
     category: "tea",
     tabs: ["best", "tea"],
     tags: ["DETOX", "SIGNATURE", "EARLGREY"],
-    mainImage: "/assets/products/british.png",
+    mainImage: "/assets/products/british_cup.webp",
+    hoverImage: "/assets/products/british.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Deep and aromatic black tea blend, perfect for a relaxing afternoon.",
     description_ko: "깊고 그윽한 향의 홍차 블렌딩. 나른한 오후의 휴식에 완벽하게 어울립니다."
@@ -81,7 +82,8 @@ export const products = [
     category: "tea",
     tabs: ["best", "tea"],
     tags: ["DETOX", "FRUIT"],
-    mainImage: "/assets/products/hibis.png",
+    mainImage: "/assets/products/hibis_cup.webp",
+    hoverImage: "/assets/products/hibis.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Zesty hibiscus vibrantly blended with tropical fruits for a refreshing detox tea.",
     description_ko: "상큼한 히비스커스와 열대 과일의 생기 넘치는 블렌딩. 리프레쉬를 위한 디톡스 티입니다."
@@ -151,7 +153,8 @@ export const products = [
     category: "tea",
     tabs: ["tea"],
     tags: ["DETOX", "OOLONG"],
-    mainImage: "/assets/products/asian.png",
+    mainImage: "/assets/products/asian_cup.webp",
+    hoverImage: "/assets/products/asian.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Golden Oolong tea with a smooth, floral finish.",
     description_ko: "부드러운 꽃향기가 감도는 황금빛 우롱티입니다."
@@ -165,7 +168,8 @@ export const products = [
     category: "tea",
     tabs: ["tea"],
     tags: ["DETOX", "MINT"],
-    mainImage: "/assets/products/minty.png",
+    mainImage: "/assets/products/minty_cup.webp",
+    hoverImage: "/assets/products/minty.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Refreshing mint tea with a hint of cacao nibs for a chocolatey aftertaste.",
     description_ko: "상쾌한 민트티에 카카오 닙스를 더해 은은한 초콜릿 풍미를 남깁니다."

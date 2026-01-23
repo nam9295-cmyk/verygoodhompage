@@ -1041,3 +1041,21 @@ body.is-header-visible .topbar {
         height: 60px !important;
     }
 }
+
+/* ===== Product Detail Modal - Mobile ===== */
+@media (max-width: 768px) {
+    .product-detail-modal-top {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+        padding: 20px !important;
+    }
+    
+    .product-detail-modal-bottom {
+        padding: 20px !important;
+    }
+    
+    .product-detail-modal-icons {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+}
