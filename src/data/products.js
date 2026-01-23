@@ -1,4 +1,11 @@
 // Products data
+const defaultGallery = [
+  "/assets/detail_1.png",
+  "/assets/detail_2.png",
+  "/assets/detail_3.png",
+  "/assets/detail_4.png"
+];
+
 export const products = [
   {
     id: "almond-chocoball",
@@ -13,7 +20,8 @@ export const products = [
     descImage: "/assets/products/detail-sample.jpg",
     nutritionImage: "/assets/products/almond-nutrition.png",
     description: "Savory almonds coated in premium dark chocolate. A perfect balance of nutty crunch and rich cocoa.",
-    description_ko: "고소한 아몬드를 프리미엄 다크 초콜릿으로 감쌌습니다. 견과의 바삭함과 카카오의 풍미가 완벽한 조화를 이룹니다."
+    description_ko: "고소한 아몬드를 프리미엄 다크 초콜릿으로 감쌌습니다. 견과의 바삭함과 카카오의 풍미가 완벽한 조화를 이룹니다.",
+    detailImages: defaultGallery
   },
   {
     id: "ruby-berry-chocoball",
@@ -28,7 +36,8 @@ export const products = [
     descImage: "/assets/products/detail-sample.jpg",
     nutritionImage: "/assets/products/ruby-nutrition.png",
     description: "Natural ruby chocolate with distinct berry notes, wrapping a sweet fruit core.",
-    description_ko: "천연 루비 초콜릿 특유의 산뜻한 베리 향이 달콤한 과일 코어를 감싸 안습니다."
+    description_ko: "천연 루비 초콜릿 특유의 산뜻한 베리 향이 달콤한 과일 코어를 감싸 안습니다.",
+    detailImages: defaultGallery
   },
   {
     id: "strawberry-bonbon",
@@ -42,7 +51,8 @@ export const products = [
     mainImage: "/assets/products/straw.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Freeze-dried strawberries met white chocolate for a crunchy, sweet delight.",
-    description_ko: "동결건조 딸기와 화이트 초콜릿의 만남. 바삭하고 달콤한 즐거움을 선사합니다."
+    description_ko: "동결건조 딸기와 화이트 초콜릿의 만남. 바삭하고 달콤한 즐거움을 선사합니다.",
+    detailImages: defaultGallery
   },
   {
     id: "matcha-berry",
@@ -56,7 +66,8 @@ export const products = [
     mainImage: "/assets/products/matcha.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Premium matcha chocolate coating with a surprise berry center.",
-    description_ko: "프리미엄 말차 초콜릿 코팅 속에 숨겨진 상큼한 베리 센터의 조화."
+    description_ko: "프리미엄 말차 초콜릿 코팅 속에 숨겨진 상큼한 베리 센터의 조화.",
+    detailImages: defaultGallery
   },
   {
     id: "british-black",
@@ -71,7 +82,8 @@ export const products = [
     hoverImage: "/assets/products/british.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Deep and aromatic black tea blend, perfect for a relaxing afternoon.",
-    description_ko: "깊고 그윽한 향의 홍차 블렌딩. 나른한 오후의 휴식에 완벽하게 어울립니다."
+    description_ko: "깊고 그윽한 향의 홍차 블렌딩. 나른한 오후의 휴식에 완벽하게 어울립니다.",
+    detailImages: defaultGallery
   },
   {
     id: "hibiscus-fruit",
@@ -86,7 +98,8 @@ export const products = [
     hoverImage: "/assets/products/hibis.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Zesty hibiscus vibrantly blended with tropical fruits for a refreshing detox tea.",
-    description_ko: "상큼한 히비스커스와 열대 과일의 생기 넘치는 블렌딩. 리프레쉬를 위한 디톡스 티입니다."
+    description_ko: "상큼한 히비스커스와 열대 과일의 생기 넘치는 블렌딩. 리프레쉬를 위한 디톡스 티입니다.",
+    detailImages: defaultGallery
   },
   {
     id: "gift-2-set",
@@ -100,7 +113,8 @@ export const products = [
     mainImage: "/assets/products/2set.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "A curated set of 2 premium chocolates, packaged in our signature triangular box.",
-    description_ko: "엄선된 프리미엄 초콜릿 2종을 시그니처 삼각 박스에 담았습니다."
+    description_ko: "엄선된 프리미엄 초콜릿 2종을 시그니처 삼각 박스에 담았습니다.",
+    detailImages: defaultGallery
   },
   {
     id: "gift-4-set",
@@ -114,7 +128,8 @@ export const products = [
     mainImage: "/assets/products/4set.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "The ultimate collection. 4 varieties of our finest chocolates in a luxurious package.",
-    description_ko: "베리굿의 최고급 초콜릿 4종을 모두 담은 럭셔리 패키지 컬렉션입니다."
+    description_ko: "베리굿의 최고급 초콜릿 4종을 모두 담은 럭셔리 패키지 컬렉션입니다.",
+    detailImages: defaultGallery
   },
   {
     id: "hogirl-key-ring",
@@ -128,7 +143,8 @@ export const products = [
     mainImage: "/assets/products/hogirl.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Cute Hogirl mascot key-ring to accompany your bag or keys.",
-    description_ko: "가방이나 열쇠에 귀여움을 더해줄 호걸 마스코트 키링입니다."
+    description_ko: "가방이나 열쇠에 귀여움을 더해줄 호걸 마스코트 키링입니다.",
+    detailImages: defaultGallery
   },
   {
     id: "horse-key-ring",
@@ -142,7 +158,8 @@ export const products = [
     mainImage: "/assets/products/horse.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Elegant horse mascot key-ring, a symbol of freedom and energy.",
-    description_ko: "자유와 에너지를 상징하는 우아한 말 마스코트 키링입니다."
+    description_ko: "자유와 에너지를 상징하는 우아한 말 마스코트 키링입니다.",
+    detailImages: defaultGallery
   },
   {
     id: "asian-gold",
@@ -157,7 +174,8 @@ export const products = [
     hoverImage: "/assets/products/asian.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Golden Oolong tea with a smooth, floral finish.",
-    description_ko: "부드러운 꽃향기가 감도는 황금빛 우롱티입니다."
+    description_ko: "부드러운 꽃향기가 감도는 황금빛 우롱티입니다.",
+    detailImages: defaultGallery
   },
   {
     id: "minty-chocolat",
@@ -172,6 +190,7 @@ export const products = [
     hoverImage: "/assets/products/minty.png",
     descImage: "/assets/products/detail-sample.jpg",
     description: "Refreshing mint tea with a hint of cacao nibs for a chocolatey aftertaste.",
-    description_ko: "상쾌한 민트티에 카카오 닙스를 더해 은은한 초콜릿 풍미를 남깁니다."
+    description_ko: "상쾌한 민트티에 카카오 닙스를 더해 은은한 초콜릿 풍미를 남깁니다.",
+    detailImages: defaultGallery
   }
 ];

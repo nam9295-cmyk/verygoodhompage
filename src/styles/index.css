@@ -1024,10 +1024,15 @@ body.is-header-visible .topbar {
 
     .pd-info-area-mobile {
         padding-top: 20px !important;
+        position: static !important;
     }
 
     .pd-main-img-wrapper-mobile {
         aspect-ratio: 1 / 1 !important;
+    }
+
+    .detail-grid-mobile {
+        grid-template-columns: 1fr !important;
     }
 }
 

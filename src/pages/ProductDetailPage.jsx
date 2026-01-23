@@ -14,9 +14,10 @@ const styles = {
     },
     pdGrid: {
         display: 'grid',
-        gridTemplateColumns: '1.2fr 1fr',
-        gap: '60px',
+        gridTemplateColumns: '2.3fr 1fr',
+        gap: '80px',
         marginBottom: '80px',
+        alignItems: 'start',
     },
     pdImgArea: {
         display: 'flex',
@@ -70,6 +71,9 @@ const styles = {
     },
     pdInfoArea: {
         paddingTop: '0',
+        position: 'sticky',
+        top: '120px',
+        height: 'fit-content',
     },
     /* ... rest of styles remain similar, adjusting some spacings ... */
     pdCategory: {
@@ -145,6 +149,56 @@ const styles = {
         textAlign: 'center',
         padding: '100px 0',
     },
+    detailGrid: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '20px',
+        marginTop: '20px',
+    },
+    detailGridImg: {
+        width: '100%',
+        height: '100%',
+        aspectRatio: '4/3', // Adjust aspect ratio as needed (e.g., 4/3, 1/1)
+        objectFit: 'cover',
+        borderRadius: 'var(--radius)',
+        boxShadow: 'var(--shadow)',
+    },
+    // Accordion Styles
+    accordionSection: {
+        marginTop: '40px',
+        borderTop: '1px solid var(--line)',
+    },
+    accordionItem: {
+        borderBottom: '1px solid var(--line)',
+    },
+    accordionHeader: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '20px 0',
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        textAlign: 'left',
+    },
+    accordionTitle: {
+        fontSize: '16px',
+        fontWeight: '700',
+        color: 'var(--ink)',
+        fontFamily: 'var(--menu-font)',
+    },
+    accordionIcon: {
+        fontSize: '20px',
+        fontWeight: '300',
+        color: 'var(--ink)',
+    },
+    accordionContent: {
+        paddingBottom: '24px',
+        fontSize: '15px',
+        lineHeight: '1.6',
+        color: '#555',
+    },
 };
 
 export default function ProductDetailPage() {
@@ -152,9 +206,14 @@ export default function ProductDetailPage() {
     const { isKr } = useLanguage();
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [showBuyModal, setShowBuyModal] = useState(false);
+    const [openAccordion, setOpenAccordion] = useState(null);
+
+    const toggleAccordion = (section) => {
+        setOpenAccordion(openAccordion === section ? null : section);
+    };
 
     const product = products.find(p => p.id === id);
-    const [activeImage, setActiveImage] = useState(product?.mainImage);
+
 
     if (!product) {
         return (
@@ -173,12 +232,11 @@ export default function ProductDetailPage() {
         );
     }
 
-    // Prepare gallery images
-    const galleryImages = [
-        product.mainImage,
-        product.descImage,
-        product.nutritionImage
-    ].filter(Boolean);
+
+
+
+    const detailImages = product.detailImages || [];
+
 
     return (
         <>
@@ -194,27 +252,18 @@ export default function ProductDetailPage() {
                         <div style={styles.pdMainImgWrapper} className="pd-main-img-wrapper-mobile">
                             <img
                                 style={styles.pdImg}
-                                src={activeImage || product.mainImage}
+                                src={product.mainImage}
                                 alt={product.name}
                             />
                         </div>
-                        {galleryImages.length > 1 && (
-                            <div style={styles.pdThumbnails}>
-                                {galleryImages.map((img, idx) => (
-                                    <div
-                                        key={idx}
-                                        style={{
-                                            ...styles.pdThumb,
-                                            ...(activeImage === img ? styles.activeThumb : {})
-                                        }}
-                                        className="pd-thumb-mobile"
-                                        onClick={() => setActiveImage(img)}
-                                    >
-                                        <img src={img} alt={`${product.name} ${idx}`} style={styles.pdThumbImg} />
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+
+
+                        {/* Detail Gallery Grid */}
+                        <div style={styles.detailGrid} className="detail-grid-mobile">
+                            {detailImages.map((img, idx) => (
+                                <img key={idx} src={img} style={styles.detailGridImg} alt={`Detail ${idx + 1}`} />
+                            ))}
+                        </div>
                     </div>
                     <div style={styles.pdInfoArea} className="pd-info-area-mobile">
                         <div style={styles.pdCategory}>{product.category}</div>
@@ -241,6 +290,45 @@ export default function ProductDetailPage() {
                                 {isKr ? '구매하기' : 'BUY NOW'}
                             </button>
                         </div>
+
+                        {/* Accordion Menu */}
+                        <div style={styles.accordionSection}>
+                            {/* Benefits Accordion */}
+                            <div style={styles.accordionItem}>
+                                <button
+                                    style={styles.accordionHeader}
+                                    onClick={() => toggleAccordion('benefits')}
+                                >
+                                    <span style={styles.accordionTitle}>{isKr ? '제품 특징' : 'Benefits*'}</span>
+                                    <span style={styles.accordionIcon}>{openAccordion === 'benefits' ? '−' : '+'}</span>
+                                </button>
+                                {openAccordion === 'benefits' && (
+                                    <div style={styles.accordionContent}>
+                                        {isKr
+                                            ? '이 제품은 항산화 성분이 풍부하며, 하루의 활력을 더해줍니다. 인공 첨가물 없이 100% 천연 재료로 만들어졌습니다.'
+                                            : 'Rich in antioxidants and designed to boost your daily vitality. Made with 100% natural ingredients with no artificial additives.'}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Ingredients Accordion */}
+                            <div style={styles.accordionItem}>
+                                <button
+                                    style={styles.accordionHeader}
+                                    onClick={() => toggleAccordion('ingredients')}
+                                >
+                                    <span style={styles.accordionTitle}>{isKr ? '원재료' : 'Ingredients'}</span>
+                                    <span style={styles.accordionIcon}>{openAccordion === 'ingredients' ? '−' : '+'}</span>
+                                </button>
+                                {openAccordion === 'ingredients' && (
+                                    <div style={styles.accordionContent}>
+                                        {isKr
+                                            ? '프리미엄 찻잎, 천연 허브, 건조 과일 조각. (알레르기 정보: 이 제품은 견과류를 가공하는 시설에서 제조되었습니다.)'
+                                            : 'Premium tea leaves, natural herbs, dried fruit pieces. (Allergy Info: Manufactured in a facility that processes nuts.)'}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -248,13 +336,19 @@ export default function ProductDetailPage() {
                     <h3 style={{ fontFamily: 'var(--menu-font)', fontSize: '24px', marginBottom: '40px' }}>
                         Product Details
                     </h3>
-                    <img
-                        style={styles.pdDetailImg}
-                        src={product.descImage || 'https://via.placeholder.com/800x2000?text=Detail+Description+Image'}
-                        alt="Detail info"
-                    />
+
+                    {/* Common Detox Info (for Detox products only) */}
+                    {product.tags && product.tags.includes('DETOX') && (
+                        <img
+                            style={{ ...styles.pdDetailImg, marginBottom: '20px' }}
+                            src="/assets/detox_common.png"
+                            alt="Common Detox Info"
+                        />
+                    )}
+
+
                 </div>
-            </main>
+            </main >
 
             <ProductDetailModal
                 isOpen={showDetailsModal}
