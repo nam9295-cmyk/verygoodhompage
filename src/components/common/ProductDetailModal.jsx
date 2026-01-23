@@ -69,6 +69,26 @@ const productsData = {
             { src: '/assets/products/hibiscus-fruit/carbohydrate_h.svg', label: 'Carbohydrate\nmetabolism blocking' },
             { src: '/assets/products/hibiscus-fruit/swelling_h.svg', label: 'Reduced\nswelling' },
         ]
+    },
+    'minty-chocolat': {
+        name: 'Minty chocolat',
+        subtitle: 'with Jeju Matcha',
+        description: 'The calmness of green tea meets refreshing mint, offering a restful moment that cools a busy mind.',
+        popImage: '/assets/products/minty-chocolat/minty_pop.webp',
+        chartColor: '#7099a6',
+        radarData: [
+            { subject: '호흡기(Respiratory)', value: 30, fullMark: 100 },
+            { subject: '면역(Immunity)', value: 40, fullMark: 100 },
+            { subject: '소화/해독(Digestion)', value: 60, fullMark: 100 },
+            { subject: '활력(Energy)', value: 40, fullMark: 100 },
+            { subject: '이완(Relaxation)', value: 95, fullMark: 100 },
+        ],
+        icons: [
+            { src: '/assets/products/minty-chocolat/relaxation_m.svg', label: 'Mind & body\nrelaxation' },
+            { src: '/assets/products/minty-chocolat/body_m.svg', label: 'Body fat\nreduction' },
+            { src: '/assets/products/minty-chocolat/headache_m.svg', label: 'Headache\nrelief' },
+            { src: '/assets/products/minty-chocolat/digestive_m.svg', label: 'Digestive discomfort\nrelief' },
+        ]
     }
 };
 
