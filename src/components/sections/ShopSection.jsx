@@ -40,7 +40,7 @@ const cardVariants = {
 };
 
 export default function ShopSection() {
-    const [activeTab, setActiveTab] = useState('new');
+    const [activeTab, setActiveTab] = useState('tea');
     const gridRef = useRef(null);
 
     const filteredProducts = products.filter(p => p.tabs.includes(activeTab));

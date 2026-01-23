@@ -302,7 +302,8 @@ body.is-header-visible .topbar {
     }
 
     .tab {
-        font-size: 18px;
+        font-size: 24px;
+        padding: 12px 0;
     }
 }
 
@@ -518,6 +519,12 @@ body.is-header-visible .topbar {
     display: block;
     object-fit: contain;
     flex: 0 0 auto;
+}
+
+@media (max-width: 768px) {
+    .marquee-logo {
+        height: 80px;
+    }
 }
 
 @keyframes marq-logos {
