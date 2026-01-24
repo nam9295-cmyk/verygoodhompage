@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { products } from '../data/products';
 import Modal from '../components/common/Modal';
 import ProductDetailModal from '../components/common/ProductDetailModal';
+import DailyDetoxHero from '../components/product/DailyDetoxHero';
 
 const styles = {
     productDetailPage: {
@@ -343,11 +344,9 @@ export default function ProductDetailPage() {
 
                     {/* Common Detox Info (for Detox products only) */}
                     {product.tags && product.tags.includes('DETOX') && (
-                        <img
-                            style={{ ...styles.pdDetailImg, marginBottom: '20px' }}
-                            src="/assets/detox_common.png"
-                            alt="Common Detox Info"
-                        />
+                        <div style={{ marginBottom: '80px' }}>
+                            <DailyDetoxHero />
+                        </div>
                     )}
 
 
