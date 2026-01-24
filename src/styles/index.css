@@ -1115,6 +1115,31 @@ body.is-header-visible .topbar {
         display: flex;
         justify-content: space-between;
     }
+
+    /* Simplify Language Switch for Mobile */
+    .lang-switch {
+        width: auto !important;
+        height: auto !important;
+        background: transparent !important;
+        border: 1px solid rgba(0, 0, 0, 0.1) !important;
+        padding: 6px 10px !important;
+        border-radius: 8px !important;
+        box-shadow: none !important;
+    }
+
+    .lang-switch .toggle-circle {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        color: var(--ink) !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        transform: none !important;
+        display: inline-block !important;
+        padding: 0 !important;
+    }
 }
 
 /* Ensure 'always-visible' works on desktop too */
