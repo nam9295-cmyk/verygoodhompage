@@ -1074,3 +1074,52 @@ body.is-header-visible .topbar {
         gap: 20px !important;
     }
 }
+
+/* Mobile Header Optimizations */
+@media (max-width: 768px) {
+
+    /* Hide text labels in left button (Menu/Home) */
+    .topbar-left .icon-btn .txt {
+        display: none;
+    }
+
+    .topbar-left .icon-btn {
+        padding: 10px;
+        border: none;
+        background: transparent;
+    }
+
+    /* Absolute Center Brand layout */
+    .brand {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -6px);
+        /* Hidden state alignment */
+        width: auto;
+    }
+
+    body.is-header-visible .brand,
+    .brand.always-visible {
+        transform: translate(-50%, 0);
+        /* Visible state alignment */
+    }
+
+    /* Reduce 'ORDER' button padding */
+    .cta {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    /* Modify layout grid to be safe */
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+/* Ensure 'always-visible' works on desktop too */
+.brand.always-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}

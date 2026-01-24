@@ -30,12 +30,13 @@ export default function Header() {
                         </button>
                     ) : (
                         <Link to="/" className="icon-btn">
-                            <span className="txt">← {isKr ? '홈으로' : 'Home'}</span>
+                            <span className="icon">←</span>
+                            <span className="txt">{isKr ? '홈으로' : 'Home'}</span>
                         </Link>
                     )}
                 </div>
 
-                <Link className="brand" to="/" style={!isHome ? { opacity: 1, transform: 'none', pointerEvents: 'auto' } : {}}>
+                <Link className={`brand ${!isHome ? 'always-visible' : ''}`} to="/">
                     <img className="brand-img" src="/assets/logo-type.png" alt="VERYGOOD" />
                 </Link>
 
