@@ -93,10 +93,11 @@ const styles = {
         lineHeight: 1.1,
     },
     pdPrice: {
-        fontSize: '28px',
-        fontWeight: 600,
+        fontSize: '32px',
+        fontWeight: 400,
         marginBottom: '32px',
         color: 'var(--ink)',
+        letterSpacing: '-0.02em',
     },
     pdDesc: {
         fontSize: '16px',

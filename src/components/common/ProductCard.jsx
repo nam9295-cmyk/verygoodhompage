@@ -12,6 +12,24 @@ export default function ProductCard({ product, variants }) {
         ? product.hoverImage
         : product.mainImage;
 
+    // Helper to format price like Amazon: <sup>$</sup>7<sup>49</sup>
+    const renderPrice = () => {
+        if (!product.price) return null;
+
+        // Handle number format
+        const priceNum = Number(product.price);
+        const integerPart = Math.floor(priceNum);
+        const decimalPart = (priceNum % 1).toFixed(2).substring(2); // Extract "49" from 7.49 or "20" from 8.20
+
+        return (
+            <div className="amazon-price">
+                <span className="currency">$</span>
+                <span className="integer">{integerPart}</span>
+                <span className="fraction">{decimalPart}</span>
+            </div>
+        );
+    };
+
     return (
         <motion.article
             className="card product"
@@ -38,17 +56,24 @@ export default function ProductCard({ product, variants }) {
                 />
             </div>
             <div className="body">
+                {/* 1. Tags moved to top */}
+                <div className="pills">
+                    {product.tags.slice(0, 2).map(tag => (
+                        <span key={tag} className="mini">{tag}</span>
+                    ))}
+                </div>
+
+                {/* 2. Title */}
                 <div className="title">
                     {isKr && product.name_ko ? product.name_ko : product.name}
                 </div>
+
+                {/* 3. Amazon Style Price */}
                 <div className="meta">
-                    <div className="price">{product.priceStr}</div>
-                    <div className="pills">
-                        {product.tags.slice(0, 2).map(tag => (
-                            <span key={tag} className="mini">{tag}</span>
-                        ))}
-                    </div>
+                    {renderPrice()}
                 </div>
+
+                {/* 4. Button */}
                 <div className="btns">
                     <Link
                         className="btn primary"
