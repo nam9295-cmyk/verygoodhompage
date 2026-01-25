@@ -21,7 +21,23 @@ export const products = [
     nutritionImage: "/assets/products/almond-nutrition.png",
     description: "Savory almonds coated in premium dark chocolate. A perfect balance of nutty crunch and rich cocoa.",
     description_ko: "고소한 아몬드를 프리미엄 다크 초콜릿으로 감쌌습니다. 견과의 바삭함과 카카오의 풍미가 완벽한 조화를 이룹니다.",
-    detailImages: defaultGallery
+    detailImages: defaultGallery,
+    // Additions for Detail Modal
+    type: 'chocolate',
+    popImage: '/assets/products/almond-chocoball/almond_pop.webp',
+    flavorStats: [
+      { name: 'Crunchiness', value: 95, fill: '#3E2723' },
+      { name: 'Nutty', value: 85, fill: '#D4AF37' },
+      { name: 'Bitterness', value: 70, fill: '#8D6E63' },
+      { name: 'Sweetness', value: 60, fill: '#FFE0B2' },
+      { name: 'Aftertaste', value: 70, fill: '#FFAB91' }
+    ],
+    featureIcons: [
+      { icon: '/assets/products/almond-chocoball/almond_icon1.svg', label: 'Roasting' },
+      { icon: '/assets/products/almond-chocoball/almond_icon2.svg', label: 'High Cacao' },
+      { icon: '/assets/products/almond-chocoball/almond_icon3.svg', label: 'Protein' },
+      { icon: '/assets/products/almond-chocoball/almond_icon4.svg', label: 'Crunchy' }
+    ]
   },
   {
     id: "ruby-berry-chocoball",
@@ -37,7 +53,22 @@ export const products = [
     nutritionImage: "/assets/products/ruby-nutrition.png",
     description: "Natural ruby chocolate with distinct berry notes, wrapping a sweet fruit core.",
     description_ko: "천연 루비 초콜릿 특유의 산뜻한 베리 향이 달콤한 과일 코어를 감싸 안습니다.",
-    detailImages: defaultGallery
+    detailImages: defaultGallery,
+    type: 'chocolate',
+    popImage: '/assets/products/ruby-berry/ruby_pop.webp',
+    flavorStats: [
+      { name: 'Berry Aroma', value: 95, fill: '#D81B60' },
+      { name: 'Sourness', value: 90, fill: '#F06292' },
+      { name: 'Sweetness', value: 80, fill: '#F8BBD0' },
+      { name: 'Creamy', value: 70, fill: '#F48FB1' },
+      { name: 'Crunchy', value: 60, fill: '#EC407A' }
+    ],
+    featureIcons: [
+      { icon: '/assets/products/ruby-berry/ruby_icon1.svg', label: 'Ruby Cocoa' },
+      { icon: '/assets/products/ruby-berry/ruby_icon2.svg', label: 'No Colorants' },
+      { icon: '/assets/products/ruby-berry/ruby_icon3.svg', label: 'Superfood' },
+      { icon: '/assets/products/ruby-berry/ruby_icon4.svg', label: 'Sweet & Sour' }
+    ]
   },
   {
     id: "strawberry-bonbon",
@@ -67,7 +98,22 @@ export const products = [
     descImage: "/assets/products/detail-sample.jpg",
     description: "Premium matcha chocolate coating with a surprise berry center.",
     description_ko: "프리미엄 말차 초콜릿 코팅 속에 숨겨진 상큼한 베리 센터의 조화.",
-    detailImages: defaultGallery
+    detailImages: defaultGallery,
+    type: 'chocolate',
+    popImage: '/assets/products/matcha-berry/jeju_pop.webp',
+    flavorStats: [
+      { name: 'Green Aroma', value: 90, fill: '#43A047' },
+      { name: 'Bitterness', value: 85, fill: '#1B5E20' },
+      { name: 'Chewiness', value: 80, fill: '#AD1457' },
+      { name: 'Richness', value: 75, fill: '#558B2F' },
+      { name: 'Sweetness', value: 60, fill: '#AED581' }
+    ],
+    featureIcons: [
+      { icon: '/assets/products/matcha-berry/jeju_icon1.svg', label: 'Jeju Origin' },
+      { icon: '/assets/products/matcha-berry/jeju_icon2.svg', label: 'Double Layer' },
+      { icon: '/assets/products/matcha-berry/jeju_icon3.svg', label: 'Cren Berry' },
+      { icon: '/assets/products/matcha-berry/jeju_icon4.svg', label: 'Catechin' }
+    ]
   },
   {
     id: "british-black",

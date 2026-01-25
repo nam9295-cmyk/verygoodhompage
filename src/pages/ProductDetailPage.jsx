@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { products } from '../data/products';
 import Modal from '../components/common/Modal';
 import ProductDetailModal from '../components/common/ProductDetailModal';
+import ChocolateDetailModal from '../components/products/ChocolateDetailModal';
 import DailyDetoxHero from '../components/product/DailyDetoxHero';
 
 const styles = {
@@ -207,6 +208,7 @@ export default function ProductDetailPage() {
     const { id } = useParams();
     const { isKr } = useLanguage();
     const [showDetailsModal, setShowDetailsModal] = useState(false);
+    const [showChocolateModal, setShowChocolateModal] = useState(false);
     const [showBuyModal, setShowBuyModal] = useState(false);
     const [openAccordion, setOpenAccordion] = useState(null);
 
@@ -284,7 +286,13 @@ export default function ProductDetailPage() {
                             <button
                                 style={{ ...styles.pdBtn, ...styles.pdBtnOutline }}
                                 className="mobile-action-btn"
-                                onClick={() => setShowDetailsModal(true)}
+                                onClick={() => {
+                                    if (['almond-chocoball', 'ruby-berry-chocoball', 'matcha-berry'].includes(product.id)) {
+                                        setShowChocolateModal(true);
+                                    } else {
+                                        setShowDetailsModal(true);
+                                    }
+                                }}
                             >
                                 {isKr ? '상세 정보 보기' : 'VIEW DETAILS'}
                             </button>
@@ -361,6 +369,13 @@ export default function ProductDetailPage() {
                 onClose={() => setShowDetailsModal(false)}
                 product={product}
             />
+
+            {showChocolateModal && (
+                <ChocolateDetailModal
+                    product={product}
+                    onClose={() => setShowChocolateModal(false)}
+                />
+            )}
 
             <Modal isOpen={showBuyModal} onClose={() => setShowBuyModal(false)}>
                 <div style={{ marginTop: '20px' }}>
