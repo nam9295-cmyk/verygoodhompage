@@ -232,8 +232,8 @@ export default function ProductDetailPage() {
                 <div style={styles.notFound}>
                     <h2>{isKr ? '제품을 찾을 수 없습니다' : 'Product not found'}</h2>
                     <p>{isKr ? '요청하신 제품정보가 없습니다.' : 'Sorry, the product you are looking for does not exist.'}</p>
-                    <Link to="/#shop" style={{ textDecoration: 'underline' }}>
-                        {isKr ? '돌아가기' : 'Back to Shop'}
+                    <Link to={`/category/${product?.category || 'chocolate'}`} style={{ textDecoration: 'underline' }}>
+                        {isKr ? '돌아가기' : 'Back to Category'}
                     </Link>
                 </div>
             </main>
@@ -255,6 +255,11 @@ export default function ProductDetailPage() {
             </Helmet>
 
             <main style={styles.productDetailPage}>
+                <div style={{ marginBottom: '20px' }}>
+                    <Link to={`/category/${product.category}`} style={{ textDecoration: 'none', color: '#888', fontSize: '14px', fontWeight: '500', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                        <span>‹</span> {isKr ? '목록으로' : `Back to ${product.category}`}
+                    </Link>
+                </div>
                 <div style={styles.pdGrid} className="pd-grid-mobile">
                     <div style={styles.pdImgArea}>
                         <div style={styles.pdMainImgWrapper} className="pd-main-img-wrapper-mobile">
@@ -268,6 +273,13 @@ export default function ProductDetailPage() {
 
                         {/* Detail Gallery Grid */}
                         <div style={styles.detailGrid} className="detail-grid-mobile">
+                            {/* Mobile-only Main Image for Slider */}
+                            <img
+                                src={product.mainImage}
+                                style={styles.detailGridImg}
+                                className="mobile-slider-main-img"
+                                alt={product.name}
+                            />
                             {detailImages.map((img, idx) => (
                                 <img key={idx} src={img} style={styles.detailGridImg} alt={`Detail ${idx + 1}`} />
                             ))}

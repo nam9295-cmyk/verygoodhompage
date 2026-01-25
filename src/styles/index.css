@@ -1203,6 +1203,20 @@ body.is-header-visible .topbar {
     gap: 20px;
 }
 
+.choco-modal-chart-container {
+    flex: 1;
+    height: 100%;
+    min-width: 200px;
+}
+
+.choco-modal-legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+}
+
 .choco-modal-icons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1227,8 +1241,12 @@ body.is-header-visible .topbar {
 
     .choco-modal-chart-container {
         width: 100%;
-        height: 240px;
-        /* Slightly shorter on mobile */
+        height: 260px;
+        /* Increased slightly */
+        min-height: 260px;
+        /* Force height */
+        flex: none;
+        /* Disable flex scaling */
     }
 
     .choco-modal-legend {
@@ -1244,5 +1262,70 @@ body.is-header-visible .topbar {
 
     .choco-modal-bottom {
         padding: 24px;
+    }
+}
+
+/* Category Page Grid */
+.category-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Desktop 2 cols */
+    gap: 40px 24px;
+}
+
+@media (max-width: 768px) {
+    .category-grid {
+        grid-template-columns: 1fr;
+        /* Mobile 1 col */
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    /* Product Detail Page Mobile Slider */
+    .detail-grid-mobile {
+        display: flex !important;
+        grid-template-columns: none !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px !important;
+        padding-bottom: 20px;
+        /* Space for scrollbar */
+        scrollbar-width: none;
+        /* Hide scrollbar Firefox */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .detail-grid-mobile::-webkit-scrollbar {
+        display: none;
+        /* Hide scrollbar Chrome/Safari */
+    }
+
+    .detail-grid-mobile img {
+        flex: 0 0 85% !important;
+        /* Show 85% of image to hint scrolling */
+        width: 85% !important;
+        height: auto !important;
+        aspect-ratio: 4/3;
+        scroll-snap-align: center;
+        margin-right: 0;
+    }
+
+    /* Hide the standalone main image wrapper on mobile */
+    .pd-main-img-wrapper-mobile {
+        display: none !important;
+    }
+
+    /* Ensure the mobile slider main image is visible and styled */
+    .mobile-slider-main-img {
+        display: block !important;
+    }
+}
+
+/* Desktop: Hide the mobile slider main image inside the grid */
+@media (min-width: 769px) {
+    .mobile-slider-main-img {
+        display: none !important;
     }
 }

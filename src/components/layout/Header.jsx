@@ -65,7 +65,9 @@ export default function Header() {
                     <div className="menu-body">
                         <Link className="menu-link" to="/about" onClick={closeMenu}>ABOUT</Link>
                         <Link className="menu-link" to="/business-story" onClick={closeMenu}>BUSINESS STORY</Link>
-                        <Link className="menu-link" to="/#shop" onClick={closeMenu}>SHOP</Link>
+                        <Link className="menu-link" to="/category/chocolate" onClick={closeMenu}>CHOCOLATE</Link>
+                        <Link className="menu-link" to="/category/tea" onClick={closeMenu}>TEA</Link>
+                        <Link className="menu-link" to="/category/gift" onClick={closeMenu}>GIFT</Link>
                         <Link className="menu-link" to="/#story" onClick={closeMenu}>STORY</Link>
                         <Link className="menu-link" to="/blog" onClick={closeMenu}>BLOG</Link>
                         <Link className="menu-link" to="/#contact" onClick={closeMenu}>CONTACT</Link>

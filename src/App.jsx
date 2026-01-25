@@ -11,6 +11,7 @@ import BusinessStoryPage from './pages/BusinessStoryPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import AdminPage from './pages/AdminPage';
+import CategoryPage from './pages/CategoryPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="business-story" element={<BusinessStoryPage />} />
               <Route path="blog" element={<BlogPage />} />
               <Route path="blog/:id" element={<BlogDetailPage />} />
+              <Route path="category/:id" element={<CategoryPage />} />
               <Route path="product/:id" element={<ProductDetailPage />} />
               <Route path="privacy" element={<PrivacyPage />} />
               <Route path="terms" element={<TermsPage />} />

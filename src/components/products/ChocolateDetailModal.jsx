@@ -58,16 +58,10 @@ const styles = {
         /* Structural styles moved to CSS .choco-modal-chart-section */
     },
     chartContainer: {
-        flex: '1',
-        height: '100%',
-        minWidth: '200px',
+        /* Structural styles moved to CSS .choco-modal-chart-container */
     },
     legendContainer: {
-        flex: '1',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        /* paddingLeft moved to CSS .choco-modal-legend */
+        /* Structural styles moved to CSS .choco-modal-legend */
     },
     legendTitle: {
         fontSize: '0.9rem',
