@@ -83,7 +83,22 @@ export const products = [
     descImage: "/assets/products/detail-sample.jpg",
     description: "Freeze-dried strawberries met white chocolate for a crunchy, sweet delight.",
     description_ko: "동결건조 딸기와 화이트 초콜릿의 만남. 바삭하고 달콤한 즐거움을 선사합니다.",
-    detailImages: defaultGallery
+    detailImages: defaultGallery,
+    type: 'chocolate',
+    popImage: '/assets/products/strawberry-bonbon/bonbon_pop.webp',
+    flavorStats: [
+      { name: 'Real Strawberry', value: 95, fill: '#D32F2F' },
+      { name: 'Crunchy', value: 90, fill: '#E57373' },
+      { name: 'Sweetness', value: 85, fill: '#F06292' },
+      { name: 'Creamy', value: 80, fill: '#F8BBD0' },
+      { name: 'Sourness', value: 70, fill: '#FFCDD2' }
+    ],
+    featureIcons: [
+      { icon: '/assets/products/strawberry-bonbon/bonbon_icon1.svg', label: 'Freeze-Dried' },
+      { icon: '/assets/products/strawberry-bonbon/bonbon_icon2.svg', label: 'Real Fruit Inside' },
+      { icon: '/assets/products/strawberry-bonbon/bonbon_icon3.svg', label: 'Creamy White' },
+      { icon: '/assets/products/strawberry-bonbon/bonbon_icon4.svg', label: 'Vitamin C' }
+    ]
   },
   {
     id: "matcha-berry",

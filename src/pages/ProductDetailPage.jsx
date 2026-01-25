@@ -287,7 +287,7 @@ export default function ProductDetailPage() {
                                 style={{ ...styles.pdBtn, ...styles.pdBtnOutline }}
                                 className="mobile-action-btn"
                                 onClick={() => {
-                                    if (['almond-chocoball', 'ruby-berry-chocoball', 'matcha-berry'].includes(product.id)) {
+                                    if (['almond-chocoball', 'ruby-berry-chocoball', 'matcha-berry', 'strawberry-bonbon'].includes(product.id)) {
                                         setShowChocolateModal(true);
                                     } else {
                                         setShowDetailsModal(true);
