@@ -1,13 +1,27 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
+import { products } from '../../data/products';
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const { lang, toggle, isKr } = useLanguage();
     const location = useLocation();
     const isHome = location.pathname === '/';
+
+    // Check if we are on a Product Detail Page
+    const isProductPage = location.pathname.startsWith('/product/');
+    let backLink = '/';
+    let backText = isKr ? '홈으로' : 'Home';
+
+    if (isProductPage) {
+        const productId = location.pathname.split('/')[2];
+        const product = products.find(p => p.id === productId);
+        if (product) {
+            backLink = `/category/${product.category}`;
+            backText = isKr ? `${product.category} (으)로` : `Back to ${product.category}`;
+        }
+    }
 
     const openMenu = () => {
         setMenuOpen(true);
@@ -29,9 +43,9 @@ export default function Header() {
                             <span className="txt">Menu</span>
                         </button>
                     ) : (
-                        <Link to="/" className="icon-btn">
+                        <Link to={backLink} className="icon-btn">
                             <span className="icon">←</span>
-                            <span className="txt">{isKr ? '홈으로' : 'Home'}</span>
+                            <span className="txt">{backText}</span>
                         </Link>
                     )}
                 </div>

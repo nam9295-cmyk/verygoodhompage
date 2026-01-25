@@ -106,14 +106,9 @@ export default function CategoryPage() {
                     variants={containerVariants}
                     initial="hidden"
                     animate="show"
-                    className="category-grid"
-                    // Inline styles for grid, but can be moved to CSS for complex responsiveness if needed
-                    // Using basic responsive grid here
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', // Default responsive
-                        gap: '40px 24px',
-                    }}
+                    className="category-grid-2col"
+                    // Inline styles removed in favor of CSS class for 2x2 layout
+                    style={{}}
                 >
                     {/* 
                        Note: User requested specific: 

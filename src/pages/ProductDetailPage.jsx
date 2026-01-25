@@ -255,11 +255,7 @@ export default function ProductDetailPage() {
             </Helmet>
 
             <main style={styles.productDetailPage}>
-                <div style={{ marginBottom: '20px' }}>
-                    <Link to={`/category/${product.category}`} style={{ textDecoration: 'none', color: '#888', fontSize: '14px', fontWeight: '500', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <span>‹</span> {isKr ? '목록으로' : `Back to ${product.category}`}
-                    </Link>
-                </div>
+
                 <div style={styles.pdGrid} className="pd-grid-mobile">
                     <div style={styles.pdImgArea}>
                         <div style={styles.pdMainImgWrapper} className="pd-main-img-wrapper-mobile">
