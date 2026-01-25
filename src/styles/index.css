@@ -1184,3 +1184,65 @@ body.is-header-visible .topbar {
     transform: translateY(0);
     pointer-events: auto;
 }
+
+/* ===== Chocolate Detail Modal ===== */
+.choco-modal-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 24px 32px;
+    align-items: center;
+}
+
+.choco-modal-chart-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 280px;
+    width: 100%;
+    gap: 20px;
+}
+
+.choco-modal-icons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    justify-items: center;
+}
+
+@media (max-width: 768px) {
+    .choco-modal-top {
+        grid-template-columns: 1fr;
+        /* Stack vertically */
+        gap: 32px;
+        padding: 24px;
+    }
+
+    .choco-modal-chart-section {
+        flex-direction: column;
+        /* Stack Chart and Legend */
+        height: auto;
+        gap: 32px;
+    }
+
+    .choco-modal-chart-container {
+        width: 100%;
+        height: 240px;
+        /* Slightly shorter on mobile */
+    }
+
+    .choco-modal-legend {
+        width: 100%;
+        padding-left: 0;
+    }
+
+    .choco-modal-icons {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2x2 Grid */
+        gap: 20px;
+    }
+
+    .choco-modal-bottom {
+        padding: 24px;
+    }
+}

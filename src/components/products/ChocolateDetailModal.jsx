@@ -46,11 +46,7 @@ const styles = {
         zIndex: 10,
     },
     topSection: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '24px',
-        padding: '24px 32px',
-        alignItems: 'center',
+        /* Structural styles moved to CSS .choco-modal-top */
     },
     productImage: {
         width: '100%',
@@ -59,12 +55,7 @@ const styles = {
         objectFit: 'contain',
     },
     chartSection: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: '280px',
-        width: '100%',
-        gap: '20px',
+        /* Structural styles moved to CSS .choco-modal-chart-section */
     },
     chartContainer: {
         flex: '1',
@@ -76,7 +67,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        paddingLeft: '10px',
+        /* paddingLeft moved to CSS .choco-modal-legend */
     },
     legendTitle: {
         fontSize: '0.9rem',
@@ -123,7 +114,7 @@ const styles = {
         fontSize: '15px',
     },
     bottomSection: {
-        padding: '24px 32px 32px',
+        /* padding moved to CSS .choco-modal-bottom (partially, keeping border styles here) */
         borderTop: '1px solid #eee',
         backgroundColor: '#fafafa',
         borderBottomLeftRadius: '24px',
@@ -151,10 +142,7 @@ const styles = {
         maxWidth: '100%',
     },
     iconsContainer: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '24px',
-        justifyItems: 'center',
+        /* Structural styles moved to CSS .choco-modal-icons */
     },
     iconItem: {
         display: 'flex',
@@ -219,7 +207,7 @@ export default function ChocolateDetailModal({ product, onClose }) {
                     </button>
 
                     {/* Top Section */}
-                    <div style={styles.topSection}>
+                    <div style={styles.topSection} className="choco-modal-top">
                         {/* Image (Left Column) */}
                         <div>
                             <img
@@ -232,12 +220,13 @@ export default function ChocolateDetailModal({ product, onClose }) {
                         {/* Chart & Legend (Right Column) */}
                         <motion.div
                             style={styles.chartSection}
+                            className="choco-modal-chart-section"
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.2 }}
                         >
                             {/* Radial Chart */}
-                            <div style={styles.chartContainer}>
+                            <div style={styles.chartContainer} className="choco-modal-chart-container">
                                 {product.flavorStats && (
                                     <ResponsiveContainer width="100%" height="100%">
                                         <RadialBarChart
@@ -265,7 +254,7 @@ export default function ChocolateDetailModal({ product, onClose }) {
                             </div>
 
                             {/* Legend Side Panel */}
-                            <div style={styles.legendContainer}>
+                            <div style={styles.legendContainer} className="choco-modal-legend">
                                 <div style={styles.legendTitle}>Flavor Specs</div>
                                 <ul style={styles.legendList}>
                                     {product.flavorStats && product.flavorStats.map((stat, idx) => (
@@ -284,7 +273,7 @@ export default function ChocolateDetailModal({ product, onClose }) {
                     </div>
 
                     {/* Bottom Section */}
-                    <div style={styles.bottomSection}>
+                    <div style={styles.bottomSection} className="choco-modal-bottom">
                         <h2 style={styles.productTitle}>
                             {isKr && product.name_ko ? product.name_ko : product.name}
                         </h2>
@@ -296,7 +285,7 @@ export default function ChocolateDetailModal({ product, onClose }) {
                         </p>
 
                         {/* Icons */}
-                        <div style={styles.iconsContainer}>
+                        <div style={styles.iconsContainer} className="choco-modal-icons">
                             {product.featureIcons && product.featureIcons.map((feature, idx) => (
                                 <div key={idx} style={styles.iconItem}>
                                     <img
