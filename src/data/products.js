@@ -83,7 +83,13 @@ export const products = [
     descImage: "/assets/products/detail-sample.jpg",
     description: "Deep and aromatic black tea blend, perfect for a relaxing afternoon.",
     description_ko: "깊고 그윽한 향의 홍차 블렌딩. 나른한 오후의 휴식에 완벽하게 어울립니다.",
-    detailImages: defaultGallery
+    detailImages: defaultGallery,
+    galleryImages: [
+      "/assets/products/british-black/gallery/british_th1.webp",
+      "/assets/products/british-black/gallery/british_th2.webp",
+      "/assets/products/british-black/gallery/british_th3.webp",
+      "/assets/products/british-black/gallery/british_th4.webp"
+    ]
   },
   {
     id: "hibiscus-fruit",
@@ -99,7 +105,13 @@ export const products = [
     descImage: "/assets/products/detail-sample.jpg",
     description: "Zesty hibiscus vibrantly blended with tropical fruits for a refreshing detox tea.",
     description_ko: "상큼한 히비스커스와 열대 과일의 생기 넘치는 블렌딩. 리프레쉬를 위한 디톡스 티입니다.",
-    detailImages: defaultGallery
+    detailImages: defaultGallery,
+    galleryImages: [
+      "/assets/products/hibiscus-fruit/gallery/hibis_th1.webp",
+      "/assets/products/hibiscus-fruit/gallery/hibis_th2.webp",
+      "/assets/products/hibiscus-fruit/gallery/hibis_th3.webp",
+      "/assets/products/hibiscus-fruit/gallery/hibis_th4.webp"
+    ]
   },
   {
     id: "gift-2-set",
@@ -175,7 +187,13 @@ export const products = [
     descImage: "/assets/products/detail-sample.jpg",
     description: "Golden Oolong tea with a smooth, floral finish.",
     description_ko: "부드러운 꽃향기가 감도는 황금빛 우롱티입니다.",
-    detailImages: defaultGallery
+    detailImages: defaultGallery,
+    galleryImages: [
+      "/assets/products/asian-gold/gallery/asian_th1.webp",
+      "/assets/products/asian-gold/gallery/asian_th2.webp",
+      "/assets/products/asian-gold/gallery/asian_th3.webp",
+      "/assets/products/asian-gold/gallery/asian_th4.webp"
+    ]
   },
   {
     id: "minty-chocolat",
@@ -191,6 +209,12 @@ export const products = [
     descImage: "/assets/products/detail-sample.jpg",
     description: "Refreshing mint tea with a hint of cacao nibs for a chocolatey aftertaste.",
     description_ko: "상쾌한 민트티에 카카오 닙스를 더해 은은한 초콜릿 풍미를 남깁니다.",
-    detailImages: defaultGallery
+    detailImages: defaultGallery,
+    galleryImages: [
+      "/assets/products/minty-chocolat/gallery/minty_th1.webp",
+      "/assets/products/minty-chocolat/gallery/minty_th2.webp",
+      "/assets/products/minty-chocolat/gallery/minty_th3.webp",
+      "/assets/products/minty-chocolat/gallery/minty_th4.webp"
+    ]
   }
 ];

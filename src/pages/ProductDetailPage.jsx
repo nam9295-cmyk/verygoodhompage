@@ -241,7 +241,7 @@ export default function ProductDetailPage() {
 
 
 
-    const detailImages = product.detailImages || [];
+    const detailImages = product.galleryImages || product.detailImages || [];
 
 
     return (
@@ -349,6 +349,8 @@ export default function ProductDetailPage() {
                             <DailyDetoxHero />
                         </div>
                     )}
+
+
 
 
                 </div>
