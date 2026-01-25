@@ -1202,9 +1202,12 @@ body.is-header-visible .topbar {
 /* ===== Chocolate Detail Modal ===== */
 .choco-modal-top {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    padding: 24px 32px;
+    grid-template-columns: 0.9fr 1.1fr;
+    /* Give more space to chart side */
+    gap: 40px;
+    /* Increase gap */
+    padding: 32px 40px;
+    /* Increase padding */
     align-items: center;
 }
 
@@ -1212,15 +1215,20 @@ body.is-header-visible .topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 280px;
+    height: 300px;
+    /* Increase height slightly */
     width: 100%;
-    gap: 20px;
+    gap: 30px;
 }
 
 .choco-modal-chart-container {
-    flex: 1;
+    flex: 1.2;
+    /* Make chart slightly larger */
     height: 100%;
     min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .choco-modal-legend {
@@ -1228,7 +1236,8 @@ body.is-header-visible .topbar {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 10px;
+    padding-left: 0;
+    /* Removing inconsistent padding */
 }
 
 .choco-modal-icons {
@@ -1236,6 +1245,11 @@ body.is-header-visible .topbar {
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     justify-items: center;
+}
+
+.choco-modal-bottom {
+    padding: 32px 40px;
+    /* Matching top section padding */
 }
 
 @media (max-width: 768px) {
