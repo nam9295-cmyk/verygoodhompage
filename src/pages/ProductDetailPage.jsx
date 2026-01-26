@@ -7,6 +7,7 @@ import Modal from '../components/common/Modal';
 import ProductDetailModal from '../components/common/ProductDetailModal';
 import ChocolateDetailModal from '../components/products/ChocolateDetailModal';
 import DailyDetoxHero from '../components/product/DailyDetoxHero';
+import CreativeCacaoSection from '../components/product/CreativeCacaoSection';
 
 const styles = {
     productDetailPage: {
@@ -359,10 +360,14 @@ export default function ProductDetailPage() {
                         Product Details
                     </h3>
 
-                    {/* Common Detox Info (for Detox products only) */}
-                    {product.tags && product.tags.includes('DETOX') && (
+                    {/* Hero Section based on Product Type */}
+                    {(product.id === 'detox' || product.category === 'Detox' || (product.tags && product.tags.includes('DETOX'))) ? (
                         <div style={{ marginBottom: '80px' }}>
                             <DailyDetoxHero />
+                        </div>
+                    ) : (
+                        <div style={{ marginBottom: '80px' }}>
+                            <CreativeCacaoSection />
                         </div>
                     )}
 
