@@ -292,7 +292,12 @@ export default function ProductDetailPage() {
                         <h1 style={styles.pdTitle}>
                             {t(`products.${product.id}.name`)}
                         </h1>
-                        <div style={styles.pdPrice}>{t(`products.${product.id}.price`)}</div>
+                        <div style={styles.pdPrice}>
+                            {isKr
+                                ? `${(product.priceKRW || 0).toLocaleString()}원`
+                                : `$${(product.priceUSD || 0).toFixed(2)}`
+                            }
+                        </div>
                         <div style={styles.pdDesc}>
                             {t(`products.${product.id}.desc`)}
                         </div>
@@ -336,11 +341,11 @@ export default function ProductDetailPage() {
                                 style={{ ...styles.pdBtn, ...styles.pdBtnPrimary }}
                                 className="mobile-action-btn"
                                 onClick={() => {
-                                    const priceNum = product.price ? Number(product.price.toString().replace(/[^0-9.]/g, '')) : 0;
                                     addToCart({
                                         id: product.id,
                                         name: product.name,
-                                        price: priceNum,
+                                        priceKRW: product.priceKRW,
+                                        priceUSD: product.priceUSD,
                                         image: product.mainImage,
                                         quantity: quantity
                                     });

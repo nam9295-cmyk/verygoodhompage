@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { products } from '../data/products';
 
 const CartContext = createContext();
 
@@ -56,15 +57,34 @@ export function CartProvider({ children }) {
 
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
-    const cartTotal = cart.reduce((total, item) => {
-        // Assume price is clean number. If stored as string, parse it.
-        // We will store 'price' as number in addToCart call from DetailPage.
-        const price = Number(item.price) || 0;
-        return total + price * item.quantity;
-    }, 0);
+    const getCartTotal = () => {
+        let totalKRW = 0;
+        let totalUSD = 0;
+
+        cart.forEach(item => {
+            let pKRW = item.priceKRW;
+            let pUSD = item.priceUSD;
+
+            // Fallback: If prices are missing in cart item (old data), lookup in products
+            if (pKRW === undefined || pUSD === undefined) {
+                const productData = products.find(p => p.id === item.id);
+                if (productData) {
+                    pKRW = productData.priceKRW;
+                    pUSD = productData.priceUSD;
+                }
+            }
+
+            totalKRW += (pKRW || 0) * item.quantity;
+            totalUSD += (pUSD || 0) * item.quantity;
+        });
+
+        return { totalKRW, totalUSD };
+    };
+
+    const { totalKRW: cartTotalKRW, totalUSD: cartTotalUSD } = getCartTotal();
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, cartCount, cartTotal }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, cartCount, cartTotalKRW, cartTotalUSD }}>
             {children}
         </CartContext.Provider>
     );

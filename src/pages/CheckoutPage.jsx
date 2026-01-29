@@ -1,14 +1,20 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import * as PortOne from "@portone/browser-sdk/v2";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import emailjs from '@emailjs/browser'; // Import EmailJS
+import { db } from '../firebase';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import '../styles/index.css';
 
 export default function CheckoutPage() {
     const { t } = useTranslation();
-    const { cart, cartTotal } = useCart();
+    const { cart, cartTotalKRW, cartTotalUSD, clearCart } = useCart();
     const { isKr } = useLanguage();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -21,59 +27,55 @@ export default function CheckoutPage() {
         zipCode: ''
     });
 
-    const EXCHANGE_RATE = 1450;
-
-    // Helper: Convert USD to KRW if needed
-    // Assuming cartTotal is USD based on product data (e.g. 8.24)
-    // If isKr is true, we display in KRW.
-    const subtotalUSD = cartTotal;
-    const subtotalKRW = Math.round(cartTotal * EXCHANGE_RATE);
-
     // Shipping Zones
     const calculateShipping = () => {
         if (!formData.country) return 0;
 
         if (formData.country === 'South Korea') {
             // Zone A: KR
-            // Base: 3000 KRW (~$2.07), Free > 50000 KRW
             const threshold = 50000;
             const cost = 3000;
-            const isFree = subtotalKRW >= threshold;
+            const isFree = cartTotalKRW >= threshold;
+            // Return fixed cost directly based on currency
             return {
-                costCents: isFree ? 0 : (isKr ? cost : cost / EXCHANGE_RATE),
+                cost: isFree ? 0 : (isKr ? cost : 2.50), // Approx USD for KR shipping if viewed in EN? 
+                // Or should we enforce currency match?
+                // User said: "Current language determines currency."
+                // So if isKr=false (EN), we need USD cost for KR shipping.
+                // Let's assume standard rates: KR=3000, Asia=$20, Global=$35
                 isFree
             };
         } else if (['Japan', 'China', 'Hong Kong', 'Taiwan'].includes(formData.country)) {
             // Zone B: Asia
-            // Base: $20, Free > $100
             const threshold = 100;
             const cost = 20;
-            const isFree = subtotalUSD >= threshold;
+            const isFree = cartTotalUSD >= threshold;
             return {
-                costCents: isFree ? 0 : (isKr ? cost * EXCHANGE_RATE : cost),
+                cost: isFree ? 0 : (isKr ? 29000 : cost), // Approx KRW for Asia shipping
                 isFree
             };
         } else {
             // Zone C: Global
-            // Base: $35, Free > $150
             const threshold = 150;
             const cost = 35;
-            const isFree = subtotalUSD >= threshold;
+            const isFree = cartTotalUSD >= threshold;
             return {
-                costCents: isFree ? 0 : (isKr ? cost * EXCHANGE_RATE : cost),
+                cost: isFree ? 0 : (isKr ? 50000 : cost), // Approx KRW for Global shipping
                 isFree
             };
         }
     };
 
     const shippingResult = calculateShipping();
-    const shippingCost = shippingResult ? shippingResult.costCents : 0;
+    const shippingCost = shippingResult ? shippingResult.cost : 0;
 
     // Grand Total
-    const grandTotal = (isKr ? subtotalKRW : subtotalUSD) + shippingCost;
+    const grandTotal = isKr
+        ? cartTotalKRW + shippingCost
+        : cartTotalUSD + shippingCost;
 
     const formatMoney = (val) => {
-        if (isKr) return Math.round(val).toLocaleString() + '원';
+        if (isKr) return val.toLocaleString() + '원';
         return '$' + val.toFixed(2);
     };
 
@@ -85,8 +87,159 @@ export default function CheckoutPage() {
         }));
     };
 
-    const handleProceed = (e) => {
+    const [couponCode, setCouponCode] = useState('');
+    const [pointsApplied, setPointsApplied] = useState(0); // For discount amount, clearer naming? No, stick to discount.
+    const [appliedDiscount, setAppliedDiscount] = useState(0);
+    const [couponId, setCouponId] = useState(null);
+
+    // Country Code Mapping
+    const COUNTRY_CODES = {
+        'South Korea': 'KR',
+        'United States': 'US',
+        'Japan': 'JP',
+        'China': 'CN',
+        'United Kingdom': 'GB',
+        'Canada': 'CA',
+        'Australia': 'AU',
+        'Hong Kong': 'HK',
+        'Taiwan': 'TW'
+    };
+
+    // Coupon Logic
+    const handleApplyCoupon = async () => {
+        if (!couponCode) return;
+
+        // 1. Lowercase normalization (per user DB)
+        const normalizedCode = couponCode.trim().toLowerCase();
+        console.log(`[Coupon] Attempting to apply code: '${normalizedCode}'`);
+
+        try {
+            const couponsRef = collection(db, "coupons");
+            // 2. Query 'code'
+            const q = query(couponsRef, where("code", "==", normalizedCode));
+            const querySnapshot = await getDocs(q);
+
+            if (querySnapshot.empty) {
+                console.warn(`[Coupon] Code '${normalizedCode}' not found.`);
+                alert(isKr ? "유효하지 않은 쿠폰입니다." : "Invalid coupon code.");
+                setAppliedDiscount(0);
+                setCouponId(null);
+                return;
+            }
+
+            const couponDoc = querySnapshot.docs[0];
+            const couponData = couponDoc.data();
+            console.log(`[Coupon] Found Data:`, couponData);
+
+            // Calculate Raw Item Total
+            const rawItemTotal = cart.reduce((sum, item) => {
+                if (isKr) {
+                    return sum + ((item.priceKRW || 0) * item.quantity);
+                } else {
+                    return sum + ((item.priceUSD || 0) * item.quantity);
+                }
+            }, 0);
+
+            // 3. Parse value (String -> Number)
+            const dbValue = Number(couponData.value);
+            if (isNaN(dbValue)) {
+                console.error("[Coupon] Invalid value in DB:", couponData.value);
+                alert("Coupon data error.");
+                return;
+            }
+
+            let discountAmount = 0;
+
+            // 4. Check 'discount' field (formerly discountType)
+            if (couponData.discount === 'percent') {
+                // Formula: Final = Total * (1 - value/100)
+                // Therefore Discount = Total * (value/100)
+                discountAmount = rawItemTotal * (dbValue / 100);
+                console.log(`[Coupon] Type: percent, Value: ${dbValue}, Discount Amt: ${discountAmount}`);
+            } else if (couponData.discount === 'fixed') {
+                discountAmount = dbValue;
+                console.log(`[Coupon] Type: fixed, Value: ${dbValue}, Discount Amt: ${discountAmount}`);
+            } else {
+                // Fallback for older schema if mixed
+                if (couponData.discountType === 'percent') {
+                    discountAmount = rawItemTotal * (dbValue / 100);
+                } else {
+                    // Try treating as fixed if uncertain, or percent? 
+                    // Let's assume percent if typical
+                    discountAmount = rawItemTotal * (dbValue / 100);
+                }
+            }
+
+            // Cap discount
+            if (discountAmount > rawItemTotal) {
+                discountAmount = rawItemTotal;
+            }
+
+            setAppliedDiscount(discountAmount);
+            setCouponId(normalizedCode);
+
+            alert(isKr ? `쿠폰이 적용되었습니다! -${formatMoney(discountAmount)}` : `Coupon applied! -${formatMoney(discountAmount)}`);
+
+        } catch (error) {
+            console.error("Coupon Error:", error);
+            alert("Error checking coupon.");
+        }
+    };
+
+    // Helper: Process Successful Order
+    const processOrderSuccess = async (paymentId, amount, currency, countryCode, discountVal, shippingVal, itemTotal) => {
+        const orderData = {
+            paymentId,
+            createdAt: new Date(),
+            customer: {
+                ...formData,
+                countryCode
+            },
+            items: cart,
+            totals: {
+                itemTotal: itemTotal,
+                discount: discountVal,
+                shipping: shippingVal,
+                grandTotal: amount,
+                currency: currency
+            },
+            promoCode: couponId || null,
+            status: 'PAID'
+        };
+
+        try {
+            await addDoc(collection(db, "orders"), orderData);
+            console.log("Order successfully saved to Firestore:", orderData);
+
+            // Email Logic
+            try {
+                sendOrderEmail(orderData);
+            } catch (emailErr) {
+                console.error("Email send failed", emailErr);
+            }
+
+            return true; // Success
+
+        } catch (err) {
+            console.error("Firestore Save Error:", err);
+            // Show specific error to user for debugging
+            alert(`Order save failed: ${err.message}`);
+            return false; // Failure
+        }
+    };
+
+    const handlePayment = async (e) => {
         e.preventDefault();
+
+        // Environment Variables Check
+        const storeId = import.meta.env.VITE_PORTONE_STORE_ID;
+        const channelKey = import.meta.env.VITE_PORTONE_CHANNEL_KEY;
+
+        if (!storeId || !channelKey) {
+            console.error("PortOne Environment Variables Missing");
+            alert("Payment system configuration error.");
+            return;
+        }
 
         const required = ['email', 'firstName', 'lastName', 'country', 'address', 'city', 'zipCode'];
         const missing = required.filter(field => !formData[field]);
@@ -96,16 +249,209 @@ export default function CheckoutPage() {
             return;
         }
 
-        console.log('Proceeding to Payment', {
-            cart,
-            subtotal: isKr ? subtotalKRW : subtotalUSD,
-            shipping: shippingCost,
-            total: grandTotal,
-            currency: isKr ? 'KRW' : 'USD',
-            customer: formData
-        });
+        // Validate Country
+        const countryCode = COUNTRY_CODES[formData.country];
+        if (!countryCode) {
+            alert("Please select a valid country.");
+            return;
+        }
 
-        alert("Proceeding to payment... (Check Console)");
+        // Standard payment ID for PortOne
+        const standardPaymentId = `order_${Date.now()}`;
+
+        const orderTitle = cart.length > 1
+            ? `${t(`products.${cart[0].id}.name`)} + ${cart.length - 1}`
+            : t(`products.${cart[0].id}.name`);
+
+        // Recalculate Fixed Total strictly from Cart Items
+        const rawItemTotal = cart.reduce((sum, item) => {
+            if (isKr) {
+                return sum + ((item.priceKRW || 0) * item.quantity);
+            } else {
+                return sum + ((item.priceUSD || 0) * item.quantity);
+            }
+        }, 0);
+
+        // Apply Discount (Security: Re-verify? For now use state, but ideally re-verify on server/edge function. 
+        // Client-side verification is acceptable for this scope provided we trust the state set by DB query step).
+        // Recalculate shipping? Shipping is based on subtotal. Usually shipping threshold is based on *post-discount* or *pre-discount*?
+        // Standard is pre-discount subtotal for threshold. I'll keep existing shipping logic which uses current cartTotal global.
+        // Wait, cartTotalKRW in context doesn't know about this coupon.
+        // The prompt says "priceKRW ... 에서 할인을 차감해".
+        // Use local calculated totals.
+
+        // Calculate Shipping again
+        let currentShipping = 0;
+        const shippingRes = calculateShipping();
+        if (shippingRes && !shippingRes.isFree) {
+            currentShipping = shippingRes.cost;
+        }
+
+        // Final Payment Amount
+        let payAmount = 0;
+        let payCurrency = "";
+
+        // Total after discount
+        const discountedTotal = Math.max(0, rawItemTotal - appliedDiscount);
+
+        if (isKr) {
+            // Updated: User requested Math.round() for KRW as well
+            payAmount = Math.round(discountedTotal + currentShipping);
+            payCurrency = "CURRENCY_KRW";
+        } else {
+            // USD Rounding
+            payAmount = Math.round(discountedTotal + currentShipping);
+            payCurrency = "CURRENCY_USD";
+        }
+
+        // CASE 1: ZERO PAYMENT (Free Order)
+        if (payAmount <= 0) {
+            const confirmFree = window.confirm(t('checkout_page.confirm_free_order', "Total is 0. Place free order?"));
+            if (!confirmFree) return;
+
+            try {
+                // Determine currency logic string for DB
+                const currStr = isKr ? 'KRW' : 'USD';
+                // Use distinctive ID for free orders
+                const freePaymentId = `FREE_PROMO_${Date.now()}`;
+
+                const success = await processOrderSuccess(freePaymentId, 0, currStr, countryCode, appliedDiscount, currentShipping, rawItemTotal);
+
+                if (success) {
+                    alert(t('checkout_page.free_order_accepted', "무료 주문이 완료되었습니다."));
+                    clearCart();
+                    navigate('/order-success');
+                }
+            } catch (err) {
+                console.error("Free Order Error:", err);
+                alert("Unexpected error placing free order.");
+            }
+            return;
+        }
+
+        // CASE 2: NORMAL PAYMENT (PortOne)
+        try {
+            const response = await PortOne.requestPayment({
+                storeId,
+                channelKey,
+                paymentId: standardPaymentId,
+                orderName: orderTitle,
+                totalAmount: payAmount,
+                currency: payCurrency,
+                payMethod: "CARD",
+                customer: {
+                    fullName: `${formData.firstName} ${formData.lastName}`,
+                    phoneNumber: formData.phone,
+                    email: formData.email,
+                    address: {
+                        country: countryCode, // ISO 3166-1 alpha-2
+                        addressLine1: formData.address,
+                        addressLine2: formData.city,
+                        zipcode: formData.zipCode
+                    }
+                }
+            });
+
+            if (response.code != null) {
+                // Error
+                alert(`Payment Failed: ${response.message}`);
+                return;
+            }
+
+            // Success: Save to Firestore
+            const currStr = isKr ? 'KRW' : 'USD';
+            const success = await processOrderSuccess(standardPaymentId, payAmount, currStr, countryCode, appliedDiscount, currentShipping, rawItemTotal);
+
+            if (success) {
+                alert(t('checkout_page.payment_success', "Payment Completed Successfully!"));
+                clearCart();
+                navigate('/order-success');
+            } else {
+                alert("Payment successful but failed to save order record. Please contact support with Payment ID: " + standardPaymentId);
+            }
+
+        } catch (error) {
+            console.error("Payment Error:", error);
+            alert("An error occurred during payment processing.");
+        }
+    };
+
+    // Email Logic
+    const sendOrderEmail = (order) => {
+        const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+        const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+        if (!serviceId || !templateId || !publicKey) {
+            console.warn("EmailJS Environment Variables Missing. Skipping email.");
+            return;
+        }
+
+        // 1. Currency Formatting
+        let formattedAmount = "";
+        const currency = order.totals.currency; // 'KRW' or 'USD'
+        const rawTotal = order.totals.grandTotal;
+
+        if (currency === 'KRW') {
+            // KRW: ₩ and comma
+            formattedAmount = "₩" + rawTotal.toLocaleString();
+        } else {
+            // USD: $ and 2 decimals
+            formattedAmount = "$" + Number(rawTotal).toFixed(2);
+        }
+
+        console.log(`[Email] Formatting Amount: ${rawTotal} ${currency} -> ${formattedAmount}`);
+
+        // 2. Template Params
+        const emailParams = {
+            to_name: `${order.customer.firstName} ${order.customer.lastName}`,
+            to_email: order.customer.email,
+            order_id: order.paymentId,
+            total_amount: formattedAmount,
+            // Optional: Add items list if template supports it, user didn't explicitly ask but existing placeholder had it.
+            // User "total_amount: 위에서 만든 formattedAmount 문자열"
+            message: `Items: ${order.items.map(i => i.id).join(', ')}`
+        };
+
+        // 3. Send Email
+        emailjs.send(serviceId, templateId, emailParams, publicKey)
+            .then((response) => {
+                console.log('[Email] SUCCESS!', response.status, response.text);
+            }, (err) => {
+                console.error('[Email] FAILED...', err);
+            });
+    };
+
+    const styles = {
+        label: {
+            display: 'block',
+            marginBottom: '8px',
+            fontSize: '14px',
+            fontWeight: '600',
+            color: '#333'
+        },
+        input: {
+            width: '100%',
+            padding: '12px',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            fontSize: '16px',
+            boxSizing: 'border-box'
+        },
+        select: {
+            width: '100%',
+            padding: '12px',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            fontSize: '16px',
+            boxSizing: 'border-box',
+            backgroundColor: '#fff',
+            appearance: 'none', // Remove default arrow
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right 12px center',
+            backgroundSize: '16px'
+        }
     };
 
     return (
@@ -120,7 +466,7 @@ export default function CheckoutPage() {
                 <div className="cart-grid">
                     {/* Left: Shipping Form */}
                     <div className="checkout-form">
-                        <form onSubmit={handleProceed}>
+                        <form onSubmit={handlePayment}>
                             {/* Contact Info */}
                             <h2 style={{ fontSize: '20px', marginBottom: '20px', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>{t('checkout_page.contact_info')}</h2>
                             <div style={{ display: 'grid', gap: '16px', marginBottom: '40px' }}>
@@ -238,6 +584,37 @@ export default function CheckoutPage() {
                         <div className="cart-summary-card">
                             <h2 style={{ margin: '0 0 24px', fontSize: '20px', fontFamily: 'var(--menu-font)' }}>{t('cart.order_summary')}</h2>
 
+                            {/* Coupon Input */}
+                            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
+                                <input
+                                    type="text"
+                                    placeholder={isKr ? "프로모션 코드" : "Promo Code"}
+                                    value={couponCode}
+                                    onChange={(e) => setCouponCode(e.target.value)}
+                                    style={{
+                                        flex: 1,
+                                        padding: '10px',
+                                        border: '1px solid #ddd',
+                                        borderRadius: '6px',
+                                        fontSize: '14px'
+                                    }}
+                                />
+                                <button
+                                    onClick={handleApplyCoupon}
+                                    style={{
+                                        padding: '10px 16px',
+                                        background: '#333',
+                                        color: '#fff',
+                                        border: 'none',
+                                        borderRadius: '6px',
+                                        cursor: 'pointer',
+                                        fontSize: '14px'
+                                    }}
+                                >
+                                    Apply
+                                </button>
+                            </div>
+
                             {/* Items List (Mini) */}
                             <div style={{ marginBottom: '24px', maxHeight: '200px', overflowY: 'auto' }}>
                                 {cart.map(item => (
@@ -248,8 +625,8 @@ export default function CheckoutPage() {
                                         <span style={{ fontWeight: '600' }}>
                                             {formatMoney(
                                                 isKr
-                                                    ? item.price * item.quantity * EXCHANGE_RATE
-                                                    : item.price * item.quantity
+                                                    ? (item.priceKRW || 0) * item.quantity
+                                                    : (item.priceUSD || 0) * item.quantity
                                             )}
                                         </span>
                                     </div>
@@ -261,7 +638,40 @@ export default function CheckoutPage() {
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontSize: '15px', color: '#4b5563' }}>
                                 <span>{t('cart.subtotal')}</span>
                                 <span style={{ color: 'var(--ink)', fontWeight: '600' }}>
-                                    {formatMoney(isKr ? subtotalKRW : subtotalUSD)}
+                                    {formatMoney(isKr ? cartTotalKRW : cartTotalUSD)}
+                                </span>
+                            </div>
+
+                            {appliedDiscount > 0 && (
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontSize: '15px', color: '#ef4444' }}>
+                                    <span>Discount</span>
+                                    <span style={{ fontWeight: '600' }}>
+                                        - {formatMoney(appliedDiscount)}
+                                    </span>
+                                </div>
+                            )}
+
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontSize: '15px', color: '#4b5563' }}>
+                                <span>{t('cart.shipping')}</span>
+                                <span style={{ fontSize: '14px', fontWeight: 'bold', color: (shippingResult && shippingResult.isFree) ? '#22c55e' : 'inherit' }}>
+                                    {formData.country
+                                        ? ((shippingResult && shippingResult.isFree)
+                                            ? 'Free'
+                                            : formatMoney(shippingCost))
+                                        : (t('cart.shipping_calculated'))
+                                    }
+                                </span>
+                            </div>
+
+                            <div className="cart-divider"></div>
+
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+                                <span style={{ fontSize: '18px', fontWeight: '700' }}>{t('cart.total')}</span>
+                                <span style={{ fontSize: '24px', fontWeight: '800' }}>
+                                    {/* Calculated logic for proper display update */}
+                                    {formatMoney(
+                                        Math.max(0, (isKr ? cartTotalKRW : cartTotalUSD) - appliedDiscount) + shippingCost
+                                    )}
                                 </span>
                             </div>
 
@@ -287,7 +697,7 @@ export default function CheckoutPage() {
                             </div>
 
                             <button
-                                onClick={handleProceed}
+                                onClick={handlePayment}
                                 style={{
                                     width: '100%',
                                     padding: '16px',

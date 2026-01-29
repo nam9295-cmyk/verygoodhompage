@@ -7,7 +7,7 @@ import '../styles/index.css';
 
 export default function CartPage() {
     const { t } = useTranslation();
-    const { cart, removeFromCart, updateQuantity, cartTotal } = useCart();
+    const { cart, removeFromCart, updateQuantity, cartTotalKRW, cartTotalUSD } = useCart();
     const { isKr } = useLanguage();
 
     const navigate = useNavigate();
@@ -61,7 +61,10 @@ export default function CartPage() {
                                             </p>
                                         </div>
                                         <div style={{ fontSize: '18px', fontWeight: '600' }}>
-                                            {isKr ? `${(Number(item.price) * item.quantity).toLocaleString()}원` : `$${(item.price * item.quantity).toFixed(2)}`}
+                                            {isKr
+                                                ? `${((item.priceKRW || 0) * item.quantity).toLocaleString()}원`
+                                                : `$${((item.priceUSD || 0) * item.quantity).toFixed(2)}`
+                                            }
                                         </div>
                                     </div>
 
@@ -120,7 +123,7 @@ export default function CartPage() {
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontSize: '15px', color: '#4b5563' }}>
                                 <span>{t('cart.subtotal')}</span>
                                 <span style={{ color: 'var(--ink)', fontWeight: '600' }}>
-                                    {isKr ? `${cartTotal.toLocaleString()}원` : `$${cartTotal.toFixed(2)}`}
+                                    {isKr ? `${cartTotalKRW.toLocaleString()}원` : `$${cartTotalUSD.toFixed(2)}`}
                                 </span>
                             </div>
 
@@ -134,7 +137,7 @@ export default function CartPage() {
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                                 <span style={{ fontSize: '18px', fontWeight: '700' }}>{t('cart.total')}</span>
                                 <span style={{ fontSize: '24px', fontWeight: '800' }}>
-                                    {isKr ? `${cartTotal.toLocaleString()}원` : `$${cartTotal.toFixed(2)}`}
+                                    {isKr ? `${cartTotalKRW.toLocaleString()}원` : `$${cartTotalUSD.toFixed(2)}`}
                                 </span>
                             </div>
 
