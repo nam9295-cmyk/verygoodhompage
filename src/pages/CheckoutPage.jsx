@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '../context/CartContext';
@@ -21,18 +21,61 @@ export default function CheckoutPage() {
         zipCode: ''
     });
 
-    // Shipping Cost Logic
-    // KR: 3000 KRW (approx $2.50)
-    // Other: $30.00
-    const shippingCost = formData.country === 'South Korea'
-        ? (isKr ? 3000 : 2.50)
-        : (isKr ? 36000 : 30.00); // 30 USD ~ 36000 KRW
+    const EXCHANGE_RATE = 1450;
 
-    // If no country selected yet, show 0 or placeholder
-    const finalShipping = formData.country ? shippingCost : 0;
+    // Helper: Convert USD to KRW if needed
+    // Assuming cartTotal is USD based on product data (e.g. 8.24)
+    // If isKr is true, we display in KRW.
+    const subtotalUSD = cartTotal;
+    const subtotalKRW = Math.round(cartTotal * EXCHANGE_RATE);
+
+    // Shipping Zones
+    const calculateShipping = () => {
+        if (!formData.country) return 0;
+
+        if (formData.country === 'South Korea') {
+            // Zone A: KR
+            // Base: 3000 KRW (~$2.07), Free > 50000 KRW
+            const threshold = 50000;
+            const cost = 3000;
+            const isFree = subtotalKRW >= threshold;
+            return {
+                costCents: isFree ? 0 : (isKr ? cost : cost / EXCHANGE_RATE),
+                isFree
+            };
+        } else if (['Japan', 'China', 'Hong Kong', 'Taiwan'].includes(formData.country)) {
+            // Zone B: Asia
+            // Base: $20, Free > $100
+            const threshold = 100;
+            const cost = 20;
+            const isFree = subtotalUSD >= threshold;
+            return {
+                costCents: isFree ? 0 : (isKr ? cost * EXCHANGE_RATE : cost),
+                isFree
+            };
+        } else {
+            // Zone C: Global
+            // Base: $35, Free > $150
+            const threshold = 150;
+            const cost = 35;
+            const isFree = subtotalUSD >= threshold;
+            return {
+                costCents: isFree ? 0 : (isKr ? cost * EXCHANGE_RATE : cost),
+                isFree
+            };
+        }
+    };
+
+    const shippingResult = calculateShipping();
+    const shippingCost = shippingResult ? shippingResult.costCents : 0;
 
     // Grand Total
-    const grandTotal = cartTotal + finalShipping;
+    const grandTotal = (isKr ? subtotalKRW : subtotalUSD) + shippingCost;
+
+    const formatMoney = (val) => {
+        if (isKr) return Math.round(val).toLocaleString() + '원';
+        return '$' + val.toFixed(2);
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -45,7 +88,6 @@ export default function CheckoutPage() {
     const handleProceed = (e) => {
         e.preventDefault();
 
-        // Basic Validation
         const required = ['email', 'firstName', 'lastName', 'country', 'address', 'city', 'zipCode'];
         const missing = required.filter(field => !formData[field]);
 
@@ -54,10 +96,12 @@ export default function CheckoutPage() {
             return;
         }
 
-        console.log('Proceeding to Payment with Data:', {
+        console.log('Proceeding to Payment', {
             cart,
-            shipping: finalShipping,
+            subtotal: isKr ? subtotalKRW : subtotalUSD,
+            shipping: shippingCost,
             total: grandTotal,
+            currency: isKr ? 'KRW' : 'USD',
             customer: formData
         });
 
@@ -145,6 +189,9 @@ export default function CheckoutPage() {
                                         <option value="China">China</option>
                                         <option value="United Kingdom">United Kingdom</option>
                                         <option value="Canada">Canada</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="Hong Kong">Hong Kong</option>
+                                        <option value="Taiwan">Taiwan</option>
                                     </select>
                                 </div>
 
@@ -199,9 +246,11 @@ export default function CheckoutPage() {
                                             {t(`products.${item.id}.name`)} x {item.quantity}
                                         </span>
                                         <span style={{ fontWeight: '600' }}>
-                                            {isKr
-                                                ? `${(item.price * item.quantity).toLocaleString()}원`
-                                                : `$${(item.price * item.quantity).toFixed(2)}`}
+                                            {formatMoney(
+                                                isKr
+                                                    ? item.price * item.quantity * EXCHANGE_RATE
+                                                    : item.price * item.quantity
+                                            )}
                                         </span>
                                     </div>
                                 ))}
@@ -209,18 +258,20 @@ export default function CheckoutPage() {
 
                             <div className="cart-divider"></div>
 
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '15px', color: '#4b5563' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontSize: '15px', color: '#4b5563' }}>
                                 <span>{t('cart.subtotal')}</span>
                                 <span style={{ color: 'var(--ink)', fontWeight: '600' }}>
-                                    {isKr ? `${cartTotal.toLocaleString()}원` : `$${cartTotal.toFixed(2)}`}
+                                    {formatMoney(isKr ? subtotalKRW : subtotalUSD)}
                                 </span>
                             </div>
 
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontSize: '15px', color: '#4b5563' }}>
                                 <span>{t('cart.shipping')}</span>
-                                <span style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                                <span style={{ fontSize: '14px', fontWeight: 'bold', color: (shippingResult && shippingResult.isFree) ? '#22c55e' : 'inherit' }}>
                                     {formData.country
-                                        ? (isKr ? `${finalShipping.toLocaleString()}원` : `$${finalShipping.toFixed(2)}`)
+                                        ? ((shippingResult && shippingResult.isFree)
+                                            ? 'Free'
+                                            : formatMoney(shippingCost))
                                         : (t('cart.shipping_calculated'))
                                     }
                                 </span>
@@ -231,7 +282,7 @@ export default function CheckoutPage() {
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                                 <span style={{ fontSize: '18px', fontWeight: '700' }}>{t('cart.total')}</span>
                                 <span style={{ fontSize: '24px', fontWeight: '800' }}>
-                                    {isKr ? `${grandTotal.toLocaleString()}원` : `$${grandTotal.toFixed(2)}`}
+                                    {formatMoney(grandTotal)}
                                 </span>
                             </div>
 
