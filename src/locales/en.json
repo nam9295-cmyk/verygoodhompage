@@ -33,6 +33,26 @@
         "shipping_calculated": "Calculated at checkout",
         "total": "Total"
     },
+    "checkout_page": {
+        "title": "Checkout",
+        "contact_info": "Contact Information",
+        "email": "Email",
+        "phone": "Phone",
+        "shipping_address": "Shipping Address",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "country": "Country",
+        "select_country": "Select Country",
+        "address": "Address",
+        "city": "City",
+        "zip_code": "Zip Code",
+        "shipping_method": "Shipping Method",
+        "payment": "Payment",
+        "proceed_payment": "Proceed to Payment",
+        "shipping_kr": "Domestic Shipping",
+        "shipping_intl": "International Shipping",
+        "essential": "Required field."
+    },
     "footer": {
         "company_name_label": "Company Name:",
         "company_name": "Very Good Co., Ltd.",

@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -10,9 +10,10 @@ export default function CartPage() {
     const { cart, removeFromCart, updateQuantity, cartTotal } = useCart();
     const { isKr } = useLanguage();
 
+    const navigate = useNavigate();
+
     const handleCheckout = () => {
-        console.log('Proceed to payment');
-        // Future PortOne integration
+        navigate('/checkout');
     };
 
     if (cart.length === 0) {

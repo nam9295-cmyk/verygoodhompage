@@ -33,6 +33,26 @@
         "shipping_calculated": "결제 시 계산됩니다",
         "total": "총 결제금액"
     },
+    "checkout_page": {
+        "title": "주문 결제",
+        "contact_info": "연락처 정보",
+        "email": "이메일",
+        "phone": "전화번호",
+        "shipping_address": "배송 주소",
+        "first_name": "이름",
+        "last_name": "성",
+        "country": "국가",
+        "select_country": "국가 선택",
+        "address": "주소",
+        "city": "도시",
+        "zip_code": "우편번호",
+        "shipping_method": "배송 방법",
+        "payment": "결제",
+        "proceed_payment": "결제 진행하기",
+        "shipping_kr": "국내 배송",
+        "shipping_intl": "해외 배송",
+        "essential": "필수 항목입니다."
+    },
     "footer": {
         "company_name_label": "상호명:",
         "company_name": "주식회사 베리굿",
