@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../context/LanguageContext';
 import { products } from '../data/products';
 import Modal from '../components/common/Modal';
@@ -95,11 +96,11 @@ const styles = {
         lineHeight: 1.1,
     },
     pdPrice: {
-        fontSize: '32px',
-        fontWeight: 400,
+        fontSize: 'clamp(30px, 4vw, 36px)', // text-3xl to text-4xl
+        fontWeight: 900, // font-black
         marginBottom: '32px',
-        color: 'var(--ink)',
-        letterSpacing: '-0.02em',
+        color: '#111827', // text-gray-900
+        letterSpacing: '-0.025em', // tracking-tight
     },
     pdDesc: {
         fontSize: '16px',
@@ -207,6 +208,7 @@ const styles = {
 
 export default function ProductDetailPage() {
     const { id } = useParams();
+    const { t } = useTranslation();
     const { isKr } = useLanguage();
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [showChocolateModal, setShowChocolateModal] = useState(false);
@@ -250,8 +252,8 @@ export default function ProductDetailPage() {
     return (
         <>
             <Helmet>
-                <title>{isKr && product.name_ko ? product.name_ko : product.name} - Very Good Chocolate</title>
-                <meta name="description" content={isKr && product.description_ko ? product.description_ko : product.description} />
+                <title>{t(`products.${product.id}.name`)} - Very Good Chocolate</title>
+                <meta name="description" content={t(`products.${product.id}.desc`)} />
                 <link rel="canonical" href={`https://verygood-chocolate.com/product/${id}`} />
             </Helmet>
 
@@ -285,11 +287,11 @@ export default function ProductDetailPage() {
                     <div style={styles.pdInfoArea} className="pd-info-area-mobile">
                         <div style={styles.pdCategory}>{product.category}</div>
                         <h1 style={styles.pdTitle}>
-                            {isKr && product.name_ko ? product.name_ko : product.name}
+                            {t(`products.${product.id}.name`)}
                         </h1>
-                        <div style={styles.pdPrice}>{product.priceStr}</div>
+                        <div style={styles.pdPrice}>{t(`products.${product.id}.price`)}</div>
                         <div style={styles.pdDesc}>
-                            {isKr && product.description_ko ? product.description_ko : product.description}
+                            {t(`products.${product.id}.desc`)}
                         </div>
                         <div style={styles.pdActions} className="pd-actions-mobile">
                             <button

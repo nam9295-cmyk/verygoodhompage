@@ -1,0 +1,105 @@
+{
+    "header": {
+        "menu": "메뉴",
+        "close": "닫기",
+        "back": "뒤로",
+        "home": "홈",
+        "about": "소개",
+        "business_story": "브랜드 스토리",
+        "chocolate": "초콜릿",
+        "tea": "티",
+        "gift": "선물세트",
+        "story": "이야기",
+        "blog": "블로그",
+        "contact": "문의하기",
+        "order": "주문하기",
+        "back_to": "{{category}} (으)로 돌아가기"
+    },
+    "footer": {
+        "company_name_label": "상호명:",
+        "company_name": "주식회사 베리굿",
+        "owner_label": "대표자:",
+        "owner": "천정민",
+        "business_license_label": "사업자등록번호:",
+        "mail_order_license_label": "통신판매업신고:",
+        "address_label": "주소:",
+        "address": "대구광역시 수성구 상녹로 11길 13, 1층",
+        "contact_label": "이메일:",
+        "tel_label": "전화:",
+        "copyright": "Copyright: © {{year}} Very Good Co., Ltd. All rights reserved.",
+        "privacy": "개인정보처리방침",
+        "terms": "이용약관",
+        "refund": "반품/환불 정책"
+    },
+    "products": {
+        "almond-chocoball": {
+            "name": "아몬드 초코볼",
+            "price": "11,000원",
+            "desc": "프리미엄 다크 초콜릿이 감싼 고소한 아몬드의 완벽한 조화."
+        },
+        "ruby-berry-chocoball": {
+            "name": "루비 베리 초콜릿",
+            "price": "12,000원",
+            "desc": "천연 핑크빛 루비 초콜릿과 새콤달콤한 베리의 만남."
+        },
+        "matcha-berry": {
+            "name": "제주 말차 베리",
+            "price": "12,000원",
+            "desc": "제주 말차의 진한 풍미와 쫀득한 크랜베리의 조화."
+        },
+        "strawberry-bonbon": {
+            "name": "딸기 봉봉",
+            "price": "10,000원",
+            "desc": "부드러운 화이트 초콜릿 속에 통째로 들어간 동결건조 딸기."
+        },
+        "british-black": {
+            "name": "브리티쉬 블랙",
+            "price": "10,000원",
+            "desc": "깊고 그윽한 향의 홍차 블렌딩. 나른한 오후의 휴식에 완벽하게 어울립니다.",
+            "modal_subtitle": "거창 도라지와 함께",
+            "modal_desc": "도라지의 기분 좋은 쌉싸름함과 홍차의 깊은 풍미가 만나 따뜻하고 편안한 한 잔을 선사합니다."
+        },
+        "asian-gold": {
+            "name": "아시안 골드",
+            "price": "10,000원",
+            "desc": "부드러운 꽃향기가 감도는 황금빛 우롱티입니다.",
+            "modal_subtitle": "고흥 유자와 함께",
+            "modal_desc": "유자의 밝고 상큼한 신선함이 우롱차의 깊은 맛과 어우러져 마시는 비타민을 전달합니다."
+        },
+        "hibiscus-fruit": {
+            "name": "히비스커스 프룻",
+            "price": "10,000원",
+            "desc": "상큼한 히비스커스와 열대 과일의 생기 넘치는 블렌딩. 리프레쉬를 위한 디톡스 티입니다.",
+            "modal_subtitle": "문경 오미자와 함께",
+            "modal_desc": "오미자의 간 해독 작용과 히비스커스의 이뇨 작용이 만나 완벽한 바디 클렌즈를 돕습니다."
+        },
+        "minty-chocolat": {
+            "name": "민티 쇼콜라",
+            "price": "10,000원",
+            "desc": "상쾌한 민트티에 카카오 닙스를 더해 은은한 초콜릿 풍미를 남깁니다.",
+            "modal_subtitle": "제주 말차와 함께",
+            "modal_desc": "녹차가 주는 차분함과 상쾌한 민트가 만나 바쁜 마음을 식혀주는 휴식 같은 순간을 제공합니다."
+        },
+        "gift-2-set": {
+            "name": "2구 선물세트",
+            "price": "25,000원",
+            "desc": "엄선된 프리미엄 초콜릿 2종을 시그니처 삼각 박스에 담았습니다."
+        },
+        "gift-4-set": {
+            "name": "4구 선물세트",
+            "price": "35,000원",
+            "desc": "베리굿의 최고급 초콜릿 4종을 모두 담은 럭셔리 패키지 컬렉션입니다."
+        },
+        "hogirl-key-ring": {
+            "name": "호걸이 키링",
+            "price": "3,000원",
+            "desc": "가방이나 열쇠에 귀여움을 더해줄 호걸 마스코트 키링입니다."
+        },
+        "horse-key-ring": {
+            "name": "말 키링",
+            "price": "3,000원",
+            "desc": "자유와 에너지를 상징하는 우아한 말 마스코트 키링입니다."
+        },
+        "flavor_specs": "맛 특징"
+    }
+}

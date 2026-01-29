@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
+    const { t } = useTranslation();
     const year = new Date().getFullYear();
 
     return (
@@ -12,20 +14,20 @@ export default function Footer() {
                         <div className="footer-brand" style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '20px' }}>VERYGOOD CHOCOLATE</div>
                         <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.6' }}>
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 20px', alignItems: 'center' }}>
-                                <span>Company Name: Very Good Co., Ltd.</span>
+                                <span>{t('footer.company_name_label')} {t('footer.company_name')}</span>
                                 <span style={{ color: '#ddd' }}>|</span>
-                                <span>Owner: JEONGMIN CHEON</span>
+                                <span>{t('footer.owner_label')} {t('footer.owner')}</span>
                                 <span style={{ color: '#ddd' }}>|</span>
-                                <span>Business License: 850-81-02950</span>
+                                <span>{t('footer.business_license_label')} 850-81-02950</span>
                                 <span style={{ color: '#ddd' }}>|</span>
-                                <span>Mail-order License: 2023-DaeguDalseo-1940</span>
+                                <span>{t('footer.mail_order_license_label')} 2023-DaeguDalseo-1940</span>
                             </div>
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 20px', alignItems: 'center', marginTop: '10px' }}>
-                                <span>Address: 1F 13 Sangnok-ro 11-gil, Suseong-gu, Daegu, 42014, Republic of Korea</span>
+                                <span>{t('footer.address_label')} {t('footer.address')}</span>
                                 <span style={{ color: '#ddd' }}>|</span>
-                                <span>Contact: verygoutchocolate@gmail.com</span>
+                                <span>{t('footer.contact_label')} verygoutchocolate@gmail.com</span>
                                 <span style={{ color: '#ddd' }}>|</span>
-                                <span>Tel: +82-70-7840-0717</span>
+                                <span>{t('footer.tel_label')} +82-70-7840-0717</span>
                             </div>
                         </div>
                     </div>
@@ -33,15 +35,15 @@ export default function Footer() {
 
                 <div className="footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #ddd', paddingTop: '20px', flexWrap: 'wrap', gap: '15px' }}>
                     <div className="footer-copyright" style={{ fontSize: '13px', color: '#888' }}>
-                        Copyright: © {year} Very Good Co., Ltd. All rights reserved.
+                        {t('footer.copyright', { year })}
                     </div>
 
                     <div className="footer-links" style={{ display: 'flex', gap: '20px' }}>
-                        <Link to="/terms" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>Terms of Service</Link>
+                        <Link to="/terms" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>{t('footer.terms')}</Link>
                         <span style={{ color: '#ddd' }}>|</span>
-                        <Link to="/privacy" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>Privacy Policy</Link>
+                        <Link to="/privacy" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>{t('footer.privacy')}</Link>
                         <span style={{ color: '#ddd' }}>|</span>
-                        <Link to="/refund" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>Refund Policy</Link>
+                        <Link to="/refund" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>{t('footer.refund')}</Link>
                     </div>
                 </div>
 

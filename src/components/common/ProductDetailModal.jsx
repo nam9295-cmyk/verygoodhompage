@@ -208,7 +208,10 @@ const styles = {
     },
 };
 
+import { useTranslation } from 'react-i18next';
+
 export default function ProductDetailModal({ isOpen, onClose, product }) {
+    const { t } = useTranslation();
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -325,10 +328,10 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
 
                 {/* Bottom Section: Description + Icons */}
                 <div style={styles.bottomSection} className="product-detail-modal-bottom">
-                    <h2 style={styles.productTitle}>{data.name}</h2>
-                    <p style={styles.productSubtitle}>{data.subtitle}</p>
+                    <h2 style={styles.productTitle}>{t(`products.${product.id}.name`)}</h2>
+                    <p style={styles.productSubtitle}>{t(`products.${product.id}.modal_subtitle`)}</p>
                     <p style={styles.productDescription}>
-                        {data.description}
+                        {t(`products.${product.id}.modal_desc`)}
                     </p>
 
                     <div style={styles.iconsContainer} className="product-detail-modal-icons">

@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function ProductCard({ product, variants }) {
+    const { t } = useTranslation();
     const { isKr } = useLanguage();
     const [isHovered, setIsHovered] = useState(false);
 
@@ -65,12 +67,25 @@ export default function ProductCard({ product, variants }) {
 
                 {/* 2. Title */}
                 <div className="title">
-                    {isKr && product.name_ko ? product.name_ko : product.name}
+                    {t(`products.${product.id}.name`)}
                 </div>
 
-                {/* 3. Amazon Style Price */}
+                {/* 3. Price */}
                 <div className="meta">
-                    {renderPrice()}
+                    <div className="product-card-price" style={{
+                        fontSize: '20px',
+                        fontWeight: '400',
+                        fontFamily: 'Arial, Helvetica, sans-serif',
+                        color: '#0F1111',
+                        marginTop: '8px',
+                        display: 'block',
+                        letterSpacing: '0',
+                        lineHeight: '1.2'
+                    }}>
+                        <span className="currency" style={{ fontSize: 'inherit', fontWeight: 'inherit', fontFamily: 'inherit', color: 'inherit' }}>
+                            {t(`products.${product.id}.price`)}
+                        </span>
+                    </div>
                 </div>
 
                 {/* 4. Button */}

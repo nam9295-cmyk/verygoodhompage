@@ -1,0 +1,105 @@
+{
+    "header": {
+        "menu": "Menu",
+        "close": "Close",
+        "back": "Back",
+        "home": "Home",
+        "about": "ABOUT",
+        "business_story": "BUSINESS STORY",
+        "chocolate": "CHOCOLATE",
+        "tea": "TEA",
+        "gift": "GIFT",
+        "story": "STORY",
+        "blog": "BLOG",
+        "contact": "CONTACT",
+        "order": "ORDER",
+        "back_to": "Back to {{category}}"
+    },
+    "footer": {
+        "company_name_label": "Company Name:",
+        "company_name": "Very Good Co., Ltd.",
+        "owner_label": "Owner:",
+        "owner": "JEONGMIN CHEON",
+        "business_license_label": "Business License:",
+        "mail_order_license_label": "Mail-order License:",
+        "address_label": "Address:",
+        "address": "1F 13 Sangnok-ro 11-gil, Suseong-gu, Daegu, 42014, Republic of Korea",
+        "contact_label": "Contact:",
+        "tel_label": "Tel:",
+        "copyright": "Copyright: © {{year}} Very Good Co., Ltd. All rights reserved.",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "refund": "Refund Policy"
+    },
+    "products": {
+        "almond-chocoball": {
+            "name": "Almond Chocoball",
+            "price": "$8.24",
+            "desc": "Savory almonds coated in premium dark chocolate."
+        },
+        "ruby-berry-chocoball": {
+            "name": "Ruby Berry Chocolate",
+            "price": "$8.98",
+            "desc": "Natural pink ruby chocolate with sweet and sour berry flavor."
+        },
+        "matcha-berry": {
+            "name": "Jeju Matcha Berry",
+            "price": "$8.98",
+            "desc": "Deep flavor of Jeju matcha meeting chewy cranberries."
+        },
+        "strawberry-bonbon": {
+            "name": "Strawberry Bonbon",
+            "price": "$7.49",
+            "desc": "Whole freeze-dried strawberries inside creamy white chocolate."
+        },
+        "british-black": {
+            "name": "British Black",
+            "price": "$7.49",
+            "desc": "Deep and aromatic black tea blend, perfect for a relaxing afternoon.",
+            "modal_subtitle": "with Geochang Doraji",
+            "modal_desc": "The pleasant bitterness of balloon flower root (doraji) meets the deep richness of black tea, creating a warm and comforting cup."
+        },
+        "asian-gold": {
+            "name": "Asian Gold",
+            "price": "$7.49",
+            "desc": "Golden Oolong tea with a smooth, floral finish.",
+            "modal_subtitle": "with Goheung Yuja",
+            "modal_desc": "The bright, citrusy freshness of yuja (yuzu) blends with the deep taste of oolong, delivering vitamins you can drink."
+        },
+        "hibiscus-fruit": {
+            "name": "Hibiscus Fruit",
+            "price": "$7.49",
+            "desc": "Zesty hibiscus vibrantly blended with tropical fruits for a refreshing detox tea.",
+            "modal_subtitle": "with Mungyeong Omija",
+            "modal_desc": "Omija’s liver-cleansing support meets hibiscus’ diuretic action, helping a complete body cleanse."
+        },
+        "minty-chocolat": {
+            "name": "Minty Chocolat",
+            "price": "$7.49",
+            "desc": "Refreshing mint tea with a hint of cacao nibs for a chocolatey aftertaste.",
+            "modal_subtitle": "with Jeju Matcha",
+            "modal_desc": "The calmness of green tea meets refreshing mint, offering a restful moment that cools a busy mind."
+        },
+        "gift-2-set": {
+            "name": "Gift Set (2pcs)",
+            "price": "$22.99",
+            "desc": "A curated set of 2 premium chocolates, packaged in our signature triangular box."
+        },
+        "gift-4-set": {
+            "name": "Gift Set (4pcs)",
+            "price": "$29.89",
+            "desc": "The ultimate collection. 4 varieties of our finest chocolates in a luxurious package."
+        },
+        "hogirl-key-ring": {
+            "name": "Hogirl Key-ring",
+            "price": "$2.10",
+            "desc": "Cute Hogirl mascot key-ring to accompany your bag or keys."
+        },
+        "horse-key-ring": {
+            "name": "Horse Key-ring",
+            "price": "$2.10",
+            "desc": "Elegant horse mascot key-ring, a symbol of freedom and energy."
+        },
+        "flavor_specs": "Flavor Specs"
+    }
+}

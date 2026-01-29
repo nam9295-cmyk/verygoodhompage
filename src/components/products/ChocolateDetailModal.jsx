@@ -159,8 +159,11 @@ const styles = {
     },
 };
 
+import { useTranslation } from 'react-i18next';
+
 export default function ChocolateDetailModal({ product, onClose }) {
     const { isKr } = useLanguage();
+    const { t } = useTranslation();
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -249,7 +252,7 @@ export default function ChocolateDetailModal({ product, onClose }) {
 
                             {/* Legend Side Panel */}
                             <div style={styles.legendContainer} className="choco-modal-legend">
-                                <div style={styles.legendTitle}>Flavor Specs</div>
+                                <div style={styles.legendTitle}>{t('products.flavor_specs')}</div>
                                 <ul style={styles.legendList}>
                                     {product.flavorStats && product.flavorStats.map((stat, idx) => (
                                         <li key={idx} style={styles.legendItem}>
@@ -269,13 +272,13 @@ export default function ChocolateDetailModal({ product, onClose }) {
                     {/* Bottom Section */}
                     <div style={styles.bottomSection} className="choco-modal-bottom">
                         <h2 style={styles.productTitle}>
-                            {isKr && product.name_ko ? product.name_ko : product.name}
+                            {t(`products.${product.id}.name`)}
                         </h2>
                         <p style={styles.productSubtitle}>
-                            {product.priceStr}
+                            {t(`products.${product.id}.price`)}
                         </p>
                         <p style={styles.productDescription}>
-                            {isKr && product.description_ko ? product.description_ko : product.description}
+                            {t(`products.${product.id}.desc`)}
                         </p>
 
                         {/* Icons */}
