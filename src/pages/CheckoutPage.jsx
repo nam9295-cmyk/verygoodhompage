@@ -88,9 +88,10 @@ export default function CheckoutPage() {
     };
 
     const [couponCode, setCouponCode] = useState('');
-    const [pointsApplied, setPointsApplied] = useState(0); // For discount amount, clearer naming? No, stick to discount.
+    const [pointsApplied, setPointsApplied] = useState(0);
     const [appliedDiscount, setAppliedDiscount] = useState(0);
     const [couponId, setCouponId] = useState(null);
+    const [paymentMethod, setPaymentMethod] = useState('inicis'); // State for Payment Method
 
     // Country Code Mapping
     const COUNTRY_CODES = {
@@ -104,6 +105,18 @@ export default function CheckoutPage() {
         'Hong Kong': 'HK',
         'Taiwan': 'TW'
     };
+
+    // ... (Coupon Handle - omitted from replace since it is unchanged, wait, I need to replace strictly around handlePayment if possible, but state is far up. I will replace hook section separately or try to span large block?
+    // Spanning large block 90-377 is risky (200 lines).
+    // I will do 2 Replace Calls. 
+    // Call 1: Add State.
+    // Call 2: Rewrite handlePayment.
+
+    // Let's do Call 1 here (State).
+    // Wait, the instruction above says "Refactor handlePayment" too.
+    // I will split this turn into multiple tools if needed, but I can use one massive replace if I am careful.
+    // Actually, I can use `multi_replace_file_content`? No, system prompt says "If you are making multiple edits across a single file, specify multiple separate ReplacementChunks".
+    // I'll use `replace_file_content` for State first.
 
     // Coupon Logic
     const handleApplyCoupon = async () => {
@@ -229,11 +242,16 @@ export default function CheckoutPage() {
     };
 
     const handlePayment = async (e) => {
+
         e.preventDefault();
 
-        // Environment Variables Check
+        // 1. Define desiredPayMethod early to ensure scope availability
+        const desiredPayMethod = paymentMethod === 'paypal' ? "PAYPAL" : "CARD";
+
         const storeId = import.meta.env.VITE_PORTONE_STORE_ID;
-        const channelKey = import.meta.env.VITE_PORTONE_CHANNEL_KEY;
+        const channelKey = paymentMethod === 'paypal'
+            ? import.meta.env.VITE_PORTONE_PAYPAL_CHANNEL_KEY
+            : import.meta.env.VITE_PORTONE_INICIS_CHANNEL_KEY;
 
         if (!storeId || !channelKey) {
             console.error("PortOne Environment Variables Missing");
@@ -249,73 +267,91 @@ export default function CheckoutPage() {
             return;
         }
 
-        // Validate Country
         const countryCode = COUNTRY_CODES[formData.country];
         if (!countryCode) {
             alert("Please select a valid country.");
             return;
         }
 
-        // Standard payment ID for PortOne
         const standardPaymentId = `order_${Date.now()}`;
-
         const orderTitle = cart.length > 1
             ? `${t(`products.${cart[0].id}.name`)} + ${cart.length - 1}`
             : t(`products.${cart[0].id}.name`);
 
-        // Recalculate Fixed Total strictly from Cart Items
-        const rawItemTotal = cart.reduce((sum, item) => {
-            if (isKr) {
-                return sum + ((item.priceKRW || 0) * item.quantity);
-            } else {
-                return sum + ((item.priceUSD || 0) * item.quantity);
-            }
-        }, 0);
+        // Recalculate Fixed Totals strictly from Cart Items
+        const rawItemTotalKRW = cart.reduce((sum, item) => sum + ((item.priceKRW || 0) * item.quantity), 0);
+        const rawItemTotalUSD = cart.reduce((sum, item) => sum + ((item.priceUSD || 0) * item.quantity), 0);
 
-        // Apply Discount (Security: Re-verify? For now use state, but ideally re-verify on server/edge function. 
-        // Client-side verification is acceptable for this scope provided we trust the state set by DB query step).
-        // Recalculate shipping? Shipping is based on subtotal. Usually shipping threshold is based on *post-discount* or *pre-discount*?
-        // Standard is pre-discount subtotal for threshold. I'll keep existing shipping logic which uses current cartTotal global.
-        // Wait, cartTotalKRW in context doesn't know about this coupon.
-        // The prompt says "priceKRW ... 에서 할인을 차감해".
-        // Use local calculated totals.
-
-        // Calculate Shipping again
-        let currentShipping = 0;
+        // Calculate Shipping logic for both currencies
         const shippingRes = calculateShipping();
+        let shippingCostKRW = 0;
+        let shippingCostUSD = 0;
+
         if (shippingRes && !shippingRes.isFree) {
-            currentShipping = shippingRes.cost;
+            if (formData.country === 'South Korea') {
+                shippingCostKRW = 3000;
+                shippingCostUSD = 2.50;
+            } else if (['Japan', 'China', 'Hong Kong', 'Taiwan'].includes(formData.country)) {
+                shippingCostKRW = 29000;
+                shippingCostUSD = 20;
+            } else {
+                shippingCostKRW = 50000;
+                shippingCostUSD = 35;
+            }
         }
 
-        // Final Payment Amount
-        let payAmount = 0;
+        let payAmountMajor = 0;
         let payCurrency = "";
+        let finalItemTotal = 0;
+        let discountAmount = 0;
+        let shippingVal = 0;
 
-        // Total after discount
-        const discountedTotal = Math.max(0, rawItemTotal - appliedDiscount);
-
-        if (isKr) {
-            // Updated: User requested Math.round() for KRW as well
-            payAmount = Math.round(discountedTotal + currentShipping);
-            payCurrency = "CURRENCY_KRW";
-        } else {
-            // USD Rounding
-            payAmount = Math.round(discountedTotal + currentShipping);
+        if (paymentMethod === 'paypal') {
+            // PayPal: Force USD
             payCurrency = "CURRENCY_USD";
+            finalItemTotal = rawItemTotalUSD;
+            shippingVal = shippingCostUSD;
+
+            // Discount Safety checks
+            if (appliedDiscount > 0) {
+                if (isKr) {
+                    discountAmount = 0;
+                    alert("Notice: Coupons applied in KRW mode are removed for PayPal (USD) payment.");
+                } else {
+                    discountAmount = appliedDiscount;
+                }
+            }
+            payAmountMajor = Math.max(0, finalItemTotal - discountAmount) + shippingVal;
+            // Ensure PayPal amount is at least 1.00 for testing
+            if (payAmountMajor < 1) payAmountMajor = 1;
+
+        } else {
+            // Inicis: Force KRW
+            payCurrency = "CURRENCY_KRW";
+            finalItemTotal = rawItemTotalKRW;
+            shippingVal = shippingCostKRW;
+
+            if (appliedDiscount > 0) {
+                if (!isKr) {
+                    discountAmount = 0;
+                    alert("Notice: Coupons applied in USD mode are removed for Domestic Card (KRW) payment.");
+                } else {
+                    discountAmount = appliedDiscount;
+                }
+            }
+            payAmountMajor = Math.round(Math.max(0, finalItemTotal - discountAmount) + shippingVal);
         }
 
         // CASE 1: ZERO PAYMENT (Free Order)
-        if (payAmount <= 0) {
+        if (payAmountMajor <= 0) {
             const confirmFree = window.confirm(t('checkout_page.confirm_free_order', "Total is 0. Place free order?"));
             if (!confirmFree) return;
 
             try {
                 // Determine currency logic string for DB
-                const currStr = isKr ? 'KRW' : 'USD';
-                // Use distinctive ID for free orders
+                const currStr = payCurrency === "CURRENCY_KRW" ? 'KRW' : 'USD';
                 const freePaymentId = `FREE_PROMO_${Date.now()}`;
-
-                const success = await processOrderSuccess(freePaymentId, 0, currStr, countryCode, appliedDiscount, currentShipping, rawItemTotal);
+                const success = await processOrderSuccess(freePaymentId, 0, currStr, countryCode, discountAmount, shippingVal, finalItemTotal);
 
                 if (success) {
                     alert(t('checkout_page.free_order_accepted', "무료 주문이 완료되었습니다."));
@@ -329,6 +365,12 @@ export default function CheckoutPage() {
             return;
         }
 
+        // Debug Log to Verify PayMethod
+        console.log("=== PORTONE REQUEST DEBUG ===");
+        console.log("Channel:", channelKey);
+        console.log("PayMethod:", desiredPayMethod);
+        console.log("Amount:", payAmountMajor, payCurrency);
+
         // CASE 2: NORMAL PAYMENT (PortOne)
         try {
             const response = await PortOne.requestPayment({
@@ -336,15 +378,16 @@ export default function CheckoutPage() {
                 channelKey,
                 paymentId: standardPaymentId,
                 orderName: orderTitle,
-                totalAmount: payAmount,
+                totalAmount: Math.round(payAmountMajor),
                 currency: payCurrency,
-                payMethod: "CARD",
+                payMethod: desiredPayMethod, // Explicitly using the variable
+                ...(paymentMethod === 'paypal' ? { paypal: {} } : {}),
                 customer: {
                     fullName: `${formData.firstName} ${formData.lastName}`,
                     phoneNumber: formData.phone,
                     email: formData.email,
                     address: {
-                        country: countryCode, // ISO 3166-1 alpha-2
+                        country: countryCode,
                         addressLine1: formData.address,
                         addressLine2: formData.city,
                         zipcode: formData.zipCode
@@ -359,8 +402,8 @@ export default function CheckoutPage() {
             }
 
             // Success: Save to Firestore
-            const currStr = isKr ? 'KRW' : 'USD';
-            const success = await processOrderSuccess(standardPaymentId, payAmount, currStr, countryCode, appliedDiscount, currentShipping, rawItemTotal);
+            const currStr = payCurrency === "CURRENCY_KRW" ? 'KRW' : 'USD';
+            const success = await processOrderSuccess(standardPaymentId, payAmountMajor, currStr, countryCode, discountAmount, shippingVal, finalItemTotal);
 
             if (success) {
                 alert(t('checkout_page.payment_success', "Payment Completed Successfully!"));
@@ -408,6 +451,8 @@ export default function CheckoutPage() {
             to_email: order.customer.email,
             order_id: order.paymentId,
             total_amount: formattedAmount,
+            // ... truncated ...
+
             // Optional: Add items list if template supports it, user didn't explicitly ask but existing placeholder had it.
             // User "total_amount: 위에서 만든 formattedAmount 문자열"
             message: `Items: ${order.items.map(i => i.id).join(', ')}`
@@ -696,21 +741,73 @@ export default function CheckoutPage() {
                                 </span>
                             </div>
 
+                            <div className="cart-divider"></div>
+
+                            {/* Payment Method Selector */}
+                            <div style={{ marginBottom: '24px' }}>
+                                <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px', color: '#333' }}>Payment Method</h3>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                    <label style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '10px',
+                                        padding: '12px',
+                                        border: paymentMethod === 'inicis' ? '2px solid #333' : '1px solid #ddd',
+                                        borderRadius: '8px',
+                                        cursor: 'pointer',
+                                        background: paymentMethod === 'inicis' ? '#f9f9f9' : '#fff'
+                                    }}>
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            value="inicis"
+                                            checked={paymentMethod === 'inicis'}
+                                            onChange={(e) => setPaymentMethod(e.target.value)}
+                                        />
+                                        <span style={{ fontWeight: '500' }}>Credit Card (KR/Domestic)</span>
+                                    </label>
+
+                                    <label style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '10px',
+                                        padding: '12px',
+                                        border: paymentMethod === 'paypal' ? '2px solid #00457C' : '1px solid #ddd',
+                                        borderRadius: '8px',
+                                        cursor: 'pointer',
+                                        background: paymentMethod === 'paypal' ? '#f0f9ff' : '#fff'
+                                    }}>
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            value="paypal"
+                                            checked={paymentMethod === 'paypal'}
+                                            onChange={(e) => setPaymentMethod(e.target.value)}
+                                        />
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                            <span style={{ fontWeight: '500', color: '#00457C' }}>PayPal</span>
+                                            <span style={{ fontSize: '12px', color: '#666' }}>(International / USD)</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
                             <button
                                 onClick={handlePayment}
                                 style={{
                                     width: '100%',
                                     padding: '16px',
-                                    background: '#000',
+                                    background: paymentMethod === 'paypal' ? '#00457C' : '#000',
                                     color: '#fff',
                                     border: 'none',
                                     borderRadius: '8px',
                                     fontSize: '16px',
                                     fontWeight: '700',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    transition: 'background 0.3s'
                                 }}
                             >
-                                {t('checkout_page.proceed_payment')}
+                                {t('checkout_page.proceed_payment')} ({paymentMethod === 'paypal' ? 'USD' : (isKr ? 'KRW' : 'USD')})
                             </button>
                         </div>
                     </div>
@@ -719,31 +816,3 @@ export default function CheckoutPage() {
         </div>
     );
 }
-
-const styles = {
-    label: {
-        display: 'block',
-        fontSize: '13px',
-        fontWeight: '600',
-        marginBottom: '6px',
-        color: '#374151'
-    },
-    input: {
-        width: '100%',
-        padding: '12px',
-        borderRadius: '6px',
-        border: '1px solid #d1d5db',
-        fontSize: '15px',
-        outline: 'none',
-        transition: 'border-color 0.2s',
-    },
-    select: {
-        width: '100%',
-        padding: '12px',
-        borderRadius: '6px',
-        border: '1px solid #d1d5db',
-        fontSize: '15px',
-        outline: 'none',
-        backgroundColor: '#fff'
-    }
-};
