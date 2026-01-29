@@ -8,8 +8,9 @@ import BlogPage from './pages/BlogPage';
 import BlogDetailPage from './pages/BlogDetailPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import BusinessStoryPage from './pages/BusinessStoryPage';
-import PrivacyPage from './pages/PrivacyPage';
-import TermsPage from './pages/TermsPage';
+import PrivacyPolicy from './pages/legal/PrivacyPolicy';
+import TermsOfService from './pages/legal/TermsOfService';
+import RefundPolicy from './pages/legal/RefundPolicy';
 import AdminPage from './pages/AdminPage';
 import CategoryPage from './pages/CategoryPage';
 
@@ -27,8 +28,9 @@ function App() {
               <Route path="blog/:id" element={<BlogDetailPage />} />
               <Route path="category/:id" element={<CategoryPage />} />
               <Route path="product/:id" element={<ProductDetailPage />} />
-              <Route path="privacy" element={<PrivacyPage />} />
-              <Route path="terms" element={<TermsPage />} />
+              <Route path="privacy" element={<PrivacyPolicy />} />
+              <Route path="terms" element={<TermsOfService />} />
+              <Route path="refund" element={<RefundPolicy />} />
               <Route path="admin" element={<AdminPage />} />
             </Route>
           </Routes>
