@@ -53,6 +53,10 @@
         "shipping_intl": "International Shipping",
         "essential": "Required field."
     },
+    "banner": {
+        "free_shipping_message": "Worldwide Free Shipping on orders over $150! (Only ${{amount}} away)",
+        "free_shipping_success": "🎉 You've unlocked FREE SHIPPING!"
+    },
     "footer": {
         "company_name_label": "Company Name:",
         "company_name": "Very Good Co., Ltd.",

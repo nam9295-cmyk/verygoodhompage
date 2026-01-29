@@ -53,6 +53,10 @@
         "shipping_intl": "해외 배송",
         "essential": "필수 항목입니다."
     },
+    "banner": {
+        "free_shipping_message": "5만원 이상 구매 시 무료 배송! (현재 {{amount}}원 남음)",
+        "free_shipping_success": "🎉 무료 배송 혜택이 적용되었습니다!"
+    },
     "footer": {
         "company_name_label": "상호명:",
         "company_name": "주식회사 베리굿",

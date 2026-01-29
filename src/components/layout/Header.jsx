@@ -38,7 +38,7 @@ export default function Header() {
 
     return (
         <>
-            <header className="topbar">
+            <header className="topbar" style={{ top: '40px' }}>
                 <div className="topbar-left">
                     {isHome ? (
                         <button className="icon-btn" onClick={openMenu} aria-label="Open menu">
