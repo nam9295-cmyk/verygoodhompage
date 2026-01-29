@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../context/LanguageContext';
+import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
 import Modal from '../components/common/Modal';
 import ProductDetailModal from '../components/common/ProductDetailModal';
@@ -210,6 +211,8 @@ export default function ProductDetailPage() {
     const { id } = useParams();
     const { t } = useTranslation();
     const { isKr } = useLanguage();
+    const { addToCart } = useCart();
+    const [quantity, setQuantity] = useState(1);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [showChocolateModal, setShowChocolateModal] = useState(false);
     const [showBuyModal, setShowBuyModal] = useState(false);
@@ -293,6 +296,28 @@ export default function ProductDetailPage() {
                         <div style={styles.pdDesc}>
                             {t(`products.${product.id}.desc`)}
                         </div>
+                        {/* Quantity Selector */}
+                        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', gap: '16px' }}>
+                            <span style={{ fontFamily: 'var(--menu-font)', fontSize: '16px', fontWeight: 'bold' }}>{isKr ? '수량' : 'Quantity'}</span>
+                            <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--line)', borderRadius: '8px', background: '#fff' }}>
+                                <button
+                                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                    style={{ padding: '10px 16px', border: 'none', background: 'transparent', cursor: 'pointer', fontSize: '18px', color: 'var(--ink)' }}
+                                    aria-label="Decrease quantity"
+                                >
+                                    −
+                                </button>
+                                <span style={{ padding: '0 4px', minWidth: '40px', textAlign: 'center', fontWeight: 'bold', fontSize: '16px' }}>{quantity}</span>
+                                <button
+                                    onClick={() => setQuantity(quantity + 1)}
+                                    style={{ padding: '10px 16px', border: 'none', background: 'transparent', cursor: 'pointer', fontSize: '18px', color: 'var(--ink)' }}
+                                    aria-label="Increase quantity"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
                         <div style={styles.pdActions} className="pd-actions-mobile">
                             <button
                                 style={{ ...styles.pdBtn, ...styles.pdBtnOutline }}
@@ -310,9 +335,19 @@ export default function ProductDetailPage() {
                             <button
                                 style={{ ...styles.pdBtn, ...styles.pdBtnPrimary }}
                                 className="mobile-action-btn"
-                                onClick={() => setShowBuyModal(true)}
+                                onClick={() => {
+                                    const priceNum = product.price ? Number(product.price.toString().replace(/[^0-9.]/g, '')) : 0;
+                                    addToCart({
+                                        id: product.id,
+                                        name: product.name,
+                                        price: priceNum,
+                                        image: product.mainImage,
+                                        quantity: quantity
+                                    });
+                                    alert(isKr ? `${quantity}개 상품이 장바구니에 담겼습니다.` : `${quantity} item(s) added to cart.`);
+                                }}
                             >
-                                {isKr ? '구매하기' : 'BUY NOW'}
+                                {t('cart.addToCart')}
                             </button>
                         </div>
 

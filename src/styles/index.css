@@ -1357,3 +1357,67 @@ body.is-header-visible .topbar {
         display: none !important;
     }
 }
+
+/* ===== Cart Page ===== */
+.cart-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+@media (min-width: 900px) {
+    .cart-grid {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+    }
+}
+
+.cart-summary-card {
+    position: sticky;
+    top: 120px;
+    background: #f9fafb;
+    /* bg-gray-50 */
+    padding: 32px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.cart-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 24px 0;
+}
+
+.cart-qty-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+    color: var(--ink);
+}
+
+.cart-qty-btn:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.cart-item-row {
+    padding: 24px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.cart-item-row:first-child {
+    padding-top: 0;
+}
+
+.cart-item-row:last-child {
+    border-bottom: none;
+}

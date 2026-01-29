@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useCart } from '../../context/CartContext';
 import { products } from '../../data/products';
 import LanguageSelector from '../common/LanguageSelector';
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const { t } = useTranslation();
+    const { cartCount } = useCart();
     const location = useLocation();
     const isHome = location.pathname === '/';
 
@@ -57,7 +59,9 @@ export default function Header() {
 
                 <nav className="topbar-actions" aria-label="Top actions">
                     <LanguageSelector />
-                    <Link className="cta" to="/#shop">{t('header.order')}</Link>
+                    <Link className="cta" to="/cart">
+                        {t('header.cart_btn')} ({cartCount})
+                    </Link>
                 </nav>
             </header>
 

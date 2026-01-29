@@ -13,7 +13,25 @@
         "blog": "BLOG",
         "contact": "CONTACT",
         "order": "ORDER",
+        "cart_btn": "CART",
         "back_to": "Back to {{category}}"
+    },
+    "cart": {
+        "title": "Your Cart",
+        "addToCart": "Add to Cart",
+        "checkout": "Checkout",
+        "empty": "Cart is empty",
+        "subtotal": "Subtotal",
+        "itemAdded": "Item added!",
+        "item": "Item",
+        "price": "Price",
+        "quantity": "Qty",
+        "continue_shopping": "← Continue Shopping",
+        "remove": "Remove",
+        "order_summary": "Order Summary",
+        "shipping": "Shipping",
+        "shipping_calculated": "Calculated at checkout",
+        "total": "Total"
     },
     "footer": {
         "company_name_label": "Company Name:",

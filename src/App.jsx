@@ -14,6 +14,8 @@ import RefundPolicy from './pages/legal/RefundPolicy';
 import AdminPage from './pages/AdminPage';
 import CategoryPage from './pages/CategoryPage';
 
+import CartPage from './pages/CartPage';
+
 function App() {
   return (
     <HelmetProvider>
@@ -28,6 +30,7 @@ function App() {
               <Route path="blog/:id" element={<BlogDetailPage />} />
               <Route path="category/:id" element={<CategoryPage />} />
               <Route path="product/:id" element={<ProductDetailPage />} />
+              <Route path="cart" element={<CartPage />} />
               <Route path="privacy" element={<PrivacyPolicy />} />
               <Route path="terms" element={<TermsOfService />} />
               <Route path="refund" element={<RefundPolicy />} />
