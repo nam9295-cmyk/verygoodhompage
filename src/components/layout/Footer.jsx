@@ -44,6 +44,8 @@ export default function Footer() {
                         <Link to="/privacy" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>{t('footer.privacy')}</Link>
                         <span style={{ color: '#ddd' }}>|</span>
                         <Link to="/refund" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>{t('footer.refund')}</Link>
+                        <span style={{ color: '#ddd' }}>|</span>
+                        <Link to="/shipping" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>{t('footer.shipping')}</Link>
                     </div>
                 </div>
 

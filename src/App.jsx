@@ -11,8 +11,10 @@ import BusinessStoryPage from './pages/BusinessStoryPage';
 import PrivacyPolicy from './pages/legal/PrivacyPolicy';
 import TermsOfService from './pages/legal/TermsOfService';
 import RefundPolicy from './pages/legal/RefundPolicy';
+import ShippingPolicy from './pages/legal/ShippingPolicy';
 import AdminPage from './pages/AdminPage';
 import CategoryPage from './pages/CategoryPage';
+import ProductsPage from './pages/ProductsPage';
 
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
@@ -31,6 +33,7 @@ function App() {
               <Route path="blog" element={<BlogPage />} />
               <Route path="blog/:id" element={<BlogDetailPage />} />
               <Route path="category/:id" element={<CategoryPage />} />
+              <Route path="products" element={<ProductsPage />} />
               <Route path="product/:id" element={<ProductDetailPage />} />
               <Route path="cart" element={<CartPage />} />
               <Route path="checkout" element={<CheckoutPage />} />
@@ -38,6 +41,7 @@ function App() {
               <Route path="privacy" element={<PrivacyPolicy />} />
               <Route path="terms" element={<TermsOfService />} />
               <Route path="refund" element={<RefundPolicy />} />
+              <Route path="shipping" element={<ShippingPolicy />} />
               <Route path="admin" element={<AdminPage />} />
             </Route>
           </Routes>

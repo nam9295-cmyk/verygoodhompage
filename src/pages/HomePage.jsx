@@ -7,6 +7,7 @@ import StorySection from '../components/sections/StorySection';
 import BlogSection from '../components/sections/BlogSection';
 import ContactSection from '../components/sections/ContactSection';
 import FAQSection from '../components/sections/FAQSection';
+import ShippingInfoSection from '../components/sections/ShippingInfoSection';
 
 export default function HomePage() {
     useEffect(() => {
@@ -46,6 +47,7 @@ export default function HomePage() {
                 <Marquee />
                 <StorySection />
                 <BlogSection />
+                <ShippingInfoSection />
                 <section className="section" id="instagram">
                     <div className="section-head">
                         <h2 className="section-title">INSTAGRAM</h2>

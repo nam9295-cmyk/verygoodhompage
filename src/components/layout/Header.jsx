@@ -78,11 +78,13 @@ export default function Header() {
                     <div className="menu-body">
                         <Link className="menu-link" to="/about" onClick={closeMenu}>{t('header.about')}</Link>
                         <Link className="menu-link" to="/business-story" onClick={closeMenu}>{t('header.business_story')}</Link>
+                        <Link className="menu-link" to="/products" onClick={closeMenu}>{t('header.products')}</Link>
                         <Link className="menu-link" to="/category/chocolate" onClick={closeMenu}>{t('header.chocolate')}</Link>
                         <Link className="menu-link" to="/category/tea" onClick={closeMenu}>{t('header.tea')}</Link>
                         <Link className="menu-link" to="/category/gift" onClick={closeMenu}>{t('header.gift')}</Link>
                         <Link className="menu-link" to="/#story" onClick={closeMenu}>{t('header.story')}</Link>
                         <Link className="menu-link" to="/blog" onClick={closeMenu}>{t('header.blog')}</Link>
+                        <Link className="menu-link" to="/#shipping" onClick={closeMenu}>{t('header.shipping')}</Link>
                         <Link className="menu-link" to="/#contact" onClick={closeMenu}>{t('header.contact')}</Link>
 
                         <div className="menu-mini">

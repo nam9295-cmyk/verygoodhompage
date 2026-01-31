@@ -253,6 +253,47 @@ body.is-header-visible .topbar {
     opacity: .72;
 }
 
+/* ===== Shipping Info ===== */
+.shipping-grid {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.shipping-card {
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 18px 16px;
+    background: #fff;
+    min-height: 140px;
+}
+
+.shipping-card h3 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    letter-spacing: .02em;
+}
+
+.shipping-card p {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .shipping-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    .shipping-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ===== Tabs ===== */
 .tabs {
     display: flex;

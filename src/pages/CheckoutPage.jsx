@@ -88,7 +88,7 @@ export default function CheckoutPage() {
     };
 
     const [couponCode, setCouponCode] = useState('');
-    const [pointsApplied, setPointsApplied] = useState(0);
+    // const [pointsApplied, setPointsApplied] = useState(0); // Unused
     const [appliedDiscount, setAppliedDiscount] = useState(0);
     const [couponId, setCouponId] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState('inicis'); // State for Payment Method
@@ -273,7 +273,13 @@ export default function CheckoutPage() {
             return;
         }
 
-        const standardPaymentId = `order_${Date.now()}`;
+        // Use a static ID or one derived from safe sources, or move generation to inside handlePayment where possible
+        // Ideally we don't generate ID during render. 
+        // We will generate it inside handlePayment. This variable 'standardPaymentId' seemed to be calculated in render.
+        // Let's remove it from here and create it inside handlePayment.
+
+        // This was: const standardPaymentId = `order_${Date.now()}`;
+        // We will delete this line and move logic to handlePayment.
         const orderTitle = cart.length > 1
             ? `${t(`products.${cart[0].id}.name`)} + ${cart.length - 1}`
             : t(`products.${cart[0].id}.name`);
@@ -376,7 +382,7 @@ export default function CheckoutPage() {
             const response = await PortOne.requestPayment({
                 storeId,
                 channelKey,
-                paymentId: standardPaymentId,
+                paymentId: `order_${Date.now()}`, // Generated on demand
                 orderName: orderTitle,
                 totalAmount: Math.round(payAmountMajor),
                 currency: payCurrency,
@@ -403,14 +409,14 @@ export default function CheckoutPage() {
 
             // Success: Save to Firestore
             const currStr = payCurrency === "CURRENCY_KRW" ? 'KRW' : 'USD';
-            const success = await processOrderSuccess(standardPaymentId, payAmountMajor, currStr, countryCode, discountAmount, shippingVal, finalItemTotal);
+            const success = await processOrderSuccess(`order_${Date.now()}`, payAmountMajor, currStr, countryCode, discountAmount, shippingVal, finalItemTotal);
 
             if (success) {
                 alert(t('checkout_page.payment_success', "Payment Completed Successfully!"));
                 clearCart();
                 navigate('/order-success');
             } else {
-                alert("Payment successful but failed to save order record. Please contact support with Payment ID: " + standardPaymentId);
+                alert("Payment successful but failed to save order record. Please contact support.");
             }
 
         } catch (error) {

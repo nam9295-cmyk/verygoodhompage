@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RadialBarChart, RadialBar, Tooltip, ResponsiveContainer } from 'recharts';
-import { useLanguage } from '../../context/LanguageContext';
+// import { useLanguage } from '../../context/LanguageContext'; // Unused
 
 const styles = {
     overlay: {
@@ -162,7 +162,7 @@ const styles = {
 import { useTranslation } from 'react-i18next';
 
 export default function ChocolateDetailModal({ product, onClose }) {
-    const { isKr } = useLanguage();
+    // const { isKr } = useLanguage(); // Unused
     const { t } = useTranslation();
 
     useEffect(() => {

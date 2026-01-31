@@ -6,11 +6,13 @@
         "home": "Home",
         "about": "ABOUT",
         "business_story": "BUSINESS STORY",
+        "products": "PRODUCTS",
         "chocolate": "CHOCOLATE",
         "tea": "TEA",
         "gift": "GIFT",
         "story": "STORY",
         "blog": "BLOG",
+        "shipping": "SHIPPING",
         "contact": "CONTACT",
         "order": "ORDER",
         "cart_btn": "CART",
@@ -71,7 +73,8 @@
         "copyright": "Copyright: © {{year}} Very Good Co., Ltd. All rights reserved.",
         "privacy": "Privacy Policy",
         "terms": "Terms of Service",
-        "refund": "Refund Policy"
+        "refund": "Refund Policy",
+        "shipping": "Shipping Policy"
     },
     "products": {
         "almond-chocoball": {

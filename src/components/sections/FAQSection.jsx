@@ -1,23 +1,23 @@
 const faqItems = [
     {
-        question: "What is the price range?",
-        answer: "Prices vary by product. Individual items start from 5,000 KRW, and gift sets range from 20,000 to 50,000 KRW."
+        question: "Do you ship internationally?",
+        answer: "Yes. We ship internationally from Korea. Delivery times vary by destination and customs processing."
     },
     {
-        question: "Do you offer nationwide shipping?",
-        answer: "Yes, we ship nationwide. Products are packed with ice packs to maintain freshness and typically arrive within 2-3 days."
+        question: "Will I pay customs or import duties?",
+        answer: "International orders may be subject to customs duties or taxes. These charges are the buyer's responsibility."
+    },
+    {
+        question: "What is your return policy for food items?",
+        answer: "For food safety, edible items are non-returnable unless they arrive damaged or incorrect. Contact us with photos."
     },
     {
         question: "What makes Very Good Chocolate special?",
-        answer: "We follow a 'Less Sweet, More Deep' philosophy. Crafted bean-to-bar by a Le Cordon Bleu chocolatier in a HACCP-certified facility."
-    },
-    {
-        question: "Is gift packaging available?",
-        answer: "We use premium triangular packaging inspired by traditional Korean aesthetics. It's eco-friendly and perfect for gifting."
+        answer: "We follow a 'Less Sweet, More Deep' philosophy, crafted in small batches with careful ingredient selection."
     },
     {
         question: "Can I visit the store?",
-        answer: "Yes, visit us at 1st Floor, 13 Sangnok-ro 11-gil, Suseong-gu, Daegu. Open Mon-Fri 10-19, Sat 11-18 (Closed Sundays)."
+        answer: "Yes. Visit us at 1F 13 Sangnok-ro 11-gil, Suseong-gu, Daegu. Hours may vary by season."
     }
 ];
 

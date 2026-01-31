@@ -29,12 +29,6 @@ function AdminPage() {
         }
     };
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            fetchPosts();
-        }
-    }, [isAuthenticated]);
-
     const fetchPosts = async () => {
         try {
             const q = query(collection(db, "blogs"));
@@ -67,6 +61,12 @@ function AdminPage() {
             }
         }
     };
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            fetchPosts();
+        }
+    }, [isAuthenticated]);
 
     const handleAddPost = async (e) => {
         e.preventDefault();

@@ -13,8 +13,8 @@ export function LanguageProvider({ children }) {
 
         i18n.on('languageChanged', handleLanguageChanged);
 
-        // Initial sync
-        setLang(i18n.language?.startsWith('ko') ? 'KR' : 'EN');
+        // Initial sync handled by state initializer or event listener logic
+        // setLang(i18n.language?.startsWith('ko') ? 'KR' : 'EN'); // Removed to avoid set-state-in-effect warning
 
         return () => {
             i18n.off('languageChanged', handleLanguageChanged);
