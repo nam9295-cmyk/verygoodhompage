@@ -197,8 +197,8 @@ export default function BlogDetailPage() {
   const [loading, setLoading] = useState(true);
   const contentRef = useRef(null);
 
-  useEffect(() => {
-    async function fetchPost() {
+    useEffect(() => {
+        async function fetchPost() {
       let foundPost = staticBlogs.find(b => b.id === id);
 
       if (!foundPost && id) {
@@ -217,8 +217,12 @@ export default function BlogDetailPage() {
       setLoading(false);
     }
 
-    fetchPost();
-  }, [id]);
+        fetchPost();
+    }, [id]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [id]);
 
   // Apply zigzag image layout ONLY if mode is 'regular' (or undefined for backward compatibility)
   useEffect(() => {
