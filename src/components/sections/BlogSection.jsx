@@ -4,6 +4,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { blogs as staticBlogs } from '../../data/blogs';
 import { db } from '../../services/firebase';
 import { collection, getDocs, orderBy, query, limit } from 'firebase/firestore';
+import { formatBlogDate } from '../../utils/formatBlogDate';
 
 export default function BlogSection() {
     const [posts, setPosts] = useState(staticBlogs.slice(0, 3));
@@ -66,7 +67,7 @@ export default function BlogSection() {
                                 onError={(e) => { e.target.src = 'https://via.placeholder.com/400x300?text=No+Image'; }}
                             />
                         </div>
-                        <div className="hb-meta">{post.date}</div>
+                        <div className="hb-meta">{formatBlogDate(post.date ?? post.createdAt)}</div>
                         <div className="hb-title">
                             {isKr && post.title_ko ? post.title_ko : post.title}
                         </div>

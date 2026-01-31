@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { blogs as staticBlogs } from '../data/blogs';
 import { db } from '../services/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { formatBlogDate } from '../utils/formatBlogDate';
 
 // CSS for blog detail with zigzag image layout
 const blogStyles = `
@@ -281,7 +282,7 @@ export default function BlogDetailPage() {
             <main className="blog-detail-page">
                 <article>
                     <div className="bd-header">
-                        <div className="bd-meta">{post.date}</div>
+                        <div className="bd-meta">{formatBlogDate(post.date ?? post.createdAt)}</div>
                         <h1 className="bd-title">{title}</h1>
                     </div>
                     <div

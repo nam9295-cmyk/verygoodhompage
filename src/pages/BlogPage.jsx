@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { blogs as staticBlogs } from '../data/blogs';
 import { db } from '../services/firebase';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { formatBlogDate } from '../utils/formatBlogDate';
 
 const styles = {
     blogPage: {
@@ -127,7 +128,7 @@ export default function BlogPage() {
                                     onError={(e) => { e.target.src = 'https://via.placeholder.com/400x300?text=No+Image'; }}
                                 />
                             </div>
-                            <div style={styles.blogMeta}>{post.date}</div>
+                            <div style={styles.blogMeta}>{formatBlogDate(post.date ?? post.createdAt)}</div>
                             <div style={styles.blogCardTitle}>
                                 {isKr && post.title_ko ? post.title_ko : post.title}
                             </div>
