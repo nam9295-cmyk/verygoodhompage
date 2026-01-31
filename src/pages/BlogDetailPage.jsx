@@ -88,8 +88,8 @@ const blogStyles = `
     text-align: left;
   }
 
-  /* Magazine-Style Zigzag Image Layout */
-  .bd-content img {
+  /* Magazine-Style Zigzag Image Layout (Regular Mode Only) */
+  .zigzag-mode img {
     width: 50%;
     max-width: 420px;
     height: auto;
@@ -99,12 +99,12 @@ const blogStyles = `
     transition: box-shadow 0.3s ease;
   }
 
-  .bd-content img:hover {
+  .zigzag-mode img:hover {
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
   }
 
   /* First image: Full-width Hero */
-  .bd-content img.img-hero {
+  .zigzag-mode img.img-hero {
     float: none;
     width: 100%;
     max-width: 100%;
@@ -115,18 +115,24 @@ const blogStyles = `
   }
 
   /* Zigzag layout classes */
-  .bd-content img.img-left {
+  .zigzag-mode img.img-left {
     float: left;
     margin-right: 1.5em;
     margin-left: 0;
     margin-top: 0.3em;
   }
 
-  .bd-content img.img-right {
+  .zigzag-mode img.img-right {
     float: right;
     margin-left: 1.5em;
     margin-right: 0;
     margin-top: 0.3em;
+  }
+  
+  /* Editorial Mode / HTML Mode */
+  .editorial-mode img {
+      max-width: 100%;
+      height: auto;
   }
 
   .bd-footer {
@@ -169,10 +175,10 @@ const blogStyles = `
       text-align: left;
     }
 
-    .bd-content img,
-    .bd-content img.img-hero,
-    .bd-content img.img-left,
-    .bd-content img.img-right {
+    .zigzag-mode img,
+    .zigzag-mode img.img-hero,
+    .zigzag-mode img.img-left,
+    .zigzag-mode img.img-right {
       float: none;
       width: 100%;
       max-width: 100%;
@@ -185,118 +191,130 @@ const blogStyles = `
 `;
 
 export default function BlogDetailPage() {
-    const { id } = useParams();
-    const { isKr } = useLanguage();
-    const [post, setPost] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const contentRef = useRef(null);
+  const { id } = useParams();
+  const { isKr } = useLanguage();
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const contentRef = useRef(null);
 
-    useEffect(() => {
-        async function fetchPost() {
-            let foundPost = staticBlogs.find(b => b.id === id);
+  useEffect(() => {
+    async function fetchPost() {
+      let foundPost = staticBlogs.find(b => b.id === id);
 
-            if (!foundPost && id) {
-                try {
-                    const docRef = doc(db, "blogs", id);
-                    const docSnap = await getDoc(docRef);
-                    if (docSnap.exists()) {
-                        foundPost = { id: docSnap.id, ...docSnap.data() };
-                    }
-                } catch (e) {
-                    console.log("Firestore fetch skipped or failed", e);
-                }
-            }
-
-            setPost(foundPost);
-            setLoading(false);
+      if (!foundPost && id) {
+        try {
+          const docRef = doc(db, "blogs", id);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            foundPost = { id: docSnap.id, ...docSnap.data() };
+          }
+        } catch (e) {
+          console.log("Firestore fetch skipped or failed", e);
         }
+      }
 
-        fetchPost();
-    }, [id]);
-
-    // Apply zigzag image layout after content renders
-    useEffect(() => {
-        if (post && contentRef.current) {
-            const images = contentRef.current.querySelectorAll('img');
-            images.forEach((img, index) => {
-                img.classList.remove('img-hero', 'img-left', 'img-right');
-
-                if (index === 0) {
-                    img.classList.add('img-hero');
-                } else {
-                    if (index % 2 === 1) {
-                        img.classList.add('img-left');
-                    } else {
-                        img.classList.add('img-right');
-                    }
-                }
-            });
-        }
-    }, [post, isKr]);
-
-    if (loading) {
-        return (
-            <>
-                <style>{blogStyles}</style>
-                <main className="blog-detail-page">
-                    <div style={{ textAlign: 'center', padding: '100px 0' }}>
-                        <p>Loading...</p>
-                    </div>
-                </main>
-            </>
-        );
+      setPost(foundPost);
+      setLoading(false);
     }
 
-    if (!post) {
-        return (
-            <>
-                <Helmet>
-                    <title>Post Not Found - Very Good Chocolate</title>
-                </Helmet>
-                <style>{blogStyles}</style>
-                <main className="blog-detail-page">
-                    <div style={{ textAlign: 'center', padding: '100px 0' }}>
-                        <h2>{isKr ? '글을 찾을 수 없습니다' : 'Post not found'}</h2>
-                        <Link to="/blog" className="btn-text">
-                            {isKr ? '목록으로 돌아가기' : 'Back to List'}
-                        </Link>
-                    </div>
-                </main>
-            </>
-        );
+    fetchPost();
+  }, [id]);
+
+  // Apply zigzag image layout ONLY if mode is 'regular' (or undefined for backward compatibility)
+  useEffect(() => {
+    if (post && contentRef.current) {
+      // If mode is explicit 'editorial', skip zigzag usage
+      if (post.mode === 'editorial') return;
+
+      // Regular mode logic
+      const images = contentRef.current.querySelectorAll('img');
+      images.forEach((img, index) => {
+        img.classList.remove('img-hero', 'img-left', 'img-right');
+
+        if (index === 0) {
+          img.classList.add('img-hero');
+        } else {
+          if (index % 2 === 1) {
+            img.classList.add('img-left');
+          } else {
+            img.classList.add('img-right');
+          }
+        }
+      });
     }
+  }, [post, isKr]);
 
-    const title = isKr && post.title_ko ? post.title_ko : post.title;
-    const content = isKr && post.content_ko ? post.content_ko : post.content;
-
+  if (loading) {
     return (
-        <>
-            <Helmet>
-                <title>{title} - Very Good Chocolate</title>
-                <meta name="description" content={isKr && post.summary_ko ? post.summary_ko : post.summary} />
-                <link rel="canonical" href={`https://verygood-chocolate.com/blog/${id}`} />
-            </Helmet>
-
-            <style>{blogStyles}</style>
-
-            <main className="blog-detail-page">
-                <article>
-                    <div className="bd-header">
-                        <div className="bd-meta">{formatBlogDate(post.date ?? post.createdAt)}</div>
-                        <h1 className="bd-title">{title}</h1>
-                    </div>
-                    <div
-                        className="bd-content"
-                        ref={contentRef}
-                        dangerouslySetInnerHTML={{ __html: content }}
-                    />
-                    <div className="bd-footer">
-                        <Link to="/blog" className="btn-text">
-                            {isKr ? '목록으로 돌아가기' : 'Back to List'}
-                        </Link>
-                    </div>
-                </article>
-            </main>
-        </>
+      <>
+        <style>{blogStyles}</style>
+        <main className="blog-detail-page">
+          <div style={{ textAlign: 'center', padding: '100px 0' }}>
+            <p>Loading...</p>
+          </div>
+        </main>
+      </>
     );
+  }
+
+  if (!post) {
+    return (
+      <>
+        <Helmet>
+          <title>Post Not Found - Very Good Chocolate</title>
+        </Helmet>
+        <style>{blogStyles}</style>
+        <main className="blog-detail-page">
+          <div style={{ textAlign: 'center', padding: '100px 0' }}>
+            <h2>{isKr ? '글을 찾을 수 없습니다' : 'Post not found'}</h2>
+            <Link to="/blog" className="btn-text">
+              {isKr ? '목록으로 돌아가기' : 'Back to List'}
+            </Link>
+          </div>
+        </main>
+      </>
+    );
+  }
+
+  // Handle both old schema (title_ko) and new schema (title)
+  const title = isKr && post.title_ko ? post.title_ko : post.title;
+  const content = isKr && post.content_ko ? post.content_ko : post.content;
+  const summary = isKr && post.summary_ko ? post.summary_ko : post.summary;
+
+  // Determine container class based on mode
+  const contentClass = post.mode === 'editorial' ? 'bd-content editorial-mode' : 'bd-content zigzag-mode';
+
+  // Date formatting
+  const displayDate = formatBlogDate(post.date ?? post.createdAt);
+
+  return (
+    <>
+      <Helmet>
+        <title>{title} - Very Good Chocolate</title>
+        <meta name="description" content={summary} />
+        <link rel="canonical" href={`https://verygood-chocolate.com/blog/${id}`} />
+      </Helmet>
+
+      <style>{blogStyles}</style>
+
+      <main className="blog-detail-page">
+        <article>
+          <div className="bd-header">
+            <div className="bd-meta">{displayDate}</div>
+            <h1 className="bd-title">{title}</h1>
+          </div>
+          <div
+            className={contentClass}
+            ref={contentRef}
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+          <div className="bd-footer">
+            <Link to="/blog" className="btn-text">
+              {isKr ? '목록으로 돌아가기' : 'Back to List'}
+            </Link>
+          </div>
+        </article>
+      </main>
+    </>
+  );
 }

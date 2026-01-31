@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import { blogs as staticBlogs } from '../../data/blogs';
 import { db } from '../../services/firebase';
-import { collection, getDocs, orderBy, query, limit } from 'firebase/firestore';
-import { formatBlogDate } from '../../utils/formatBlogDate';
+import { collection, getDocs, query } from 'firebase/firestore';
+import { formatBlogDate, getBlogDateValue } from '../../utils/formatBlogDate';
 
 export default function BlogSection() {
     const [posts, setPosts] = useState(staticBlogs.slice(0, 3));
@@ -14,16 +14,21 @@ export default function BlogSection() {
     useEffect(() => {
         async function fetchPosts() {
             try {
-                const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"), limit(3));
+                const q = query(collection(db, "blogs"));
                 const querySnapshot = await getDocs(q);
 
                 const firebasePosts = [];
                 querySnapshot.forEach((doc) => {
-                    firebasePosts.push({ id: doc.id, ...doc.data() });
+                    const data = doc.data();
+                    console.log("Fetched post:", doc.id, data);
+                    firebasePosts.push({ id: doc.id, ...data });
                 });
 
                 if (firebasePosts.length > 0) {
-                    setPosts(firebasePosts);
+                    const sorted = firebasePosts
+                        .sort((a, b) => getBlogDateValue(b.date ?? b.createdAt) - getBlogDateValue(a.date ?? a.createdAt))
+                        .slice(0, 3);
+                    setPosts(sorted);
                 }
             } catch (e) {
                 console.warn("Firebase fetch error, using static blogs:", e);
@@ -61,7 +66,7 @@ export default function BlogSection() {
                     <Link key={post.id} to={`/blog/${post.id}`} className="home-blog-card">
                         <div className="hb-thumb">
                             <img
-                                src={post.thumbnail}
+                                src={post.imageUrl ?? post.thumbnail}
                                 alt={isKr && post.title_ko ? post.title_ko : post.title}
                                 loading="lazy"
                                 onError={(e) => { e.target.src = 'https://via.placeholder.com/400x300?text=No+Image'; }}
