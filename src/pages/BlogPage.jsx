@@ -57,7 +57,7 @@ function BlogPage() {
             </Helmet>
 
             <main className="blog-page">
-                <h1 style={{ fontFamily: "'Addington CF', Georgia, serif", fontSize: "2rem", color: "#3E2512", marginBottom: "40px", textAlign: "center" }}>BLOG</h1>
+                <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2rem", color: "#3E2512", marginBottom: "40px", textAlign: "center" }}>BLOG</h1>
                 <div className="blog-grid">
                     {loading ? (
                         <div style={{ textAlign: 'center', gridColumn: '1/-1', padding: '40px' }}>Loading...</div>
