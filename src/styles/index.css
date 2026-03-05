@@ -146,6 +146,64 @@ body.is-header-visible .topbar {
     transform: translateY(-1px);
 }
 
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, .6);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    color: var(--ink);
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, .85);
+}
+
+.lang-btn .flag {
+    font-size: 16px;
+}
+
+.lang-btn .arrow {
+    font-size: 10px;
+}
+
+@media (max-width: 520px) {
+    .topbar {
+        padding: 10px 12px;
+    }
+
+    .topbar-actions {
+        gap: 6px;
+    }
+
+    .brand-img {
+        height: 32px;
+    }
+
+    .topbar .icon-btn {
+        padding: 8px 10px;
+    }
+
+    .topbar .icon-btn .txt {
+        display: none;
+    }
+
+    .cta {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
+    .lang-btn {
+        padding: 5px 10px;
+        gap: 4px;
+    }
+}
+
 /* ===== Menu Overlay ===== */
 .menu-overlay {
     position: fixed;

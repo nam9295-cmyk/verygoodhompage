@@ -35,22 +35,9 @@ export default function LanguageSelector() {
                 onClick={toggleDropdown}
                 className="lang-btn"
                 aria-label="Select Language"
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    background: 'none',
-                    border: '1px solid #ddd',
-                    borderRadius: '20px',
-                    padding: '6px 14px',
-                    cursor: 'pointer',
-                    fontSize: '14px',
-                    transition: 'all 0.2s ease',
-                    color: '#333'
-                }}
             >
-                <span style={{ fontSize: '16px' }}>{currentFlag}</span>
-                <span className="arrow" style={{ fontSize: '10px', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>▼</span>
+                <span className="flag">{currentFlag}</span>
+                <span className="arrow" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>▼</span>
             </button>
 
             {isOpen && (
