@@ -2560,16 +2560,78 @@ body.is-header-visible .topbar {
 .hub-section-head h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 64px; }
 .hub-eyebrow { font-weight: 800; font-size: 14px; letter-spacing: 0.1em; }
 
-/* APPLE LUXURY STYLES */
-.apple-section { padding: 180px 0; border: none; }
-.apple-tile { 
-    background: transparent; 
-    border-radius: var(--radius); 
-    border: none; 
-    padding: 64px; 
-    transition: transform 0.4s cubic-bezier(0.1, 0, 0.1, 1), box-shadow 0.4s cubic-bezier(0.1, 0, 0.1, 1);
+/* Float upward */
+
+/* APPLE LUXURY STYLES (RESPONSIVE) */
+
+.apple-section { padding: 180px 40px; border: none; }
+.apple-hero-section { padding: 120px 40px; }
+.apple-container { max-width: 1400px; margin: 0 auto; width: 100%; }
+
+/* Typography */
+.apple-hero-title { font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 32px; }
+.apple-hero-subtitle { font-size: clamp(1.1rem, 2vw, 1.6rem); font-weight: 300; max-width: 600px; margin: 0 0 48px; letter-spacing: 0.01em; opacity: 0.95; }
+.apple-section-title { font-size: clamp(2rem, 6vw, 4.5rem); font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+.apple-explore-link { font-size: 1.25rem; font-weight: 500; color: var(--brand); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: opacity 0.2s; }
+.apple-explore-link:hover { opacity: 0.6; }
+
+/* Buttons */
+.apple-hero-btn { background: #2A4F44; color: #FAF8F5; padding: 18px 48px; border-radius: 999px; font-weight: 600; font-size: 1.1rem; text-decoration: none; border: none; box-shadow: 0 12px 32px rgba(42,79,68,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.apple-hero-btn:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(42,79,68,0.3); }
+
+/* Grids & Layouts */
+.apple-values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 64px; }
+.apple-section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px; }
+
+/* Horizontal scroller native feel */
+.apple-horizontal-scroller { display: flex; gap: 40px; overflow-x: auto; padding-bottom: 32px; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; margin: 0 -20px; padding-left: 20px; padding-right: 20px; }
+.apple-horizontal-scroller::-webkit-scrollbar { display: none; }
+.apple-product-link { scroll-snap-align: start; text-decoration: none; color: inherit; display: flex; flex-direction: column; flex: 0 0 auto; width: clamp(280px, 70vw, 420px); }
+
+/* Wrap images */
+.apple-img-wrap, .apple-journal-wrap { border-radius: 32px; overflow: hidden; margin-bottom: 32px; background: #e8e4db; transition: transform 0.5s cubic-bezier(0.1, 0, 0.1, 1), box-shadow 0.5s cubic-bezier(0.1, 0, 0.1, 1); }
+.apple-journal-wrap { background: rgba(255,255,255,0.05); }
+.apple-product-link:hover .apple-img-wrap, .apple-product-link:hover .apple-journal-wrap { transform: scale(1.02); box-shadow: 0 24px 48px rgba(42,79,68,0.1); }
+
+/* Bento Grid */
+.apple-bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px; }
+
+.apple-tile { background: transparent; border-radius: 32px; border: none; transition: transform 0.4s cubic-bezier(0.1, 0, 0.1, 1), box-shadow 0.4s cubic-bezier(0.1, 0, 0.1, 1); text-decoration: none; color: var(--brand); overflow: hidden; position: relative; }
+.apple-tile:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 32px 64px rgba(42,79,68,0.08); }
+
+.apple-tile-hero { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: 80px; min-height: 600px; }
+.apple-tile-standard { grid-column: span 6; display: flex; flex-direction: column; justify-content: flex-end; padding: 48px; min-height: 380px; }
+
+/* Tile Sub-elements */
+.apple-tile-content { position: relative; z-index: 2; max-width: 500px; display: flex; flex-direction: column; }
+.apple-eyebrow { font-weight: 600; font-size: 1rem; letter-spacing: 0.1em; margin-bottom: 24px; opacity: 0.7; }
+.apple-tile-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 600; line-height: 1.1; margin: 0 0 24px; }
+.apple-tile-body { font-size: 1.25rem; font-weight: 300; line-height: 1.6; opacity: 0.9; margin: 0; }
+.apple-tile-title-sm { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; line-height: 1.1; margin: 0 0 24px; }
+.apple-tile-cta { display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 1.25rem; }
+.apple-tile-cta span { font-size: 1.5rem; font-weight: 300; }
+
+/* iPhone Mockup */
+.apple-device-mockup { position: absolute; bottom: -10%; right: 5%; width: 380px; height: 110%; z-index: 1; display: flex; justify-content: center; align-items: flex-start; }
+.apple-device-bezel { width: 100%; height: 100%; border-radius: 54px; border: 12px solid #2A4F44; background: #FAF8F5; overflow: hidden; position: relative; box-shadow: 0 32px 80px rgba(42,79,68,0.15); transform: translateY(10%); }
+.apple-dynamic-island { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 110px; height: 32px; background: #000; border-radius: 16px; }
+
+/* --- MOBILE RESPONSIVENESS (max-width: 768px) --- */
+@media (max-width: 768px) {
+    .apple-section { padding: 80px 20px; }
+    .apple-hero-section { padding: 120px 20px 80px; }
+    
+    .apple-section-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 40px; }
+    .apple-bento-grid { display: flex; flex-direction: column; gap: 24px; }
+    
+    .apple-tile-hero { flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: 40px 24px; min-height: auto; }
+    .apple-tile-standard { padding: 40px 24px; min-height: 280px; }
+    
+    .apple-device-mockup { position: relative; bottom: auto; right: auto; transform: none; width: 100%; height: 480px; margin-top: 40px; }
+    .apple-device-bezel { transform: translateY(0); border-radius: 40px; border-width: 8px; }
+    .apple-dynamic-island { width: 90px; height: 28px; }
+
+    .apple-img-wrap, .apple-journal-wrap { min-height: auto; height: 320px; }
+    .apple-horizontal-scroller { gap: 20px; }
 }
-.apple-tile:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 32px 64px rgba(42, 79, 68, 0.08); /* Float upward */
-}
+
