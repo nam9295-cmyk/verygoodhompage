@@ -61,14 +61,13 @@ export default function HubHomePage() {
                     <div style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'linear-gradient(to bottom, rgba(42, 79, 68, 0.45) 0%, rgba(250, 248, 245, 0.1) 100%)' }} />
                     <div style={{ position: 'relative', zIndex: 2, color: '#FAF8F5', width: '100%', maxWidth: '1024px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <h1 style={{ fontSize: 'clamp(3rem, 7vw, 6rem)', fontWeight: 600, lineHeight: 1.05, letterSpacing: '-0.02em', margin: '0 0 32px' }}>
-                            {isKr ? '가장 완벽한 초콜릿의 시간.' : 'YOUR VERY GOOD CHOCOLATE.'}
+                            {isKr ? '초콜릿이 필요할 땐, 베리굿' : 'VERY GOOD CHOCOLATE.'}
                         </h1>
                         <p style={{ fontSize: 'clamp(1.2rem, 2vw, 1.6rem)', fontWeight: 300, maxWidth: '600px', margin: '0 0 48px', letterSpacing: '0.01em', opacity: 0.95 }}>
-                            {isKr ? '정제된 단맛, 깊어진 풍미. 섬세하게 설계된 미각의 경험을 제안합니다.' : 'Refined sweetness, profound flavor. A delicately engineered tasting experience.'}
                         </p>
                         <div style={{ display: 'flex', gap: '16px' }}>
                             {content.hero.ctas.slice(0, 1).map((cta) => (
-                                <Link key={cta.label} to={withLocale(cta.to, locale)} style={{ background: '#2A4F44', color: '#FAF8F5', padding: '18px 48px', borderRadius: '999px', fontWeight: 600, fontSize: '1.1rem', textDecoration: 'none', border: 'none', boxShadow: '0 12px 32px rgba(42,79,68,0.2)', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseOver={(e) => {e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(42,79,68,0.3)';}} onMouseOut={(e) => {e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(42,79,68,0.2)';}}>
+                                <Link key={cta.label} to={withLocale(cta.to, locale)} style={{ background: '#2A4F44', color: '#FAF8F5', padding: '18px 48px', borderRadius: '999px', fontWeight: 600, fontSize: '1.1rem', textDecoration: 'none', border: 'none', boxShadow: '0 12px 32px rgba(42,79,68,0.2)', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(42,79,68,0.3)'; }} onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(42,79,68,0.2)'; }}>
                                     {cta.label}
                                 </Link>
                             ))}
@@ -110,15 +109,15 @@ export default function HubHomePage() {
                                 {isKr ? '전체 둘러보기' : 'Explore all'} <span style={{ fontSize: '1.5rem', fontWeight: 300 }}>→</span>
                             </Link>
                         </div>
-                        
+
                         <div style={{ display: 'flex', gap: '64px', overflowX: 'auto', paddingBottom: '32px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
                             {featuredProducts.map((product) => (
                                 <Link key={product.id} to={withLocale(`/product/${product.id}`, locale)} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', flex: '0 0 auto', width: 'clamp(320px, 30vw, 420px)' }} className="apple-product-link">
-                                    <div style={{ borderRadius: '32px', overflow: 'hidden', marginBottom: '32px', background: '#e8e4db', transition: 'transform 0.5s cubic-bezier(0.1, 0, 0.1, 1), box-shadow 0.5s cubic-bezier(0.1, 0, 0.1, 1)' }} className="apple-img-wrap" onMouseOver={(e) => {e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = '0 24px 48px rgba(42,79,68,0.1)'}} onMouseOut={(e) => {e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = 'none'}}>
-                                        <img 
-                                            src={product.mainImage} 
-                                            alt={isKr ? product.name_ko : product.name} 
-                                            style={{ width: '100%', height: '500px', objectFit: 'cover', display: 'block' }} 
+                                    <div style={{ borderRadius: '32px', overflow: 'hidden', marginBottom: '32px', background: '#e8e4db', transition: 'transform 0.5s cubic-bezier(0.1, 0, 0.1, 1), box-shadow 0.5s cubic-bezier(0.1, 0, 0.1, 1)' }} className="apple-img-wrap" onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = '0 24px 48px rgba(42,79,68,0.1)' }} onMouseOut={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = 'none' }}>
+                                        <img
+                                            src={product.mainImage}
+                                            alt={isKr ? product.name_ko : product.name}
+                                            style={{ width: '100%', height: '500px', objectFit: 'cover', display: 'block' }}
                                         />
                                     </div>
                                     <h3 style={{ fontSize: '2rem', fontWeight: 600, margin: '0 0 12px' }}>{isKr ? product.name_ko : product.name}</h3>
@@ -135,9 +134,9 @@ export default function HubHomePage() {
                         <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', color: 'var(--brand)', fontWeight: 600, letterSpacing: '-0.02em', margin: '0 0 80px', textAlign: 'center' }}>
                             {isKr ? '초콜릿, 그 이상의 경험.' : 'EXPERIENCE MORE.'}
                         </h2>
-                        
+
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '32px', gridAutoRows: 'minmax(400px, auto)' }}>
-                            
+
                             {/* THE STAR: Wellness App Tile */}
                             <Link to={withLocale(content.digitalCards[0].fallbackTo, locale)} className="apple-tile" style={{ gridColumn: '1 / -1', background: '#EAE6DD', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', overflow: 'hidden', textDecoration: 'none', color: 'var(--brand)', padding: '80px', minHeight: '640px' }}>
                                 <div style={{ position: 'relative', zIndex: 2, maxWidth: '600px' }}>
@@ -202,7 +201,7 @@ export default function HubHomePage() {
                                 {isKr ? '모든 글 읽기' : 'Read All'} <span style={{ fontSize: '1.5rem', fontWeight: 300 }}>→</span>
                             </Link>
                         </div>
-                        
+
                         <div style={{ display: 'flex', gap: '40px', overflowX: 'auto', paddingBottom: '32px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
                             {latestPosts.map((post) => (
                                 <Link key={post.id} to={withLocale(`/blog/${post.id}`, locale)} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', flex: '0 0 auto', width: 'clamp(320px, 30vw, 420px)' }} className="apple-journal-link">

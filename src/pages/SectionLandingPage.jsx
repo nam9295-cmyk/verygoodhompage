@@ -85,6 +85,7 @@ export default function SectionLandingPage({ section }) {
     const presentation = getSectionPresentation(section, isKr);
     const heroAsset = getSectionAsset(section, 'hero');
     const galleryAssets = getSectionAssetCollection(section, 'gallery');
+    const storyAssets = getSectionAssetCollection(section, 'story');
     const featuredProducts = (content.featuredProductIds || [])
         .map((id) => products.find((product) => product.id === id))
         .filter(Boolean);
@@ -141,6 +142,39 @@ export default function SectionLandingPage({ section }) {
                         </div>
                     </div>
                 </section>
+
+                {content.storySections?.length > 0 && (
+                    <section className="section-story-stack">
+                        <div className="section-shelf-head">
+                            <div className="hub-eyebrow">{isKr ? 'DIGITAL STORY' : 'DIGITAL STORY'}</div>
+                            <h2>{isKr ? '앱과 어드민의 흐름을 한눈에 살펴보세요.' : 'A closer look at the app and admin flow.'}</h2>
+                        </div>
+                        <div className="hub-editorial-stack">
+                            {content.storySections.map((story, index) => (
+                                <article
+                                    key={story.title}
+                                    className={`hub-editorial-row ${index % 2 === 1 ? 'is-reversed' : ''}`}
+                                >
+                                    <div className="hub-editorial-visual">
+                                        <SectionVisual asset={storyAssets[index]} alt={story.title} />
+                                    </div>
+                                    <div className="hub-editorial-copy">
+                                        <div className="hub-eyebrow">{story.eyebrow}</div>
+                                        <h3>{story.title}</h3>
+                                        <p>{story.body}</p>
+                                        {story.bullets?.length > 0 && (
+                                            <ul className="hub-list">
+                                                {story.bullets.map((item) => (
+                                                    <li key={item}>{item}</li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+                    </section>
+                )}
 
                 {content.modules?.length > 0 && (
                     <section className="section-module-grid">

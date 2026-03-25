@@ -15,6 +15,17 @@ export const projectIntegrations = {
         assets: {
             hero: '/assets/integrations/wellness-app-hero.webp',
             icon: '/assets/integrations/wellness-app-icon.png',
+            overview: '/assets/integrations/wellness-app/overview.png',
+            blendSystem: '/assets/integrations/wellness-app/blend-system.png',
+            home: '/assets/integrations/wellness-app/home.png',
+            log: '/assets/integrations/wellness-app/log.png',
+            report: '/assets/integrations/wellness-app/report.png',
+            customBlend: '/assets/integrations/wellness-app/custom-blend.png',
+            asianCup: '/assets/integrations/wellness-app/asian-cup.webp',
+            britishCup: '/assets/integrations/wellness-app/british-cup.webp',
+            hibisCup: '/assets/integrations/wellness-app/hibis-cup.webp',
+            mintyCup: '/assets/integrations/wellness-app/minty-cup.webp',
+            teapotEmpty: '/assets/integrations/wellness-app/teapot-empty.png',
         },
     },
     wellnessAdmin: {
@@ -29,6 +40,10 @@ export const projectIntegrations = {
         assets: {
             dashboard: '/assets/integrations/screenshots/wellness-admin-dashboard.png',
             parentMode: '/assets/integrations/screenshots/wellness-admin-parent-mode.png',
+            dashboardIntro: '/assets/integrations/wellness-admin/dashboard.png',
+            members: '/assets/integrations/wellness-admin/members.png',
+            memberDetail: '/assets/integrations/wellness-admin/member-detail.png',
+            settings: '/assets/integrations/wellness-admin/settings.png',
         },
     },
     reservation: {

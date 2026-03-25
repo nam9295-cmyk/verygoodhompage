@@ -487,56 +487,138 @@ export function getSectionPageContent(isKr) {
         },
         digital: {
             eyebrow: isKr ? 'DIGITAL' : 'DIGITAL',
-            title: isKr ? '웰니스 앱과 운영 도구, 작은 실험들을 소개합니다.' : 'A page introducing the wellness app, operations tools, and beta experiments.',
+            title: isKr ? '웰니스 앱과 운영 도구, 작은 실험들을 한곳에서 소개합니다.' : 'A page introducing the wellness app, operations tools, and beta experiments.',
             description: isKr
-                ? '디지털 프로젝트를 차분하게 소개하고, 필요한 맥락을 먼저 보여줍니다.'
+                ? '웰니스 앱과 어드민의 실제 화면, 핵심 흐름, 준비 중인 실험까지 차분하게 살펴볼 수 있습니다.'
                 : 'A quieter introduction to the digital layer, with context before action.',
             image: '/assets/ceative-cacao/creative_intro.webp',
             imageAlt: isKr ? '베리굿 디지털 경험' : 'Very Good digital experience',
             facts: [
-                { label: isKr ? 'App' : 'App', value: isKr ? '정식 배포 전 프리뷰 단계' : 'Preview stage before public release' },
-                { label: isKr ? 'Admin' : 'Admin', value: isKr ? '운영 대시보드 구조 확인 완료' : 'Internal dashboard structure confirmed' },
-                { label: isKr ? 'AI Beta' : 'AI Beta', value: isKr ? '실험 영역으로 제한' : 'Presented as an experiment' },
+                { label: isKr ? 'App' : 'App', value: isKr ? '기록 · 추천 · 커스텀 블렌딩' : 'Logging · recommendations · custom blending' },
+                { label: isKr ? 'Admin' : 'Admin', value: isKr ? '대시보드 · 멤버 관리 · 상세 리포트' : 'Dashboard · member management · deep reports' },
+                { label: isKr ? 'AI Beta' : 'AI Beta', value: isKr ? '준비 중인 실험 레이어' : 'Still a small experiment' },
             ],
             highlights: [
-                isKr ? '기록과 추천을 연결하는 웰니스 앱 소개' : 'A wellness app that connects logging and recommendations',
-                isKr ? '회원 상태와 parent mode를 다루는 운영 대시보드' : 'An ops dashboard handling member status and parent mode',
-                isKr ? 'AI 추천 기능의 베타 톤 정리' : 'A beta framing for AI recommendations',
+                isKr ? '기록에서 추천과 블렌딩으로 이어지는 웰니스 앱' : 'A wellness app connecting logs, recommendations, and blending',
+                isKr ? '회원 상태와 운영 흐름을 읽는 어드민 대시보드' : 'An admin dashboard for members and operations',
+                isKr ? '지금은 작게 소개하는 AI 추천 실험' : 'A still-small AI recommendation experiment',
             ],
             modules: [
                 {
                     title: isKr ? 'Wellness App' : 'Wellness App',
                     body: isKr
-                        ? '기록과 추천 흐름이 담긴 앱으로, 정식 공개 전까지는 이곳에서 먼저 소개합니다.'
+                        ? '하루의 기록이 추천과 커스텀 블렌딩으로 이어지는 웰니스 앱입니다.'
                         : 'The app already has a clear logging-and-recommendation flow, but for now it is introduced through explanation rather than a direct app link.',
                 },
                 {
                     title: isKr ? 'Admin Dashboard' : 'Admin Dashboard',
                     body: isKr
-                        ? '운영 대시보드는 고객용 서비스와 분리된 내부 도구로 소개합니다.'
+                        ? '넓은 화면에서 멤버 현황과 기록, 운영 인사이트를 다루는 내부 도구입니다.'
                         : 'The admin dashboard is presented as a separate internal operations layer, not a consumer product.',
                 },
                 {
                     title: isKr ? 'AI Recommendation Beta' : 'AI Recommendation Beta',
                     body: isKr
-                        ? 'AI는 전면 기능보다, 추천 경험을 다듬는 작은 실험으로 소개합니다.'
+                        ? 'AI는 전면 기능보다, 추천 경험을 다듬는 작은 실험으로만 소개합니다.'
                         : 'AI stays framed as an experimental recommendation layer, not a headline promise.',
+                },
+            ],
+            storySections: [
+                {
+                    eyebrow: isKr ? 'WELLNESS APP' : 'WELLNESS APP',
+                    title: isKr ? '나의 하루를 읽는 퍼스널 웰니스 파트너' : 'A personal wellness partner that reads your day',
+                    body: isKr ? '단순히 기록하는 앱이 아니라, 몸과 마음의 상태를 읽고 지금 필요한 한 잔의 차를 제안하는 흐름으로 설계했습니다.' : 'More than a logging tool, it reads your condition and suggests the tea that fits the moment.',
+                    bullets: isKr
+                        ? [
+                            '일상의 기록이 맞춤형 티 제안으로 이어집니다.',
+                            '시그니처 블렌딩과 AI 추천을 함께 보여줍니다.',
+                            '차분한 인터페이스로 가볍게 시작할 수 있습니다.',
+                        ]
+                        : [
+                            'Daily logs lead into tailored tea suggestions.',
+                            'Signature blends and AI recommendations sit side by side.',
+                            'A calm interface keeps the routine light.',
+                        ],
+                },
+                {
+                    eyebrow: isKr ? 'SIMPLE ROUTINE' : 'SIMPLE ROUTINE',
+                    title: isKr ? '기록은 가볍게, 변화는 분명하게' : 'Light logging, clearer change',
+                    body: isKr ? '수면과 기분, 활동량을 짧게 남기면 오늘의 컨디션을 읽고 그에 맞는 블렌딩을 제안하는 구조입니다.' : 'Sleep, mood, and activity come together in a short routine that leads into a more fitting blend.',
+                    bullets: isKr
+                        ? [
+                            '터치 몇 번으로 수면, 기분, 활동량을 남깁니다.',
+                            '기록된 데이터를 바탕으로 오늘의 추천을 제안합니다.',
+                            '추천을 바탕으로 취향에 맞게 다시 다듬을 수 있습니다.',
+                        ]
+                        : [
+                            'Track sleep, mood, and activity in just a few taps.',
+                            'The system suggests a blend from what you logged today.',
+                            'You can refine the recommendation to fit your taste.',
+                        ],
+                },
+                {
+                    eyebrow: isKr ? 'TEA LAB EXPERIENCE' : 'TEA LAB EXPERIENCE',
+                    title: isKr ? '손끝에서 완성되는 커스텀 블렌딩' : 'Custom blending shaped by your fingertips',
+                    body: isKr ? '커스텀 블렌딩 화면은 단순한 설정이 아니라, 비율과 색감, 향의 균형을 함께 느끼는 티 랩 경험으로 설계했습니다.' : 'The custom blend screen is designed less like settings and more like a tea lab for balance, color, and mood.',
+                    bullets: isKr
+                        ? [
+                            '재료 비율에 따라 티팟 비주얼이 실시간으로 반응합니다.',
+                            '맛과 향의 밸런스를 직관적으로 조절할 수 있습니다.',
+                            '프리미엄 티를 직접 만드는 감각적인 경험을 담았습니다.',
+                        ]
+                        : [
+                            'The teapot visual responds in real time to ingredient ratios.',
+                            'Taste and aroma balance can be adjusted intuitively.',
+                            'It aims to feel like crafting a premium tea of your own.',
+                        ],
+                },
+                {
+                    eyebrow: isKr ? 'ADMIN DASHBOARD' : 'ADMIN DASHBOARD',
+                    title: isKr ? '운영과 멤버 흐름을 넓은 화면에서 읽습니다' : 'Operations and member flow on a wider screen',
+                    body: isKr ? '웰니스 앱의 운영 레이어는 모바일의 한계를 넘어, 대시보드와 멤버 관리, 그룹별 흐름을 한눈에 볼 수 있도록 설계했습니다.' : 'The admin layer expands beyond the limits of mobile, bringing dashboards, member management, and group flow into one wide view.',
+                    bullets: isKr
+                        ? [
+                            '실시간 통합 통계를 한 화면에서 확인합니다.',
+                            '조직과 그룹별로 멤버를 검색하고 관리할 수 있습니다.',
+                            '운영 흐름과 권한, 설정을 분리해 다룹니다.',
+                        ]
+                        : [
+                            'Integrated stats are visible in one dashboard.',
+                            'Members can be filtered by organization and group.',
+                            'Operations, permissions, and settings stay clearly separated.',
+                        ],
+                },
+                {
+                    eyebrow: isKr ? 'DEEP INSIGHT' : 'DEEP INSIGHT',
+                    title: isKr ? '한 명의 사용자에게 집중하는 상세 리포트' : 'Deep reports focused on a single member',
+                    body: isKr ? '수면과 기분, 피로도, 블렌드 사용 기록을 함께 읽으며 한 명의 변화를 더 깊게 살펴볼 수 있는 구조입니다.' : 'Sleep, mood, fatigue, and blend history come together in a closer member-level report.',
+                    bullets: isKr
+                        ? [
+                            '기록 분석과 블렌드 로그를 나란히 읽습니다.',
+                            '운영 메모와 그룹 이동, 내보내기까지 이어집니다.',
+                            '개별 사용자에 맞춘 인사이트를 빠르게 확인할 수 있습니다.',
+                        ]
+                        : [
+                            'Log analysis and blend history are read side by side.',
+                            'Operational notes, group moves, and exports stay close at hand.',
+                            'Member-specific insight is easier to read at a glance.',
+                        ],
                 },
             ],
             featureCards: [
                 {
-                    title: isKr ? '웰니스 앱 슬롯' : 'Wellness app slot',
-                    body: isKr ? '실제 앱 구조와 비주얼을 반영하되, 지금은 외부 링크보다 소개 페이지를 먼저 보여줍니다.' : 'The card now uses the real app structure and visuals, but routes into the Digital explainer instead of sending visitors directly to the app.',
-                    eyebrow: isKr ? 'Future app' : 'Future app',
+                    title: isKr ? '앱 소개의 밀도' : 'App story depth',
+                    body: isKr ? '웰니스 앱은 기록, 추천, 커스텀 블렌딩까지 하나의 서사로 읽히는 편이 더 설득력 있습니다.' : 'The wellness app reads best when logging, recommendation, and custom blending form one continuous story.',
+                    eyebrow: isKr ? 'App' : 'App',
                 },
                 {
-                    title: isKr ? '관리자 분리' : 'Admin separated',
-                    body: isKr ? '회원 상태와 가족용 parent mode를 다루는 운영 화면이라, 일반 고객 섹션과 분명히 구분했습니다.' : 'Because it covers member status and parent mode, the admin layer should stay visibly distinct from the customer-facing sections.',
-                    eyebrow: isKr ? 'Internal tool' : 'Internal tool',
+                    title: isKr ? '운영 도구의 선명함' : 'Clear admin role',
+                    body: isKr ? '어드민은 고객용 서비스와 분리하되, 실제 운영 화면과 멤버 관리 흐름을 충분히 보여주는 편이 좋습니다.' : 'The admin layer should stay separate from customer-facing pages, while still showing enough of the real operations flow.',
+                    eyebrow: isKr ? 'Admin' : 'Admin',
                 },
                 {
                     title: isKr ? 'AI 베타 톤' : 'AI beta tone',
-                    body: isKr ? '과장된 메인 기능이 아니라 실험 영역으로 보이도록 톤을 제한합니다.' : 'Keep AI framed as an experiment instead of an oversized headline promise.',
+                    body: isKr ? 'AI는 과장된 메인 기능보다, 준비 중인 추천 실험처럼 보이도록 작은 톤을 유지합니다.' : 'Keep AI framed as an experiment instead of an oversized headline promise.',
                     eyebrow: isKr ? 'Experiment' : 'Experiment',
                 },
             ],
@@ -548,13 +630,13 @@ export function getSectionPageContent(isKr) {
             detailCards: [
                 {
                     label: isKr ? 'Wellness App' : 'Wellness App',
-                    title: isKr ? '구조는 준비됐고 공개는 아직 조심스럽게' : 'Structured, but still introduced carefully',
-                    body: isKr ? '온보딩과 컨디션 요약, 차 추천, 블렌딩 흐름까지 준비돼 있지만, 지금은 앱 링크보다 설명과 비주얼을 먼저 보여주는 편이 자연스럽습니다.' : 'The welness_app project already has onboarding, condition summary, tea recommendation, and blend flows. For now, it reads more naturally through explanation and visuals than a direct app CTA.',
+                    title: isKr ? '정식 공개 전, 먼저 소개로 만나는 앱' : 'Structured, but still introduced carefully',
+                    body: isKr ? '온보딩과 컨디션 요약, 차 추천, 블렌딩 흐름까지 준비돼 있어도 지금은 앱 링크보다 소개와 스크린샷이 먼저 읽히는 편이 자연스럽습니다.' : 'The welness_app project already has onboarding, condition summary, tea recommendation, and blend flows. For now, it reads more naturally through explanation and visuals than a direct app CTA.',
                 },
                 {
                     label: isKr ? 'Admin' : 'Admin',
-                    title: isKr ? '운영 대시보드 구조 확인 완료' : 'Dashboard structure confirmed',
-                    body: isKr ? '운영 대시보드와 멤버 뷰, parent mode 흐름을 확인했고, 이 페이지에서는 로그인보다 소개와 맥락을 먼저 보여줍니다.' : 'The dashboard, member views, and parent mode flow are all confirmed, and this page keeps context ahead of login prompts.',
+                    title: isKr ? '대시보드와 멤버 관리 흐름까지 소개' : 'Dashboard structure confirmed',
+                    body: isKr ? '운영 대시보드와 멤버 뷰, 상세 리포트 흐름을 함께 보여줘야 어드민의 역할이 더 분명하게 전해집니다.' : 'The dashboard, member views, and detail report flow make the admin layer clearer when they are shown together.',
                 },
                 {
                     label: isKr ? 'AI Beta' : 'AI Beta',
@@ -563,22 +645,26 @@ export function getSectionPageContent(isKr) {
                 },
                 {
                     label: isKr ? 'Priority' : 'Priority',
-                    title: isKr ? '먼저 소개하고, 천천히 연결합니다' : 'Information structure before consolidation',
-                    body: isKr ? '디지털 자산은 읽히는 순서와 톤을 먼저 정리한 뒤, 실제 연결 강도는 천천히 높여가는 편이 좋습니다.' : 'It works better to first shape the order and tone of the digital layer, then increase the strength of its actions over time.',
+                    title: isKr ? '설명보다 실제 화면이 함께 보여야 합니다' : 'Information structure before consolidation',
+                    body: isKr ? '디지털 레이어는 짧은 문장만으로 끝내기보다, 실제 앱과 어드민 화면이 함께 보일 때 훨씬 설득력이 커집니다.' : 'The digital layer becomes more persuasive when real app and admin screens are shown alongside the copy.',
                 },
             ],
             galleryCards: [
                 {
-                    title: isKr ? 'Wellness Slot' : 'Wellness Slot',
-                    body: isKr ? '웰니스 앱은 브랜드와 맞는 언어로 먼저 공개 자리를 정리해두는 것이 중요합니다.' : 'The wellness app first needs a public-facing slot with language that fits the brand.',
+                    title: isKr ? '오늘의 홈' : 'Home screen',
+                    body: isKr ? '오늘의 컨디션과 추천 블렌드를 한눈에 확인하는 앱의 첫 화면입니다.' : 'The home screen brings today’s condition and recommended blends together.',
                 },
                 {
-                    title: isKr ? 'Admin Access' : 'Admin Access',
-                    body: isKr ? '관리자 도구는 일반 고객 동선과 다른 맥락이라는 점을 UI에서도 분명히 구분합니다.' : 'Admin access should remain visibly separate from the customer-facing journey.',
+                    title: isKr ? '커스텀 블렌딩' : 'Custom blending',
+                    body: isKr ? '재료 비율과 밸런스를 직접 조절하는 핵심 경험 화면입니다.' : 'A key screen where ingredients and balance are adjusted directly.',
                 },
                 {
-                    title: isKr ? 'AI Experiment' : 'AI Experiment',
-                    body: isKr ? 'AI는 메인 메시지보다는 실험 레이어로 작게 노출하는 편이 현재 브랜드 단계에 더 적합합니다.' : 'AI fits better as a smaller experimental layer than as a headline brand promise right now.',
+                    title: isKr ? '운영 대시보드' : 'Dashboard view',
+                    body: isKr ? '전체 운영 흐름과 주요 지표를 넓은 화면에서 읽는 어드민 첫 화면입니다.' : 'The admin dashboard reads the overall operations flow and key metrics on a wider screen.',
+                },
+                {
+                    title: isKr ? '멤버 상세 리포트' : 'Member detail',
+                    body: isKr ? '한 명의 기록과 블렌드 로그를 깊게 읽는 상세 화면입니다.' : 'A detailed view for reading one member’s logs and blend history.',
                 },
             ],
             faqItems: [
@@ -596,7 +682,7 @@ export function getSectionPageContent(isKr) {
                 },
             ],
             notes: [
-                isKr ? '웰니스 앱은 실제 구조와 자산 기준으로 소개되지만, 정식 공개 전까지는 Digital 설명 페이지를 통해 안내합니다.' : 'The wellness app is now represented with real structure and assets, but until public release it is introduced through the Digital explainer page.',
+                isKr ? '웰니스 앱과 어드민은 실제 소개 자료와 스크린샷을 기준으로 정리하되, 정식 공개 전까지는 Digital 페이지 안에서 차분하게 안내합니다.' : 'The wellness app and admin are now represented with their real intro assets and screenshots, while still being introduced calmly inside the Digital page.',
             ],
         },
         contact: {

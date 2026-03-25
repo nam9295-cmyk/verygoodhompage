@@ -5,7 +5,7 @@ export default function SectionVisual({ asset, alt, className = '' }) {
 
     if (asset.type === 'image') {
         return (
-            <div className={`section-visual section-visual-image ${className}`.trim()}>
+            <div className={`section-visual section-visual-image ${asset.fit ? `is-${asset.fit}` : ''} ${className}`.trim()}>
                 <img src={asset.src} alt={alt || asset.alt || ''} />
             </div>
         );

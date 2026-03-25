@@ -757,6 +757,15 @@ body.is-header-visible .topbar {
     object-fit: cover;
 }
 
+.section-visual-image.is-contain {
+    background: linear-gradient(180deg, rgba(248, 248, 246, 0.94), rgba(255, 255, 255, 0.9));
+}
+
+.section-visual-image.is-contain img {
+    object-fit: contain;
+    padding: 20px;
+}
+
 .section-visual-graphic {
     display: flex;
     height: 100%;
@@ -1029,6 +1038,7 @@ body.is-header-visible .topbar {
 }
 
 .section-detail-stack,
+.section-story-stack,
 .section-gallery-block,
 .section-faq-block {
     padding-top: 24px;
