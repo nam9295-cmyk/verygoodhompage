@@ -57,11 +57,19 @@ export default function Header() {
                     )}
                 </div>
 
-                <Link className="brand always-visible" to={withLocale('/', locale)}>
-                    <img className="brand-img" src="/assets/logo-type.png" alt="VERYGOOD" />
+                <Link className="brand always-visible" to={withLocale('/', locale)} style={{ display: 'flex', justifyContent: 'center' }}>
+                    <img 
+                        className="brand-img" 
+                        src="/assets/logo-type.png" 
+                        alt="VERYGOOD" 
+                        style={{ 
+                            filter: 'invert(27%) sepia(19%) saturate(1478%) hue-rotate(112deg) brightness(93%) contrast(85%)',
+                            transition: 'opacity 0.3s'
+                        }} 
+                        onMouseOver={(e) => e.currentTarget.style.opacity = 0.7}
+                        onMouseOut={(e) => e.currentTarget.style.opacity = 1}
+                    />
                 </Link>
-
-                {/* Desktop nav removed. Center is now reserved for the Logo. */}
 
                 <nav className="topbar-actions" aria-label="Top actions">
                     <LanguageSelector />
