@@ -2,10 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
-import { blogs as staticBlogs } from '../data/blogs';
-import { db } from '../services/firebase';
-import { doc, getDoc } from 'firebase/firestore';
 import { formatBlogDate } from '../utils/formatBlogDate';
+import { fetchBlogById } from '../services/blogs';
+import { withLocale } from '../utils/pathUtils';
 
 // CSS for blog detail with zigzag image layout
 const blogStyles = `
@@ -193,25 +192,14 @@ const blogStyles = `
 export default function BlogDetailPage() {
   const { id } = useParams();
   const { isKr } = useLanguage();
+  const locale = isKr ? 'ko' : 'en';
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const contentRef = useRef(null);
 
     useEffect(() => {
         async function fetchPost() {
-      let foundPost = staticBlogs.find(b => b.id === id);
-
-      if (!foundPost && id) {
-        try {
-          const docRef = doc(db, "blogs", id);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            foundPost = { id: docSnap.id, ...docSnap.data() };
-          }
-        } catch (e) {
-          console.log("Firestore fetch skipped or failed", e);
-        }
-      }
+      const foundPost = await fetchBlogById(id);
 
       setPost(foundPost);
       setLoading(false);
@@ -271,7 +259,7 @@ export default function BlogDetailPage() {
         <main className="blog-detail-page">
           <div style={{ textAlign: 'center', padding: '100px 0' }}>
             <h2>{isKr ? '글을 찾을 수 없습니다' : 'Post not found'}</h2>
-            <Link to="/blog" className="btn-text">
+            <Link to={withLocale('/blog', locale)} className="btn-text">
               {isKr ? '목록으로 돌아가기' : 'Back to List'}
             </Link>
           </div>
@@ -296,7 +284,7 @@ export default function BlogDetailPage() {
       <Helmet>
         <title>{title} - Very Good Chocolate</title>
         <meta name="description" content={summary} />
-        <link rel="canonical" href={`https://verygood-chocolate.com/blog/${id}`} />
+        <link rel="canonical" href={`https://verygood-chocolate.com${withLocale(`/blog/${id}`, locale)}`} />
       </Helmet>
 
       <style>{blogStyles}</style>
@@ -313,7 +301,7 @@ export default function BlogDetailPage() {
             dangerouslySetInnerHTML={{ __html: content }}
           />
           <div className="bd-footer">
-            <Link to="/blog" className="btn-text">
+            <Link to={withLocale('/blog', locale)} className="btn-text">
               {isKr ? '목록으로 돌아가기' : 'Back to List'}
             </Link>
           </div>

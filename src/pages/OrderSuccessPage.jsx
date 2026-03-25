@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
+import { useLanguage } from '../context/LanguageContext';
+import { withLocale } from '../utils/pathUtils';
 import '../styles/index.css';
 
 export default function OrderSuccessPage() {
     const { t } = useTranslation();
+    const { isKr } = useLanguage();
+    const locale = isKr ? 'ko' : 'en';
 
     return (
         <div className="section" style={{ paddingTop: '160px', minHeight: '80vh', textAlign: 'center' }}>
@@ -22,7 +26,7 @@ export default function OrderSuccessPage() {
                     Your delicious chocolates will be on their way soon!
                 </p>
 
-                <Link to="/" className="cta">
+                <Link to={withLocale('/', locale)} className="cta">
                     {t('header.home', 'Back to Home')}
                 </Link>
             </div>

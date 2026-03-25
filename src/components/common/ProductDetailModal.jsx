@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     RadarChart,
@@ -91,6 +91,8 @@ const productsData = {
         ]
     }
 };
+
+const MotionDiv = motion.div;
 
 const styles = {
     overlay: {
@@ -242,7 +244,7 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
     if (!data) return null;
 
     return (
-        <motion.div
+        <MotionDiv
             style={styles.overlay}
             onClick={onClose}
             initial={{ opacity: 0 }}
@@ -250,7 +252,7 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
         >
-            <motion.div
+            <MotionDiv
                 style={styles.modal}
                 onClick={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -283,7 +285,7 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
                             style={styles.productImage}
                         />
                     </div>
-                    <motion.div
+                    <MotionDiv
                         style={styles.chartArea}
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -323,7 +325,7 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
                                 />
                             </RadarChart>
                         </ResponsiveContainer>
-                    </motion.div>
+                    </MotionDiv>
                 </div>
 
                 {/* Bottom Section: Description + Icons */}
@@ -354,7 +356,7 @@ export default function ProductDetailModal({ isOpen, onClose, product }) {
                         ))}
                     </div>
                 </div>
-            </motion.div>
-        </motion.div>
+            </MotionDiv>
+        </MotionDiv>
     );
 }

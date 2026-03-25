@@ -1,54 +1,86 @@
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useLanguage } from '../../context/LanguageContext';
+import { getFooterServiceLinks } from '../../config/siteContent';
+import { getSiteProfile } from '../../config/siteProfile';
+import { withLocale } from '../../utils/pathUtils';
 
 export default function Footer() {
-    const { t } = useTranslation();
+    const { isKr } = useLanguage();
+    const locale = isKr ? 'ko' : 'en';
     const year = new Date().getFullYear();
+    const serviceLinks = getFooterServiceLinks(isKr);
+    const profile = getSiteProfile(isKr);
 
     return (
-        <footer className="footer" style={{ padding: '60px 20px', backgroundColor: '#f9f9f9', borderTop: '1px solid #eaeaea' }}>
-            <div className="footer-inner" style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '40px' }}>
+        <footer className="site-footer">
+            <div className="site-footer-inner">
+                <div className="site-footer-brand">
+                    <div className="hub-eyebrow">{isKr ? 'FOOTER LINKS' : 'FOOTER LINKS'}</div>
+                    <h2>VERYGOOD CHOCOLATE</h2>
+                    <p>
+                        {isKr
+                            ? '브랜드와 제품, 매장과 디지털 프로젝트를 한 흐름으로 잇는 베리굿의 홈페이지입니다.'
+                            : 'The main hub connecting the brand, products, store, services, and digital layers.'}
+                    </p>
+                    <div className="site-footer-meta">
+                        <span>{isKr ? '상호명' : 'Company'}: {profile.companyName}</span>
+                        <span>{isKr ? '대표자' : 'Owner'}: {profile.owner}</span>
+                        <span>{isKr ? '사업자등록번호' : 'Business License'}: {profile.businessLicense}</span>
+                        <span>{isKr ? '통신판매업신고' : 'Mail-order License'}: {profile.mailOrderLicense}</span>
+                    </div>
+                </div>
 
-                <div className="footer-top" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '40px' }}>
-                    <div className="footer-brand-section" style={{ width: '100%' }}>
-                        <div className="footer-brand" style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '20px' }}>VERYGOOD CHOCOLATE</div>
-                        <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.6' }}>
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 20px', alignItems: 'center' }}>
-                                <span>{t('footer.company_name_label')} {t('footer.company_name')}</span>
-                                <span style={{ color: '#ddd' }}>|</span>
-                                <span>{t('footer.owner_label')} {t('footer.owner')}</span>
-                                <span style={{ color: '#ddd' }}>|</span>
-                                <span>{t('footer.business_license_label')} 850-81-02950</span>
-                                <span style={{ color: '#ddd' }}>|</span>
-                                <span>{t('footer.mail_order_license_label')} 2023-DaeguDalseo-1940</span>
-                            </div>
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 20px', alignItems: 'center', marginTop: '10px' }}>
-                                <span>{t('footer.address_label')} {t('footer.address')}</span>
-                                <span style={{ color: '#ddd' }}>|</span>
-                                <span>{t('footer.contact_label')} verygoutchocolate@gmail.com</span>
-                                <span style={{ color: '#ddd' }}>|</span>
-                                <span>{t('footer.tel_label')} +82-70-7840-0717</span>
-                            </div>
+                <div className="site-footer-links">
+                    <div>
+                        <h3>{isKr ? 'Explore' : 'Explore'}</h3>
+                        <div className="site-footer-link-list">
+                            <Link to={withLocale('/brand', locale)}>{isKr ? '브랜드' : 'Brand'}</Link>
+                            <Link to={withLocale('/products', locale)}>{isKr ? '제품' : 'Products'}</Link>
+                            <Link to={withLocale('/store', locale)}>{isKr ? '매장' : 'Store'}</Link>
+                            <Link to={withLocale('/blog', locale)}>Blog</Link>
+                            <Link to={withLocale('/contact', locale)}>{isKr ? '문의' : 'Contact'}</Link>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3>{isKr ? 'Services' : 'Services'}</h3>
+                        <div className="site-footer-link-list">
+                            {serviceLinks.map((item) => (
+                                item.href ? (
+                                    <a
+                                        key={item.label}
+                                        href={item.href || withLocale(item.fallbackTo, locale)}
+                                        target={item.external ? '_blank' : undefined}
+                                        rel={item.external ? 'noreferrer' : undefined}
+                                    >
+                                        {item.label}
+                                    </a>
+                                ) : (
+                                    <Link key={item.label} to={withLocale(item.fallbackTo, locale)}>
+                                        {item.label}
+                                    </Link>
+                                )
+                            ))}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3>{isKr ? 'Legal' : 'Legal'}</h3>
+                        <div className="site-footer-link-list">
+                            <Link to={withLocale('/terms', locale)}>{isKr ? '이용약관' : 'Terms'}</Link>
+                            <Link to={withLocale('/privacy', locale)}>{isKr ? '개인정보처리방침' : 'Privacy'}</Link>
+                            <Link to={withLocale('/refund', locale)}>{isKr ? '반품/환불' : 'Refund'}</Link>
+                            <Link to={withLocale('/shipping', locale)}>{isKr ? '배송정책' : 'Shipping'}</Link>
                         </div>
                     </div>
                 </div>
 
-                <div className="footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #ddd', paddingTop: '20px', flexWrap: 'wrap', gap: '15px' }}>
-                    <div className="footer-copyright" style={{ fontSize: '13px', color: '#888' }}>
-                        {t('footer.copyright', { year })}
-                    </div>
-
-                    <div className="footer-links" style={{ display: 'flex', gap: '20px' }}>
-                        <Link to="/terms" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>{t('footer.terms')}</Link>
-                        <span style={{ color: '#ddd' }}>|</span>
-                        <Link to="/privacy" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>{t('footer.privacy')}</Link>
-                        <span style={{ color: '#ddd' }}>|</span>
-                        <Link to="/refund" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>{t('footer.refund')}</Link>
-                        <span style={{ color: '#ddd' }}>|</span>
-                        <Link to="/shipping" style={{ fontSize: '13px', color: '#666', textDecoration: 'none' }}>{t('footer.shipping')}</Link>
-                    </div>
+                <div className="site-footer-bottom">
+                    <div>{isKr ? '주소' : 'Address'}: {profile.addressFull}</div>
+                    <div>Email: {profile.email}</div>
+                    <div>Tel: {profile.phone}</div>
+                    <div>© {year} {profile.companyName}</div>
                 </div>
-
             </div>
         </footer>
     );

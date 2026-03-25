@@ -3,37 +3,22 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../../context/LanguageContext';
+import { withLocale } from '../../utils/pathUtils';
 
 export default function ProductCard({ product, variants }) {
     const { t } = useTranslation();
     const { isKr } = useLanguage();
+    const locale = isKr ? 'ko' : 'en';
     const [isHovered, setIsHovered] = useState(false);
 
     // Determine which image to show
     const displayImage = isHovered && product.hoverImage
         ? product.hoverImage
         : product.mainImage;
-
-    // Helper to format price like Amazon: <sup>$</sup>7<sup>49</sup>
-    const renderPrice = () => {
-        if (!product.price) return null;
-
-        // Handle number format
-        const priceNum = Number(product.price);
-        const integerPart = Math.floor(priceNum);
-        const decimalPart = (priceNum % 1).toFixed(2).substring(2); // Extract "49" from 7.49 or "20" from 8.20
-
-        return (
-            <div className="amazon-price">
-                <span className="currency">$</span>
-                <span className="integer">{integerPart}</span>
-                <span className="fraction">{decimalPart}</span>
-            </div>
-        );
-    };
+    const MotionArticle = motion.article;
 
     return (
-        <motion.article
+        <MotionArticle
             className="card product"
             variants={variants}
             whileHover={{
@@ -92,12 +77,12 @@ export default function ProductCard({ product, variants }) {
                 <div className="btns">
                     <Link
                         className="btn primary"
-                        to={`/product/${product.id}`}
+                        to={withLocale(`/product/${product.id}`, locale)}
                     >
                         {isKr ? '상세보기' : 'more info'}
                     </Link>
                 </div>
             </div>
-        </motion.article>
+        </MotionArticle>
     );
 }

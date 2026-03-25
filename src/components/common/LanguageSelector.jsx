@@ -1,15 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getLocaleFromPath, swapLocaleInPath } from '../../utils/pathUtils';
 
 export default function LanguageSelector() {
     const { i18n } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
+        const nextLocale = lng === 'en' ? 'en' : 'ko';
+        const currentLocale = getLocaleFromPath(location.pathname);
+
+        if (nextLocale !== currentLocale) {
+            navigate(`${swapLocaleInPath(location.pathname, nextLocale)}${location.search}${location.hash}`);
+        }
+
         setIsOpen(false);
     };
 
@@ -26,8 +37,8 @@ export default function LanguageSelector() {
         };
     }, []);
 
-    const currentLang = i18n.language === 'ko' ? 'Korean' : 'English';
-    const currentFlag = i18n.language === 'ko' ? '🇰🇷' : '🇺🇸';
+    const currentLocale = getLocaleFromPath(location.pathname);
+    const currentFlag = currentLocale === 'ko' ? '🇰🇷' : '🇺🇸';
 
     return (
         <div className="language-selector" ref={dropdownRef} style={{ position: 'relative', display: 'inline-block' }}>
@@ -65,7 +76,7 @@ export default function LanguageSelector() {
                             width: '100%',
                             padding: '10px 16px',
                             border: 'none',
-                            background: i18n.language !== 'ko' ? '#f5f5f5' : 'white',
+                            background: currentLocale === 'en' ? '#f5f5f5' : 'white',
                             cursor: 'pointer',
                             textAlign: 'left',
                             fontSize: '14px',
@@ -83,7 +94,7 @@ export default function LanguageSelector() {
                             width: '100%',
                             padding: '10px 16px',
                             border: 'none',
-                            background: i18n.language === 'ko' ? '#f5f5f5' : 'white',
+                            background: currentLocale === 'ko' ? '#f5f5f5' : 'white',
                             cursor: 'pointer',
                             textAlign: 'left',
                             fontSize: '14px',

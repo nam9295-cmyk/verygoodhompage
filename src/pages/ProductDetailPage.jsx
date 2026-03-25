@@ -10,6 +10,7 @@ import ProductDetailModal from '../components/common/ProductDetailModal';
 import ChocolateDetailModal from '../components/products/ChocolateDetailModal';
 import DailyDetoxHero from '../components/product/DailyDetoxHero';
 import CreativeCacaoSection from '../components/product/CreativeCacaoSection';
+import { withLocale } from '../utils/pathUtils';
 
 const styles = {
     productDetailPage: {
@@ -211,6 +212,7 @@ export default function ProductDetailPage() {
     const { id } = useParams();
     const { t } = useTranslation();
     const { isKr } = useLanguage();
+    const locale = isKr ? 'ko' : 'en';
     const { addToCart } = useCart();
     const [quantity, setQuantity] = useState(1);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -238,7 +240,7 @@ export default function ProductDetailPage() {
                 <div style={styles.notFound}>
                     <h2>{isKr ? '제품을 찾을 수 없습니다' : 'Product not found'}</h2>
                     <p>{isKr ? '요청하신 제품정보가 없습니다.' : 'Sorry, the product you are looking for does not exist.'}</p>
-                    <Link to={`/category/${product?.category || 'chocolate'}`} style={{ textDecoration: 'underline' }}>
+                    <Link to={withLocale(`/category/${product?.category || 'chocolate'}`, locale)} style={{ textDecoration: 'underline' }}>
                         {isKr ? '돌아가기' : 'Back to Category'}
                     </Link>
                 </div>

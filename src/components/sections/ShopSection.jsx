@@ -39,6 +39,8 @@ const cardVariants = {
     },
 };
 
+const MotionDiv = motion.div;
+
 export default function ShopSection() {
     const [activeTab, setActiveTab] = useState('tea');
     const gridRef = useRef(null);
@@ -65,7 +67,7 @@ export default function ShopSection() {
 
             <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
-            <motion.div
+            <MotionDiv
                 ref={gridRef}
                 className="grid"
                 aria-live="polite"
@@ -82,7 +84,7 @@ export default function ShopSection() {
                         variants={cardVariants}
                     />
                 ))}
-            </motion.div>
+            </MotionDiv>
         </section>
     );
 }

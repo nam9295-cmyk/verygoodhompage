@@ -1,6 +1,8 @@
 
 import { motion } from 'framer-motion';
 
+const MotionDiv = motion.div;
+
 const DailyDetoxHero = () => {
     // Shared card style for glassmorphism
     const cardStyle = {
@@ -55,7 +57,7 @@ const DailyDetoxHero = () => {
                 justifyContent: 'space-between'
             }}>
                 {/* Top Content (Title) */}
-                <motion.div
+                <MotionDiv
                     initial={{ x: -50, opacity: 0 }}
                     whileInView={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
@@ -99,10 +101,10 @@ const DailyDetoxHero = () => {
                         Cacao Detox Cleanse Water <br />
                         The calmness your body craves.
                     </h2>
-                </motion.div>
+                </MotionDiv>
 
                 {/* Bottom Content (Slider/Carousel) */}
-                <motion.div
+                <MotionDiv
                     initial={{ y: 50, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -184,7 +186,7 @@ const DailyDetoxHero = () => {
                     {/* Spacer for right padding in scroll */}
                     <div style={{ minWidth: '60px', flex: '0 0 auto' }}></div>
 
-                </motion.div>
+                </MotionDiv>
             </div>
 
             <style>{`

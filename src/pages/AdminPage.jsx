@@ -64,7 +64,11 @@ function AdminPage() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            fetchPosts();
+            const loadPosts = async () => {
+                await fetchPosts();
+            };
+
+            loadPosts();
         }
     }, [isAuthenticated]);
 

@@ -1,28 +1,32 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { useCart } from '../../context/CartContext';
 import { products } from '../../data/products';
+import { useLanguage } from '../../context/LanguageContext';
 import LanguageSelector from '../common/LanguageSelector';
+import { getPrimaryNavigation } from '../../config/siteContent';
+import { withLocale, getLocaleFromPath } from '../../utils/pathUtils';
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const { t } = useTranslation();
     const { cartCount } = useCart();
     const location = useLocation();
-    const isHome = location.pathname === '/';
+    const { isKr } = useLanguage();
+    const locale = getLocaleFromPath(location.pathname);
+    const navItems = getPrimaryNavigation(isKr);
+    const isHome = location.pathname === '/' || location.pathname === '/en';
 
-    // Check if we are on a Product Detail Page
-    const isProductPage = location.pathname.startsWith('/product/');
-    let backLink = '/';
-    let backText = t('header.home');
+    const localPath = location.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
+    const isProductPage = localPath.startsWith('/product/');
+    let backLink = withLocale('/', locale);
+    let backText = isKr ? '홈' : 'Home';
 
     if (isProductPage) {
-        const productId = location.pathname.split('/')[2];
-        const product = products.find(p => p.id === productId);
+        const productId = localPath.split('/')[2];
+        const product = products.find((p) => p.id === productId);
         if (product) {
-            backLink = `/category/${product.category}`;
-            backText = t('header.back_to', { category: product.category });
+            backLink = withLocale(`/category/${product.category}`, locale);
+            backText = isKr ? `${product.category}로 돌아가기` : `Back to ${product.category}`;
         }
     }
 
@@ -40,27 +44,29 @@ export default function Header() {
         <>
             <header className="topbar" style={{ top: '40px' }}>
                 <div className="topbar-left">
-                    {isHome ? (
-                        <button className="icon-btn" onClick={openMenu} aria-label="Open menu">
-                            <span className="icon">☰</span>
-                            <span className="txt">{t('header.menu')}</span>
-                        </button>
-                    ) : (
+                    {!isHome && isProductPage ? (
                         <Link to={backLink} className="icon-btn">
                             <span className="icon">←</span>
                             <span className="txt">{backText}</span>
                         </Link>
+                    ) : (
+                        <button className="icon-btn" onClick={openMenu} aria-label="Open menu">
+                            <span className="icon">☰</span>
+                            <span className="txt">{isKr ? '메뉴' : 'Menu'}</span>
+                        </button>
                     )}
                 </div>
 
-                <Link className={`brand ${!isHome ? 'always-visible' : ''}`} to="/">
+                <Link className="brand always-visible" to={withLocale('/', locale)}>
                     <img className="brand-img" src="/assets/logo-type.png" alt="VERYGOOD" />
                 </Link>
 
+                {/* Desktop nav removed. Center is now reserved for the Logo. */}
+
                 <nav className="topbar-actions" aria-label="Top actions">
                     <LanguageSelector />
-                    <Link className="cta" to="/cart">
-                        {t('header.cart_btn')} ({cartCount})
+                    <Link className="cta" to={withLocale('/cart', locale)}>
+                        {isKr ? '장바구니' : 'Cart'} ({cartCount})
                     </Link>
                 </nav>
             </header>
@@ -71,27 +77,26 @@ export default function Header() {
                         <div className="menu-title">MENU</div>
                         <button className="icon-btn" onClick={closeMenu} aria-label="Close menu">
                             <span className="icon">✕</span>
-                            <span className="txt">{t('header.close')}</span>
+                            <span className="txt">{isKr ? '닫기' : 'Close'}</span>
                         </button>
                     </div>
 
                     <div className="menu-body">
-                        <Link className="menu-link" to="/about" onClick={closeMenu}>{t('header.about')}</Link>
-                        <Link className="menu-link" to="/business-story" onClick={closeMenu}>{t('header.business_story')}</Link>
-                        <Link className="menu-link" to="/products" onClick={closeMenu}>{t('header.products')}</Link>
-                        <Link className="menu-link" to="/category/chocolate" onClick={closeMenu}>{t('header.chocolate')}</Link>
-                        <Link className="menu-link" to="/category/tea" onClick={closeMenu}>{t('header.tea')}</Link>
-                        <Link className="menu-link" to="/category/gift" onClick={closeMenu}>{t('header.gift')}</Link>
-                        <Link className="menu-link" to="/#story" onClick={closeMenu}>{t('header.story')}</Link>
-                        <Link className="menu-link" to="/blog" onClick={closeMenu}>{t('header.blog')}</Link>
-                        <Link className="menu-link" to="/#shipping" onClick={closeMenu}>{t('header.shipping')}</Link>
-                        <Link className="menu-link" to="/#contact" onClick={closeMenu}>{t('header.contact')}</Link>
+                        {navItems.map((item) => (
+                            <Link key={item.to} className="menu-link" to={withLocale(item.to, locale)} onClick={closeMenu}>
+                                {item.label}
+                            </Link>
+                        ))}
+                        <Link className="menu-link" to={withLocale('/category/chocolate', locale)} onClick={closeMenu}>
+                            {isKr ? 'Chocolate 컬렉션' : 'Chocolate collection'}
+                        </Link>
+                        <Link className="menu-link" to={withLocale('/category/tea', locale)} onClick={closeMenu}>
+                            {isKr ? 'Tea 컬렉션' : 'Tea collection'}
+                        </Link>
+                        <Link className="menu-link" to={withLocale('/category/gift', locale)} onClick={closeMenu}>
+                            {isKr ? 'Gift 컬렉션' : 'Gift collection'}
+                        </Link>
 
-                        <div className="menu-mini">
-                            <div className="pill">배송: 전국</div>
-                            <div className="pill">선물: 삼각박스</div>
-                            <div className="pill">티: 디톡스 블렌딩</div>
-                        </div>
                     </div>
                 </nav>
             )}

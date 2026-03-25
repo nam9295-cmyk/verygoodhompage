@@ -5,10 +5,12 @@ import { blogs as staticBlogs } from '../../data/blogs';
 import { db } from '../../services/firebase';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { formatBlogDate, getBlogDateValue } from '../../utils/formatBlogDate';
+import { withLocale } from '../../utils/pathUtils';
 
 export default function BlogSection() {
     const [posts, setPosts] = useState(staticBlogs.slice(0, 3));
     const { isKr } = useLanguage();
+    const locale = isKr ? 'ko' : 'en';
     const gridRef = useRef(null);
 
     useEffect(() => {
@@ -63,7 +65,7 @@ export default function BlogSection() {
 
             <div className="home-blog-grid" ref={gridRef}>
                 {posts.map(post => (
-                    <Link key={post.id} to={`/blog/${post.id}`} className="home-blog-card">
+                    <Link key={post.id} to={withLocale(`/blog/${post.id}`, locale)} className="home-blog-card">
                         <div className="hb-thumb">
                             <img
                                 src={post.imageUrl ?? post.thumbnail}
@@ -84,7 +86,7 @@ export default function BlogSection() {
             </div>
 
             <div className="section-foot centered">
-                <Link to="/blog" className="btn-read-more">READ MORE</Link>
+                <Link to={withLocale('/blog', locale)} className="btn-read-more">READ MORE</Link>
             </div>
         </section>
     );

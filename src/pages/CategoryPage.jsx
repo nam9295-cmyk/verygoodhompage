@@ -5,6 +5,11 @@ import { products } from '../data/products';
 import ProductCard from '../components/common/ProductCard';
 import { motion } from 'framer-motion';
 
+const MotionMain = motion.main;
+const MotionH1 = motion.h1;
+const MotionP = motion.p;
+const MotionDiv = motion.div;
+
 const categoryInfo = {
     chocolate: {
         title: 'Sweet & Healthy',
@@ -56,7 +61,7 @@ export default function CategoryPage() {
     };
 
     return (
-        <motion.main
+        <MotionMain
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -73,7 +78,7 @@ export default function CategoryPage() {
 
             {/* Header Section */}
             <section style={{ padding: '100px 0 60px', textAlign: 'center' }}>
-                <motion.h1
+                <MotionH1
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.1 }}
@@ -84,8 +89,8 @@ export default function CategoryPage() {
                     }}
                 >
                     {info.title}
-                </motion.h1>
-                <motion.p
+                </MotionH1>
+                <MotionP
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2 }}
@@ -97,12 +102,12 @@ export default function CategoryPage() {
                     }}
                 >
                     {isKr ? info.title_ko : info.desc}
-                </motion.p>
+                </MotionP>
             </section>
 
             {/* Product Grid */}
             {filteredProducts.length > 0 ? (
-                <motion.div
+                <MotionDiv
                     variants={containerVariants}
                     initial="hidden"
                     animate="show"
@@ -123,12 +128,12 @@ export default function CategoryPage() {
                     {filteredProducts.map(product => (
                         <ProductCard key={product.id} product={product} variants={itemVariants} />
                     ))}
-                </motion.div>
+                </MotionDiv>
             ) : (
                 <div style={{ textAlign: 'center', padding: '60px 0', color: '#999' }}>
                     {isKr ? '해당 카테고리에 제품이 없습니다.' : 'No products found in this category.'}
                 </div>
             )}
-        </motion.main>
+        </MotionMain>
     );
 }

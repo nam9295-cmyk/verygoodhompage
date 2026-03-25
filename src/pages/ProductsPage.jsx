@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { products } from '../data/products';
 import ProductCard from '../components/common/ProductCard';
+import { withLocale } from '../utils/pathUtils';
 
 const categoryCopy = {
     chocolate: {
@@ -29,6 +30,7 @@ const categoryOrder = ['chocolate', 'tea', 'gift'];
 
 export default function ProductsPage() {
     const { isKr } = useLanguage();
+    const locale = isKr ? 'ko' : 'en';
 
     return (
         <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px 100px', minHeight: '80vh' }}>
@@ -53,7 +55,7 @@ export default function ProductsPage() {
                     {categoryOrder.map((category) => (
                         <Link
                             key={category}
-                            to={`/category/${category}`}
+                            to={withLocale(`/category/${category}`, locale)}
                             style={{
                                 padding: '8px 14px',
                                 borderRadius: '999px',
@@ -85,7 +87,7 @@ export default function ProductsPage() {
                                 </p>
                             </div>
                             <Link
-                                to={`/category/${category}`}
+                                to={withLocale(`/category/${category}`, locale)}
                                 style={{ textDecoration: 'none', color: '#111', fontSize: '14px' }}
                             >
                                 {isKr ? '카테고리 전체 보기 →' : 'View category →'}

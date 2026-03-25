@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { RadialBarChart, RadialBar, Tooltip, ResponsiveContainer } from 'recharts';
 // import { useLanguage } from '../../context/LanguageContext'; // Unused
 
+const MotionDiv = motion.div;
+
 const styles = {
     overlay: {
         position: 'fixed',
@@ -181,14 +183,14 @@ export default function ChocolateDetailModal({ product, onClose }) {
 
     return (
         <AnimatePresence>
-            <motion.div
+            <MotionDiv
                 style={styles.overlay}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={onClose}
             >
-                <motion.div
+                <MotionDiv
                     style={styles.modal}
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -215,7 +217,7 @@ export default function ChocolateDetailModal({ product, onClose }) {
                         </div>
 
                         {/* Chart & Legend (Right Column) */}
-                        <motion.div
+                        <MotionDiv
                             style={styles.chartSection}
                             className="choco-modal-chart-section"
                             initial={{ opacity: 0, x: 20 }}
@@ -266,7 +268,7 @@ export default function ChocolateDetailModal({ product, onClose }) {
                                 </ul>
                             </div>
 
-                        </motion.div>
+                        </MotionDiv>
                     </div>
 
                     {/* Bottom Section */}
@@ -295,8 +297,8 @@ export default function ChocolateDetailModal({ product, onClose }) {
                             ))}
                         </div>
                     </div>
-                </motion.div>
-            </motion.div>
+                </MotionDiv>
+            </MotionDiv>
         </AnimatePresence>
     );
 }

@@ -8,12 +8,22 @@ import emailjs from '@emailjs/browser'; // Import EmailJS
 import { db } from '../firebase';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
+import { withLocale } from '../utils/pathUtils';
 import '../styles/index.css';
+
+function createPaymentId(prefix = 'order') {
+    if (globalThis.crypto?.randomUUID) {
+        return `${prefix}_${globalThis.crypto.randomUUID()}`;
+    }
+
+    return `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
+}
 
 export default function CheckoutPage() {
     const { t } = useTranslation();
     const { cart, cartTotalKRW, cartTotalUSD, clearCart } = useCart();
     const { isKr } = useLanguage();
+    const locale = isKr ? 'ko' : 'en';
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -356,13 +366,13 @@ export default function CheckoutPage() {
             try {
                 // Determine currency logic string for DB
                 const currStr = payCurrency === "CURRENCY_KRW" ? 'KRW' : 'USD';
-                const freePaymentId = `FREE_PROMO_${Date.now()}`;
+                const freePaymentId = createPaymentId('FREE_PROMO');
                 const success = await processOrderSuccess(freePaymentId, 0, currStr, countryCode, discountAmount, shippingVal, finalItemTotal);
 
                 if (success) {
                     alert(t('checkout_page.free_order_accepted', "무료 주문이 완료되었습니다."));
                     clearCart();
-                    navigate('/order-success');
+                    navigate(withLocale('/order-success', locale));
                 }
             } catch (err) {
                 console.error("Free Order Error:", err);
@@ -382,7 +392,7 @@ export default function CheckoutPage() {
             const response = await PortOne.requestPayment({
                 storeId,
                 channelKey,
-                paymentId: `order_${Date.now()}`, // Generated on demand
+                paymentId: createPaymentId(),
                 orderName: orderTitle,
                 totalAmount: Math.round(payAmountMajor),
                 currency: payCurrency,
@@ -409,12 +419,12 @@ export default function CheckoutPage() {
 
             // Success: Save to Firestore
             const currStr = payCurrency === "CURRENCY_KRW" ? 'KRW' : 'USD';
-            const success = await processOrderSuccess(`order_${Date.now()}`, payAmountMajor, currStr, countryCode, discountAmount, shippingVal, finalItemTotal);
+            const success = await processOrderSuccess(createPaymentId(), payAmountMajor, currStr, countryCode, discountAmount, shippingVal, finalItemTotal);
 
             if (success) {
                 alert(t('checkout_page.payment_success', "Payment Completed Successfully!"));
                 clearCart();
-                navigate('/order-success');
+                navigate(withLocale('/order-success', locale));
             } else {
                 alert("Payment successful but failed to save order record. Please contact support.");
             }

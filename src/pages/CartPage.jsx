@@ -3,17 +3,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
+import { withLocale } from '../utils/pathUtils';
 import '../styles/index.css';
 
 export default function CartPage() {
     const { t } = useTranslation();
     const { cart, removeFromCart, updateQuantity, cartTotalKRW, cartTotalUSD } = useCart();
     const { isKr } = useLanguage();
+    const locale = isKr ? 'ko' : 'en';
 
     const navigate = useNavigate();
 
     const handleCheckout = () => {
-        navigate('/checkout');
+        navigate(withLocale('/checkout', locale));
     };
 
     if (cart.length === 0) {
@@ -24,7 +26,7 @@ export default function CartPage() {
                 </Helmet>
                 <div style={{ maxWidth: '600px', margin: '0 auto' }}>
                     <h2 style={{ fontSize: '24px', marginBottom: '16px' }}>{t('cart.empty')}</h2>
-                    <Link to="/" className="cta" style={{ marginTop: '20px' }}>
+                    <Link to={withLocale('/', locale)} className="cta" style={{ marginTop: '20px' }}>
                         {t('cart.continue_shopping')}
                     </Link>
                 </div>
@@ -47,7 +49,7 @@ export default function CartPage() {
                         {cart.map((item) => (
                             <div key={item.id} className="cart-item-row" style={{ display: 'flex', gap: '20px' }}>
                                 {/* Image */}
-                                <Link to={`/product/${item.id}`} style={{ width: '100px', height: '100px', borderRadius: '12px', overflow: 'hidden', flexShrink: 0, background: '#f5f5f5' }}>
+                                <Link to={withLocale(`/product/${item.id}`, locale)} style={{ width: '100px', height: '100px', borderRadius: '12px', overflow: 'hidden', flexShrink: 0, background: '#f5f5f5' }}>
                                     <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 </Link>
 
@@ -109,7 +111,7 @@ export default function CartPage() {
                         ))}
 
                         <div style={{ marginTop: '40px' }}>
-                            <Link to="/" style={{ fontSize: '15px', fontWeight: '600', color: 'var(--ink)' }}>
+                            <Link to={withLocale('/', locale)} style={{ fontSize: '15px', fontWeight: '600', color: 'var(--ink)' }}>
                                 {t('cart.continue_shopping')}
                             </Link>
                         </div>
