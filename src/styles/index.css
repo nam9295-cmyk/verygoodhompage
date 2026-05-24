@@ -838,14 +838,17 @@ body.is-header-visible .topbar {
 }
 
 .section-landing-hero {
-    padding: 42px;
+    padding: 56px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
 }
 
 .section-landing-hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
-    gap: 24px;
-    align-items: stretch;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+    gap: 56px;
+    align-items: center;
 }
 
 .section-landing-copy {
@@ -857,40 +860,66 @@ body.is-header-visible .topbar {
 .section-landing-visual {
     border-radius: var(--radius);
     overflow: hidden;
-    min-height: 340px;
-    background: rgba(255, 255, 255, 0.72);
+    min-height: 380px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-landing-visual:hover {
+    transform: scale(1.015);
+}
+
+.section-landing-visual img {
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-landing-visual:hover img {
+    transform: scale(1.04);
 }
 
 .section-landing-hero h1 {
-    max-width: 13ch;
+    max-width: 20ch;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.2;
 }
 
 .section-facts-grid {
     display: grid;
-    gap: 18px;
-    padding-top: 24px;
+    gap: 24px;
+    padding-top: 32px;
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .section-fact-card {
     border-radius: var(--radius);
-    border: 1px solid rgba(26, 26, 26, 0.08);
-    background: rgba(255, 255, 255, 0.8);
-    padding: 22px;
+    border: 1px solid var(--line);
+    background: #ffffff;
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-fact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(31, 31, 31, 0.04);
 }
 
 .section-fact-card span {
     display: block;
-    margin-bottom: 10px;
-    font-size: 12px;
-    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(26, 26, 26, 0.48);
+    color: rgba(31, 31, 31, 0.45);
+    font-weight: 600;
 }
 
 .section-fact-card strong {
-    font-size: 20px;
-    line-height: 1.4;
+    font-size: 1.25rem;
+    line-height: 1.45;
+    color: var(--heading);
+    font-weight: 500;
 }
 
 .section-module-list {
@@ -1055,42 +1084,106 @@ body.is-header-visible .topbar {
 
 .section-detail-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
 }
 
 .section-gallery-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
 }
 
 .section-faq-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
 }
 
 .section-detail-card,
 .section-gallery-card,
 .section-faq-card {
     border-radius: var(--radius);
-    border: 1px solid rgba(26, 26, 26, 0.08);
-    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid var(--line);
+    background: #ffffff;
     overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s;
+}
+
+.section-detail-card:hover,
+.section-gallery-card:hover,
+.section-faq-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(31, 31, 31, 0.05);
+    border-color: rgba(237, 197, 196, 0.4);
 }
 
 .section-detail-card,
 .section-faq-card {
-    padding: 24px;
+    padding: 40px 36px;
 }
 
 .section-detail-card h3,
 .section-gallery-copy h3,
 .section-faq-card h3 {
-    margin: 0 0 10px;
+    margin: 0 0 12px 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--heading);
 }
 
 .section-detail-card p,
 .section-gallery-copy p,
 .section-faq-card p {
     margin: 0;
-    color: rgba(26, 26, 26, 0.72);
-    line-height: 1.7;
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+/* Custom Icon Badging */
+.section-card-icon-container {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(237, 197, 196, 0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #edc5c4;
+    margin-bottom: 20px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-detail-card:hover .section-card-icon-container {
+    transform: scale(1.1) rotate(6deg);
+}
+
+/* Checklist highlights style */
+.section-editorial-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.section-editorial-highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink);
+    font-weight: 300;
+}
+
+.section-editorial-highlight-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: #edc5c4;
+    margin-top: 2px;
 }
 
 .section-gallery-visual {

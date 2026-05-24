@@ -7,6 +7,96 @@ import { products } from '../data/products';
 import { getSectionAsset, getSectionAssetCollection } from '../config/sectionAssets';
 import SectionVisual from '../components/common/SectionVisual';
 
+function getSectionCardIcon(label) {
+    const cleanLabel = (label || '').toLowerCase();
+    
+    // Address / Location
+    if (cleanLabel.includes('address') || cleanLabel.includes('location') || cleanLabel.includes('주소') || cleanLabel.includes('위치')) {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                <circle cx="12" cy="10" r="3"/>
+            </svg>
+        );
+    }
+    
+    // Hours / Time
+    if (cleanLabel.includes('hours') || cleanLabel.includes('time') || cleanLabel.includes('운영시간') || cleanLabel.includes('시간')) {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+            </svg>
+        );
+    }
+    
+    // Pickup
+    if (cleanLabel.includes('pickup') || cleanLabel.includes('픽업') || cleanLabel.includes('동선')) {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                <polyline points="3.29 7 12 12 20.71 7"/>
+                <line x1="12" y1="22" x2="12" y2="12"/>
+            </svg>
+        );
+    }
+    
+    // Best For / Scope
+    if (cleanLabel.includes('best') || cleanLabel.includes('scope') || cleanLabel.includes('추천') || cleanLabel.includes('대외')) {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+        );
+    }
+    
+    // Philosophy
+    if (cleanLabel.includes('philosophy') || cleanLabel.includes('철학')) {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+            </svg>
+        );
+    }
+    
+    // Craft
+    if (cleanLabel.includes('craft') || cleanLabel.includes('제작') || cleanLabel.includes('손맛')) {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                <path d="M12 6v12M6 12h12"/>
+            </svg>
+        );
+    }
+    
+    // App / Smartphone / Digital
+    if (cleanLabel.includes('app') || cleanLabel.includes('digital') || cleanLabel.includes('디지털') || cleanLabel.includes('모바일')) {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                <line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
+        );
+    }
+    
+    // Future / Next / Beta
+    if (cleanLabel.includes('future') || cleanLabel.includes('next') || cleanLabel.includes('실험') || cleanLabel.includes('미래')) {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m12 3-1.912 5.886L5 8.912l5.886 1.912L12 21l1.912-5.886L20 13.088l-5.886-1.912L12 3Z"/>
+            </svg>
+        );
+    }
+    
+    // Default fallback icon
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+    );
+}
+
 function getSectionPresentation(section, isKr) {
     const copy = {
         brand: {
@@ -130,9 +220,14 @@ export default function SectionLandingPage({ section }) {
                     </div>
                     <div className="section-editorial-copy">
                         <p>{presentation.introBody}</p>
-                        <ul className="hub-list">
+                        <ul className="section-editorial-highlights">
                             {content.highlights.map((item) => (
-                                <li key={item}>{item}</li>
+                                <li key={item} className="section-editorial-highlight-item">
+                                    <svg className="section-editorial-highlight-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>{item}</span>
+                                </li>
                             ))}
                         </ul>
                         <div className="hub-link-list">
@@ -208,6 +303,9 @@ export default function SectionLandingPage({ section }) {
                         <div className="section-detail-grid">
                             {content.detailCards.map((card) => (
                                 <article key={card.title} className="section-detail-card">
+                                    <div className="section-card-icon-container" aria-hidden="true">
+                                        {getSectionCardIcon(card.label)}
+                                    </div>
                                     <div className="hub-eyebrow">{card.label}</div>
                                     <h3>{card.title}</h3>
                                     <p>{card.body}</p>
