@@ -4,7 +4,7 @@ import { useCart } from '../../context/CartContext';
 import { products } from '../../data/products';
 import { useLanguage } from '../../context/LanguageContext';
 import LanguageSelector from '../common/LanguageSelector';
-import { getPrimaryNavigation } from '../../config/siteContent';
+import { getMenuActionLinks, getPrimaryNavigation } from '../../config/siteContent';
 import { withLocale, getLocaleFromPath } from '../../utils/pathUtils';
 
 export default function Header() {
@@ -14,6 +14,7 @@ export default function Header() {
     const { isKr } = useLanguage();
     const locale = getLocaleFromPath(location.pathname);
     const navItems = getPrimaryNavigation(isKr);
+    const actionLinks = getMenuActionLinks(isKr);
     const isHome = location.pathname === '/' || location.pathname === '/en';
 
     const localPath = location.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
@@ -104,6 +105,19 @@ export default function Header() {
                         <Link className="menu-link" to={withLocale('/category/gift', locale)} onClick={closeMenu}>
                             {isKr ? 'Gift 컬렉션' : 'Gift collection'}
                         </Link>
+
+                        {actionLinks.map((item) => (
+                            <a
+                                key={item.label}
+                                className="menu-link"
+                                href={item.href}
+                                target={item.external ? '_blank' : undefined}
+                                rel={item.external ? 'noreferrer' : undefined}
+                                onClick={closeMenu}
+                            >
+                                {item.label}
+                            </a>
+                        ))}
 
                     </div>
                 </nav>

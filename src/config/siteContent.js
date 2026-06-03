@@ -18,10 +18,20 @@ export function getFooterServiceLinks(isKr) {
     return [
         { label: isKr ? '리뷰 보기' : 'Reviews', href: externalLinks.reviews, external: true },
         { label: isKr ? '케이크 예약' : 'Cake Reservation', href: externalLinks.reservation, external: true },
+        { label: isKr ? '키즈 클래스 예약' : 'Kids Class Reservation', href: externalLinks.kidsClassReservation, external: true },
         { label: isKr ? '웰니스 앱' : 'Wellness App', href: externalLinks.wellnessApp, fallbackTo: '/digital' },
         { label: isKr ? '관리자 대시보드' : 'Admin Dashboard', href: externalLinks.admin },
         { label: isKr ? 'AI 베타' : 'AI Beta', href: externalLinks.aiBeta, fallbackTo: '/digital' },
         { label: 'Instagram', href: externalLinks.instagram, external: true },
+    ];
+}
+
+export function getMenuActionLinks(isKr) {
+    return [
+        { label: isKr ? '케이크 예약' : 'Cake Reservation', href: externalLinks.reservation, external: true },
+        { label: isKr ? '키즈 클래스' : 'Kids Class', href: externalLinks.kidsClassReservation, external: true },
+        { label: isKr ? '리뷰 이벤트' : 'Reviews', href: externalLinks.reviews, external: true },
+        { label: isKr ? '매장 지도' : 'Store Map', href: externalLinks.storeMap, external: true },
     ];
 }
 
@@ -32,15 +42,26 @@ export function getHomeSections(isKr) {
         hero: {
             eyebrow: 'Less Sweet, More Deep',
             title: isKr
-                ? '초콜릿과 티, 그리고 머무는 공간.'
-                : 'A calm home for chocolate, tea, and store life.',
+                ? '초콜릿이 생각날 땐, 베리굿'
+                : 'Think Chocolate, Think Very Good',
             description: isKr
-                ? '베리굿이 제안하는 맛과 쉼, 그 여정을 한곳에서 시작하세요.'
-                : 'An editorial entry for browsing products, planning a visit, and exploring our stories.',
-            ctas: [
-                { label: isKr ? '둘러보기' : 'Explore', to: '/products' },
-                { label: isKr ? '방문하기' : 'Visit', to: '/store' },
-                { label: isKr ? '알아보기' : 'Learn More', to: '/digital' },
+                ? '케이크 예약부터 매장 소식, 제품 이야기까지 한곳에서 확인하세요.'
+                : 'Reserve a cake, visit the Korean store site, or browse the collection from here.',
+            quickLinks: [
+                {
+                    label: isKr ? '케이크 예약' : 'Cake Reservation',
+                    href: externalLinks.reservation,
+                    external: true,
+                },
+                {
+                    label: isKr ? '오프라인 매장' : 'Korean Store Site',
+                    href: externalLinks.koreanStoreSite,
+                    external: true,
+                },
+                {
+                    label: isKr ? '제품 소개' : 'Products',
+                    to: '/products',
+                },
             ],
             note: isKr
                 ? '초콜릿과 티, 매장과 디지털 프로젝트를 하나의 흐름으로 이어 보여줍니다.'
@@ -83,7 +104,7 @@ export function getHomeSections(isKr) {
                 href: externalLinks.reservation,
                 external: true,
                 assetKey: 'reservation',
-                ctaLabel: isKr ? '방문하기' : 'Visit',
+                ctaLabel: isKr ? '예약하기' : 'Reserve',
             },
             {
                 title: isKr ? 'Reviews' : 'Reviews',
@@ -92,6 +113,14 @@ export function getHomeSections(isKr) {
                 external: true,
                 assetKey: 'reviewEvent',
                 ctaLabel: isKr ? '읽어보기' : 'Read More',
+            },
+            {
+                title: isKr ? 'Kids Cake Class' : 'Kids Cake Class',
+                body: isKr ? projectIntegrations.kidsClassReservation.cardBody.ko : projectIntegrations.kidsClassReservation.cardBody.en,
+                href: externalLinks.kidsClassReservation,
+                external: true,
+                assetKey: 'reservation',
+                ctaLabel: isKr ? '클래스 예약' : 'Book Class',
             },
             {
                 title: isKr ? 'Order & Gift Guide' : 'Order & Gift Guide',
@@ -270,7 +299,7 @@ export function getSectionPageContent(isKr) {
             highlights: [
                 isKr ? '위치, 운영시간, 방문 전 체크 포인트' : 'Location, hours, and visit essentials',
                 isKr ? '매장 중심 제품과 시즌 디스플레이 소개' : 'Store-led products and seasonal displays',
-                isKr ? '오프라인 후기와 케이크 예약으로 이어지는 행동 유도' : 'Action paths to reviews and cake reservations',
+                isKr ? '오프라인 후기, 케이크 예약, 키즈 클래스 안내' : 'Action paths to reviews, cake reservations, and kids classes',
             ],
             modules: [
                 {
@@ -305,7 +334,7 @@ export function getSectionPageContent(isKr) {
                 },
                 {
                     title: isKr ? '후기와 예약' : 'Reviews and reservations',
-                    body: isKr ? '후기를 살펴본 뒤 바로 예약으로 이어질 수 있게 정리합니다.' : 'Create a clear path from reviews into reservation actions.',
+                    body: isKr ? '후기 확인 후 케이크 예약이나 키즈 클래스 예약으로 바로 이어집니다.' : 'Create a clear path from reviews into cake reservations and kids classes.',
                     eyebrow: isKr ? 'Action' : 'Action',
                 },
             ],
@@ -314,6 +343,7 @@ export function getSectionPageContent(isKr) {
                 { label: isKr ? '지도 보기' : 'Open map', href: externalLinks.storeMap, external: true },
                 { label: isKr ? '리뷰 보기' : 'See reviews', href: externalLinks.reviews, external: true },
                 { label: isKr ? '케이크 예약' : 'Cake reservation', href: externalLinks.reservation, external: true },
+                { label: isKr ? '키즈 클래스' : 'Kids class', href: externalLinks.kidsClassReservation, external: true },
                 { label: isKr ? '제품 둘러보기' : 'Explore', to: '/products' },
             ],
             detailCards: [
@@ -330,7 +360,7 @@ export function getSectionPageContent(isKr) {
                 {
                     label: isKr ? 'Pickup' : 'Pickup',
                     title: isKr ? '예약/픽업 동선 분리' : 'Reservation and pickup path',
-                    body: isKr ? '케이크 예약은 Services에서, 픽업과 현장 안내는 Store에서 살펴볼 수 있게 나눴습니다.' : 'Cake reservation can stay in Services, while Store handles the on-site pickup guidance.',
+                    body: isKr ? '케이크 예약은 전용 예약 페이지로 연결하고, 픽업과 현장 안내는 Store에서 확인할 수 있게 나눴습니다.' : 'Cake reservation links to the dedicated booking page, while Store handles pickup and on-site guidance.',
                 },
                 {
                     label: isKr ? 'Best For' : 'Best For',
@@ -362,12 +392,12 @@ export function getSectionPageContent(isKr) {
                     a: isKr ? '예약은 바로 행동으로 이어지는 서비스이고, 이 페이지는 방문과 매장 경험 안내에 더 집중하기 때문입니다.' : 'Because reservation is an action-first service, while this page focuses on visiting and the in-store experience.',
                 },
                 {
-                    q: isKr ? '향후 kr 사이트 정보는 여기로 옮길 수 있나요?' : 'Can the Korean site content move here later?',
-                    a: isKr ? '네. 매장 정보와 현장 제품 설명을 이 페이지에 점점 더 자연스럽게 모을 수 있습니다.' : 'Yes. Store information and in-person product guidance can gradually gather here over time.',
+                    q: isKr ? '케이크 예약과 키즈 클래스는 같은 곳에서 신청하나요?' : 'Are cake reservations and kids classes booked in the same place?',
+                    a: isKr ? '아니요. 케이크 예약은 cake.verygood-chocolate.com, 키즈 클래스는 partner.verygood-chocolate.com에서 각각 운영됩니다.' : 'No. Cake reservations run on cake.verygood-chocolate.com, while kids classes run on partner.verygood-chocolate.com.',
                 },
             ],
             notes: [
-                isKr ? 'vcc체험단페이지의 위치/지도/브랜드 자산은 장기적으로 이 페이지로 흡수하면 됩니다.' : 'The location, map, and identity assets from the VCC project can be absorbed here over time.',
+                isKr ? '매장 메뉴와 현장 제품 안내는 Store 페이지에서 계속 보강합니다.' : 'Store menu and in-person product guidance will continue to live in this Store layer.',
             ],
         },
         services: {
@@ -379,21 +409,27 @@ export function getSectionPageContent(isKr) {
             image: '/assets/products/4set.png',
             imageAlt: isKr ? '베리굿 서비스와 선물 안내' : 'Very Good services and gifting',
             facts: [
-                { label: isKr ? 'Reservation' : 'Reservation', value: isKr ? 'partner.verygood-chocolate.com 운영 중' : 'Live on partner.verygood-chocolate.com' },
+                { label: isKr ? 'Cake' : 'Cake', value: isKr ? 'cake.verygood-chocolate.com 운영 중' : 'Live on cake.verygood-chocolate.com' },
+                { label: isKr ? 'Class' : 'Class', value: isKr ? 'partner.verygood-chocolate.com 운영 중' : 'Live on partner.verygood-chocolate.com' },
                 { label: isKr ? 'Reviews' : 'Reviews', value: isKr ? 'reciept.verygood-chocolate.com 운영 중' : 'Live on reciept.verygood-chocolate.com' },
-                { label: isKr ? 'Commerce' : 'Commerce', value: isKr ? '기존 카트/체크아웃 유지' : 'Current cart/checkout retained' },
             ],
             highlights: [
                 isKr ? '오프라인 리뷰 진입' : 'Offline review entry',
-                isKr ? '케이크 예약 진입' : 'Cake reservation entry',
+                isKr ? '케이크 예약과 키즈 클래스 분리' : 'Separate cake and kids class booking',
                 isKr ? '주문 및 선물 가이드' : 'Order and gifting guidance',
             ],
             modules: [
                 {
                     title: isKr ? 'Cake Reservation' : 'Cake Reservation',
                     body: isKr
-                        ? '예약은 별도 페이지에서 운영하고, 여기서는 가장 빠른 진입만 보여줍니다.'
-                        : 'Reservation stays on its own page, while this page simply provides the clearest entry.',
+                        ? '생초콜릿 파베 케이크와 초코 파운드 케이크는 전용 예약 페이지에서 신청합니다.'
+                        : 'Pave chocolate cake and chocolate pound cake reservations run on the dedicated cake page.',
+                },
+                {
+                    title: isKr ? 'Kids Cake Class' : 'Kids Cake Class',
+                    body: isKr
+                        ? '두바이 초콜릿 케이크를 직접 만드는 키즈 클래스는 별도 예약 페이지로 연결합니다.'
+                        : 'The kids Dubai chocolate cake class keeps its own booking page.',
                 },
                 {
                     title: isKr ? 'Reviews' : 'Reviews',
@@ -401,41 +437,41 @@ export function getSectionPageContent(isKr) {
                         ? '리뷰 이벤트 페이지는 방문 전 분위기와 신뢰를 더하는 보조 레이어로 둡니다.'
                         : 'The review event page remains a supporting trust layer before a visit or reservation.',
                 },
-                {
-                    title: isKr ? 'Order / Gift Guide' : 'Order / Gift Guide',
-                    body: isKr
-                        ? '제품, 장바구니, 체크아웃 흐름은 그대로 두고 선택의 흐름만 정리합니다.'
-                        : 'The product, cart, and checkout flow stays as-is while the hub sharpens the decision path.',
-                },
             ],
             featureCards: [
                 {
-                    title: isKr ? 'Reservation' : 'Reservation',
-                    body: isKr ? '실제 예약 URL로 바로 연결되는 가장 강한 서비스 CTA로 유지합니다.' : 'Keep reservation as the strongest service CTA, linked directly to its live URL.',
+                    title: isKr ? 'Cake Reservation' : 'Cake Reservation',
+                    body: isKr ? '케이크 주문은 전용 예약 페이지로 바로 연결합니다.' : 'Cake orders link directly to the dedicated reservation page.',
                     eyebrow: isKr ? 'External flow' : 'External flow',
+                },
+                {
+                    title: isKr ? 'Kids Class' : 'Kids Class',
+                    body: isKr ? '클래스 예약은 기존 파트너 페이지를 유지합니다.' : 'Class booking keeps the existing partner page.',
+                    eyebrow: isKr ? 'Class' : 'Class',
                 },
                 {
                     title: isKr ? 'Review trust' : 'Review trust',
                     body: isKr ? '실제 후기 링크는 Store와 Services 둘 다에서 만날 수 있게 유지합니다.' : 'Keep review links visible from both the Store and Services layers.',
                     eyebrow: isKr ? 'Trust' : 'Trust',
                 },
-                {
-                    title: isKr ? 'Gift route' : 'Gift route',
-                    body: isKr ? '선물세트와 장바구니 진입을 같은 흐름 안에서 이해하도록 구성합니다.' : 'Clarify the route from gift sets into cart and checkout in one narrative flow.',
-                    eyebrow: isKr ? 'Commerce' : 'Commerce',
-                },
             ],
             featuredProductIds: ['gift-4-set', 'gift-2-set', 'almond-chocoball'],
             links: [
+                { label: isKr ? '케이크 예약' : 'Cake reservation', href: externalLinks.reservation, external: true },
+                { label: isKr ? '키즈 클래스 예약' : 'Kids class reservation', href: externalLinks.kidsClassReservation, external: true },
                 { label: isKr ? '리뷰 읽기' : 'Read More', href: externalLinks.reviews, external: true },
-                { label: isKr ? '예약하기' : 'Visit', href: externalLinks.reservation, external: true },
                 { label: isKr ? '제품 둘러보기' : 'Explore', to: '/products' },
             ],
             detailCards: [
                 {
                     label: isKr ? 'Reservation' : 'Reservation',
-                    title: isKr ? '실제 예약 페이지로 바로 연결' : 'Straight to the live reservation page',
-                    body: isKr ? 'partner.verygood-chocolate.com에서 예약이 운영 중이므로, 이 페이지는 안내와 연결에 집중합니다.' : 'Because reservation already runs on partner.verygood-chocolate.com, this page can stay focused on guidance and entry.',
+                    title: isKr ? '케이크 예약 페이지로 바로 연결' : 'Straight to the cake reservation page',
+                    body: isKr ? 'cake.verygood-chocolate.com에서 케이크 예약이 운영 중이므로, 이 페이지는 안내와 연결에 집중합니다.' : 'Because cake reservation runs on cake.verygood-chocolate.com, this page can stay focused on guidance and entry.',
+                },
+                {
+                    label: isKr ? 'Class' : 'Class',
+                    title: isKr ? '키즈 클래스 예약은 별도 운영' : 'Kids class booking stays separate',
+                    body: isKr ? 'partner.verygood-chocolate.com은 키즈 베이킹 클래스 전용 예약 페이지로 유지합니다.' : 'partner.verygood-chocolate.com remains the dedicated kids baking class booking page.',
                 },
                 {
                     label: isKr ? 'Reviews' : 'Reviews',
@@ -456,7 +492,7 @@ export function getSectionPageContent(isKr) {
             galleryCards: [
                 {
                     title: isKr ? 'Reservation Entry' : 'Reservation Entry',
-                    body: isKr ? '예약은 별도 서비스지만, 여기서는 깔끔한 행동 카드처럼 보여야 합니다.' : 'Reservation remains external, but here it should still read like a clear action card.',
+                    body: isKr ? '케이크 예약은 전용 서비스지만, 여기서는 가장 선명한 행동 카드로 보여줍니다.' : 'Cake reservation remains external, but here it reads as a clear action card.',
                 },
                 {
                     title: isKr ? 'Gift Route' : 'Gift Route',
@@ -470,7 +506,7 @@ export function getSectionPageContent(isKr) {
             faqItems: [
                 {
                     q: isKr ? '왜 예약을 사이트 안에 바로 합치지 않았나요?' : 'Why not merge reservation directly into the site yet?',
-                    a: isKr ? '지금은 예약 도구를 바꾸기보다, 어디서 어떻게 들어가면 좋은지를 더 분명하게 보여주는 편이 자연스럽기 때문입니다.' : 'Because right now it is more useful to make the entry feel clear than to replace the reservation tool itself.',
+                    a: isKr ? '케이크 예약 앱이 이미 별도 도메인에서 운영되고 있어, 홈페이지는 소개와 진입을 명확히 하는 역할이 더 적합합니다.' : 'Because the cake reservation app already runs on its own domain, the homepage should make the entry clear rather than duplicate the tool.',
                 },
                 {
                     q: isKr ? '리뷰 링크는 어디서 보이게 되나요?' : 'Where will the review link appear?',
@@ -482,7 +518,7 @@ export function getSectionPageContent(isKr) {
                 },
             ],
             notes: [
-                isKr ? '현재 단계에서는 외부 서비스의 기능 자체를 건드리지 않고 연결 구조만 정리합니다.' : 'At this stage, only the connection structure changes; the external services themselves stay untouched.',
+                isKr ? '케이크 예약, 키즈 클래스, 리뷰 이벤트는 각각의 운영 페이지를 유지합니다.' : 'Cake reservation, kids class booking, and reviews keep their own operating pages.',
             ],
         },
         digital: {

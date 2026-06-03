@@ -49,11 +49,24 @@ export const projectIntegrations = {
     reservation: {
         title: 'Cake Reservation',
         status: 'live',
+        href: 'https://cake.verygood-chocolate.com/',
+        sourcePath: '/Users/nam9295/Desktop/john_2.0/code/cake_rsvp',
+        cardBody: {
+            ko: '생초콜릿 파베 케이크와 초코 파운드 케이크를 예약으로 준비합니다.',
+            en: 'Reserve Very Good’s pave chocolate cake and chocolate pound cake.',
+        },
+        assets: {
+            hero: '/assets/integrations/cake-reservation-hero.webp',
+        },
+    },
+    kidsClassReservation: {
+        title: 'Kids Cake Class',
+        status: 'live',
         href: 'https://partner.verygood-chocolate.com',
         sourcePath: '/Users/nam9295/Desktop/john_2.0/code/partners',
         cardBody: {
-            ko: '소중한 날을 위한 케이크. 오직 예약으로만 준비됩니다.',
-            en: 'Cakes for your special days. Prepared by reservation only.',
+            ko: '두바이 초콜릿 케이크를 직접 만들어보는 키즈 클래스 예약입니다.',
+            en: 'Book the kids cake class for making a Dubai chocolate cake.',
         },
         assets: {
             hero: '/assets/integrations/cake-reservation-hero.webp',
@@ -70,6 +83,16 @@ export const projectIntegrations = {
         },
         assets: {
             hero: '/assets/integrations/review-event-hero.webp',
+        },
+    },
+    koreanStoreSite: {
+        title: 'Korean Store Site',
+        status: 'live',
+        href: 'https://kr.verygood-chocolate.com/',
+        sourcePath: '/Users/nam9295/Desktop/john_2.0/code/vcc체험단페이지',
+        cardBody: {
+            ko: '오프라인 매장과 현장 메뉴를 더 자세히 볼 수 있는 한국 사이트입니다.',
+            en: 'The Korean site for offline store details and in-store menu information.',
         },
     },
     storeExperience: {
@@ -95,6 +118,8 @@ export const externalLinks = {
     instagram: projectIntegrations.instagram.href,
     reviews: projectIntegrations.reviewEvent.href,
     reservation: projectIntegrations.reservation.href,
+    kidsClassReservation: projectIntegrations.kidsClassReservation.href,
+    koreanStoreSite: projectIntegrations.koreanStoreSite.href,
     storeMap: projectIntegrations.storeExperience.mapHref,
     admin: projectIntegrations.wellnessAdmin.href,
     wellnessApp: projectIntegrations.wellnessApp.href,

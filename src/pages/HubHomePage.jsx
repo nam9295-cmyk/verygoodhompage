@@ -62,22 +62,30 @@ export default function HubHomePage() {
                     
                     <div className="apple-container" style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 20px' }}>
                         <h1 className="apple-hero-title">
-                            {isKr ? '초콜릿이 필요할 땐, 베리굿' : 'VERY GOOD CHOCOLATE.'}
+                            {content.hero.title}
                         </h1>
                         <p className="apple-hero-subtitle">
-                            {isKr 
-                                ? '섬세한 가치와 깊은 풍미로 일상에 선사하는 달콤한 휴식' 
-                                : 'Indulge in a refined, deep resting experience crafted by chocolate experts.'}
+                            {content.hero.description}
                         </p>
-                        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            {content.hero.ctas.map((cta, index) => (
-                                <Link 
-                                    key={cta.label} 
-                                    to={withLocale(cta.to, locale)} 
-                                    className={index === 0 ? "apple-hero-btn" : "apple-hero-btn-secondary"}
-                                >
-                                    {cta.label}
-                                </Link>
+                        <div className="apple-hero-quicklinks" aria-label={isKr ? '주요 이동 링크' : 'Primary destination links'}>
+                            {content.hero.quickLinks.map((item) => (
+                                item.href ? (
+                                    <a
+                                        key={item.label}
+                                        className="apple-hero-quicklink"
+                                        href={item.href}
+                                        target={item.external ? '_blank' : undefined}
+                                        rel={item.external ? 'noreferrer' : undefined}
+                                    >
+                                        {item.label}
+                                        <span aria-hidden="true">↗</span>
+                                    </a>
+                                ) : (
+                                    <Link key={item.label} className="apple-hero-quicklink" to={withLocale(item.to, locale)}>
+                                        {item.label}
+                                        <span aria-hidden="true">→</span>
+                                    </Link>
+                                )
                             ))}
                         </div>
                     </div>
@@ -180,7 +188,7 @@ export default function HubHomePage() {
                                     <h3 className="apple-tile-title">{content.digitalCards[0].title}</h3>
                                     <p className="apple-tile-body" style={{ marginBottom: '24px' }}>{content.digitalCards[0].body}</p>
                                     <div className="apple-tile-cta">
-                                        {isKr ? '앱 다운로드' : 'Download App'} <span aria-hidden="true">→</span>
+                                        {content.digitalCards[0].ctaLabel} <span aria-hidden="true">→</span>
                                     </div>
                                 </div>
                                 <div className="apple-device-mockup">
@@ -206,16 +214,16 @@ export default function HubHomePage() {
                                 </div>
                             </a>
 
-                            {/* Beta AI Tile (Modern Dark glowing bento tile) */}
-                            <a href={content.digitalCards[2].href || '#'} target="_blank" rel="noreferrer" className="apple-tile apple-tile-standard apple-tile-glow">
+                            {/* Beta AI Tile */}
+                            <Link to={withLocale(content.digitalCards[2].fallbackTo, locale)} className="apple-tile apple-tile-standard apple-tile-glow">
                                 <div className="apple-tile-content">
                                     <p className="apple-eyebrow">THE HYPER-PERSONAL</p>
                                     <h3 className="apple-tile-title-sm">{content.digitalCards[2].title}</h3>
                                     <div className="apple-tile-cta">
-                                        {content.digitalCards[2].ctaLabel} <span aria-hidden="true">↗</span>
+                                        {content.digitalCards[2].ctaLabel} <span aria-hidden="true">→</span>
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
 
                             {/* Store / Tea / Community Minimal Tiles */}
                             <Link to={withLocale(content.overviewCards[1].to, locale)} className="apple-tile apple-tile-standard">
