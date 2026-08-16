@@ -1,10 +1,10 @@
 /en                  /                    302
 /en/*                /:splat              302
-/brand               /                    302
-/products            /                    302
-/category/chocolate  /                    302
-/category/tea        /                    302
-/category/gift       /                    302
+/brand               /about               302
+/products            /chocolate           302
+/category/chocolate  /chocolate           302
+/category/tea        /tea                 302
+/category/gift       /goods               302
 /cart                /                    302
 /checkout            /                    302
 /order-success       /                    302

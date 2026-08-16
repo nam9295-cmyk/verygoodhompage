@@ -3,6 +3,7 @@ import { AU_LINKS } from '../../config/auLinks.js'
 import { categoryPath } from '../../utils/auPaths.js'
 import AuPageHero from '../../components/au/AuPageHero.jsx'
 import ExternalBookingLink from '../../components/au/ExternalBookingLink.jsx'
+import AuSeo from '../../components/au/AuSeo.jsx'
 
 const content = {
   en: {
@@ -35,6 +36,7 @@ export default function AuAboutPage({ locale = 'en' }) {
 
   return (
     <>
+      <AuSeo locale={language} path="/about" title="About | Verygood Chocolate" description={copy.intro} />
       <AuPageHero kicker={copy.kicker} title={copy.title} intro={copy.intro} tone="forest" />
       <section className="au-about-story">
         <div className="au-shell au-about-story__grid">

@@ -10,9 +10,17 @@ async function renderRoute(pathname) {
     appType: 'custom',
     server: { middlewareMode: true, ws: false },
   })
-  const { default: AuAppRoutes } = await server.ssrLoadModule('/src/AuAppRoutes.jsx')
+  const [{ default: AuAppRoutes }, { HelmetProvider }] = await Promise.all([
+    server.ssrLoadModule('/src/AuAppRoutes.jsx'),
+    server.ssrLoadModule('react-helmet-async'),
+  ])
+  const helmetContext = {}
   const html = renderToStaticMarkup(
-    createElement(MemoryRouter, { initialEntries: [pathname] }, createElement(AuAppRoutes)),
+    createElement(
+      HelmetProvider,
+      { context: helmetContext },
+      createElement(MemoryRouter, { initialEntries: [pathname] }, createElement(AuAppRoutes)),
+    ),
   )
   await server.close()
   return html
