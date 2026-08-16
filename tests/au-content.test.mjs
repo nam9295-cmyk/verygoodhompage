@@ -37,3 +37,12 @@ test('AU home content never publishes shopping controls or unsupported wellness 
     assert.equal(forbidden.test(JSON.stringify(getAuSiteContent(locale))), false, locale)
   }
 })
+
+test('Korean home UI labels are supplied by the localized content source', () => {
+  const korean = getAuSiteContent('ko')
+
+  assert.equal(korean.ui.worldKicker, '베리굿의 세계')
+  assert.equal(korean.ui.storyKicker, '우리의 이야기')
+  assert.equal(korean.ui.reviewsKicker, '후기')
+  assert.equal(korean.ui.bookLabel, '케이크 예약')
+})

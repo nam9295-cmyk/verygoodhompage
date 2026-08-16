@@ -27,6 +27,17 @@ export function homeSectionHref(id, locale = 'en') {
 export const AU_HOME_CONTENT = Object.freeze({
   en: {
     locale: 'en-AU',
+    ui: {
+      announcementLabel: 'Verygood announcements',
+      experienceLabel: 'Sydney experiences',
+      worldKicker: 'The Verygood world',
+      worldHeading: 'Find your way in.',
+      selectionNote: 'Some are ready to book in Sydney. Others are shared here as part of the Verygood story.',
+      storyKicker: 'Our story',
+      reviewsKicker: 'Reviews',
+      bookLabel: 'Book a Cake',
+      skipLabel: 'Skip to content',
+    },
     announcement: [
       'Born in Daegu',
       'Growing in Sydney',
@@ -193,6 +204,17 @@ export const AU_HOME_CONTENT = Object.freeze({
   },
   ko: {
     locale: 'ko-KR',
+    ui: {
+      announcementLabel: '베리굿 알림',
+      experienceLabel: '시드니 경험',
+      worldKicker: '베리굿의 세계',
+      worldHeading: '원하는 곳으로 가보세요.',
+      selectionNote: '시드니에서 예약할 수 있는 것과 베리굿의 이야기를 전하는 것들을 함께 소개합니다.',
+      storyKicker: '우리의 이야기',
+      reviewsKicker: '후기',
+      bookLabel: '케이크 예약',
+      skipLabel: '본문으로 건너뛰기',
+    },
     announcement: [
       '대구에서 시작한 베리굿',
       '시드니에서 자라는 중',
