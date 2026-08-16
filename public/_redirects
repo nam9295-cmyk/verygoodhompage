@@ -5,6 +5,10 @@
 /category/chocolate  /chocolate           302
 /category/tea        /tea                 302
 /category/gift       /goods               302
+/cakes               https://au.verygood-chocolate.com/cakes 302
+/bakes               https://au.verygood-chocolate.com/cakes 302
+/ko/cakes            https://au.verygood-chocolate.com/cakes 302
+/ko/bakes            https://au.verygood-chocolate.com/cakes 302
 /cart                /                    302
 /checkout            /                    302
 /order-success       /                    302

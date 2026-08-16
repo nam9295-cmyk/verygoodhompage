@@ -3,8 +3,6 @@ import { localePath } from '../utils/auPaths.js'
 
 export const AU_SECTION_IDS = Object.freeze([
   'about',
-  'cakes',
-  'bakes',
   'chocolate',
   'tea',
   'goods',
@@ -12,8 +10,7 @@ export const AU_SECTION_IDS = Object.freeze([
 
 export const AU_NAVIGATION = Object.freeze([
   { id: 'about', label: 'About' },
-  { id: 'cakes', label: 'Cakes' },
-  { id: 'bakes', label: 'Bakes' },
+  { id: 'cakes', label: 'Cakes', href: AU_LINKS.booking.cakes },
   { id: 'chocolate', label: 'Chocolate' },
   { id: 'tea', label: 'Tea' },
   { id: 'goods', label: 'Goods' },
@@ -58,7 +55,7 @@ export const AU_HOME_CONTENT = Object.freeze({
       {
         id: 'cakes',
         kicker: 'Made to order in Sydney',
-        heading: 'Cake & bakes pre-order',
+        heading: 'Cakes & Bakes pre-order',
         body: 'Pre-arranged Melrose Park pickup for your celebration and small-batch bakes.',
         label: 'Explore booking options',
         href: AU_LINKS.booking.cakes,
@@ -75,18 +72,6 @@ export const AU_HOME_CONTENT = Object.freeze({
       },
     ],
     categories: [
-      {
-        id: 'cakes',
-        label: 'Cakes',
-        description: 'Celebration cakes made to order',
-        visual: 'type',
-      },
-      {
-        id: 'bakes',
-        label: 'Bakes',
-        description: 'Small cakes and baked treats',
-        visual: 'type',
-      },
       {
         id: 'chocolate',
         label: 'Chocolate',
@@ -252,8 +237,6 @@ export const AU_HOME_CONTENT = Object.freeze({
       },
     ],
     categories: [
-      { id: 'cakes', label: '케이크', description: '주문 제작 기념일 케이크', visual: 'type' },
-      { id: 'bakes', label: '베이크', description: '작은 케이크와 구운 과자', visual: 'type' },
       {
         id: 'chocolate',
         label: '초콜릿',

@@ -26,15 +26,16 @@ async function renderRoute(pathname) {
   return html
 }
 
-test('about and cake catalogue routes carry the Daegu-to-Sydney story and exact booking destination', async () => {
-  const [about, cakes] = await Promise.all([renderRoute('/about'), renderRoute('/cakes')])
+test('about and legacy cake routes carry the Daegu-to-Sydney story and exact booking destination', async () => {
+  const [about, cakes, bakes] = await Promise.all([renderRoute('/about'), renderRoute('/cakes'), renderRoute('/bakes')])
 
   assert.match(about, /Born in Daegu\. Growing in Sydney\./)
   assert.match(about, /Melrose Park pickup/)
-  assert.match(cakes, /Pave Chocolate Cake/)
-  assert.match(cakes, /https:\/\/au\.verygood-chocolate\.com\/cakes\/pave-chocolate-cake/)
-  assert.match(cakes, /View &amp; Book/)
-  assert.doesNotMatch(cakes, /Add to Cart|Checkout|Quantity|\$\d/)
+  for (const page of [cakes, bakes]) {
+    assert.match(page, /Taking you to cake bookings\./)
+    assert.match(page, /https:\/\/au\.verygood-chocolate\.com\/cakes/)
+    assert.doesNotMatch(page, /Pave Chocolate Cake|View &amp; Book|Add to Cart|Checkout|Quantity|\$\d/)
+  }
 })
 
 test('catalogue detail pages show product context, availability and related products without commerce controls', async () => {

@@ -15,8 +15,7 @@
   --au-image-shadow: 0 12px 28px rgba(54, 47, 49, 0.1);
   --au-page-max: 1400px;
   --au-gutter: clamp(20px, 3vw, 48px);
-  --au-display: 'Playfair Display', Georgia, serif;
-  --au-body: 'Work Sans', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --au-body: 'Work Sans', sans-serif;
 }
 
 html {
@@ -57,9 +56,9 @@ body {
 .au-site h2,
 .au-site h3 {
   color: var(--au-charcoal);
-  font-family: var(--au-display);
-  font-weight: 500;
-  letter-spacing: -0.045em;
+  font-family: var(--au-body);
+  font-weight: 700;
+  letter-spacing: -0.04em;
 }
 
 .au-site a {
@@ -101,7 +100,7 @@ body {
 .au-kicker {
   color: var(--au-forest);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.14em;
   line-height: 1.3;
   text-transform: uppercase;
@@ -120,7 +119,7 @@ body {
   line-height: 1;
 }
 
-.au-button {
+.au-site .au-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -131,19 +130,19 @@ body {
   transition: background-color 160ms ease, color 160ms ease;
 }
 
-.au-button:hover,
-.au-button:focus-visible {
+.au-site .au-button:hover,
+.au-site .au-button:focus-visible {
   color: var(--au-surface);
   background: var(--au-forest-deep);
 }
 
-.au-button--outline {
+.au-site .au-button--outline {
   color: var(--au-forest);
   background: transparent;
 }
 
-.au-button--outline:hover,
-.au-button--outline:focus-visible {
+.au-site .au-button--outline:hover,
+.au-site .au-button--outline:focus-visible {
   color: var(--au-surface);
   background: var(--au-forest);
 }
@@ -161,7 +160,7 @@ body {
   border-bottom: 1px solid currentColor;
   color: var(--au-forest);
   font-size: 14px;
-  font-weight: 650;
+  font-weight: 600;
   line-height: 1.35;
 }
 
@@ -188,14 +187,14 @@ body {
 
 .au-logo {
   display: inline-flex;
-  width: 132px;
+  width: 44px;
+  flex: 0 0 auto;
 }
 
 .au-logo img,
 .au-footer__brand img {
   width: 100%;
   height: auto;
-  filter: invert(27%) sepia(19%) saturate(1478%) hue-rotate(112deg) brightness(93%) contrast(85%);
 }
 
 .au-desktop-nav,
@@ -212,8 +211,7 @@ body {
 }
 
 .au-desktop-nav a,
-.au-header__korea,
-.au-header__language {
+.au-header__korea {
   color: var(--au-charcoal);
   font-size: 12px;
   font-weight: 600;
@@ -238,13 +236,8 @@ body {
   gap: 16px;
 }
 
-.au-header__language {
-  padding-left: 13px;
-  border-left: 1px solid rgba(54, 47, 49, 0.25);
-}
-
 .au-header__korea:hover,
-.au-header__language:hover {
+.au-header__korea:focus-visible {
   color: var(--au-forest);
 }
 
@@ -254,10 +247,11 @@ body {
   gap: 8px;
 }
 
-.au-mobile-book {
+.au-site .au-mobile-book {
   display: inline-flex;
   align-items: center;
   padding-inline: 13px;
+  white-space: nowrap;
   color: var(--au-surface);
   background: var(--au-forest);
 }
@@ -303,7 +297,7 @@ body {
   padding-bottom: 28px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.32);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.12em;
 }
 
@@ -332,22 +326,14 @@ body {
   padding: 13px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.22);
   color: var(--au-surface);
-  font-family: var(--au-display);
+  font-family: var(--au-body);
+  font-weight: 700;
   font-size: clamp(24px, 7vw, 34px);
   line-height: 1.1;
 }
 
 .au-mobile-menu__links a[aria-current='page'] {
   color: var(--au-kids-yellow);
-}
-
-.au-mobile-menu__links .au-mobile-menu__language {
-  margin-top: 20px;
-  padding: 0;
-  border: 0;
-  font-family: var(--au-body);
-  font-size: 14px;
-  font-weight: 600;
 }
 
 .au-announcement {
@@ -369,7 +355,7 @@ body {
   gap: 18px;
   padding: 9px 24px;
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.14em;
   line-height: 1.3;
   text-transform: uppercase;
@@ -403,7 +389,8 @@ body {
 
 .au-hero h1 {
   margin-top: 18px;
-  font-size: clamp(56px, 6.8vw, 104px);
+  font-size: clamp(56px, 6.1vw, 88px);
+  font-weight: 800;
   line-height: 0.92;
 }
 
@@ -518,10 +505,10 @@ body {
 
 .au-category-mosaic {
   display: grid;
-  grid-template-columns: 1.35fr 0.92fr 1.05fr;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
   grid-template-areas:
-    'cakes bakes chocolate'
-    'cakes tea goods';
+    'chocolate tea'
+    'chocolate goods';
   gap: clamp(14px, 2vw, 28px);
 }
 
@@ -544,8 +531,9 @@ body {
 }
 
 .au-category-card > span {
-  font-family: var(--au-display);
+  font-family: var(--au-body);
   font-size: clamp(36px, 4.6vw, 67px);
+  font-weight: 700;
   letter-spacing: -0.05em;
   line-height: 0.92;
 }
@@ -580,12 +568,6 @@ body {
 
 .au-category-card:hover::after,
 .au-category-card:focus-visible::after { opacity: 1; }
-.au-category-card--cakes {
-  grid-area: cakes;
-  border-top: 5px solid var(--au-pink);
-  background: var(--au-surface-soft);
-}
-.au-category-card--bakes { grid-area: bakes; background: var(--au-bakes); }
 .au-category-card--chocolate { grid-area: chocolate; background: #cfb59e; }
 .au-category-card--tea { grid-area: tea; background: var(--au-mint); }
 .au-category-card--goods { grid-area: goods; background: var(--au-goods-blue); }
@@ -621,8 +603,9 @@ body {
   min-height: 188px;
   place-items: center;
   color: var(--au-forest);
-  font-family: var(--au-display);
+  font-family: var(--au-body);
   font-size: 68px;
+  font-weight: 800;
   letter-spacing: -0.1em;
   background: #f5e4e2;
   box-shadow: var(--au-image-shadow);
@@ -636,7 +619,7 @@ body {
 
 .au-signature-card__copy strong {
   font-size: 15px;
-  font-weight: 650;
+  font-weight: 700;
   line-height: 1.3;
 }
 
@@ -832,7 +815,7 @@ body {
   gap: clamp(32px, 5vw, 84px);
 }
 
-.au-footer__brand img { width: 154px; filter: invert(100%); }
+.au-footer__brand img { width: 88px; }
 .au-footer__brand p { max-width: 250px; margin-top: 20px; color: rgba(255, 255, 255, 0.75); font-size: 14px; }
 
 .au-footer__group {
@@ -847,7 +830,7 @@ body {
   color: var(--au-surface);
   font-family: var(--au-body);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   line-height: 1.2;
   text-transform: uppercase;
@@ -890,6 +873,7 @@ body {
   max-width: 880px;
   margin-top: 18px;
   font-size: clamp(54px, 6.2vw, 90px);
+  font-weight: 800;
   line-height: 0.91;
 }
 
@@ -1003,8 +987,9 @@ body {
   min-height: inherit;
   place-items: center;
   color: var(--au-forest);
-  font-family: var(--au-display);
+  font-family: var(--au-body);
   font-size: clamp(80px, 12vw, 150px);
+  font-weight: 800;
   letter-spacing: -0.12em;
   background: #f5e4e2;
 }
@@ -1017,7 +1002,7 @@ body {
   padding: 22px 2px 4px;
 }
 
-.au-product-card__body h2 { font-size: clamp(29px, 3vw, 42px); line-height: 0.98; }
+.au-product-card__body h2 { font-size: clamp(29px, 3vw, 42px); font-weight: 700; line-height: 0.98; }
 
 .au-product-card__body > p {
   max-width: 340px;
@@ -1086,6 +1071,7 @@ body {
 .au-product-detail h1 {
   margin-top: 15px;
   font-size: clamp(50px, 5.2vw, 78px);
+  font-weight: 700;
   line-height: 0.9;
 }
 
@@ -1122,7 +1108,7 @@ body {
   border-top: 1px solid rgba(31, 90, 70, 0.24);
 }
 
-.au-product-detail__notes h2 { font-family: var(--au-body); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.au-product-detail__notes h2 { font-family: var(--au-body); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
 .au-product-detail__notes p { margin-top: 8px; color: var(--au-muted); font-size: 15px; }
 .au-product-detail__copy .au-button-row { margin-top: 35px; }
 
@@ -1139,8 +1125,7 @@ body {
   .au-header__inner { gap: 14px; }
   .au-desktop-nav { gap: 12px; }
   .au-desktop-nav a,
-  .au-header__korea,
-  .au-header__language { font-size: 11px; }
+.au-header__korea { font-size: 11px; }
   .au-desktop-actions { gap: 10px; }
   .au-hero__grid { grid-template-columns: minmax(0, 0.9fr) minmax(380px, 1.1fr); gap: 44px; }
   .au-signature__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1152,7 +1137,7 @@ body {
   .au-desktop-nav,
   .au-desktop-actions { display: none; }
   .au-mobile-actions { display: flex; }
-  .au-logo { width: 110px; }
+  .au-logo { width: 40px; }
   .au-hero__grid,
   .au-story__grid,
   .au-spotlight__grid { grid-template-columns: 1fr; }
@@ -1163,11 +1148,10 @@ body {
   .au-category-mosaic {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:
-      'cakes bakes'
       'chocolate tea'
-      'goods goods';
+      'chocolate goods';
   }
-  .au-category-card--cakes { min-height: 360px; }
+  .au-category-card--chocolate { min-height: 360px; }
   .au-footer__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .au-footer__brand { grid-column: 1 / -1; }
   .au-about-story__grid,
@@ -1179,7 +1163,7 @@ body {
 @media (max-width: 767px) {
   .au-kicker { font-size: 10px; }
   .au-header__inner { min-height: 68px; gap: 8px; }
-  .au-logo { width: 96px; }
+  .au-logo { width: 34px; }
   .au-mobile-actions { gap: 5px; }
   .au-mobile-book { padding-inline: 11px; font-size: 12px; }
   .au-menu-button { padding-inline: 10px; font-size: 12px; }
@@ -1202,10 +1186,10 @@ body {
   .au-section-heading--split > p { max-width: 470px; }
   .au-category-mosaic {
     grid-template-columns: 1fr;
-    grid-template-areas: 'cakes' 'bakes' 'chocolate' 'tea' 'goods';
+    grid-template-areas: 'chocolate' 'tea' 'goods';
   }
   .au-category-card,
-  .au-category-card--cakes { min-height: 235px; }
+  .au-category-card--chocolate { min-height: 235px; }
   .au-category-card > span { font-size: 51px; }
   .au-category-card img { width: 54%; right: -4%; }
   .au-signature__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

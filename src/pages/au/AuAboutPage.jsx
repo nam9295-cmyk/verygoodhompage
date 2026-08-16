@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom'
 import { AU_LINKS } from '../../config/auLinks.js'
-import { categoryPath } from '../../utils/auPaths.js'
 import AuPageHero from '../../components/au/AuPageHero.jsx'
 import ExternalBookingLink from '../../components/au/ExternalBookingLink.jsx'
 import AuSeo from '../../components/au/AuSeo.jsx'
@@ -53,7 +51,7 @@ export default function AuAboutPage({ locale = 'en' }) {
               <p>{copy.sydney}</p>
             </article>
             <div className="au-button-row">
-              <Link className="au-button" to={categoryPath('cakes', language)}>{copy.cakes}</Link>
+              <ExternalBookingLink className="au-button" href={AU_LINKS.booking.cakes}>{copy.cakes}</ExternalBookingLink>
               <ExternalBookingLink className="au-button au-button--outline" href={AU_LINKS.korea}>{copy.korea}</ExternalBookingLink>
             </div>
           </div>

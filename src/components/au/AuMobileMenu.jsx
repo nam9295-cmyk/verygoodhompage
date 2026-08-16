@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { AU_LINKS } from '../../config/auLinks.js'
 import { AU_NAVIGATION } from '../../config/auSiteContent.js'
-import { categoryPath, stripLocalePath } from '../../utils/auPaths.js'
-import LanguageLink from './LanguageLink.jsx'
+import { stripLocalePath } from '../../utils/auPaths.js'
+import AuNavigationLink from './AuNavigationLink.jsx'
 
 const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled])'
 
@@ -12,16 +12,12 @@ const mobileLabels = {
     close: 'Close menu',
     menu: 'Menu',
     kids: 'Kids Cake Classes',
-    reviews: 'Reviews',
-    lookup: 'Find My Booking',
     korea: 'Korea',
   },
   ko: {
     close: '메뉴 닫기',
     menu: '메뉴',
     kids: '키즈 케이크 클래스',
-    reviews: '후기',
-    lookup: '예약 조회',
     korea: '한국',
   },
 }
@@ -29,7 +25,6 @@ const mobileLabels = {
 const koNavigationLabels = {
   about: '소개',
   cakes: '케이크',
-  bakes: '베이크',
   chocolate: '초콜릿',
   tea: '티',
   goods: '굿즈',
@@ -100,28 +95,16 @@ export default function AuMobileMenu({ locale, onClose, returnFocusRef }) {
 
       <nav className="au-mobile-menu__links" aria-label={labels.menu}>
         {AU_NAVIGATION.map((item) => {
-          const href = categoryPath(item.id, locale)
           const active = stripLocalePath(location.pathname) === `/${item.id}`
 
-          return (
-            <Link key={item.id} to={href} aria-current={active ? 'page' : undefined} onClick={closeMenu}>
-              {navLabel(item)}
-            </Link>
-          )
+          return <AuNavigationLink key={item.id} item={item} locale={locale} active={active} onClick={closeMenu}>{navLabel(item)}</AuNavigationLink>
         })}
         <a href={AU_LINKS.booking.classes} target="_blank" rel="noreferrer" onClick={closeMenu}>
           {labels.kids} <span aria-hidden="true">↗</span>
         </a>
-        <a href={AU_LINKS.booking.reviews} target="_blank" rel="noreferrer" onClick={closeMenu}>
-          {labels.reviews} <span aria-hidden="true">↗</span>
-        </a>
-        <a href={AU_LINKS.booking.lookup} target="_blank" rel="noreferrer" onClick={closeMenu}>
-          {labels.lookup} <span aria-hidden="true">↗</span>
-        </a>
         <a href={AU_LINKS.korea} target="_blank" rel="noreferrer" onClick={closeMenu}>
           {labels.korea} <span aria-hidden="true">↗</span>
         </a>
-        <LanguageLink locale={locale} className="au-mobile-menu__language" />
       </nav>
     </aside>
   )

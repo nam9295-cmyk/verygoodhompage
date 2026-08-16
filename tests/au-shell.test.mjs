@@ -37,7 +37,7 @@ test('AU shell exposes required destinations without legacy commerce or admin co
   const footer = renderWithRoute(AuFooter, '/')
   const shell = header + footer
 
-  for (const label of ['About', 'Cakes', 'Bakes', 'Chocolate', 'Tea', 'Goods', 'Kids Classes', 'Book a Cake']) {
+  for (const label of ['About', 'Cakes', 'Chocolate', 'Tea', 'Goods', 'Kids Classes', 'Korea', 'Book a Cake']) {
     assert.match(shell, new RegExp(label))
   }
 
@@ -48,5 +48,8 @@ test('AU shell exposes required destinations without legacy commerce or admin co
   assert.match(shell, /https:\/\/kr\.verygood-chocolate\.com/)
   assert.match(header, /aria-current="page"/)
   assert.match(header, /href="\/tea"/)
+  assert.match(header, /href="https:\/\/au\.verygood-chocolate\.com\/cakes"/)
+  assert.doesNotMatch(header, />Bakes</)
+  assert.match(header, /\/assets\/brand\/heart_logo\.png/)
   assert.equal(/Cart|Checkout|Admin|Digital|Wellness App|AI Beta/.test(shell), false)
 })

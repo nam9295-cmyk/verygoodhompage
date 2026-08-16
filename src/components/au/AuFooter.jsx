@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom'
 import { AU_LINKS } from '../../config/auLinks.js'
 import { AU_NAVIGATION } from '../../config/auSiteContent.js'
-import { categoryPath } from '../../utils/auPaths.js'
+import AuNavigationLink from './AuNavigationLink.jsx'
 
 const labels = {
   en: {
@@ -33,7 +32,6 @@ const labels = {
 const koNavigationLabels = {
   about: '소개',
   cakes: '케이크',
-  bakes: '베이크',
   chocolate: '초콜릿',
   tea: '티',
   goods: '굿즈',
@@ -47,16 +45,16 @@ export default function AuFooter({ locale }) {
     <footer className="au-footer">
       <div className="au-shell au-footer__grid">
         <div className="au-footer__brand">
-          <img src="/assets/logo-type.png" alt="Verygood Chocolate" />
+          <img src="/assets/brand/heart_logo.png" alt="Verygood Chocolate" />
           <p>{copy.tagline}</p>
         </div>
 
         <div className="au-footer__group">
           <h2>{copy.explore}</h2>
           {AU_NAVIGATION.map((item) => (
-            <Link key={item.id} to={categoryPath(item.id, locale)}>
+            <AuNavigationLink key={item.id} item={item} locale={locale}>
               {locale === 'ko' ? koNavigationLabels[item.id] : item.label}
-            </Link>
+            </AuNavigationLink>
           ))}
         </div>
 

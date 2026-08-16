@@ -7,9 +7,10 @@ import {
   homeSectionHref,
 } from '../src/config/auSiteContent.js'
 
-test('AU navigation exposes the six brand sections and no legacy destinations', () => {
-  assert.deepEqual(AU_SECTION_IDS, ['about', 'cakes', 'bakes', 'chocolate', 'tea', 'goods'])
-  assert.deepEqual(AU_NAVIGATION.map((item) => item.id), AU_SECTION_IDS)
+test('AU navigation keeps catalogues internal while cakes use the booking destination', () => {
+  assert.deepEqual(AU_SECTION_IDS, ['about', 'chocolate', 'tea', 'goods'])
+  assert.deepEqual(AU_NAVIGATION.map((item) => item.id), ['about', 'cakes', 'chocolate', 'tea', 'goods'])
+  assert.equal(AU_NAVIGATION.find((item) => item.id === 'cakes').href, 'https://au.verygood-chocolate.com/cakes')
   assert.equal(/cart|checkout|store|digital|admin|wellness|ai beta/i.test(JSON.stringify(AU_NAVIGATION)), false)
   assert.equal(homeSectionHref('tea', 'en'), '/#tea')
   assert.equal(homeSectionHref('tea', 'ko'), '/ko#tea')
@@ -20,13 +21,7 @@ test('English home copy establishes the Daegu to Sydney brand story', () => {
 
   assert.equal(content.hero.kicker, 'BORN IN DAEGU · GROWING IN SYDNEY')
   assert.equal(content.hero.heading, 'Chocolate makes every day verygood.')
-  assert.deepEqual(content.categories.map((category) => category.label), [
-    'Cakes',
-    'Bakes',
-    'Chocolate',
-    'Tea',
-    'Goods',
-  ])
+  assert.deepEqual(content.categories.map((category) => category.label), ['Chocolate', 'Tea', 'Goods'])
   assert.match(content.story.heading, /Born in Daegu\. Growing in Sydney\./)
 })
 

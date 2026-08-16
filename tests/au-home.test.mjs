@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import { createServer } from 'vite'
 
-test('AU home renders the brand story, primary booking actions and five category links', async (t) => {
+test('AU home renders the brand story, one cakes booking destination and three internal catalogues', async (t) => {
   const server = await createServer({
     appType: 'custom',
     server: { middlewareMode: true, ws: false },
@@ -26,11 +26,14 @@ test('AU home renders the brand story, primary booking actions and five category
   assert.match(html, /Book a Cake/)
   assert.match(html, /Kids cake classes/i)
 
-  for (const label of ['Cakes', 'Bakes', 'Chocolate', 'Tea', 'Goods']) {
+  assert.match(html, /Cakes &amp; Bakes pre-order/)
+
+  for (const label of ['Chocolate', 'Tea', 'Goods']) {
     assert.match(html, new RegExp(label))
   }
 
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/cakes/)
+  assert.doesNotMatch(html, /href="\/(?:cakes|bakes)"/)
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/classes/)
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/reviews/)
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/lookup/)
