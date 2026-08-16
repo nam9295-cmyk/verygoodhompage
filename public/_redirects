@@ -1,1 +1,11 @@
-/* /index.html 200
+/en                  /                    302
+/en/*                /:splat              302
+/brand               /                    302
+/products            /                    302
+/category/chocolate  /                    302
+/category/tea        /                    302
+/category/gift       /                    302
+/cart                /                    302
+/checkout            /                    302
+/order-success       /                    302
+/*                   /index.html          200

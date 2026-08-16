@@ -11,7 +11,6 @@ export default defineConfig({
           // Vendor chunks
           'react-vendor': ['react', 'react-dom'],
           'router': ['react-router-dom'],
-          'firebase': ['firebase/app', 'firebase/firestore', 'firebase/auth'],
           'seo': ['react-helmet-async'],
         },
       },
