@@ -33,6 +33,8 @@ test('AU home renders the brand story, one cakes booking destination and three i
   }
 
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/cakes/)
+  assert.match(html, /\/assets\/booking\/pave-chocolate-cake-sydney\.webp/)
+  assert.match(html, /\/assets\/booking\/chocolate-pound-cake-sydney\.webp/)
   assert.doesNotMatch(html, /href="\/(?:cakes|bakes)"/)
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/classes/)
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/reviews/)

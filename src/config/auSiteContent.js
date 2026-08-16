@@ -105,13 +105,15 @@ export const AU_HOME_CONTENT = Object.freeze({
           name: 'Pave Chocolate Cake',
           availability: 'Sydney pre-order',
           href: AU_LINKS.booking.cakes,
-          image: null,
+          image: '/assets/booking/pave-chocolate-cake-sydney.webp',
+          imageAlt: 'Pave Chocolate Cake.',
         },
         {
           name: 'Chocolate Pound Cake',
           availability: 'Sydney pre-order',
           href: AU_LINKS.booking.cakes,
-          image: null,
+          image: '/assets/booking/chocolate-pound-cake-sydney.webp',
+          imageAlt: 'Chocolate Pound Cake.',
         },
         {
           name: 'Almond Chocoball',
@@ -266,8 +268,20 @@ export const AU_HOME_CONTENT = Object.freeze({
       kicker: '베리굿이 만드는 것들',
       heading: '시그니처 셀렉션',
       items: [
-        { name: '파베 초콜릿 케이크', availability: '시드니 사전 예약', href: AU_LINKS.booking.cakes, image: null },
-        { name: '초콜릿 파운드 케이크', availability: '시드니 사전 예약', href: AU_LINKS.booking.cakes, image: null },
+        {
+          name: '파베 초콜릿 케이크',
+          availability: '시드니 사전 예약',
+          href: AU_LINKS.booking.cakes,
+          image: '/assets/booking/pave-chocolate-cake-sydney.webp',
+          imageAlt: '파베 초콜릿 케이크.',
+        },
+        {
+          name: '초콜릿 파운드 케이크',
+          availability: '시드니 사전 예약',
+          href: AU_LINKS.booking.cakes,
+          image: '/assets/booking/chocolate-pound-cake-sydney.webp',
+          imageAlt: '초콜릿 파운드 케이크.',
+        },
         {
           name: '아몬드 초코볼',
           availability: '대구에서 만날 수 있어요',
