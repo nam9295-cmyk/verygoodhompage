@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { AU_LINKS } from '../../config/auLinks.js'
-import { AU_NAVIGATION, homeSectionHref } from '../../config/auSiteContent.js'
+import { AU_NAVIGATION } from '../../config/auSiteContent.js'
+import { categoryPath } from '../../utils/auPaths.js'
 
 const labels = {
   en: {
@@ -53,7 +54,7 @@ export default function AuFooter({ locale }) {
         <div className="au-footer__group">
           <h2>{copy.explore}</h2>
           {AU_NAVIGATION.map((item) => (
-            <Link key={item.id} to={homeSectionHref(item.id, locale)}>
+            <Link key={item.id} to={categoryPath(item.id, locale)}>
               {locale === 'ko' ? koNavigationLabels[item.id] : item.label}
             </Link>
           ))}

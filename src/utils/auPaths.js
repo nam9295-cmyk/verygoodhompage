@@ -15,3 +15,11 @@ export function localePath(path = '/', locale = 'en') {
 
   return localPath === '/' ? '/ko' : `/ko${localPath}`
 }
+
+export function categoryPath(category, locale = 'en') {
+  return localePath(`/${category}`, locale)
+}
+
+export function productPath(category, slug, locale = 'en') {
+  return localePath(`/${category}/${slug}`, locale)
+}

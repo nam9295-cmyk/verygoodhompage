@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { AU_LINKS } from '../../config/auLinks.js'
-import { AU_NAVIGATION, homeSectionHref } from '../../config/auSiteContent.js'
+import { AU_NAVIGATION } from '../../config/auSiteContent.js'
+import { categoryPath, stripLocalePath } from '../../utils/auPaths.js'
 import LanguageLink from './LanguageLink.jsx'
 
 const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled])'
@@ -99,8 +100,8 @@ export default function AuMobileMenu({ locale, onClose, returnFocusRef }) {
 
       <nav className="au-mobile-menu__links" aria-label={labels.menu}>
         {AU_NAVIGATION.map((item) => {
-          const href = homeSectionHref(item.id, locale)
-          const active = location.hash === `#${item.id}`
+          const href = categoryPath(item.id, locale)
+          const active = stripLocalePath(location.pathname) === `/${item.id}`
 
           return (
             <Link key={item.id} to={href} aria-current={active ? 'page' : undefined} onClick={closeMenu}>

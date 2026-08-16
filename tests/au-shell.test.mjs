@@ -33,7 +33,7 @@ test('AU shell exposes required destinations without legacy commerce or admin co
   const { AuFooter, AuHeader, close } = await loadAuShell()
   t.after(close)
 
-  const header = renderWithRoute(AuHeader, '/#tea')
+  const header = renderWithRoute(AuHeader, '/tea')
   const footer = renderWithRoute(AuFooter, '/')
   const shell = header + footer
 
@@ -47,5 +47,6 @@ test('AU shell exposes required destinations without legacy commerce or admin co
   assert.match(shell, /https:\/\/au\.verygood-chocolate\.com\/lookup/)
   assert.match(shell, /https:\/\/kr\.verygood-chocolate\.com/)
   assert.match(header, /aria-current="page"/)
+  assert.match(header, /href="\/tea"/)
   assert.equal(/Cart|Checkout|Admin|Digital|Wellness App|AI Beta/.test(shell), false)
 })

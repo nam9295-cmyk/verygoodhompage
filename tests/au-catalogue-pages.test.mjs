@@ -1,0 +1,48 @@
+import assert from 'node:assert/strict'
+import test from 'node:test'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { MemoryRouter } from 'react-router-dom'
+import { createServer } from 'vite'
+
+async function renderRoute(pathname) {
+  const server = await createServer({
+    appType: 'custom',
+    server: { middlewareMode: true, ws: false },
+  })
+  const { default: AuAppRoutes } = await server.ssrLoadModule('/src/AuAppRoutes.jsx')
+  const html = renderToStaticMarkup(
+    createElement(MemoryRouter, { initialEntries: [pathname] }, createElement(AuAppRoutes)),
+  )
+  await server.close()
+  return html
+}
+
+test('about and cake catalogue routes carry the Daegu-to-Sydney story and exact booking destination', async () => {
+  const [about, cakes] = await Promise.all([renderRoute('/about'), renderRoute('/cakes')])
+
+  assert.match(about, /Born in Daegu\. Growing in Sydney\./)
+  assert.match(about, /Melrose Park pickup/)
+  assert.match(cakes, /Pave Chocolate Cake/)
+  assert.match(cakes, /https:\/\/au\.verygood-chocolate\.com\/cakes\/pave-chocolate-cake/)
+  assert.match(cakes, /View &amp; Book/)
+  assert.doesNotMatch(cakes, /Add to Cart|Checkout|Quantity|\$\d/)
+})
+
+test('catalogue detail pages show product context, availability and related products without commerce controls', async () => {
+  const detail = await renderRoute('/tea/british-black')
+
+  assert.match(detail, /British Black/)
+  assert.match(detail, /Cacao nib, Earl Grey and cornflower/)
+  assert.match(detail, /Sydney release not announced/)
+  assert.match(detail, /More tea to explore/)
+  assert.doesNotMatch(detail, /Add to Cart|Checkout|Quantity|\$\d/)
+})
+
+test('Korean catalogue routes retain their localized product content', async () => {
+  const tea = await renderRoute('/ko/tea')
+
+  assert.match(tea, /네 가지 블렌드, 네 가지 분위기\./)
+  assert.match(tea, /브리티시 블랙/)
+  assert.doesNotMatch(tea, /Four blends, four moods\./)
+})

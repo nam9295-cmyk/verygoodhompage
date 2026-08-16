@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { AU_LINKS } from '../../config/auLinks.js'
-import { AU_NAVIGATION, homeSectionHref } from '../../config/auSiteContent.js'
+import { AU_NAVIGATION } from '../../config/auSiteContent.js'
+import { categoryPath, stripLocalePath } from '../../utils/auPaths.js'
 import AuMobileMenu from './AuMobileMenu.jsx'
 import LanguageLink from './LanguageLink.jsx'
 
@@ -35,10 +36,10 @@ export default function AuHeader({ locale }) {
 
         <nav className="au-desktop-nav" aria-label="Primary navigation">
           {AU_NAVIGATION.map((item) => {
-            const active = location.hash === `#${item.id}`
+            const active = stripLocalePath(location.pathname) === `/${item.id}`
 
             return (
-              <Link key={item.id} to={homeSectionHref(item.id, locale)} aria-current={active ? 'page' : undefined}>
+              <Link key={item.id} to={categoryPath(item.id, locale)} aria-current={active ? 'page' : undefined}>
                 {navLabel(item)}
               </Link>
             )

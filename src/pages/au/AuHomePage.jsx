@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { getAuSiteContent, homeSectionHref } from '../../config/auSiteContent.js'
+import { getAuSiteContent } from '../../config/auSiteContent.js'
+import { categoryPath } from '../../utils/auPaths.js'
 
 function ExternalArrow() {
   return <span aria-hidden="true">↗</span>
@@ -91,7 +92,7 @@ export default function AuHomePage({ locale }) {
                 key={category.id}
                 id={category.id}
                 className={`au-category-card au-category-card--${category.id}`}
-                to={homeSectionHref(category.id, locale)}
+                to={categoryPath(category.id, locale)}
               >
                 <span>{category.label}</span>
                 <small>{category.description}</small>
