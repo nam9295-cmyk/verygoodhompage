@@ -3,6 +3,22 @@ import test from 'node:test'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { createServer } from 'vite'
+import { getAuSeoMetadata } from '../src/utils/auSeo.js'
+
+test('AU SEO metadata derives canonical and locale alternate destinations from a public path', () => {
+  const metadata = getAuSeoMetadata({
+    locale: 'en',
+    path: '/tea/british-black',
+    title: 'British Black | Verygood Chocolate',
+    description: 'Cacao nib, Earl Grey and cornflower.',
+  })
+
+  assert.deepEqual(metadata.canonical, 'https://verygood-chocolate.com/tea/british-black')
+  assert.deepEqual(metadata.alternates, {
+    en: 'https://verygood-chocolate.com/tea/british-black',
+    ko: 'https://verygood-chocolate.com/ko/tea/british-black',
+  })
+})
 
 test('AU SEO publishes locale-specific canonical and alternate URLs', async (t) => {
   const server = await createServer({

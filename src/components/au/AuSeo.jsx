@@ -1,30 +1,48 @@
+import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { localePath, stripLocalePath } from '../../utils/auPaths.js'
+import { getAuSeoMetadata } from '../../utils/auSeo.js'
 
-const SITE_ORIGIN = 'https://verygood-chocolate.com'
+function createHeadElement(tagName, attributes) {
+  const element = document.createElement(tagName)
+  element.dataset.auSeo = 'true'
 
-function absoluteUrl(path) {
-  return `${SITE_ORIGIN}${path === '/' ? '/' : path}`
+  for (const [name, value] of Object.entries(attributes)) {
+    element.setAttribute(name, value)
+  }
+
+  document.head.append(element)
+  return element
 }
 
 export default function AuSeo({ locale = 'en', path = '/', title, description }) {
-  const language = locale === 'ko' ? 'ko' : 'en'
-  const localPath = stripLocalePath(path)
-  const canonicalPath = localePath(localPath, language)
-  const englishPath = localePath(localPath, 'en')
-  const koreanPath = localePath(localPath, 'ko')
+  const metadata = getAuSeoMetadata({ locale, path, title, description })
+
+  useEffect(() => {
+    document.title = metadata.title
+    const tags = [
+      createHeadElement('meta', { name: 'description', content: metadata.description }),
+      createHeadElement('meta', { property: 'og:title', content: metadata.title }),
+      createHeadElement('meta', { property: 'og:description', content: metadata.description }),
+      createHeadElement('meta', { property: 'og:type', content: 'website' }),
+      createHeadElement('link', { rel: 'canonical', href: metadata.canonical }),
+      createHeadElement('link', { rel: 'alternate', hreflang: 'en-AU', href: metadata.alternates.en }),
+      createHeadElement('link', { rel: 'alternate', hreflang: 'ko', href: metadata.alternates.ko }),
+    ]
+
+    return () => tags.forEach((tag) => tag.remove())
+  }, [metadata])
 
   return (
     <Helmet>
-      <html lang={language === 'ko' ? 'ko-KR' : 'en-AU'} />
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
+      <html lang={metadata.language === 'ko' ? 'ko-KR' : 'en-AU'} />
+      <title>{metadata.title}</title>
+      <meta name="description" content={metadata.description} />
+      <meta property="og:title" content={metadata.title} />
+      <meta property="og:description" content={metadata.description} />
       <meta property="og:type" content="website" />
-      <link rel="canonical" href={absoluteUrl(canonicalPath)} />
-      <link rel="alternate" hrefLang="en-AU" href={absoluteUrl(englishPath)} />
-      <link rel="alternate" hrefLang="ko" href={absoluteUrl(koreanPath)} />
+      <link rel="canonical" href={metadata.canonical} />
+      <link rel="alternate" hrefLang="en-AU" href={metadata.alternates.en} />
+      <link rel="alternate" hrefLang="ko" href={metadata.alternates.ko} />
     </Helmet>
   )
 }
