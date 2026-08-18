@@ -2,18 +2,22 @@ import { AU_LINKS } from './auLinks.js'
 import { localePath } from '../utils/auPaths.js'
 
 export const AU_SECTION_IDS = Object.freeze([
-  'about',
   'chocolate',
   'tea',
   'goods',
 ])
 
 export const AU_NAVIGATION = Object.freeze([
-  { id: 'about', label: 'About' },
   { id: 'cakes', label: 'Cakes', href: AU_LINKS.booking.cakes },
+  { id: 'something-fresh', label: 'Something Fresh', href: AU_LINKS.booking.cakes },
   { id: 'chocolate', label: 'Chocolate' },
-  { id: 'tea', label: 'Tea' },
-  { id: 'goods', label: 'Goods' },
+  { id: 'tea', label: 'Cacao Tea' },
+  { id: 'goods', label: 'Choco in Life' },
+])
+
+export const AU_FOOTER_NAVIGATION = Object.freeze([
+  { id: 'about', label: 'About' },
+  ...AU_NAVIGATION,
 ])
 
 export function homeSectionHref(id, locale = 'en') {
@@ -28,8 +32,8 @@ export const AU_HOME_CONTENT = Object.freeze({
       announcementLabel: 'Verygood announcements',
       experienceLabel: 'Sydney experiences',
       worldKicker: 'The Verygood world',
-      worldHeading: 'Find your way in.',
-      selectionNote: 'Some are ready to book in Sydney. Others are shared here as part of the Verygood story.',
+      worldHeading: 'The Verygood collections.',
+      selectionNote: 'Chocolate, tea and life with a little Verygood character.',
       storyKicker: 'Our story',
       reviewsKicker: 'Reviews',
       bookLabel: 'Book a Cake',
@@ -44,7 +48,7 @@ export const AU_HOME_CONTENT = Object.freeze({
     hero: {
       kicker: 'BORN IN DAEGU · GROWING IN SYDNEY',
       heading: 'Chocolate makes every day verygood.',
-      body: 'Cakes, bakes, chocolate, tea and playful little things from a chocolatier-led brand growing in Sydney.',
+      body: 'Cakes, something fresh, chocolate, tea and the things that make a Verygood life.',
       exploreLabel: 'Explore products',
       bookLabel: 'Book a Cake',
       image: '/assets/main.png',
@@ -54,17 +58,37 @@ export const AU_HOME_CONTENT = Object.freeze({
       {
         id: 'cakes',
         kicker: 'Made to order in Sydney',
-        heading: 'Cakes & Bakes pre-order',
-        body: 'Pre-arranged Melrose Park pickup for your celebration and small-batch bakes.',
-        label: 'Explore booking options',
+        heading: 'Verygood Chocolate Cakes',
+        body: 'Celebration cakes and chocolate bakes, made to order for pre-arranged Melrose Park pickup.',
+        items: [
+          { name: 'Signature Pave Cake', variations: ['3 sizes'] },
+          { name: 'Chocolate Pound Cake', variations: ['Original', 'Chocolate Coated', 'Vanilla Fresh Cream Topping'] },
+          { name: 'Chocolate Cupcakes', variations: ['Original', 'Vanilla Fresh Cream Topping', 'Chocolate Buttercream Topping'] },
+          { name: 'Whole Cake', variations: ['Vanilla Fresh Cream', 'Chocolate Buttercream', '3 sizes'] },
+          { name: 'Lunchbox Cake', variations: ['Pave', 'Chocolate Buttercream'] },
+        ],
+        label: 'View & Book',
         href: AU_LINKS.booking.cakes,
         tone: 'pink',
+      },
+      {
+        id: 'something-fresh',
+        kicker: 'STH FRESH',
+        heading: 'Something Fresh',
+        body: 'Fresh cake options for sharing and small celebrations, available through the Sydney cake site.',
+        items: [
+          { name: 'Lemon Cake', variations: ['4 pcs', '6 pcs', '12 pcs', '16 pcs'] },
+          { name: 'Brownie Cheesecake', variations: [] },
+        ],
+        label: 'View & Book',
+        href: AU_LINKS.booking.cakes,
+        tone: 'fresh',
       },
     ],
     categories: [
       {
         id: 'chocolate',
-        label: 'Chocolate',
+        label: 'Verygood Chocolate',
         description: 'Made by our chocolatier',
         visual: 'image',
         image: '/assets/products/almond.png',
@@ -72,7 +96,7 @@ export const AU_HOME_CONTENT = Object.freeze({
       },
       {
         id: 'tea',
-        label: 'Tea',
+        label: 'Cacao Tea',
         description: 'Four signature blends',
         visual: 'image',
         image: '/assets/products/british_cup.webp',
@@ -80,8 +104,8 @@ export const AU_HOME_CONTENT = Object.freeze({
       },
       {
         id: 'goods',
-        label: 'Goods',
-        description: 'Take a little verygood home',
+        label: 'Choco in Life',
+        description: 'A little Verygood for everyday life',
         visual: 'image',
         image: '/assets/products/hogirl.png',
         imageAlt: 'Hogeori character keyring.',
@@ -183,8 +207,8 @@ export const AU_HOME_CONTENT = Object.freeze({
       announcementLabel: '베리굿 알림',
       experienceLabel: '시드니 경험',
       worldKicker: '베리굿의 세계',
-      worldHeading: '원하는 곳으로 가보세요.',
-      selectionNote: '시드니에서 예약할 수 있는 것과 베리굿의 이야기를 전하는 것들을 함께 소개합니다.',
+      worldHeading: '베리굿의 컬렉션.',
+      selectionNote: '초콜릿, 티와 베리굿의 작은 일상을 소개합니다.',
       storyKicker: '우리의 이야기',
       reviewsKicker: '후기',
       bookLabel: '케이크 예약',
@@ -199,7 +223,7 @@ export const AU_HOME_CONTENT = Object.freeze({
     hero: {
       kicker: '대구에서 시작해, 시드니로',
       heading: '초콜릿이 생각날 땐, 베리굿.',
-      body: '케이크, 구운 과자, 초콜릿, 티와 작은 즐거움을 시드니에서도 만나보세요.',
+      body: '케이크, 썸띵 프레시, 초콜릿, 티와 베리굿의 작은 일상을 소개합니다.',
       exploreLabel: '제품 둘러보기',
       bookLabel: '케이크 예약',
       image: '/assets/main.png',
@@ -209,17 +233,37 @@ export const AU_HOME_CONTENT = Object.freeze({
       {
         id: 'cakes',
         kicker: '시드니 주문 제작',
-        heading: '케이크 & 베이크 사전 예약',
-        body: '기념일 케이크와 작은 구운 과자를 멜로즈 파크 픽업으로 준비합니다.',
-        label: '예약 옵션 보기',
+        heading: '베리굿 초콜릿 케이크',
+        body: '기념일 케이크와 초콜릿 베이크를 멜로즈 파크 사전 약속 픽업으로 준비합니다.',
+        items: [
+          { name: '시그니처 파베 케이크', variations: ['3가지 사이즈'] },
+          { name: '초콜릿 파운드 케이크', variations: ['오리지널', '초콜릿 코팅', '바닐라 생크림 토핑'] },
+          { name: '초콜릿 컵케이크', variations: ['오리지널', '바닐라 생크림 토핑', '초콜릿 버터크림 토핑'] },
+          { name: '홀 케이크', variations: ['바닐라 생크림', '초콜릿 버터크림', '3가지 사이즈'] },
+          { name: '런치박스 케이크', variations: ['파베', '초콜릿 버터크림'] },
+        ],
+        label: '예약 보기',
         href: AU_LINKS.booking.cakes,
         tone: 'pink',
+      },
+      {
+        id: 'something-fresh',
+        kicker: 'STH FRESH',
+        heading: '썸띵 프레시',
+        body: '함께 나누기 좋은 산뜻한 케이크를 시드니 케이크 사이트에서 확인해 보세요.',
+        items: [
+          { name: '레몬 케이크', variations: ['4개', '6개', '12개', '16개'] },
+          { name: '브라우니 치즈케이크', variations: [] },
+        ],
+        label: '예약 보기',
+        href: AU_LINKS.booking.cakes,
+        tone: 'fresh',
       },
     ],
     categories: [
       {
         id: 'chocolate',
-        label: '초콜릿',
+        label: '베리굿 초콜릿',
         description: '쇼콜라티에가 만드는 초콜릿',
         visual: 'image',
         image: '/assets/products/almond.png',
@@ -227,7 +271,7 @@ export const AU_HOME_CONTENT = Object.freeze({
       },
       {
         id: 'tea',
-        label: '티',
+        label: '카카오 티',
         description: '네 가지 시그니처 블렌드',
         visual: 'image',
         image: '/assets/products/british_cup.webp',
@@ -235,8 +279,8 @@ export const AU_HOME_CONTENT = Object.freeze({
       },
       {
         id: 'goods',
-        label: '굿즈',
-        description: '작은 베리굿을 집으로',
+        label: '초코 인 라이프',
+        description: '일상에 더하는 작은 베리굿',
         visual: 'image',
         image: '/assets/products/hogirl.png',
         imageAlt: '호걸이 캐릭터 키링.',

@@ -21,11 +21,11 @@ const mobileLabels = {
 }
 
 const koNavigationLabels = {
-  about: '소개',
   cakes: '케이크',
-  chocolate: '초콜릿',
-  tea: '티',
-  goods: '굿즈',
+  'something-fresh': '썸띵 프레시',
+  chocolate: '베리굿 초콜릿',
+  tea: '카카오 티',
+  goods: '초코 인 라이프',
 }
 
 export default function AuMobileMenu({ locale, onClose, returnFocusRef }) {

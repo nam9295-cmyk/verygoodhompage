@@ -1,5 +1,5 @@
 import { AU_LINKS } from '../../config/auLinks.js'
-import { AU_NAVIGATION } from '../../config/auSiteContent.js'
+import { AU_FOOTER_NAVIGATION } from '../../config/auSiteContent.js'
 import AuNavigationLink from './AuNavigationLink.jsx'
 
 const labels = {
@@ -30,9 +30,10 @@ const labels = {
 const koNavigationLabels = {
   about: '소개',
   cakes: '케이크',
-  chocolate: '초콜릿',
-  tea: '티',
-  goods: '굿즈',
+  'something-fresh': '썸띵 프레시',
+  chocolate: '베리굿 초콜릿',
+  tea: '카카오 티',
+  goods: '초코 인 라이프',
 }
 
 export default function AuFooter({ locale }) {
@@ -49,7 +50,7 @@ export default function AuFooter({ locale }) {
 
         <div className="au-footer__group">
           <h2>{copy.explore}</h2>
-          {AU_NAVIGATION.map((item) => (
+          {AU_FOOTER_NAVIGATION.map((item) => (
             <AuNavigationLink key={item.id} item={item} locale={locale}>
               {locale === 'ko' ? koNavigationLabels[item.id] : item.label}
             </AuNavigationLink>

@@ -29,7 +29,7 @@ function renderWithRoute(Component, pathname) {
   )
 }
 
-test('AU shell exposes product and regional destinations without a kids classes link', async (t) => {
+test('AU shell exposes the five final categories without About or kids classes in primary navigation', async (t) => {
   const { AuFooter, AuHeader, close } = await loadAuShell()
   t.after(close)
 
@@ -37,10 +37,12 @@ test('AU shell exposes product and regional destinations without a kids classes 
   const footer = renderWithRoute(AuFooter, '/')
   const shell = header + footer
 
-  for (const label of ['About', 'Cakes', 'Chocolate', 'Tea', 'Goods', 'Korea', 'Book a Cake']) {
+  for (const label of ['Cakes', 'Something Fresh', 'Chocolate', 'Cacao Tea', 'Choco in Life', 'Korea', 'Book a Cake']) {
     assert.match(shell, new RegExp(label))
   }
 
+  assert.doesNotMatch(header, />About</)
+  assert.match(footer, />About</)
   assert.doesNotMatch(shell, /Kids Classes|Kids Cake Classes/)
   assert.match(shell, /https:\/\/au\.verygood-chocolate\.com\/cakes/)
   assert.doesNotMatch(shell, /https:\/\/au\.verygood-chocolate\.com\/classes/)
