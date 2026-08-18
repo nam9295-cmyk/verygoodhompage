@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import { createServer } from 'vite'
 
-test('AU home renders the brand story, one cakes booking destination and three internal catalogues without kids classes', async (t) => {
+test('AU home prioritizes Cakes and Something Fresh before the three internal catalogues', async (t) => {
   const server = await createServer({
     appType: 'custom',
     server: { middlewareMode: true, ws: false },
@@ -26,11 +26,17 @@ test('AU home renders the brand story, one cakes booking destination and three i
   assert.match(html, /Book a Cake/)
   assert.doesNotMatch(html, /Kids cake classes|Explore classes|Private kids cake classes/i)
 
-  assert.match(html, /Cakes &amp; Bakes pre-order/)
+  assert.match(html, /Verygood Chocolate Cakes/)
+  assert.match(html, /Something Fresh/)
+  assert.match(html, /Signature Pave Cake/)
+  assert.match(html, /Brownie Cheesecake/)
 
-  for (const label of ['Chocolate', 'Tea', 'Goods']) {
+  for (const label of ['Verygood Chocolate', 'Cacao Tea', 'Choco in Life']) {
     assert.match(html, new RegExp(label))
   }
+
+  assert.ok(html.indexOf('Verygood Chocolate Cakes') < html.indexOf('Something Fresh'))
+  assert.ok(html.indexOf('Something Fresh') < html.indexOf('Cacao Tea'))
 
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/cakes/)
   assert.match(html, /\/assets\/booking\/pave-chocolate-cake-sydney\.webp/)

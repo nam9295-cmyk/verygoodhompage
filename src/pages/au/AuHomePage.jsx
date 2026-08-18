@@ -14,24 +14,6 @@ function BookingLink({ className = '', href, children }) {
   )
 }
 
-function SignatureLink({ item }) {
-  const content = (
-    <>
-      {item.image ? <img src={item.image} alt={item.imageAlt} /> : <span className="au-signature-card__mark" aria-hidden="true">VG</span>}
-      <span className="au-signature-card__copy">
-        <strong>{item.name}</strong>
-        <small>{item.availability}</small>
-      </span>
-    </>
-  )
-
-  return item.href.startsWith('http') ? (
-    <BookingLink className="au-signature-card" href={item.href}>{content}</BookingLink>
-  ) : (
-    <Link className="au-signature-card" to={item.href}>{content}</Link>
-  )
-}
-
 export default function AuHomePage({ locale }) {
   const content = getAuSiteContent(locale)
   const { ui } = content
@@ -74,6 +56,21 @@ export default function AuHomePage({ locale }) {
               <p className="au-kicker">{experience.kicker}</p>
               <h2>{experience.heading}</h2>
               <p>{experience.body}</p>
+              {experience.items?.length > 0 && (
+                <ul className="au-experience__list">
+                  {experience.items.map((item) => (
+                    <li key={item.name}>
+                      <strong>{item.name}</strong>
+                      {item.variations.length > 0 && <span>{item.variations.join(' · ')}</span>}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {experience.images?.length > 0 && (
+                <div className="au-experience__visuals">
+                  {experience.images.map((image) => <img key={image.src} src={image.src} alt={image.alt} />)}
+                </div>
+              )}
               <BookingLink className="au-text-link" href={experience.href}>{experience.label}</BookingLink>
             </article>
           ))}
@@ -99,21 +96,6 @@ export default function AuHomePage({ locale }) {
                 {category.visual === 'image' && <img src={category.image} alt={category.imageAlt} />}
               </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="au-signature">
-        <div className="au-shell">
-          <div className="au-section-heading au-section-heading--split">
-            <div>
-              <p className="au-kicker">{content.signature.kicker}</p>
-              <h2>{content.signature.heading}</h2>
-            </div>
-            <p>{ui.selectionNote}</p>
-          </div>
-          <div className="au-signature__grid">
-            {content.signature.items.map((item) => <SignatureLink key={item.name} item={item} />)}
           </div>
         </div>
       </section>

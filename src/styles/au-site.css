@@ -446,7 +446,11 @@ body {
   border-top: 5px solid var(--au-pink);
   background: var(--au-surface-soft);
 }
-.au-experience--yellow { background: var(--au-kids-yellow); }
+
+.au-experience--fresh {
+  border-top: 5px solid var(--au-forest);
+  background: var(--au-mint);
+}
 
 .au-experience h2 {
   max-width: 480px;
@@ -460,6 +464,50 @@ body {
   margin-top: 21px;
   font-size: 17px;
   line-height: 1.6;
+}
+
+.au-experience__list {
+  display: grid;
+  width: min(100%, 720px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px clamp(20px, 3vw, 42px);
+  margin: 30px 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--au-line);
+  list-style: none;
+}
+
+.au-experience__list li {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.au-experience__list strong {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.au-experience__list span {
+  color: var(--au-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.au-experience__visuals {
+  display: grid;
+  width: min(100%, 650px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.au-experience__visuals img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  box-shadow: var(--au-image-shadow);
 }
 
 .au-experience .au-text-link { margin-top: auto; padding-top: 38px; }
@@ -1182,6 +1230,8 @@ body {
   .au-core-experiences__grid { gap: 22px; }
   .au-experience { min-height: 300px; padding: 30px; }
   .au-experience h2 { font-size: clamp(39px, 12vw, 56px); }
+  .au-experience__list { grid-template-columns: 1fr; margin-top: 25px; }
+  .au-experience__visuals { gap: 8px; }
   .au-section-heading--split,
   .au-reviews__inner { display: grid; align-items: start; gap: 19px; }
   .au-section-heading--split > p { max-width: 470px; }

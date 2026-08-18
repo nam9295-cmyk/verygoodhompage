@@ -67,6 +67,10 @@ export const AU_HOME_CONTENT = Object.freeze({
           { name: 'Whole Cake', variations: ['Vanilla Fresh Cream', 'Chocolate Buttercream', '3 sizes'] },
           { name: 'Lunchbox Cake', variations: ['Pave', 'Chocolate Buttercream'] },
         ],
+        images: [
+          { src: '/assets/booking/pave-chocolate-cake-sydney.webp', alt: 'Pave Chocolate Cake.' },
+          { src: '/assets/booking/chocolate-pound-cake-sydney.webp', alt: 'Chocolate Pound Cake.' },
+        ],
         label: 'View & Book',
         href: AU_LINKS.booking.cakes,
         tone: 'pink',
@@ -241,6 +245,10 @@ export const AU_HOME_CONTENT = Object.freeze({
           { name: '초콜릿 컵케이크', variations: ['오리지널', '바닐라 생크림 토핑', '초콜릿 버터크림 토핑'] },
           { name: '홀 케이크', variations: ['바닐라 생크림', '초콜릿 버터크림', '3가지 사이즈'] },
           { name: '런치박스 케이크', variations: ['파베', '초콜릿 버터크림'] },
+        ],
+        images: [
+          { src: '/assets/booking/pave-chocolate-cake-sydney.webp', alt: '파베 초콜릿 케이크.' },
+          { src: '/assets/booking/chocolate-pound-cake-sydney.webp', alt: '초콜릿 파운드 케이크.' },
         ],
         label: '예약 보기',
         href: AU_LINKS.booking.cakes,
