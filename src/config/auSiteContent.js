@@ -89,8 +89,8 @@ export const AU_HOME_CONTENT = Object.freeze({
         label: 'Verygood Chocolate',
         description: 'Made by our chocolatier',
         visual: 'image',
-        image: '/assets/products/almond.png',
-        imageAlt: 'Almond Chocoball packaging on a white background.',
+        image: '/assets/products/straw.png',
+        imageAlt: 'Strawberry Bonbon packaging with strawberry bonbons.',
       },
       {
         id: 'tea',
@@ -262,8 +262,8 @@ export const AU_HOME_CONTENT = Object.freeze({
         label: '베리굿 초콜릿',
         description: '쇼콜라티에가 만드는 초콜릿',
         visual: 'image',
-        image: '/assets/products/almond.png',
-        imageAlt: '아몬드 초코볼 패키지.',
+        image: '/assets/products/straw.png',
+        imageAlt: '스트로베리 봉봉과 패키지.',
       },
       {
         id: 'tea',

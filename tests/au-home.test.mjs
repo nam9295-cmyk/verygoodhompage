@@ -54,6 +54,35 @@ test('AU home prioritizes Cakes and Something Fresh before the three internal ca
   assert.equal(/Add to Cart|Checkout|Cart|Quantity|\$\d/.test(html), false)
 })
 
+test('AU home keeps British Black within Cacao Tea and uses Strawberry Bonbon for the chocolate collection', async (t) => {
+  const server = await createServer({
+    appType: 'custom',
+    server: { middlewareMode: true, ws: false },
+  })
+  t.after(() => server.close())
+
+  const { default: AuHomePage } = await server.ssrLoadModule('/src/pages/au/AuHomePage.jsx')
+  const html = renderToStaticMarkup(
+    createElement(
+      MemoryRouter,
+      { initialEntries: ['/'] },
+      createElement(AuHomePage, { locale: 'en' }),
+    ),
+  )
+
+  const englishContent = (await server.ssrLoadModule('/src/config/auSiteContent.js')).getAuSiteContent('en')
+  const koreanContent = (await server.ssrLoadModule('/src/config/auSiteContent.js')).getAuSiteContent('ko')
+
+  for (const content of [englishContent, koreanContent]) {
+    assert.equal(content.categories.find((category) => category.id === 'chocolate').image, '/assets/products/straw.png')
+    assert.equal(content.categories.find((category) => category.id === 'tea').image, '/assets/products/british_cup.webp')
+  }
+
+  assert.match(html, /src="\/assets\/products\/straw\.png"/)
+  assert.match(html, /src="\/assets\/products\/british_cup\.webp"/)
+  assert.doesNotMatch(html, /<section class="au-spotlight">/)
+})
+
 test('AU home opens with an image-led brand hero and keeps cake booking as its primary action', async (t) => {
   const server = await createServer({
     appType: 'custom',

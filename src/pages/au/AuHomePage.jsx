@@ -128,18 +128,6 @@ export default function AuHomePage({ locale }) {
         </div>
       </section>
 
-      <section className="au-spotlight">
-        <div className="au-shell au-spotlight__grid">
-          <figure><img src={content.spotlight.image} alt={content.spotlight.imageAlt} /></figure>
-          <div>
-            <p className="au-kicker">{content.spotlight.kicker}</p>
-            <h2>{content.spotlight.heading}</h2>
-            <p>{content.spotlight.body}</p>
-            <span className="au-availability">{content.spotlight.status}</span>
-          </div>
-        </div>
-      </section>
-
       <section className="au-reviews">
         <div className="au-shell au-reviews__inner">
           <div>
