@@ -39,6 +39,21 @@ No actionable P0, P1 or P2 visual issues remain for this scope.
 
 final result: passed
 
+## Fixed wallpaper revision
+
+- Desktop evidence: `output/design-qa/fixed-tiger-before-1440.png` after 820 px of page scroll and `output/design-qa/fixed-tiger-after-1440.png` after 1,540 px of page scroll.
+- Mobile evidence: `output/design-qa/fixed-tiger-390.png` at 390 × 844 CSS px.
+
+### Resolution
+
+The first wallpaper pass belonged to the scrolling Cakes / Something Fresh section, so the visible tiger positions moved with the product content. The wallpaper is now a dedicated fixed layer immediately inside `AuLayout`, behind the scrolling `main` and footer content.
+
+- At 1440 px, the layer remained at `x: 0`, `y: 0`, `1440 × 900` before and after the scroll check.
+- At 390 px, the layer remained at `x: 0`, `y: 0`, `390 × 844` before and after the scroll check, with no document overflow.
+- The existing live-AU opacity (`0.09`) and responsive official asset pair remain unchanged.
+
+final result: passed
+
 ## Tiger wallpaper extension
 
 - Live reference: the AU booking home at `https://au.verygood-chocolate.com/`, captured at 390 × 844 in `output/design-qa/tiger-reference-390.png`.

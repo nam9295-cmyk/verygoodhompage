@@ -14,6 +14,7 @@ export default function AuLayout({ locale }) {
 
   return (
     <div className="au-site" lang={documentLanguage}>
+      <div className="au-fixed-tiger-background" aria-hidden="true" />
       <a className="au-skip-link" href="#main-content">{content.ui.skipLabel}</a>
       <AuHeader locale={locale} />
       <main id="main-content"><Outlet /></main>

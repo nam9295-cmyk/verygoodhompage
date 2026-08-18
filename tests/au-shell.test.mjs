@@ -56,3 +56,17 @@ test('AU shell exposes the five final categories without About or kids classes i
   assert.match(header, /\/assets\/brand\/heart_logo\.png/)
   assert.equal(/Cart|Checkout|Admin|Digital|Wellness App|AI Beta/.test(shell), false)
 })
+
+test('AU shell keeps the tiger wallpaper outside scrolling page content', async (t) => {
+  const server = await createServer({
+    appType: 'custom',
+    server: { middlewareMode: true, ws: false },
+  })
+  t.after(() => server.close())
+
+  const { default: AuLayout } = await server.ssrLoadModule('/src/components/au/AuLayout.jsx')
+  const html = renderWithRoute(AuLayout, '/')
+
+  assert.match(html, /<div class="au-fixed-tiger-background" aria-hidden="true"><\/div>/)
+  assert.ok(html.indexOf('au-fixed-tiger-background') < html.indexOf('<main id="main-content">'))
+})
