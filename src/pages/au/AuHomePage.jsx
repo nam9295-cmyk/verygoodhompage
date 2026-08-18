@@ -31,7 +31,7 @@ export default function AuHomePage({ locale }) {
   }
 
   return (
-    <>
+    <div className="au-home">
       <section className="au-announcement" aria-label={ui.announcementLabel}>
         <div className="au-announcement__track">
           {content.announcement.concat(content.announcement).map((item, index) => (
@@ -171,6 +171,6 @@ export default function AuHomePage({ locale }) {
         onClose={closeQuickView}
         closeLabel={locale === 'ko' ? '제품 상세 닫기' : 'Close product details'}
       />
-    </>
+    </div>
   )
 }

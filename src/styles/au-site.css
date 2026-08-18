@@ -97,6 +97,12 @@ body {
   padding-inline: var(--au-gutter);
 }
 
+/* Home editorial sections intentionally run wider than the global page shell. */
+.au-home > :not(.au-hero) .au-shell {
+  width: 100%;
+  max-width: none;
+}
+
 .au-skip-link {
   position: fixed;
   top: 12px;
@@ -499,6 +505,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.au-home .au-core-experiences .au-experience {
+  padding-inline: 0;
 }
 
 .au-experience--pink {
@@ -1555,6 +1565,7 @@ body {
   .au-story__places { grid-template-columns: 1fr; }
   .au-core-experiences__grid { gap: 22px; }
   .au-experience { min-height: 300px; padding: 30px; }
+  .au-home .au-core-experiences .au-experience { padding-inline: 0; }
   .au-experience h2 { font-size: clamp(39px, 12vw, 56px); }
   .au-experience__products {
     grid-auto-columns: calc(100% - 42px);

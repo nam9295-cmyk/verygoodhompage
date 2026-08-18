@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import test from 'node:test'
 import { createElement } from 'react'
@@ -166,4 +166,13 @@ test('AU home uses local copies of the current AU cake catalogue imagery', async
 test('AU home ships local copies of the official tiger wallpaper treatment', () => {
   assert.ok(existsSync(resolve('public/assets/brand/tiger-pattern-desktop.webp')))
   assert.ok(existsSync(resolve('public/assets/brand/tiger-pattern-mobile.webp')))
+})
+
+test('AU home gives its non-hero sections a full-width content scope', () => {
+  const home = readFileSync('src/pages/au/AuHomePage.jsx', 'utf8')
+  const styles = readFileSync('src/styles/au-site.css', 'utf8')
+
+  assert.match(home, /<div className="au-home">/)
+  assert.match(styles, /\.au-home > :not\(\.au-hero\) \.au-shell\s*\{\s*width: 100%;\s*max-width: none;/)
+  assert.match(styles, /\.au-home \.au-core-experiences \.au-experience\s*\{\s*padding-inline: 0;/)
 })
