@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import AuBookingProductCard from '../../components/au/AuBookingProductCard.jsx'
+import AuBookingProductQuickView from '../../components/au/AuBookingProductQuickView.jsx'
 import { getAuSiteContent } from '../../config/auSiteContent.js'
 import { categoryPath } from '../../utils/auPaths.js'
 
@@ -18,6 +20,15 @@ function BookingLink({ className = '', href, children }) {
 export default function AuHomePage({ locale }) {
   const content = getAuSiteContent(locale)
   const { ui } = content
+  const [quickView, setQuickView] = useState(null)
+
+  function openQuickView(product, event) {
+    setQuickView({ product, opener: event.currentTarget })
+  }
+
+  function closeQuickView() {
+    setQuickView(null)
+  }
 
   return (
     <>
@@ -58,7 +69,9 @@ export default function AuHomePage({ locale }) {
               <h2>{experience.heading}</h2>
               <p>{experience.body}</p>
               <div className="au-experience__products">
-                {experience.products.map((product) => <AuBookingProductCard key={product.id} product={product} />)}
+                {experience.products.map((product) => (
+                  <AuBookingProductCard key={product.id} product={product} onQuickView={openQuickView} />
+                ))}
               </div>
             </article>
           ))}
@@ -151,6 +164,12 @@ export default function AuHomePage({ locale }) {
           </div>
         </div>
       </section>
+      <AuBookingProductQuickView
+        product={quickView?.product}
+        opener={quickView?.opener}
+        onClose={closeQuickView}
+        closeLabel={locale === 'ko' ? '제품 상세 닫기' : 'Close product details'}
+      />
     </>
   )
 }
