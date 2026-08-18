@@ -464,13 +464,29 @@ body {
 }
 
 .au-core-experiences {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding-bottom: clamp(72px, 10vw, 152px);
+  background: var(--au-surface-soft);
+}
+
+.au-core-experiences::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: '';
+  opacity: 0.09;
+  background-image: url('/assets/brand/tiger-pattern-desktop.webp');
+  background-position: center top;
+  background-repeat: repeat-y;
+  background-size: 100% auto;
 }
 
 .au-core-experiences__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: clamp(20px, 3vw, 42px);
+  gap: clamp(54px, 7vw, 108px);
 }
 
 .au-experience {
@@ -481,14 +497,10 @@ body {
 }
 
 .au-experience--pink {
-  border-top: 5px solid var(--au-pink);
-  background: var(--au-surface-soft);
+  background: transparent;
 }
 
-.au-experience--fresh {
-  border-top: 5px solid var(--au-forest);
-  background: var(--au-mint);
-}
+.au-experience--fresh { background: transparent; }
 
 .au-experience h2 {
   max-width: 480px;
@@ -1530,6 +1542,11 @@ body {
   .au-hero__body { margin-top: 21px; font-size: 16px; }
   .au-hero .au-button-row { margin-top: 27px; }
   .au-button { padding-inline: 17px; }
+  .au-core-experiences::before {
+    opacity: 0.09;
+    background-image: url('/assets/brand/tiger-pattern-mobile.webp');
+    background-size: auto 216vw;
+  }
   .au-core-experiences__grid,
   .au-locations__grid,
   .au-story__places { grid-template-columns: 1fr; }

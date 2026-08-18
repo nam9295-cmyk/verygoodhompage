@@ -38,3 +38,22 @@
 No actionable P0, P1 or P2 visual issues remain for this scope.
 
 final result: passed
+
+## Tiger wallpaper extension
+
+- Live reference: the AU booking home at `https://au.verygood-chocolate.com/`, captured at 390 × 844 in `output/design-qa/tiger-reference-390.png`.
+- Implementation: `output/design-qa/tiger-categories-390.png` at the same viewport.
+- Side-by-side evidence: `output/design-qa/tiger-pattern-comparison-390.png`.
+- Local assets: `public/assets/brand/tiger-pattern-desktop.webp` and `public/assets/brand/tiger-pattern-mobile.webp`, copied from the official AU booking build rather than hotlinked.
+
+### Findings and resolution
+
+1. **P2 — Cakes and Something Fresh read as separate tinted cards.** Removed their pink and forest top borders and both solid card backgrounds. The sections now sit on one continuous shared surface.
+2. **P2 — The home lacked the AU booking site's tiger backdrop.** Applied the official responsive desktop/mobile wallpaper assets to the shared product area with the same `0.09` opacity observed on the live AU home. The desktop treatment fills the width and the mobile treatment keeps its source scale while repeating vertically.
+3. **P2 — Risk of mobile horizontal overflow from the artwork.** The background remains a pseudo-element clipped by its parent; the 390 px document width remains exactly 390 px.
+
+### Result
+
+The shared wallpaper is visible without competing with product photography or copy. No actionable P0, P1 or P2 issues remain.
+
+final result: passed

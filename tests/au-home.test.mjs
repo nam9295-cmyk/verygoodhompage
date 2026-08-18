@@ -162,3 +162,8 @@ test('AU home uses local copies of the current AU cake catalogue imagery', async
   assert.match(html, /\/assets\/booking\/vanilla-cake-sydney\.webp/)
   assert.match(html, /\/assets\/booking\/cutouts\/lemoncake-side\.webp/)
 })
+
+test('AU home ships local copies of the official tiger wallpaper treatment', () => {
+  assert.ok(existsSync(resolve('public/assets/brand/tiger-pattern-desktop.webp')))
+  assert.ok(existsSync(resolve('public/assets/brand/tiger-pattern-mobile.webp')))
+})
