@@ -54,6 +54,32 @@ test('AU home prioritizes Cakes and Something Fresh before the three internal ca
   assert.equal(/Add to Cart|Checkout|Cart|Quantity|\$\d/.test(html), false)
 })
 
+test('AU home opens with an image-led brand hero and keeps cake booking as its primary action', async (t) => {
+  const server = await createServer({
+    appType: 'custom',
+    server: { middlewareMode: true, ws: false },
+  })
+  t.after(() => server.close())
+
+  const { default: AuHomePage } = await server.ssrLoadModule('/src/pages/au/AuHomePage.jsx')
+  const html = renderToStaticMarkup(
+    createElement(
+      MemoryRouter,
+      { initialEntries: ['/'] },
+      createElement(AuHomePage, { locale: 'en' }),
+    ),
+  )
+
+  const hero = html.match(/<section class="au-hero au-hero--image-led">[\s\S]*?<\/section>/)?.[0]
+
+  assert.ok(hero, 'the home should render the image-led hero treatment')
+  assert.match(hero, /<img src="\/assets\/main\.png" alt="" aria-hidden="true"/)
+  assert.match(hero, /<h1>Chocolate makes every day verygood\.<\/h1>/)
+  assert.match(hero, /class="au-hero__content au-shell"/)
+  assert.match(hero, /href="https:\/\/au\.verygood-chocolate\.com\/cakes"/)
+  assert.ok(hero.indexOf('Book a Cake') < hero.indexOf('Explore products'))
+})
+
 test('AU home product cards open a quick view while their View & Book links keep the matching AU destinations', async (t) => {
   const server = await createServer({
     appType: 'custom',

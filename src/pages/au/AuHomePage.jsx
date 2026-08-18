@@ -40,24 +40,25 @@ export default function AuHomePage({ locale }) {
         </div>
       </section>
 
-      <section className="au-hero">
-        <div className="au-shell au-hero__grid">
+      <section className="au-hero au-hero--image-led">
+        <div className="au-hero__media" aria-hidden="true">
+          <img src={content.hero.image} alt="" aria-hidden="true" />
+        </div>
+        <div className="au-hero__shade" aria-hidden="true" />
+        <div className="au-hero__content au-shell">
           <div className="au-hero__copy">
             <p className="au-kicker">{content.hero.kicker}</p>
             <h1>{content.hero.heading}</h1>
             <p className="au-hero__body">{content.hero.body}</p>
             <div className="au-button-row">
-              <Link className="au-button au-button--outline" to={`${locale === 'ko' ? '/ko' : '/'}#world`}>
-                {content.hero.exploreLabel}
-              </Link>
               <BookingLink className="au-button" href={content.coreExperiences[0].href}>
                 {content.hero.bookLabel}
               </BookingLink>
+              <Link className="au-button au-button--outline" to={`${locale === 'ko' ? '/ko' : '/'}#world`}>
+                {content.hero.exploreLabel}
+              </Link>
             </div>
           </div>
-          <figure className="au-hero__image">
-            <img src={content.hero.image} alt={content.hero.imageAlt} />
-          </figure>
         </div>
       </section>
 
@@ -66,7 +67,7 @@ export default function AuHomePage({ locale }) {
           {content.coreExperiences.map((experience) => (
             <article key={experience.id} className={`au-experience au-experience--${experience.tone}`}>
               <p className="au-kicker">{experience.kicker}</p>
-              <h2>{experience.heading}</h2>
+              <h2 className="au-experience__heading">{experience.heading}</h2>
               <p>{experience.body}</p>
               <div className="au-experience__products">
                 {experience.products.map((product) => (
