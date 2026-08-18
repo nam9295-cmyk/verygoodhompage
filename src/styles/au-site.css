@@ -489,22 +489,23 @@ body {
 }
 
 .au-booking-product-card__media {
+  position: relative;
   display: grid;
   place-items: center;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--au-surface) 78%, transparent);
+  min-height: 300px;
+  overflow: visible;
+  background: #e9e4dc;
 }
 
 .au-booking-product-card__media img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: min(96%, 500px);
+  max-height: 420px;
   object-fit: contain;
-  filter: drop-shadow(0 14px 18px rgba(34, 39, 31, 0.12));
+  object-position: center bottom;
+  padding: clamp(20px, 2.3vw, 34px);
+  filter: drop-shadow(0 28px 28px rgba(31, 90, 70, 0.18));
 }
-
-.au-booking-product-card__media--cover img { object-fit: cover; }
 
 .au-booking-product-card__placeholder {
   display: grid;

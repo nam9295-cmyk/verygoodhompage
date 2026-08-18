@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict'
+import { existsSync } from 'node:fs'
+import { resolve } from 'node:path'
 import test from 'node:test'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
@@ -89,4 +91,37 @@ test('AU home product cards use their matching booking detail pages in the curre
   }
 
   assert.match(html, /Lunchbox Cake[\s\S]*?Image coming soon/)
+})
+
+test('AU home uses local copies of the current AU cake catalogue imagery', async (t) => {
+  const server = await createServer({
+    appType: 'custom',
+    server: { middlewareMode: true, ws: false },
+  })
+  t.after(() => server.close())
+
+  const { default: AuHomePage } = await server.ssrLoadModule('/src/pages/au/AuHomePage.jsx')
+  const html = renderToStaticMarkup(
+    createElement(
+      MemoryRouter,
+      { initialEntries: ['/'] },
+      createElement(AuHomePage, { locale: 'en' }),
+    ),
+  )
+
+  const bookingImagePaths = [
+    '/assets/booking/pave-chocolate-cake-sydney.webp',
+    '/assets/booking/chocolate-pound-cake-sydney.webp',
+    '/assets/booking/chocolate-cupcakes-sydney.webp',
+    '/assets/booking/vanilla-cake-sydney.webp',
+    '/assets/booking/lemon-cake-sydney.webp',
+    '/assets/booking/chocolatiers-basque-cheesecake-sydney.webp',
+  ]
+
+  for (const imagePath of bookingImagePaths) {
+    assert.ok(existsSync(resolve('public', `.${imagePath}`)), `${imagePath} should ship with the AU home`)
+  }
+
+  assert.match(html, /\/assets\/booking\/vanilla-cake-sydney\.webp/)
+  assert.match(html, /\/assets\/booking\/lemon-cake-sydney\.webp/)
 })

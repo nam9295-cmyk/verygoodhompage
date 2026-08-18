@@ -36,7 +36,6 @@ function useBookingProductImage(image) {
 
 export default function AuBookingProductCard({ product }) {
   const [imageSource, setImageSource] = useBookingProductImage(product.image)
-  const isCoverImage = product.image.fit === 'cover'
 
   function handleImageError() {
     if (product.image.fallbackSrc && imageSource !== product.image.fallbackSrc) {
@@ -49,7 +48,7 @@ export default function AuBookingProductCard({ product }) {
 
   return (
     <a className="au-booking-product-card" href={product.href}>
-      <div className={`au-booking-product-card__media${isCoverImage ? ' au-booking-product-card__media--cover' : ''}`}>
+      <div className="au-booking-product-card__media">
         {imageSource ? (
           <img src={imageSource} alt={product.image.alt} onError={handleImageError} />
         ) : (
