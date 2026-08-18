@@ -59,6 +59,8 @@ test('public category pages show only the curated releases with their final cate
   assert.match(chocolate, /S&#x27;mores Stick/)
   assert.doesNotMatch(chocolate, /Ruby Berry Chocoball|Matcha Berry/)
   assert.doesNotMatch(chocolate, /au-product-card__mark/)
+  assert.match(chocolate, /au-product-card au-product-card--text-only[^>]*><div class="au-product-card__body"><h2>S&#x27;mores Stick<\/h2>/)
+  assert.doesNotMatch(chocolate, /au-product-card au-product-card--text-only[^>]*><div class="au-product-card__visual">/)
   assert.match(hiddenDetail, /This product is not part of the AU catalogue\./)
 })
 

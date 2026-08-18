@@ -21,12 +21,12 @@ export default function AuProductCard({ product, locale = 'en' }) {
   const copy = product.copy[language]
   const actionLabels = labels[language]
   const bookingProduct = product.action.mode === 'external-booking'
-  const visual = <ProductVisual product={product} locale={language} />
+  const hasVisual = Boolean(product.media.card)
   const hasDetail = Boolean(product.media.hero || copy.shortDescription || copy.story || copy.details)
 
   return (
-    <article className={`au-product-card${visual ? '' : ' au-product-card--text-only'}`}>
-      {visual && <div className="au-product-card__visual">{visual}</div>}
+    <article className={`au-product-card${hasVisual ? '' : ' au-product-card--text-only'}`}>
+      {hasVisual && <div className="au-product-card__visual"><ProductVisual product={product} locale={language} /></div>}
       <div className="au-product-card__body">
         <h2>{copy.name}</h2>
         {copy.shortDescription && <p>{copy.shortDescription}</p>}
