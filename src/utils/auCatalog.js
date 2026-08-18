@@ -1,4 +1,4 @@
-import { AU_CATEGORIES, AU_PRODUCTS } from '../data/auCatalog.js'
+import { AU_CATEGORIES, AU_PRODUCTS, AU_PUBLIC_PRODUCT_IDS } from '../data/auCatalog.js'
 import { isAllowedAuExternalUrl } from '../config/auLinks.js'
 
 export function getPublishedAuProducts(category) {
@@ -10,6 +10,26 @@ export function getAuProduct(category, slug) {
   return AU_PRODUCTS.find((item) => (
     item.category === category && item.slug === slug && item.status === 'published'
   )) || null
+}
+
+export function getPublicAuProducts(category) {
+  const publicIds = AU_PUBLIC_PRODUCT_IDS[category]
+
+  if (!publicIds) return []
+
+  return publicIds
+    .map((id) => AU_PRODUCTS.find((item) => item.id === id && item.category === category && item.status === 'published'))
+    .filter(Boolean)
+}
+
+export function getPublicAuProduct(category, slug) {
+  return getPublicAuProducts(category).find((item) => item.slug === slug) || null
+}
+
+export function getRelatedPublicAuProducts(category, slug, limit = 3) {
+  return getPublicAuProducts(category)
+    .filter((item) => item.slug !== slug)
+    .slice(0, limit)
 }
 
 export function getRelatedAuProducts(category, slug, limit = 3) {
@@ -30,7 +50,7 @@ export function validateAuCatalog(products) {
     if (!item.copy?.en?.name || !item.copy?.ko?.name) errors.push(`missing name: ${item.id}`)
     if (!item.media || !Array.isArray(item.media.gallery)) errors.push(`missing media: ${item.id}`)
     if (!['published', 'draft'].includes(item.status)) errors.push(`invalid status: ${item.id}`)
-    if (!['preorder', 'available-daegu', 'not-announced-sydney', 'coming-soon'].includes(item.availability)) {
+    if (item.availability !== null && !['preorder', 'available-daegu', 'not-announced-sydney', 'coming-soon'].includes(item.availability)) {
       errors.push(`invalid availability: ${item.id}`)
     }
     if (item.action?.mode === 'external-booking' && !isAllowedAuExternalUrl(item.action.href)) {

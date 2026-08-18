@@ -6,6 +6,7 @@ import {
   getPublishedAuProducts,
   validateAuCatalog,
 } from '../src/utils/auCatalog.js'
+import * as auCatalog from '../src/utils/auCatalog.js'
 
 test('published catalogue products have localized copy, media and valid availability', () => {
   assert.deepEqual(validateAuCatalog(AU_PRODUCTS), [])
@@ -25,6 +26,20 @@ test('published category lists exclude drafts and retain exact cake booking URLs
     getAuProduct('bakes', 'chocolatiers-basque-cheesecake').action.href,
     'https://au.verygood-chocolate.com/cakes/chocolatiers-basque-cheesecake',
   )
+})
+
+test('public catalogue releases expose the curated Chocolate set without deleting source records', () => {
+  const getPublicAuProducts = auCatalog.getPublicAuProducts || (() => [])
+  const chocolateNames = getPublicAuProducts('chocolate').map((item) => item.copy.en.name)
+
+  assert.deepEqual(chocolateNames, [
+    'Almond Chocolate',
+    'Strawberry Bonbon',
+    'Eiffel Chocolate',
+    "S'mores Stick",
+  ])
+  assert.equal(AU_PRODUCTS.some((item) => item.id === 'ruby-berry-chocoball'), true)
+  assert.equal(AU_PRODUCTS.some((item) => item.id === 'matcha-berry'), true)
 })
 
 test('catalogue data contains no prices and tea copy makes no health claims', () => {

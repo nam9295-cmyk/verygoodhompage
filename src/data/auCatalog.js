@@ -8,6 +8,22 @@ export const AU_CATEGORIES = Object.freeze([
   'goods',
 ])
 
+export const AU_PUBLIC_PRODUCT_IDS = Object.freeze({
+  chocolate: Object.freeze([
+    'almond-chocoball',
+    'strawberry-bonbon',
+    'eiffel-chocolate',
+    'marshmallow-smores-stick',
+  ]),
+  tea: Object.freeze([
+    'british-black',
+    'asian-gold',
+    'hibiscus-fruit',
+    'minty-chocolat',
+  ]),
+  goods: Object.freeze(['hogeori-keyring']),
+})
+
 export const AU_CATEGORY_CONTENT = Object.freeze({
   cakes: {
     tone: 'pink',
@@ -242,14 +258,14 @@ export const AU_PRODUCTS = Object.freeze([
     action: catalogueOnly,
     copy: {
       en: {
-        name: 'Almond Chocoball',
+        name: 'Almond Chocolate',
         shortDescription: 'Savory almonds coated in rich dark chocolate.',
         story: 'A balance of nutty crunch and deep cocoa character from the Verygood chocolate collection.',
         detailsLabel: 'Flavour notes',
         details: 'Almond · dark chocolate',
       },
       ko: {
-        name: '아몬드 초코볼',
+        name: '아몬드 초콜릿',
         shortDescription: '진한 다크 초콜릿으로 감싼 고소한 아몬드.',
         story: '고소한 식감과 깊은 카카오의 균형을 담은 베리굿 초콜릿 컬렉션입니다.',
         detailsLabel: '맛의 포인트',
@@ -293,6 +309,33 @@ export const AU_PRODUCTS = Object.freeze([
       gallery: [],
       altEn: 'Strawberry Bonbon packaging.',
       altKo: '스트로베리 봉봉 패키지.',
+    },
+  },
+  {
+    id: 'eiffel-chocolate',
+    category: 'chocolate',
+    slug: 'eiffel-chocolate',
+    status: 'published',
+    availability: null,
+    action: catalogueOnly,
+    copy: {
+      en: {
+        name: 'Eiffel Chocolate',
+        shortDescription: '',
+        story: '',
+      },
+      ko: {
+        name: '에펠 초콜릿',
+        shortDescription: '',
+        story: '',
+      },
+    },
+    media: {
+      card: '/assets/booking/eiffel-chocolate-card.jpg',
+      hero: '/assets/booking/eiffel-chocolate-card.jpg',
+      gallery: [],
+      altEn: 'Eiffel Chocolate in Verygood gift packaging.',
+      altKo: '베리굿 기프트 패키지에 담긴 에펠 초콜릿.',
     },
   },
   {
@@ -562,12 +605,12 @@ export const AU_PRODUCTS = Object.freeze([
     id: 'marshmallow-smores-stick',
     category: 'chocolate',
     slug: 'marshmallow-smores-stick',
-    status: 'draft',
-    availability: 'coming-soon',
+    status: 'published',
+    availability: null,
     action: catalogueOnly,
     copy: {
-      en: { name: "Marshmallow S'mores Stick", shortDescription: 'Not announced for the AU catalogue.', story: '' },
-      ko: { name: '마시멜로 스모어 스틱', shortDescription: 'AU 카탈로그에 아직 안내되지 않았습니다.', story: '' },
+      en: { name: "S'mores Stick", shortDescription: '', story: '' },
+      ko: { name: '스모어 스틱', shortDescription: '', story: '' },
     },
     media: noProductImage,
   },
