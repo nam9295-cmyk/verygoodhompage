@@ -103,6 +103,10 @@ body {
   max-width: none;
 }
 
+.au-home > section h2 {
+  color: var(--au-forest);
+}
+
 .au-skip-link {
   position: fixed;
   top: 12px;
@@ -907,10 +911,10 @@ body {
   padding: clamp(14px, 1.4vw, 20px);
   border: 1px solid rgba(255, 255, 255, 0.42);
   border-radius: 10px;
-  color: #fff;
-  background: linear-gradient(135deg, rgba(21, 51, 42, 0.42) 0%, rgba(255, 255, 255, 0.12) 42%, rgba(16, 50, 40, 0.44) 100%);
+  color: var(--au-forest);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0.22) 42%, rgba(221, 234, 227, 0.42) 100%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34), inset 1px 0 0 rgba(255, 255, 255, 0.12), 0 4px 12px rgba(12, 30, 23, 0.1);
-  text-shadow: 0 1px 12px rgba(12, 30, 23, 0.64);
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.52);
   -webkit-backdrop-filter: blur(18px) saturate(135%);
   backdrop-filter: blur(18px) saturate(135%);
 }
@@ -939,7 +943,7 @@ body {
   z-index: 1;
   max-width: 205px;
   margin-top: 8px;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(22, 67, 52, 0.9);
   font-size: 12px;
   line-height: 1.4;
 }

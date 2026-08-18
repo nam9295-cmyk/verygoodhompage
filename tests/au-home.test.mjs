@@ -83,7 +83,7 @@ test('AU home keeps British Black within Cacao Tea and uses Strawberry Bonbon fo
   assert.doesNotMatch(html, /<section class="au-spotlight">/)
 })
 
-test('AU collection cards use a shared glass text plate for readable light copy', async (t) => {
+test('AU collection cards and home section headings use the forest green brand treatment', async (t) => {
   const server = await createServer({
     appType: 'custom',
     server: { middlewareMode: true, ws: false },
@@ -101,10 +101,11 @@ test('AU collection cards use a shared glass text plate for readable light copy'
   const styles = readFileSync('src/styles/au-site.css', 'utf8')
 
   assert.equal((html.match(/class="au-category-card__copy"/g) ?? []).length, 3)
-  assert.match(styles, /\.au-category-card__copy\s*\{[\s\S]*?width: min\(100%, 360px\);[\s\S]*?padding: clamp\(14px, 1\.4vw, 20px\);[\s\S]*?color: #fff;[\s\S]*?text-shadow: 0 1px 12px rgba\(12, 30, 23, 0\.64\);[\s\S]*?backdrop-filter: blur\(18px\) saturate\(135%\);/)
+  assert.match(styles, /\.au-home > section h2\s*\{\s*color: var\(--au-forest\);/)
+  assert.match(styles, /\.au-category-card__copy\s*\{[\s\S]*?width: min\(100%, 360px\);[\s\S]*?padding: clamp\(14px, 1\.4vw, 20px\);[\s\S]*?color: var\(--au-forest\);[\s\S]*?background: linear-gradient\(135deg, rgba\(255, 255, 255, 0\.56\)/)
   assert.match(styles, /\.au-category-card__copy::before\s*\{[\s\S]*?background: linear-gradient\(135deg,/)
   assert.match(styles, /\.au-category-card__copy > span\s*\{[\s\S]*?font-size: clamp\(30px, 3\.5vw, 50px\);/)
-  assert.match(styles, /\.au-category-card__copy > small\s*\{[\s\S]*?color: rgba\(255, 255, 255, 0\.86\);/)
+  assert.match(styles, /\.au-category-card__copy > small\s*\{[\s\S]*?color: rgba\(22, 67, 52, 0\.9\);/)
   assert.match(styles, /@media \(max-width: 767px\) \{[\s\S]*?\.au-category-card\s*\{\s*padding: 0;[\s\S]*?\.au-category-card__copy\s*\{\s*width: calc\(100% - 32px\);\s*align-self: center;\s*margin-bottom: 16px;[\s\S]*?border-radius: 10px;[\s\S]*?\.au-category-card__copy > span\s*\{\s*font-size: clamp\(32px, 9\.3vw, 39px\);/)
 })
 
