@@ -5,6 +5,10 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import { createServer } from 'vite'
 
+function escapeForRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 test('AU home prioritizes Cakes and Something Fresh before the three internal catalogues', async (t) => {
   const server = await createServer({
     appType: 'custom',
@@ -46,4 +50,43 @@ test('AU home prioritizes Cakes and Something Fresh before the three internal ca
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/reviews/)
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/lookup/)
   assert.equal(/Add to Cart|Checkout|Cart|Quantity|\$\d/.test(html), false)
+})
+
+test('AU home product cards use their matching booking detail pages in the current tab', async (t) => {
+  const server = await createServer({
+    appType: 'custom',
+    server: { middlewareMode: true, ws: false },
+  })
+  t.after(() => server.close())
+
+  const { default: AuHomePage } = await server.ssrLoadModule('/src/pages/au/AuHomePage.jsx')
+  const html = renderToStaticMarkup(
+    createElement(
+      MemoryRouter,
+      { initialEntries: ['/'] },
+      createElement(AuHomePage, { locale: 'en' }),
+    ),
+  )
+
+  const expectedCards = [
+    ['Signature Pave Cake', 'https://au.verygood-chocolate.com/cakes/pave-chocolate-cake'],
+    ['Chocolate Pound Cake', 'https://au.verygood-chocolate.com/cakes/chocolate-pound-cake-and-cupcakes'],
+    ['Chocolate Cupcakes', 'https://au.verygood-chocolate.com/cakes/chocolate-pound-cake-and-cupcakes'],
+    ['Whole Cake', 'https://au.verygood-chocolate.com/cakes/vanilla-fresh-cream-cake'],
+    ['Lunchbox Cake', 'https://au.verygood-chocolate.com/cakes'],
+    ['Lemon Cake', 'https://au.verygood-chocolate.com/cakes/lemon-cake'],
+    ['Brownie Cheesecake', 'https://au.verygood-chocolate.com/cakes'],
+  ]
+
+  for (const [name, href] of expectedCards) {
+    const cardPattern = new RegExp(
+      `<a class="au-booking-product-card" href="${escapeForRegExp(href)}"[^>]*>[\\s\\S]*?<h3>${escapeForRegExp(name)}</h3>[\\s\\S]*?<span class="au-booking-product-card__cta">View &amp; Book</span>[\\s\\S]*?</a>`,
+    )
+    const card = html.match(cardPattern)
+
+    assert.ok(card, `${name} should expose one complete booking product card`)
+    assert.doesNotMatch(card[0], /target="_blank"/)
+  }
+
+  assert.match(html, /Lunchbox Cake[\s\S]*?Image coming soon/)
 })

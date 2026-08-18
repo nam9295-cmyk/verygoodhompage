@@ -1,4 +1,4 @@
-import { AU_LINKS } from './auLinks.js'
+import { AU_BOOKING_PRODUCT_LINKS, AU_LINKS } from './auLinks.js'
 import { localePath } from '../utils/auPaths.js'
 
 export const AU_SECTION_IDS = Object.freeze([
@@ -60,18 +60,13 @@ export const AU_HOME_CONTENT = Object.freeze({
         kicker: 'Made to order in Sydney',
         heading: 'Verygood Chocolate Cakes',
         body: 'Celebration cakes and chocolate bakes, made to order for pre-arranged Melrose Park pickup.',
-        items: [
-          { name: 'Signature Pave Cake', variations: ['3 sizes'] },
-          { name: 'Chocolate Pound Cake', variations: ['Original', 'Chocolate Coated', 'Vanilla Fresh Cream Topping'] },
-          { name: 'Chocolate Cupcakes', variations: ['Original', 'Vanilla Fresh Cream Topping', 'Chocolate Buttercream Topping'] },
-          { name: 'Whole Cake', variations: ['Vanilla Fresh Cream', 'Chocolate Buttercream', '3 sizes'] },
-          { name: 'Lunchbox Cake', variations: ['Pave', 'Chocolate Buttercream'] },
+        products: [
+          { id: 'pave', name: 'Signature Pave Cake', options: ['3 Sizes'], ctaLabel: 'View & Book', href: AU_BOOKING_PRODUCT_LINKS.paveChocolateCake, image: { src: '/assets/booking/pave-chocolate-cake-sydney.webp', alt: 'Signature Pave Cake.', placeholderLabel: 'Image coming soon' } },
+          { id: 'pound', name: 'Chocolate Pound Cake', options: ['Original', 'Chocolate Coated', 'Vanilla Fresh Cream Topping'], ctaLabel: 'View & Book', href: AU_BOOKING_PRODUCT_LINKS.chocolatePoundCakeAndCupcakes, image: { src: '/assets/booking/chocolate-pound-cake-sydney.webp', alt: 'Chocolate Pound Cake.', placeholderLabel: 'Image coming soon' } },
+          { id: 'cupcakes', name: 'Chocolate Cupcakes', options: ['Original', 'Vanilla Fresh Cream Topping', 'Chocolate Buttercream Topping'], ctaLabel: 'View & Book', href: AU_BOOKING_PRODUCT_LINKS.chocolatePoundCakeAndCupcakes, image: { src: '/assets/booking/chocolate-cupcakes-sydney.webp', alt: 'Chocolate Cupcakes.', placeholderLabel: 'Image coming soon' } },
+          { id: 'whole-cake', name: 'Whole Cake', options: ['Vanilla Fresh Cream', 'Chocolate Buttercream', '3 Sizes'], ctaLabel: 'View & Book', href: AU_BOOKING_PRODUCT_LINKS.vanillaFreshCreamCake, image: { src: '/assets/booking/vanilla-fresh-cream-cake-sydney.jpg', alt: 'Vanilla Fresh Cream Cake.', fit: 'cover', placeholderLabel: 'Image coming soon' } },
+          { id: 'lunchbox', name: 'Lunchbox Cake', options: ['Pave', 'Chocolate Buttercream'], ctaLabel: 'View & Book', href: AU_BOOKING_PRODUCT_LINKS.lunchboxCake, image: { src: '/assets/au/cakes/lunchbox-cake.webp', alt: 'Lunchbox Cake.', deferLoad: true, placeholderLabel: 'Image coming soon' } },
         ],
-        images: [
-          { src: '/assets/booking/pave-chocolate-cake-sydney.webp', alt: 'Pave Chocolate Cake.' },
-          { src: '/assets/booking/chocolate-pound-cake-sydney.webp', alt: 'Chocolate Pound Cake.' },
-        ],
-        label: 'View & Book',
         href: AU_LINKS.booking.cakes,
         tone: 'pink',
       },
@@ -80,11 +75,10 @@ export const AU_HOME_CONTENT = Object.freeze({
         kicker: 'STH FRESH',
         heading: 'Something Fresh',
         body: 'Fresh cake options for sharing and small celebrations, available through the Sydney cake site.',
-        items: [
-          { name: 'Lemon Cake', variations: ['4 pcs', '6 pcs', '12 pcs', '16 pcs'] },
-          { name: 'Brownie Cheesecake', variations: [] },
+        products: [
+          { id: 'lemon', name: 'Lemon Cake', options: ['4 pcs', '6 pcs', '12 pcs', '16 pcs'], ctaLabel: 'View & Book', href: AU_BOOKING_PRODUCT_LINKS.lemonCake, image: { src: '/assets/booking/lemon-cake-sydney.jpg', alt: 'Lemon Cake.', fit: 'cover', placeholderLabel: 'Image coming soon' } },
+          { id: 'brownie-cheesecake', name: 'Brownie Cheesecake', options: [], ctaLabel: 'View & Book', href: AU_BOOKING_PRODUCT_LINKS.brownieCheesecake, image: { src: '/assets/au/fresh/brownie-cheesecake.webp', fallbackSrc: '/assets/booking/chocolatiers-basque-cheesecake-sydney.jpg', alt: 'Chocolatier\'s Basque Cheesecake, shown while the Brownie Cheesecake image is coming soon.', fit: 'cover', deferLoad: true, placeholderLabel: 'Image coming soon' } },
         ],
-        label: 'View & Book',
         href: AU_LINKS.booking.cakes,
         tone: 'fresh',
       },
@@ -239,18 +233,13 @@ export const AU_HOME_CONTENT = Object.freeze({
         kicker: '시드니 주문 제작',
         heading: '베리굿 초콜릿 케이크',
         body: '기념일 케이크와 초콜릿 베이크를 멜로즈 파크 사전 약속 픽업으로 준비합니다.',
-        items: [
-          { name: '시그니처 파베 케이크', variations: ['3가지 사이즈'] },
-          { name: '초콜릿 파운드 케이크', variations: ['오리지널', '초콜릿 코팅', '바닐라 생크림 토핑'] },
-          { name: '초콜릿 컵케이크', variations: ['오리지널', '바닐라 생크림 토핑', '초콜릿 버터크림 토핑'] },
-          { name: '홀 케이크', variations: ['바닐라 생크림', '초콜릿 버터크림', '3가지 사이즈'] },
-          { name: '런치박스 케이크', variations: ['파베', '초콜릿 버터크림'] },
+        products: [
+          { id: 'pave', name: '시그니처 파베 케이크', options: ['3가지 사이즈'], ctaLabel: '예약 보기', href: AU_BOOKING_PRODUCT_LINKS.paveChocolateCake, image: { src: '/assets/booking/pave-chocolate-cake-sydney.webp', alt: '시그니처 파베 케이크.', placeholderLabel: '이미지 준비 중' } },
+          { id: 'pound', name: '초콜릿 파운드 케이크', options: ['오리지널', '초콜릿 코팅', '바닐라 생크림 토핑'], ctaLabel: '예약 보기', href: AU_BOOKING_PRODUCT_LINKS.chocolatePoundCakeAndCupcakes, image: { src: '/assets/booking/chocolate-pound-cake-sydney.webp', alt: '초콜릿 파운드 케이크.', placeholderLabel: '이미지 준비 중' } },
+          { id: 'cupcakes', name: '초콜릿 컵케이크', options: ['오리지널', '바닐라 생크림 토핑', '초콜릿 버터크림 토핑'], ctaLabel: '예약 보기', href: AU_BOOKING_PRODUCT_LINKS.chocolatePoundCakeAndCupcakes, image: { src: '/assets/booking/chocolate-cupcakes-sydney.webp', alt: '초콜릿 컵케이크.', placeholderLabel: '이미지 준비 중' } },
+          { id: 'whole-cake', name: '홀 케이크', options: ['바닐라 생크림', '초콜릿 버터크림', '3가지 사이즈'], ctaLabel: '예약 보기', href: AU_BOOKING_PRODUCT_LINKS.vanillaFreshCreamCake, image: { src: '/assets/booking/vanilla-fresh-cream-cake-sydney.jpg', alt: '바닐라 생크림 케이크.', fit: 'cover', placeholderLabel: '이미지 준비 중' } },
+          { id: 'lunchbox', name: '런치박스 케이크', options: ['파베', '초콜릿 버터크림'], ctaLabel: '예약 보기', href: AU_BOOKING_PRODUCT_LINKS.lunchboxCake, image: { src: '/assets/au/cakes/lunchbox-cake.webp', alt: '런치박스 케이크.', deferLoad: true, placeholderLabel: '이미지 준비 중' } },
         ],
-        images: [
-          { src: '/assets/booking/pave-chocolate-cake-sydney.webp', alt: '파베 초콜릿 케이크.' },
-          { src: '/assets/booking/chocolate-pound-cake-sydney.webp', alt: '초콜릿 파운드 케이크.' },
-        ],
-        label: '예약 보기',
         href: AU_LINKS.booking.cakes,
         tone: 'pink',
       },
@@ -259,11 +248,10 @@ export const AU_HOME_CONTENT = Object.freeze({
         kicker: 'STH FRESH',
         heading: '썸띵 프레시',
         body: '함께 나누기 좋은 산뜻한 케이크를 시드니 케이크 사이트에서 확인해 보세요.',
-        items: [
-          { name: '레몬 케이크', variations: ['4개', '6개', '12개', '16개'] },
-          { name: '브라우니 치즈케이크', variations: [] },
+        products: [
+          { id: 'lemon', name: '레몬 케이크', options: ['4개', '6개', '12개', '16개'], ctaLabel: '예약 보기', href: AU_BOOKING_PRODUCT_LINKS.lemonCake, image: { src: '/assets/booking/lemon-cake-sydney.jpg', alt: '레몬 케이크.', fit: 'cover', placeholderLabel: '이미지 준비 중' } },
+          { id: 'brownie-cheesecake', name: '브라우니 치즈케이크', options: [], ctaLabel: '예약 보기', href: AU_BOOKING_PRODUCT_LINKS.brownieCheesecake, image: { src: '/assets/au/fresh/brownie-cheesecake.webp', fallbackSrc: '/assets/booking/chocolatiers-basque-cheesecake-sydney.jpg', alt: '브라우니 치즈케이크 사진이 준비되는 동안 표시하는 바스크 치즈케이크.', fit: 'cover', deferLoad: true, placeholderLabel: '이미지 준비 중' } },
         ],
-        label: '예약 보기',
         href: AU_LINKS.booking.cakes,
         tone: 'fresh',
       },

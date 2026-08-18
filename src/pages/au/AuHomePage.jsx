@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import AuBookingProductCard from '../../components/au/AuBookingProductCard.jsx'
 import { getAuSiteContent } from '../../config/auSiteContent.js'
 import { categoryPath } from '../../utils/auPaths.js'
 
@@ -56,22 +57,9 @@ export default function AuHomePage({ locale }) {
               <p className="au-kicker">{experience.kicker}</p>
               <h2>{experience.heading}</h2>
               <p>{experience.body}</p>
-              {experience.items?.length > 0 && (
-                <ul className="au-experience__list">
-                  {experience.items.map((item) => (
-                    <li key={item.name}>
-                      <strong>{item.name}</strong>
-                      {item.variations.length > 0 && <span>{item.variations.join(' · ')}</span>}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {experience.images?.length > 0 && (
-                <div className="au-experience__visuals">
-                  {experience.images.map((image) => <img key={image.src} src={image.src} alt={image.alt} />)}
-                </div>
-              )}
-              <BookingLink className="au-text-link" href={experience.href}>{experience.label}</BookingLink>
+              <div className="au-experience__products">
+                {experience.products.map((product) => <AuBookingProductCard key={product.id} product={product} />)}
+              </div>
             </article>
           ))}
         </div>

@@ -435,7 +435,6 @@ body {
 }
 
 .au-experience {
-  min-height: 390px;
   padding: clamp(28px, 4.3vw, 62px);
   display: flex;
   flex-direction: column;
@@ -466,51 +465,114 @@ body {
   line-height: 1.6;
 }
 
-.au-experience__list {
+.au-experience__products {
   display: grid;
-  width: min(100%, 720px);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px clamp(20px, 3vw, 42px);
-  margin: 30px 0;
-  padding: 20px 0 0;
-  border-top: 1px solid var(--au-line);
+  grid-auto-columns: minmax(250px, 282px);
+  grid-auto-flow: column;
+  width: 100%;
+  gap: clamp(18px, 2.1vw, 30px);
+  margin-top: clamp(30px, 4vw, 52px);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: 3px 1px 14px;
+  scrollbar-color: color-mix(in srgb, var(--au-forest) 46%, transparent) transparent;
+  scroll-snap-type: inline proximity;
+}
+
+.au-booking-product-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  color: var(--au-ink);
+  scroll-snap-align: start;
+  text-decoration: none;
+}
+
+.au-booking-product-card__media {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--au-surface) 78%, transparent);
+}
+
+.au-booking-product-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 18px rgba(34, 39, 31, 0.12));
+}
+
+.au-booking-product-card__media--cover img { object-fit: cover; }
+
+.au-booking-product-card__placeholder {
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  min-height: 100%;
+  padding: 24px;
+  color: var(--au-muted);
+  text-align: center;
+}
+
+.au-booking-product-card__placeholder span {
+  color: var(--au-ink);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.au-booking-product-card__placeholder small {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.au-booking-product-card__copy {
+  display: grid;
+  align-content: start;
+  gap: 11px;
+  padding: 18px 1px 4px;
+}
+
+.au-booking-product-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.au-booking-product-card ul {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  color: var(--au-muted);
+  font-size: 13px;
+  line-height: 1.45;
   list-style: none;
 }
 
-.au-experience__list li {
-  display: grid;
-  gap: 4px;
-  min-width: 0;
+.au-booking-product-card li::before {
+  content: '·';
+  margin-right: 5px;
 }
 
-.au-experience__list strong {
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.35;
-}
-
-.au-experience__list span {
-  color: var(--au-muted);
+.au-booking-product-card__cta {
+  width: max-content;
+  margin-top: 9px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  color: var(--au-forest);
   font-size: 12px;
-  line-height: 1.45;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
-.au-experience__visuals {
-  display: grid;
-  width: min(100%, 650px);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 6px;
-}
+.au-booking-product-card:focus-visible { outline: 2px solid var(--au-pink); outline-offset: 6px; }
 
-.au-experience__visuals img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  box-shadow: var(--au-image-shadow);
+@media (hover: hover) {
+  .au-booking-product-card:hover h3,
+  .au-booking-product-card:hover .au-booking-product-card__cta { color: var(--au-forest); }
 }
-
-.au-experience .au-text-link { margin-top: auto; padding-top: 38px; }
 
 .au-hero .au-button--outline { order: 2; }
 .au-hero .au-button:not(.au-button--outline) { order: 1; }
@@ -1241,8 +1303,14 @@ body {
   .au-core-experiences__grid { gap: 22px; }
   .au-experience { min-height: 300px; padding: 30px; }
   .au-experience h2 { font-size: clamp(39px, 12vw, 56px); }
-  .au-experience__list { grid-template-columns: 1fr; margin-top: 25px; }
-  .au-experience__visuals { gap: 8px; }
+  .au-experience__products {
+    grid-auto-columns: calc(100% - 42px);
+    gap: 16px;
+    margin-top: 31px;
+    padding-bottom: 11px;
+  }
+  .au-booking-product-card__copy { gap: 10px; padding-top: 16px; }
+  .au-booking-product-card h3 { font-size: 19px; }
   .au-section-heading--split,
   .au-reviews__inner { display: grid; align-items: start; gap: 19px; }
   .au-section-heading--split > p { max-width: 470px; }
