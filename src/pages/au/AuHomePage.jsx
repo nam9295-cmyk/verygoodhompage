@@ -93,9 +93,11 @@ export default function AuHomePage({ locale }) {
                 className={`au-category-card au-category-card--${category.id}`}
                 to={categoryPath(category.id, locale)}
               >
-                <span>{category.label}</span>
-                <small>{category.description}</small>
                 {category.visual === 'image' && <img src={category.image} alt={category.imageAlt} />}
+                <div className="au-category-card__copy">
+                  <span>{category.label}</span>
+                  <small>{category.description}</small>
+                </div>
               </Link>
             ))}
           </div>

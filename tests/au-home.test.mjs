@@ -83,6 +83,30 @@ test('AU home keeps British Black within Cacao Tea and uses Strawberry Bonbon fo
   assert.doesNotMatch(html, /<section class="au-spotlight">/)
 })
 
+test('AU collection cards use a shared glass text plate for readable light copy', async (t) => {
+  const server = await createServer({
+    appType: 'custom',
+    server: { middlewareMode: true, ws: false },
+  })
+  t.after(() => server.close())
+
+  const { default: AuHomePage } = await server.ssrLoadModule('/src/pages/au/AuHomePage.jsx')
+  const html = renderToStaticMarkup(
+    createElement(
+      MemoryRouter,
+      { initialEntries: ['/'] },
+      createElement(AuHomePage, { locale: 'en' }),
+    ),
+  )
+  const styles = readFileSync('src/styles/au-site.css', 'utf8')
+
+  assert.equal((html.match(/class="au-category-card__copy"/g) ?? []).length, 3)
+  assert.match(styles, /\.au-category-card__copy\s*\{[\s\S]*?color: #fff;[\s\S]*?background: rgba\(12, 30, 23, 0\.68\);[\s\S]*?backdrop-filter: blur\(12px\);/)
+  assert.match(styles, /\.au-category-card__copy > small\s*\{[\s\S]*?color: rgba\(255, 255, 255, 0\.86\);/)
+  assert.match(styles, /\.au-category-card__copy\s*\{[\s\S]*?width: 100%;/)
+  assert.match(styles, /@media \(max-width: 767px\) \{[\s\S]*?\.au-category-card\s*\{\s*padding: 0;[\s\S]*?\.au-category-card__copy\s*\{\s*width: 100%;\s*align-self: stretch;[\s\S]*?border-radius: 0;/)
+})
+
 test('AU home opens with an image-led brand hero and keeps cake booking as its primary action', async (t) => {
   const server = await createServer({
     appType: 'custom',
