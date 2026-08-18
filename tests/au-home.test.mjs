@@ -83,7 +83,7 @@ test('AU home keeps British Black within Cacao Tea and uses Strawberry Bonbon fo
   assert.doesNotMatch(html, /<section class="au-spotlight">/)
 })
 
-test('AU collection cards and home section headings use the forest green brand treatment', async (t) => {
+test('AU collection cards use compact product-scale glass copy while home section headings stay forest green', async (t) => {
   const server = await createServer({
     appType: 'custom',
     server: { middlewareMode: true, ws: false },
@@ -102,11 +102,11 @@ test('AU collection cards and home section headings use the forest green brand t
 
   assert.equal((html.match(/class="au-category-card__copy"/g) ?? []).length, 3)
   assert.match(styles, /\.au-home > section h2\s*\{\s*color: var\(--au-forest\);/)
-  assert.match(styles, /\.au-category-card__copy\s*\{[\s\S]*?width: min\(100%, 360px\);[\s\S]*?padding: clamp\(14px, 1\.4vw, 20px\);[\s\S]*?color: var\(--au-forest\);[\s\S]*?background: linear-gradient\(135deg, rgba\(255, 255, 255, 0\.56\)/)
+  assert.match(styles, /\.au-category-card__copy\s*\{[\s\S]*?width: min\(100%, 264px\);[\s\S]*?padding: 12px 14px;[\s\S]*?color: var\(--au-forest\);[\s\S]*?background: linear-gradient\(135deg, rgba\(255, 255, 255, 0\.56\)/)
   assert.match(styles, /\.au-category-card__copy::before\s*\{[\s\S]*?background: linear-gradient\(135deg,/)
-  assert.match(styles, /\.au-category-card__copy > span\s*\{[\s\S]*?font-size: clamp\(30px, 3\.5vw, 50px\);/)
+  assert.match(styles, /\.au-category-card__copy > span\s*\{[\s\S]*?font-size: 20px;[\s\S]*?line-height: 1\.1;/)
   assert.match(styles, /\.au-category-card__copy > small\s*\{[\s\S]*?color: rgba\(22, 67, 52, 0\.9\);/)
-  assert.match(styles, /@media \(max-width: 767px\) \{[\s\S]*?\.au-category-card\s*\{\s*padding: 0;[\s\S]*?\.au-category-card__copy\s*\{\s*width: calc\(100% - 32px\);\s*align-self: center;\s*margin-bottom: 16px;[\s\S]*?border-radius: 10px;[\s\S]*?\.au-category-card__copy > span\s*\{\s*font-size: clamp\(32px, 9\.3vw, 39px\);/)
+  assert.match(styles, /@media \(max-width: 767px\) \{[\s\S]*?\.au-category-card\s*\{\s*padding: 0;[\s\S]*?\.au-category-card__copy\s*\{\s*width: min\(calc\(100% - 32px\), 264px\);\s*align-self: center;\s*margin-bottom: 16px;[\s\S]*?border-radius: 10px;[\s\S]*?\.au-category-card__copy > span\s*\{\s*font-size: 19px;/)
 })
 
 test('AU home opens with an image-led brand hero and keeps cake booking as its primary action', async (t) => {
