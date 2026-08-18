@@ -40,7 +40,6 @@ export const AU_HOME_CONTENT = Object.freeze({
       'Growing in Sydney',
       'Sydney cake pre-order',
       'Melrose Park pickup',
-      'Private kids cake classes',
     ],
     hero: {
       kicker: 'BORN IN DAEGU · GROWING IN SYDNEY',
@@ -60,15 +59,6 @@ export const AU_HOME_CONTENT = Object.freeze({
         label: 'Explore booking options',
         href: AU_LINKS.booking.cakes,
         tone: 'pink',
-      },
-      {
-        id: 'classes',
-        kicker: 'Private weekend cake classes',
-        heading: 'Kids cake classes',
-        body: 'Small groups with Jenny, made for hands-on cake time and curious young makers.',
-        label: 'Explore classes',
-        href: AU_LINKS.booking.classes,
-        tone: 'yellow',
       },
     ],
     categories: [
@@ -150,11 +140,9 @@ export const AU_HOME_CONTENT = Object.freeze({
       },
       sydney: {
         title: 'Sydney',
-        body: 'Made-to-order cakes, pre-arranged Melrose Park pickup and private kids classes with Jenny.',
+        body: 'Made-to-order cakes and pre-arranged Melrose Park pickup for celebrations and small-batch bakes.',
         primaryLabel: 'Book a Cake',
         primaryHref: AU_LINKS.booking.cakes,
-        secondaryLabel: 'Explore classes',
-        secondaryHref: AU_LINKS.booking.classes,
       },
     },
     spotlight: {
@@ -176,7 +164,7 @@ export const AU_HOME_CONTENT = Object.freeze({
       items: [
         {
           title: 'Sydney',
-          body: 'Made-to-order cakes and private kids classes. Pre-arranged pickup in Melrose Park. No walk-in shop.',
+          body: 'Made-to-order cakes with pre-arranged pickup in Melrose Park. No walk-in shop.',
           label: 'Find my booking',
           href: AU_LINKS.booking.lookup,
         },
@@ -207,7 +195,6 @@ export const AU_HOME_CONTENT = Object.freeze({
       '시드니에서 자라는 중',
       '시드니 케이크 사전 예약',
       '멜로즈 파크 픽업',
-      '프라이빗 키즈 케이크 클래스',
     ],
     hero: {
       kicker: '대구에서 시작해, 시드니로',
@@ -227,15 +214,6 @@ export const AU_HOME_CONTENT = Object.freeze({
         label: '예약 옵션 보기',
         href: AU_LINKS.booking.cakes,
         tone: 'pink',
-      },
-      {
-        id: 'classes',
-        kicker: '주말 프라이빗 클래스',
-        heading: '키즈 케이크 클래스',
-        body: 'Jenny와 함께하는 소규모 케이크 만들기 시간입니다.',
-        label: '클래스 보기',
-        href: AU_LINKS.booking.classes,
-        tone: 'yellow',
       },
     ],
     categories: [
@@ -317,11 +295,9 @@ export const AU_HOME_CONTENT = Object.freeze({
       },
       sydney: {
         title: '시드니',
-        body: '주문 제작 케이크, 멜로즈 파크 사전 약속 픽업, Jenny의 프라이빗 키즈 클래스가 있습니다.',
+        body: '주문 제작 케이크와 작은 베이크를 멜로즈 파크 사전 약속 픽업으로 준비합니다.',
         primaryLabel: '케이크 예약',
         primaryHref: AU_LINKS.booking.cakes,
-        secondaryLabel: '클래스 보기',
-        secondaryHref: AU_LINKS.booking.classes,
       },
     },
     spotlight: {
@@ -343,7 +319,7 @@ export const AU_HOME_CONTENT = Object.freeze({
       items: [
         {
           title: '시드니',
-          body: '주문 제작 케이크와 프라이빗 키즈 클래스. 멜로즈 파크 사전 약속 픽업. 워크인 매장은 없습니다.',
+          body: '주문 제작 케이크를 멜로즈 파크 사전 약속 픽업으로 준비합니다. 워크인 매장은 없습니다.',
           label: '예약 조회',
           href: AU_LINKS.booking.lookup,
         },

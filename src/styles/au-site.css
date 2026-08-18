@@ -430,7 +430,7 @@ body {
 
 .au-core-experiences__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(20px, 3vw, 42px);
 }
 

@@ -9,7 +9,6 @@ const labels = {
     sydney: 'Sydney',
     korea: 'Korea',
     instagram: 'Instagram',
-    kids: 'Kids Classes',
     reviews: 'Reviews',
     lookup: 'Find My Booking',
     book: 'Book a Cake',
@@ -21,7 +20,6 @@ const labels = {
     sydney: '시드니',
     korea: '한국',
     instagram: '인스타그램',
-    kids: '키즈 클래스',
     reviews: '후기',
     lookup: '예약 조회',
     book: '케이크 예약',
@@ -61,7 +59,6 @@ export default function AuFooter({ locale }) {
         <div className="au-footer__group">
           <h2>{copy.sydney}</h2>
           <a href={AU_LINKS.booking.cakes} target="_blank" rel="noreferrer">{copy.book} <span aria-hidden="true">↗</span></a>
-          <a href={AU_LINKS.booking.classes} target="_blank" rel="noreferrer">{copy.kids} <span aria-hidden="true">↗</span></a>
           <a href={AU_LINKS.booking.reviews} target="_blank" rel="noreferrer">{copy.reviews} <span aria-hidden="true">↗</span></a>
           <a href={AU_LINKS.booking.lookup} target="_blank" rel="noreferrer">{copy.lookup} <span aria-hidden="true">↗</span></a>
         </div>

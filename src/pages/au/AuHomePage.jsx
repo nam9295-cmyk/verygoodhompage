@@ -137,7 +137,6 @@ export default function AuHomePage({ locale }) {
                 <p>{content.story.sydney.body}</p>
                 <div className="au-inline-links">
                   <BookingLink className="au-text-link" href={content.story.sydney.primaryHref}>{content.story.sydney.primaryLabel}</BookingLink>
-                  <BookingLink className="au-text-link" href={content.story.sydney.secondaryHref}>{content.story.sydney.secondaryLabel}</BookingLink>
                 </div>
               </article>
             </div>

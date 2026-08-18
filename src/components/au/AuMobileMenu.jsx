@@ -11,13 +11,11 @@ const mobileLabels = {
   en: {
     close: 'Close menu',
     menu: 'Menu',
-    kids: 'Kids Cake Classes',
     korea: 'Korea',
   },
   ko: {
     close: '메뉴 닫기',
     menu: '메뉴',
-    kids: '키즈 케이크 클래스',
     korea: '한국',
   },
 }
@@ -99,9 +97,6 @@ export default function AuMobileMenu({ locale, onClose, returnFocusRef }) {
 
           return <AuNavigationLink key={item.id} item={item} locale={locale} active={active} onClick={closeMenu}>{navLabel(item)}</AuNavigationLink>
         })}
-        <a href={AU_LINKS.booking.classes} target="_blank" rel="noreferrer" onClick={closeMenu}>
-          {labels.kids} <span aria-hidden="true">↗</span>
-        </a>
         <a href={AU_LINKS.korea} target="_blank" rel="noreferrer" onClick={closeMenu}>
           {labels.korea} <span aria-hidden="true">↗</span>
         </a>

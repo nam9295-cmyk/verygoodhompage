@@ -15,8 +15,8 @@ const koNavigationLabels = {
 }
 
 const labels = {
-  en: { book: 'Book a Cake', kids: 'Kids Classes', korea: 'Korea', menu: 'Open menu' },
-  ko: { book: '케이크 예약', kids: '키즈 클래스', korea: '한국', menu: '메뉴 열기' },
+  en: { book: 'Book a Cake', korea: 'Korea', menu: 'Open menu' },
+  ko: { book: '케이크 예약', korea: '한국', menu: '메뉴 열기' },
 }
 
 export default function AuHeader({ locale }) {
@@ -39,9 +39,6 @@ export default function AuHeader({ locale }) {
 
             return <AuNavigationLink key={item.id} item={item} locale={locale} active={active}>{navLabel(item)}</AuNavigationLink>
           })}
-          <a href={AU_LINKS.booking.classes} target="_blank" rel="noreferrer">
-            {copy.kids} <span aria-hidden="true">↗</span>
-          </a>
         </nav>
 
         <div className="au-desktop-actions">

@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import { createServer } from 'vite'
 
-test('AU home renders the brand story, one cakes booking destination and three internal catalogues', async (t) => {
+test('AU home renders the brand story, one cakes booking destination and three internal catalogues without kids classes', async (t) => {
   const server = await createServer({
     appType: 'custom',
     server: { middlewareMode: true, ws: false },
@@ -24,7 +24,7 @@ test('AU home renders the brand story, one cakes booking destination and three i
   assert.match(html, /BORN IN DAEGU · GROWING IN SYDNEY/)
   assert.match(html, /Chocolate makes every day verygood\./)
   assert.match(html, /Book a Cake/)
-  assert.match(html, /Kids cake classes/i)
+  assert.doesNotMatch(html, /Kids cake classes|Explore classes|Private kids cake classes/i)
 
   assert.match(html, /Cakes &amp; Bakes pre-order/)
 
@@ -36,7 +36,7 @@ test('AU home renders the brand story, one cakes booking destination and three i
   assert.match(html, /\/assets\/booking\/pave-chocolate-cake-sydney\.webp/)
   assert.match(html, /\/assets\/booking\/chocolate-pound-cake-sydney\.webp/)
   assert.doesNotMatch(html, /href="\/(?:cakes|bakes)"/)
-  assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/classes/)
+  assert.doesNotMatch(html, /https:\/\/au\.verygood-chocolate\.com\/classes/)
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/reviews/)
   assert.match(html, /https:\/\/au\.verygood-chocolate\.com\/lookup/)
   assert.equal(/Add to Cart|Checkout|Cart|Quantity|\$\d/.test(html), false)

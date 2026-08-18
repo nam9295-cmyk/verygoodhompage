@@ -29,7 +29,7 @@ function renderWithRoute(Component, pathname) {
   )
 }
 
-test('AU shell exposes required destinations without legacy commerce or admin controls', async (t) => {
+test('AU shell exposes product and regional destinations without a kids classes link', async (t) => {
   const { AuFooter, AuHeader, close } = await loadAuShell()
   t.after(close)
 
@@ -37,12 +37,13 @@ test('AU shell exposes required destinations without legacy commerce or admin co
   const footer = renderWithRoute(AuFooter, '/')
   const shell = header + footer
 
-  for (const label of ['About', 'Cakes', 'Chocolate', 'Tea', 'Goods', 'Kids Classes', 'Korea', 'Book a Cake']) {
+  for (const label of ['About', 'Cakes', 'Chocolate', 'Tea', 'Goods', 'Korea', 'Book a Cake']) {
     assert.match(shell, new RegExp(label))
   }
 
+  assert.doesNotMatch(shell, /Kids Classes|Kids Cake Classes/)
   assert.match(shell, /https:\/\/au\.verygood-chocolate\.com\/cakes/)
-  assert.match(shell, /https:\/\/au\.verygood-chocolate\.com\/classes/)
+  assert.doesNotMatch(shell, /https:\/\/au\.verygood-chocolate\.com\/classes/)
   assert.match(shell, /https:\/\/au\.verygood-chocolate\.com\/reviews/)
   assert.match(shell, /https:\/\/au\.verygood-chocolate\.com\/lookup/)
   assert.match(shell, /https:\/\/kr\.verygood-chocolate\.com/)
