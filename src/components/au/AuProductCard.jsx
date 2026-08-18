@@ -13,7 +13,7 @@ function ProductVisual({ product, locale }) {
     return <img src={product.media.card} alt={locale === 'ko' ? product.media.altKo : product.media.altEn} />
   }
 
-  return <div className="au-product-card__mark" aria-hidden="true">VG</div>
+  return null
 }
 
 export default function AuProductCard({ product, locale = 'en' }) {
@@ -21,25 +21,25 @@ export default function AuProductCard({ product, locale = 'en' }) {
   const copy = product.copy[language]
   const actionLabels = labels[language]
   const bookingProduct = product.action.mode === 'external-booking'
+  const visual = <ProductVisual product={product} locale={language} />
+  const hasDetail = Boolean(product.media.hero || copy.shortDescription || copy.story || copy.details)
 
   return (
-    <article className="au-product-card">
-      <div className="au-product-card__visual">
-        <ProductVisual product={product} locale={language} />
-      </div>
+    <article className={`au-product-card${visual ? '' : ' au-product-card--text-only'}`}>
+      {visual && <div className="au-product-card__visual">{visual}</div>}
       <div className="au-product-card__body">
         <h2>{copy.name}</h2>
-        <p>{copy.shortDescription}</p>
-        <AvailabilityBadge availability={product.availability} locale={language} />
+        {copy.shortDescription && <p>{copy.shortDescription}</p>}
+        {product.availability && <AvailabilityBadge availability={product.availability} locale={language} />}
         {bookingProduct ? (
           <ExternalBookingLink className="au-text-link" href={product.action.href}>
             {actionLabels.book}
           </ExternalBookingLink>
-        ) : (
+        ) : hasDetail ? (
           <Link className="au-text-link" to={productPath(product.category, product.slug, language)}>
             {actionLabels.view}
           </Link>
-        )}
+        ) : null}
       </div>
     </article>
   )

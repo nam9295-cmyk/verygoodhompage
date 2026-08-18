@@ -44,14 +44,28 @@ test('catalogue detail pages show product context, availability and related prod
   assert.match(detail, /British Black/)
   assert.match(detail, /Cacao nib, Earl Grey and cornflower/)
   assert.match(detail, /Sydney release not announced/)
-  assert.match(detail, /More tea to explore/)
+  assert.match(detail, /More Cacao Tea to explore/)
   assert.doesNotMatch(detail, /Add to Cart|Checkout|Quantity|\$\d/)
+})
+
+test('public category pages show only the curated releases with their final category names', async () => {
+  const chocolate = await renderRoute('/chocolate')
+  const hiddenDetail = await renderRoute('/chocolate/ruby-berry-chocoball')
+
+  assert.match(chocolate, /Verygood Chocolate/)
+  assert.match(chocolate, /Almond Chocolate/)
+  assert.match(chocolate, /Strawberry Bonbon/)
+  assert.match(chocolate, /Eiffel Chocolate/)
+  assert.match(chocolate, /S&#x27;mores Stick/)
+  assert.doesNotMatch(chocolate, /Ruby Berry Chocoball|Matcha Berry/)
+  assert.doesNotMatch(chocolate, /au-product-card__mark/)
+  assert.match(hiddenDetail, /This product is not part of the AU catalogue\./)
 })
 
 test('Korean catalogue routes retain their localized product content', async () => {
   const tea = await renderRoute('/ko/tea')
 
-  assert.match(tea, /네 가지 블렌드, 네 가지 분위기\./)
+  assert.match(tea, /카카오 티/)
   assert.match(tea, /브리티시 블랙/)
   assert.doesNotMatch(tea, /Four blends, four moods\./)
 })

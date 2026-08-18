@@ -1051,6 +1051,17 @@ body {
   padding: 22px 2px 4px;
 }
 
+.au-product-card--text-only {
+  align-self: end;
+  min-height: 0;
+}
+
+.au-product-card--text-only .au-product-card__body {
+  min-height: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--au-line);
+}
+
 .au-product-card__body h2 { font-size: clamp(29px, 3vw, 42px); font-weight: 700; line-height: 0.98; }
 
 .au-product-card__body > p {

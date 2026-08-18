@@ -1,5 +1,5 @@
 import { AU_CATEGORY_CONTENT } from '../../data/auCatalog.js'
-import { getPublishedAuProducts } from '../../utils/auCatalog.js'
+import { getPublicAuProducts } from '../../utils/auCatalog.js'
 import AuPageHero from '../../components/au/AuPageHero.jsx'
 import AuProductCard from '../../components/au/AuProductCard.jsx'
 import AuSeo from '../../components/au/AuSeo.jsx'
@@ -12,7 +12,7 @@ export default function AuCategoryPage({ category, locale = 'en' }) {
   if (!categoryContent) return null
 
   const copy = categoryContent.copy[language]
-  const products = getPublishedAuProducts(category)
+  const products = getPublicAuProducts(category)
 
   return (
     <>

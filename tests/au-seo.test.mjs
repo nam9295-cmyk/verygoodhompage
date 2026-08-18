@@ -26,10 +26,8 @@ test('AU SEO publishes locale-specific canonical and alternate URLs', async (t) 
     server: { middlewareMode: true, ws: false },
   })
   t.after(() => server.close())
-  const [{ default: AuSeo }, { HelmetProvider }] = await Promise.all([
-    server.ssrLoadModule('/src/components/au/AuSeo.jsx'),
-    server.ssrLoadModule('react-helmet-async'),
-  ])
+  const { default: AuSeo } = await server.ssrLoadModule('/src/components/au/AuSeo.jsx')
+  const { HelmetProvider } = await server.ssrLoadModule('react-helmet-async')
   const helmetContext = {}
 
   renderToStaticMarkup(

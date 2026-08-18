@@ -1,10 +1,9 @@
 import { Link, useParams } from 'react-router-dom'
-import { AU_LINKS } from '../../config/auLinks.js'
-import { getAuProduct, getRelatedAuProducts } from '../../utils/auCatalog.js'
+import { AU_CATEGORY_CONTENT } from '../../data/auCatalog.js'
+import { getPublicAuProduct, getRelatedPublicAuProducts } from '../../utils/auCatalog.js'
 import { categoryPath, localePath, productPath } from '../../utils/auPaths.js'
 import AvailabilityBadge from '../../components/au/AvailabilityBadge.jsx'
 import AuProductCard from '../../components/au/AuProductCard.jsx'
-import ExternalBookingLink from '../../components/au/ExternalBookingLink.jsx'
 import AuSeo from '../../components/au/AuSeo.jsx'
 
 const labels = {
@@ -13,14 +12,12 @@ const labels = {
     back: 'Back to catalogue',
     availability: 'Availability',
     related: (category) => `More ${category} to explore`,
-    booking: 'Sydney cake bookings',
   },
   ko: {
     home: '홈',
     back: '카탈로그로 돌아가기',
     availability: '안내',
     related: (category) => `더 많은 ${category}`,
-    booking: '시드니 케이크 예약',
   },
 }
 
@@ -28,7 +25,7 @@ export default function AuProductPage({ category, locale = 'en' }) {
   const { slug } = useParams()
   const language = locale === 'ko' ? 'ko' : 'en'
   const text = labels[language]
-  const product = getAuProduct(category, slug)
+  const product = getPublicAuProduct(category, slug)
 
   if (!product) {
     return (
@@ -42,8 +39,8 @@ export default function AuProductPage({ category, locale = 'en' }) {
   }
 
   const copy = product.copy[language]
-  const related = getRelatedAuProducts(category, slug)
-  const displayCategory = language === 'ko' ? ({ chocolate: '초콜릿', tea: '티', goods: '굿즈' }[category] || category) : category
+  const related = getRelatedPublicAuProducts(category, slug)
+  const displayCategory = AU_CATEGORY_CONTENT[category]?.copy[language]?.title || category
 
   return (
     <>
@@ -69,12 +66,14 @@ export default function AuProductPage({ category, locale = 'en' }) {
             <div className="au-product-detail__copy">
               <p className="au-kicker">{displayCategory}</p>
               <h1>{copy.name}</h1>
-              <p className="au-product-detail__intro">{copy.shortDescription}</p>
-              <div className="au-product-detail__availability">
-                <span>{text.availability}</span>
-                <AvailabilityBadge availability={product.availability} locale={language} />
-              </div>
-              <p>{copy.story}</p>
+              {copy.shortDescription && <p className="au-product-detail__intro">{copy.shortDescription}</p>}
+              {product.availability && (
+                <div className="au-product-detail__availability">
+                  <span>{text.availability}</span>
+                  <AvailabilityBadge availability={product.availability} locale={language} />
+                </div>
+              )}
+              {copy.story && <p>{copy.story}</p>}
               {copy.details && (
                 <div className="au-product-detail__notes">
                   <h2>{copy.detailsLabel}</h2>
@@ -83,7 +82,6 @@ export default function AuProductPage({ category, locale = 'en' }) {
               )}
               <div className="au-button-row">
                 <Link className="au-text-link" to={categoryPath(category, language)}>{text.back}</Link>
-                <ExternalBookingLink className="au-text-link" href={AU_LINKS.booking.cakes}>{text.booking}</ExternalBookingLink>
               </div>
             </div>
           </div>

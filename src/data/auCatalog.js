@@ -63,15 +63,15 @@ export const AU_CATEGORY_CONTENT = Object.freeze({
     tone: 'chocolate',
     copy: {
       en: {
-        kicker: 'Chocolate catalogue',
-        title: 'Small chocolate, big character.',
-        intro: 'A selection from the Verygood chocolate catalogue. Availability in Sydney has not been announced here.',
+        kicker: 'Verygood Chocolate',
+        title: 'Verygood Chocolate',
+        intro: 'A focused collection of Verygood Chocolate pieces.',
         actionLabel: 'View chocolate',
       },
       ko: {
-        kicker: '초콜릿 카탈로그',
-        title: '작지만 분명한 초콜릿.',
-        intro: '베리굿 초콜릿 카탈로그의 일부를 소개합니다. 시드니 판매 일정은 이 페이지에서 안내하지 않습니다.',
+        kicker: '베리굿 초콜릿',
+        title: '베리굿 초콜릿',
+        intro: '베리굿 초콜릿 컬렉션의 일부를 소개합니다.',
         actionLabel: '초콜릿 보기',
       },
     },
@@ -80,14 +80,14 @@ export const AU_CATEGORY_CONTENT = Object.freeze({
     tone: 'mint',
     copy: {
       en: {
-        kicker: 'Tea catalogue',
-        title: 'Four blends, four moods.',
+        kicker: 'Cacao Tea',
+        title: 'Cacao Tea',
         intro: 'Tea is introduced here through its aroma, flavour and ingredients. Sydney availability has not been announced here.',
         actionLabel: 'View tea',
       },
       ko: {
-        kicker: '티 카탈로그',
-        title: '네 가지 블렌드, 네 가지 분위기.',
+        kicker: '카카오 티',
+        title: '카카오 티',
         intro: '티는 향과 맛, 재료를 중심으로 소개합니다. 시드니 판매 일정은 이 페이지에서 안내하지 않습니다.',
         actionLabel: '티 보기',
       },
@@ -97,15 +97,15 @@ export const AU_CATEGORY_CONTENT = Object.freeze({
     tone: 'blue',
     copy: {
       en: {
-        kicker: 'Verygood goods',
-        title: 'A small piece of Verygood.',
-        intro: 'Meet the Hogeori Keyring from our existing goods collection. Further goods will only be shared here when they are ready.',
+        kicker: 'Choco in Life',
+        title: 'Choco in Life',
+        intro: 'Accessories, stationery, linen and tea accessories for life around chocolate. Only items with confirmed imagery are shown here.',
         actionLabel: 'View goods',
       },
       ko: {
-        kicker: '베리굿 굿즈',
-        title: '작은 베리굿 하나.',
-        intro: '기존 굿즈 컬렉션의 호걸이 키링을 소개합니다. 다른 굿즈는 준비되는 대로 이곳에서 안내합니다.',
+        kicker: '초코 인 라이프',
+        title: '초코 인 라이프',
+        intro: '초콜릿과 함께하는 액세서리, 문구, 리넨, 티 액세서리를 소개합니다. 실제 이미지가 준비된 아이템만 이곳에서 보여드립니다.',
         actionLabel: '굿즈 보기',
       },
     },
