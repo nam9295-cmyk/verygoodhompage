@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import AuBookingProductCard from '../../components/au/AuBookingProductCard.jsx'
 import { getAuSiteContent } from '../../config/auSiteContent.js'
-import { categoryPath } from '../../utils/auPaths.js'
+import { localePath } from '../../utils/auPaths.js'
 
 function ExternalArrow() {
   return <span aria-hidden="true">↗</span>
@@ -74,18 +74,19 @@ export default function AuHomePage({ locale }) {
             <p className="au-kicker">{ui.worldKicker}</p>
             <h2>{ui.worldHeading}</h2>
           </div>
-          <div className="au-category-mosaic">
+          <div className="au-home-collection-grid">
             {content.categories.map((category) => (
-              <Link
-                key={category.id}
-                id={category.id}
-                className={`au-category-card au-category-card--${category.id}`}
-                to={categoryPath(category.id, locale)}
-              >
-                {category.visual === 'image' && <img src={category.image} alt={category.imageAlt} />}
-                <div className="au-category-card__copy">
-                  <span>{category.label}</span>
-                  <small>{category.description}</small>
+              <Link key={category.id} className="au-home-collection-card" to={localePath(category.href, locale)}>
+                <div className={`au-home-collection-card__image au-home-collection-card__image--${category.id}`}>
+                  <img src={category.image} alt={category.imageAlt} loading="lazy" decoding="async" />
+                </div>
+                <div className="au-home-collection-card__copy">
+                  <p className="au-home-collection-card__eyebrow">{category.eyebrow}</p>
+                  <h3>{category.label}</h3>
+                  <p>{category.description}</p>
+                  <span className="au-home-collection-card__cta">
+                    {category.cta} <span aria-hidden="true">→</span>
+                  </span>
                 </div>
               </Link>
             ))}

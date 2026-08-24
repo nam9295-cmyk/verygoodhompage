@@ -8,8 +8,8 @@ test('the public AU document is English-first and carries no advertising scripts
   assert.match(html, /<html lang="en-AU">/)
   assert.match(html, /family=Work\+Sans:wght@400;600;700;800/)
   assert.doesNotMatch(html, /Playfair|Manrope|Noto\+Sans/)
-  assert.match(html, /whole cakes, daily chocolate cakes, Something Fresh, chocolate and goods in Sydney/i)
-  assert.doesNotMatch(html, /Cacao Tea/i)
+  assert.match(html, /whole cakes, daily chocolate cakes, Something Fresh, chocolate, Cacao Tea and goods in Sydney/i)
+  assert.match(html, /Cacao Tea/i)
   assert.equal(/adsbygoogle|google-adsense-account|googletagmanager/.test(html), false)
   assert.equal(existsSync('public/ads.txt'), false)
 })
@@ -24,6 +24,22 @@ test('AU static search files index the English and Korean catalogue routes', () 
   assert.match(sitemap, /<loc>https:\/\/verygood-chocolate\.com\/ko<\/loc>/)
   assert.doesNotMatch(sitemap, /<loc>https:\/\/verygood-chocolate\.com\/(?:ko\/)?(?:cakes|bakes)<\/loc>/)
   assert.doesNotMatch(sitemap, /ruby-berry-chocoball|matcha-berry/)
+  for (const path of [
+    '/chocolate/eiffel-chocolate',
+    '/chocolate/pave-chocolate',
+    '/chocolate/marshmallow-smores-stick',
+    '/goods/gift-2-set',
+    '/goods/gift-4-set',
+    '/goods/horse-keyring',
+    '/ko/chocolate/eiffel-chocolate',
+    '/ko/chocolate/pave-chocolate',
+    '/ko/chocolate/marshmallow-smores-stick',
+    '/ko/goods/gift-2-set',
+    '/ko/goods/gift-4-set',
+    '/ko/goods/horse-keyring',
+  ]) {
+    assert.match(sitemap, new RegExp(`<loc>https://verygood-chocolate\\.com${path}<\\/loc>`))
+  }
   assert.match(sitemap, /<loc>https:\/\/verygood-chocolate\.com\/tea\/british-black<\/loc>/)
   assert.match(sitemap, /<loc>https:\/\/verygood-chocolate\.com\/ko\/goods\/hogeori-keyring<\/loc>/)
   assert.equal(/checkout|cart/.test(sitemap), false)

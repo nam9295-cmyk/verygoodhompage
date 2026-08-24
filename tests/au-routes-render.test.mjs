@@ -23,7 +23,7 @@ test('root serves the English AU home and /ko serves its Korean translation', as
 
   assert.match(english, /Chocolate makes every day verygood\./)
   assert.match(korean, /초콜릿이 생각날 땐, 베리굿\./)
-  assert.match(korean, /베리굿 컬렉션/)
+  assert.match(korean, /베리굿의 세계/)
   assert.doesNotMatch(korean, /The Verygood world/)
 })
 

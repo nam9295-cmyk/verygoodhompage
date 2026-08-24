@@ -29,7 +29,7 @@ function renderWithRoute(Component, pathname) {
   )
 }
 
-test('AU shell exposes the five final categories without About or kids classes in primary navigation', async (t) => {
+test('AU shell exposes the six final categories without About or kids classes in primary navigation', async (t) => {
   const { AuFooter, AuHeader, close } = await loadAuShell()
   t.after(close)
 
@@ -37,7 +37,7 @@ test('AU shell exposes the five final categories without About or kids classes i
   const footer = renderWithRoute(AuFooter, '/')
   const shell = header + footer
 
-  for (const label of ['Whole Cakes', 'Daily', 'Something Fresh', 'Chocolate', 'Goods', 'Korea', 'Book a Cake']) {
+  for (const label of ['Whole Cakes', 'Daily', 'Something Fresh', 'Chocolate', 'Cacao Tea', 'Goods', 'Korea', 'Book a Cake']) {
     assert.match(shell, new RegExp(label))
   }
 
@@ -51,7 +51,8 @@ test('AU shell exposes the five final categories without About or kids classes i
   assert.match(shell, /https:\/\/kr\.verygood-chocolate\.com/)
   assert.match(header, /aria-current="page"/)
   assert.match(header, /href="\/chocolate"/)
-  assert.doesNotMatch(header, /Cacao Tea|href="\/tea"/)
+  assert.match(header, /Cacao Tea/)
+  assert.match(header, /href="\/tea"/)
   assert.match(header, /href="https:\/\/au\.verygood-chocolate\.com\/cakes"/)
   assert.doesNotMatch(header, />Bakes</)
   assert.match(header, /\/assets\/brand\/heart_logo\.png/)

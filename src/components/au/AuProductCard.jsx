@@ -32,20 +32,28 @@ export default function AuProductCard({ product, locale = 'en' }) {
   const bookingProduct = product.action.mode === 'external-booking'
   const hasVisual = Boolean(product.media.card || product.media.placeholder)
   const hasDetail = Boolean(product.media.hero || copy.shortDescription || copy.story || copy.details)
+  const detailPath = productPath(product.category, product.slug, language)
+  const internalDetail = !bookingProduct && hasDetail
 
   return (
     <article className={`au-product-card${hasVisual ? '' : ' au-product-card--text-only'}`}>
-      {hasVisual && <div className="au-product-card__visual"><ProductVisual product={product} locale={language} /></div>}
+      {hasVisual && (
+        <div className="au-product-card__visual">
+          {internalDetail ? (
+            <Link to={detailPath} aria-label={`${copy.name}: ${actionLabels.view}`}><ProductVisual product={product} locale={language} /></Link>
+          ) : <ProductVisual product={product} locale={language} />}
+        </div>
+      )}
       <div className="au-product-card__body">
-        <h2>{copy.name}</h2>
+        <h2>{internalDetail ? <Link to={detailPath}>{copy.name}</Link> : copy.name}</h2>
         {copy.shortDescription && <p>{copy.shortDescription}</p>}
         {product.availability && <AvailabilityBadge availability={product.availability} locale={language} />}
         {bookingProduct ? (
           <ExternalBookingLink className="au-text-link" href={product.action.href}>
             {actionLabels.book}
           </ExternalBookingLink>
-        ) : hasDetail ? (
-          <Link className="au-text-link" to={productPath(product.category, product.slug, language)}>
+        ) : internalDetail ? (
+          <Link className="au-text-link" to={detailPath}>
             {actionLabels.view}
           </Link>
         ) : null}

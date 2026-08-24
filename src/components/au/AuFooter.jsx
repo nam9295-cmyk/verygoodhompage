@@ -33,6 +33,7 @@ const koNavigationLabels = {
   daily: '데일리',
   'something-fresh': '썸띵 프레시',
   chocolate: '베리굿 초콜릿',
+  tea: '카카오 티',
   goods: '굿즈',
 }
 
