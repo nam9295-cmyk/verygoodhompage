@@ -14,11 +14,14 @@ export const AU_LINKS = Object.freeze({
 export const AU_BOOKING_PRODUCT_LINKS = Object.freeze({
   paveChocolateCake: `${AU_ORIGIN}/cakes/pave-chocolate-cake`,
   vanillaFreshCreamCake: `${AU_ORIGIN}/cakes/vanilla-fresh-cream-cake`,
+  buttercreamCake: `${AU_ORIGIN}/cakes/buttercream-cake`,
+  signatureGateauAuChocolat: `${AU_ORIGIN}/cakes/signature-gateau-au-chocolat`,
+  chocolateCupcakes: `${AU_ORIGIN}/cakes/chocolate-cupcakes`,
   chocolatePoundCakeAndCupcakes: `${AU_ORIGIN}/cakes/chocolate-pound-cake-and-cupcakes`,
   lemonCake: `${AU_ORIGIN}/cakes/lemon-cake`,
   chocolatiersBasqueCheesecake: `${AU_ORIGIN}/cakes/chocolatiers-basque-cheesecake`,
   lunchboxCake: AU_LINKS.booking.cakes,
-  brownieCheesecake: AU_LINKS.booking.cakes,
+  brownieCheesecake: `${AU_ORIGIN}/cakes/brownie-cheesecake`,
 })
 
 const ALLOWED_URLS = new Set([

@@ -1,9 +1,7 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import AuBookingProductCard from '../../components/au/AuBookingProductCard.jsx'
-import AuBookingProductQuickView from '../../components/au/AuBookingProductQuickView.jsx'
 import { getAuSiteContent } from '../../config/auSiteContent.js'
-import { categoryPath } from '../../utils/auPaths.js'
+import { localePath } from '../../utils/auPaths.js'
 
 function ExternalArrow() {
   return <span aria-hidden="true">↗</span>
@@ -20,15 +18,6 @@ function BookingLink({ className = '', href, children }) {
 export default function AuHomePage({ locale }) {
   const content = getAuSiteContent(locale)
   const { ui } = content
-  const [quickView, setQuickView] = useState(null)
-
-  function openQuickView(product, event) {
-    setQuickView({ product, opener: event.currentTarget })
-  }
-
-  function closeQuickView() {
-    setQuickView(null)
-  }
 
   return (
     <div className="au-home">
@@ -54,7 +43,7 @@ export default function AuHomePage({ locale }) {
               <BookingLink className="au-button" href={content.coreExperiences[0].href}>
                 {content.hero.bookLabel}
               </BookingLink>
-              <Link className="au-button au-button--outline" to={`${locale === 'ko' ? '/ko' : '/'}#world`}>
+              <Link className="au-button au-button--outline" to={`${locale === 'ko' ? '/ko' : '/'}#whole-cakes`}>
                 {content.hero.exploreLabel}
               </Link>
             </div>
@@ -65,13 +54,13 @@ export default function AuHomePage({ locale }) {
       <section className="au-core-experiences" aria-label={ui.experienceLabel}>
         <div className="au-shell au-core-experiences__grid">
           {content.coreExperiences.map((experience) => (
-            <article key={experience.id} className={`au-experience au-experience--${experience.tone}`}>
+            <article id={experience.id} key={experience.id} className={`au-experience au-experience--${experience.tone}`}>
               <p className="au-kicker">{experience.kicker}</p>
               <h2 className="au-experience__heading">{experience.heading}</h2>
               <p>{experience.body}</p>
               <div className="au-experience__products">
                 {experience.products.map((product) => (
-                  <AuBookingProductCard key={product.id} product={product} onQuickView={openQuickView} />
+                  <AuBookingProductCard key={product.id} product={product} />
                 ))}
               </div>
             </article>
@@ -85,18 +74,19 @@ export default function AuHomePage({ locale }) {
             <p className="au-kicker">{ui.worldKicker}</p>
             <h2>{ui.worldHeading}</h2>
           </div>
-          <div className="au-category-mosaic">
+          <div className="au-home-collection-grid">
             {content.categories.map((category) => (
-              <Link
-                key={category.id}
-                id={category.id}
-                className={`au-category-card au-category-card--${category.id}`}
-                to={categoryPath(category.id, locale)}
-              >
-                {category.visual === 'image' && <img src={category.image} alt={category.imageAlt} />}
-                <div className="au-category-card__copy">
-                  <span>{category.label}</span>
-                  <small>{category.description}</small>
+              <Link key={category.id} className="au-home-collection-card" to={localePath(category.href, locale)}>
+                <div className={`au-home-collection-card__image au-home-collection-card__image--${category.id}`}>
+                  <img src={category.image} alt={category.imageAlt} loading="lazy" decoding="async" />
+                </div>
+                <div className="au-home-collection-card__copy">
+                  <p className="au-home-collection-card__eyebrow">{category.eyebrow}</p>
+                  <h3>{category.label}</h3>
+                  <p>{category.description}</p>
+                  <span className="au-home-collection-card__cta">
+                    {category.cta} <span aria-hidden="true">→</span>
+                  </span>
                 </div>
               </Link>
             ))}
@@ -155,12 +145,6 @@ export default function AuHomePage({ locale }) {
           </div>
         </div>
       </section>
-      <AuBookingProductQuickView
-        product={quickView?.product}
-        opener={quickView?.opener}
-        onClose={closeQuickView}
-        closeLabel={locale === 'ko' ? '제품 상세 닫기' : 'Close product details'}
-      />
     </div>
   )
 }

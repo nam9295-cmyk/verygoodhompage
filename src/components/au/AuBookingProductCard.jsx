@@ -1,13 +1,9 @@
 import AuBookingProductImage from './AuBookingProductImage.jsx'
 
-export default function AuBookingProductCard({ product, onQuickView }) {
-  function handleQuickView(event) {
-    onQuickView?.(product, event)
-  }
-
+export default function AuBookingProductCard({ product }) {
   return (
     <article className="au-booking-product-card">
-      <button className="au-booking-product-card__trigger" type="button" aria-haspopup="dialog" onClick={handleQuickView}>
+      <a className="au-booking-product-card__trigger" href={product.href}>
         <div className="au-booking-product-card__media">
           <AuBookingProductImage
             image={product.image}
@@ -17,13 +13,9 @@ export default function AuBookingProductCard({ product, onQuickView }) {
         </div>
         <div className="au-booking-product-card__copy">
           <h3>{product.name}</h3>
-          {product.options.length > 0 && (
-            <ul>
-              {product.options.map((option) => <li key={option}>{option}</li>)}
-            </ul>
-          )}
+          {product.description && <p>{product.description}</p>}
         </div>
-      </button>
+      </a>
       <a className="au-booking-product-card__cta" href={product.href}>{product.ctaLabel}</a>
     </article>
   )

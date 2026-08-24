@@ -35,7 +35,8 @@ test('public catalogue releases expose the curated Chocolate set without deletin
   assert.deepEqual(chocolateNames, [
     'Almond Chocolate',
     'Strawberry Bonbon',
-    'Eiffel Chocolate',
+    'Eiffel Tower Chocolate',
+    'Pave Chocolate',
     "S'mores Stick",
   ])
   assert.equal(AU_PRODUCTS.some((item) => item.id === 'ruby-berry-chocoball'), true)

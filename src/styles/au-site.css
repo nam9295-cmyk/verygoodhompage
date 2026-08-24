@@ -519,6 +519,7 @@ body {
   background: transparent;
 }
 
+.au-experience--daily { background: transparent; }
 .au-experience--fresh { background: transparent; }
 
 .au-experience h2 {
@@ -541,17 +542,15 @@ body {
 
 .au-experience__products {
   display: grid;
-  grid-auto-columns: minmax(250px, 282px);
-  grid-auto-flow: column;
+  grid-template-columns: repeat(var(--au-product-columns, 3), minmax(0, 1fr));
   width: 100%;
   gap: clamp(18px, 2.1vw, 30px);
   margin-top: clamp(30px, 4vw, 52px);
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  padding: 3px 1px 14px;
-  scrollbar-color: color-mix(in srgb, var(--au-forest) 46%, transparent) transparent;
-  scroll-snap-type: inline proximity;
+  padding: 3px 1px 0;
 }
+
+.au-experience--daily,
+.au-experience--fresh { --au-product-columns: 2; }
 
 .au-booking-product-card {
   display: grid;
@@ -571,7 +570,7 @@ body {
   font: inherit;
   text-align: left;
   background: transparent;
-  cursor: zoom-in;
+  cursor: pointer;
 }
 
 .au-booking-product-card__media {
@@ -631,20 +630,11 @@ body {
   line-height: 1.1;
 }
 
-.au-booking-product-card ul {
-  display: grid;
-  gap: 3px;
+.au-booking-product-card__copy p {
   margin: 0;
-  padding: 0;
   color: var(--au-muted);
   font-size: 13px;
   line-height: 1.45;
-  list-style: none;
-}
-
-.au-booking-product-card li::before {
-  content: '·';
-  margin-right: 5px;
 }
 
 .au-booking-product-card__cta {
@@ -879,100 +869,82 @@ body {
   font-size: 15px;
 }
 
-.au-category-mosaic {
+.au-home-collection-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  grid-template-areas:
-    'chocolate tea'
-    'chocolate goods';
-  gap: clamp(14px, 2vw, 28px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 2.5vw, 38px);
 }
 
-.au-category-card {
-  position: relative;
-  display: flex;
-  min-height: 255px;
-  flex-direction: column;
-  justify-content: flex-end;
-  overflow: hidden;
-  padding: clamp(22px, 3vw, 42px);
+.au-home-collection-card {
+  display: grid;
+  min-width: 0;
   color: var(--au-charcoal);
-  isolation: isolate;
 }
 
-.au-category-card__copy {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  width: min(100%, 264px);
-  flex-direction: column;
-  align-self: flex-start;
+.au-home-collection-card__image {
   overflow: hidden;
-  padding: 12px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  border-radius: 10px;
-  color: var(--au-forest);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0.22) 42%, rgba(221, 234, 227, 0.42) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34), inset 1px 0 0 rgba(255, 255, 255, 0.12), 0 4px 12px rgba(12, 30, 23, 0.1);
-  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.52);
-  -webkit-backdrop-filter: blur(18px) saturate(135%);
-  backdrop-filter: blur(18px) saturate(135%);
+  aspect-ratio: 4 / 5;
+  background: var(--au-surface-soft);
 }
 
-.au-category-card__copy::before {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  content: '';
-  pointer-events: none;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0) 46%);
-}
+.au-home-collection-card__image--chocolate { background: #cfb59e; }
+.au-home-collection-card__image--tea { background: var(--au-mint); }
+.au-home-collection-card__image--goods { background: var(--au-goods-blue); }
 
-.au-category-card__copy > span {
-  position: relative;
-  z-index: 1;
-  font-family: var(--au-body);
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 1.1;
-}
-
-.au-category-card__copy > small {
-  position: relative;
-  z-index: 1;
-  max-width: 205px;
-  margin-top: 8px;
-  color: rgba(22, 67, 52, 0.9);
-  font-size: 12px;
-  line-height: 1.4;
-}
-
-.au-category-card img {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
+.au-home-collection-card__image img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-}
-
-.au-category-card::after {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  content: '';
-  opacity: 0;
-  background: rgba(255, 255, 255, 0.3);
   transition: opacity 160ms ease;
 }
 
-.au-category-card:hover::after,
-.au-category-card:focus-visible::after { opacity: 1; }
-.au-category-card--chocolate { grid-area: chocolate; background: #cfb59e; }
-.au-category-card--tea { grid-area: tea; background: var(--au-mint); }
-.au-category-card--goods { grid-area: goods; background: var(--au-goods-blue); }
+.au-home-collection-card:hover .au-home-collection-card__image img,
+.au-home-collection-card:focus-visible .au-home-collection-card__image img { opacity: 0.88; }
+
+.au-home-collection-card__copy {
+  display: flex;
+  min-height: 178px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 20px;
+}
+
+.au-home-collection-card__eyebrow {
+  color: var(--au-forest);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+}
+
+.au-home-collection-card__copy h3 {
+  margin-top: 10px;
+  color: var(--au-forest);
+  font-size: clamp(24px, 2vw, 31px);
+  line-height: 1.04;
+}
+
+.au-home-collection-card__copy > p:not(.au-home-collection-card__eyebrow) {
+  max-width: 31ch;
+  margin-top: 10px;
+  color: var(--au-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.au-home-collection-card__cta {
+  display: inline-flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 19px;
+  border-bottom: 1px solid currentColor;
+  color: var(--au-forest);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
 
 .au-signature { background: var(--au-canvas); }
 
@@ -1376,13 +1348,31 @@ body {
   box-shadow: var(--au-image-shadow);
 }
 
-.au-product-card__visual img {
+.au-product-card__visual > a { display: block; width: 100%; height: 100%; }
+
+.au-product-card__visual img,
+.au-product-card__visual > a > img {
   width: 100%;
   height: 100%;
   min-height: inherit;
   object-fit: cover;
   object-position: center;
 }
+
+.au-product-card__placeholder {
+  display: grid;
+  width: 100%;
+  min-height: inherit;
+  place-content: center;
+  gap: 7px;
+  padding: 24px;
+  border: 1px dashed color-mix(in srgb, var(--au-forest) 32%, transparent);
+  color: var(--au-forest);
+  text-align: center;
+}
+
+.au-product-card__placeholder span { font-size: 16px; font-weight: 700; }
+.au-product-card__placeholder small { color: var(--au-muted); font-size: 12px; font-weight: 600; }
 
 .au-product-card__mark {
   display: grid;
@@ -1481,6 +1471,22 @@ body {
   background: var(--au-surface);
 }
 
+.au-product-detail__placeholder {
+  display: grid;
+  width: 100%;
+  min-height: min(54vw, 640px);
+  place-items: center;
+  gap: 8px;
+  padding: 32px;
+  border: 1px dashed color-mix(in srgb, var(--au-forest) 30%, transparent);
+  color: var(--au-muted);
+  text-align: center;
+  background: var(--au-surface-soft);
+}
+
+.au-product-detail__placeholder span { color: var(--au-charcoal); font-size: clamp(24px, 3vw, 40px); font-weight: 700; line-height: 1; }
+.au-product-detail__placeholder small { font-size: 12px; font-weight: 600; }
+
 .au-product-detail__copy { padding-top: clamp(8px, 4vw, 52px); }
 
 .au-product-detail h1 {
@@ -1525,6 +1531,34 @@ body {
 
 .au-product-detail__notes h2 { font-family: var(--au-body); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
 .au-product-detail__notes p { margin-top: 8px; color: var(--au-muted); font-size: 15px; }
+
+.au-product-detail__profile,
+.au-product-detail__features {
+  max-width: 520px;
+  margin-top: 31px;
+  padding-top: 19px;
+  border-top: 1px solid rgba(31, 90, 70, 0.24);
+}
+
+.au-product-detail__profile h2,
+.au-product-detail__features h2 {
+  font-family: var(--au-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.au-product-detail__profile dl { display: grid; gap: 10px; margin: 14px 0 0; }
+.au-product-detail__profile dl > div { display: grid; grid-template-columns: minmax(120px, 0.8fr) minmax(0, 1.2fr); align-items: center; gap: 16px; }
+.au-product-detail__profile dt { color: var(--au-charcoal); font-size: 13px; font-weight: 600; }
+.au-product-detail__profile dd { height: 5px; margin: 0; background: rgba(31, 90, 70, 0.12); }
+.au-product-detail__profile dd > span[aria-hidden='true'] { display: block; width: var(--au-profile-value); height: 100%; background: var(--au-forest); }
+
+.au-product-detail__features ul { display: flex; flex-wrap: wrap; gap: 18px 20px; margin: 16px 0 0; padding: 0; list-style: none; }
+.au-product-detail__features li { display: inline-flex; min-width: 82px; flex: 1 1 100px; flex-direction: column; align-items: flex-start; gap: 8px; color: var(--au-muted); font-size: 12px; font-weight: 600; line-height: 1.35; }
+.au-product-detail__features img { width: 42px; height: 42px; object-fit: contain; }
+.au-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .au-product-detail__copy .au-button-row { margin-top: 35px; }
 
 .au-related { padding: clamp(62px, 9vw, 136px) 0; background: var(--au-surface); }
@@ -1556,19 +1590,13 @@ body {
   .au-spotlight__grid { grid-template-columns: 1fr; }
   .au-story__image { min-height: min(105vw, 540px); }
   .au-story__copy { padding-bottom: 0; }
-  .au-category-mosaic {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas:
-      'chocolate tea'
-      'chocolate goods';
-  }
-  .au-category-card--chocolate { min-height: 360px; }
   .au-footer__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .au-footer__brand { grid-column: 1 / -1; }
   .au-about-story__grid,
   .au-product-detail__grid { grid-template-columns: 1fr; }
   .au-about-story figure { min-height: min(100vw, 560px); }
   .au-product-detail__media > img { min-height: min(95vw, 650px); }
+  .au-product-detail__placeholder { min-height: min(95vw, 650px); }
 }
 
 @media (max-width: 767px) {
@@ -1599,10 +1627,10 @@ body {
   .au-home .au-core-experiences .au-experience { padding-inline: 0; }
   .au-experience h2 { font-size: clamp(39px, 12vw, 56px); }
   .au-experience__products {
-    grid-auto-columns: calc(100% - 42px);
-    gap: 16px;
+    grid-template-columns: 1fr;
+    gap: 28px;
     margin-top: 31px;
-    padding-bottom: 11px;
+    padding-bottom: 0;
   }
   .au-booking-product-card__copy { gap: 10px; padding-top: 16px; }
   .au-booking-product-card h3 { font-size: 19px; }
@@ -1624,21 +1652,11 @@ body {
   .au-section-heading--split,
   .au-reviews__inner { display: grid; align-items: start; gap: 19px; }
   .au-section-heading--split > p { max-width: 470px; }
-  .au-category-mosaic {
-    grid-template-columns: 1fr;
-    grid-template-areas: 'chocolate' 'tea' 'goods';
-  }
-  .au-category-card,
-  .au-category-card--chocolate { min-height: 235px; }
-  .au-category-card { padding: 0; }
-  .au-category-card__copy {
-    width: min(calc(100% - 32px), 264px);
-    align-self: center;
-    margin-bottom: 16px;
-    padding: 14px 16px;
-    border-radius: 10px;
-  }
-  .au-category-card__copy > span { font-size: 19px; }
+  .au-home-collection-grid { grid-template-columns: 1fr; gap: 48px; }
+  .au-home-collection-card__image { aspect-ratio: 4 / 3; }
+  .au-home-collection-card__copy { min-height: 0; padding-top: 17px; }
+  .au-home-collection-card__copy h3 { font-size: 27px; }
+  .au-home-collection-card__cta { margin-top: 18px; padding-top: 0; }
   .au-signature__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .au-signature-card { min-height: 246px; }
   .au-signature-card > img,
@@ -1660,7 +1678,9 @@ body {
   .au-product-detail h1 { font-size: clamp(48px, 14vw, 65px); }
   .au-product-detail__copy { padding-top: 16px; }
   .au-product-detail__media > img { min-height: min(96vw, 530px); }
+  .au-product-detail__placeholder { min-height: min(96vw, 530px); }
   .au-product-detail__gallery { gap: 5px; }
+  .au-product-detail__profile dl > div { grid-template-columns: minmax(110px, 0.9fr) minmax(0, 1.1fr); }
   .au-related .au-catalogue__grid { grid-template-columns: 1fr; }
 }
 

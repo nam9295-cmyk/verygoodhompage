@@ -1,22 +1,11 @@
 import { Navigate, useParams } from 'react-router-dom'
+import { AU_LEGACY_PRODUCT_TARGETS } from '../../data/auCatalog.js'
 import AuNotFoundPage from './AuNotFoundPage.jsx'
 import { productPath } from '../../utils/auPaths.js'
 
-const legacyProducts = {
-  'almond-chocoball': ['chocolate', 'almond-chocoball'],
-  'strawberry-bonbon': ['chocolate', 'strawberry-bonbon'],
-  'ruby-berry-chocoball': ['chocolate', 'ruby-berry-chocoball'],
-  'matcha-berry': ['chocolate', 'matcha-berry'],
-  'british-black': ['tea', 'british-black'],
-  'asian-gold': ['tea', 'asian-gold'],
-  'hibiscus-fruit': ['tea', 'hibiscus-fruit'],
-  'minty-chocolat': ['tea', 'minty-chocolat'],
-  'hogirl-key-ring': ['goods', 'hogeori-keyring'],
-}
-
 export default function LegacyProductRedirect({ locale = 'en' }) {
   const { slug } = useParams()
-  const target = legacyProducts[slug]
+  const target = AU_LEGACY_PRODUCT_TARGETS[slug]
 
   if (!target) return <AuNotFoundPage />
 
