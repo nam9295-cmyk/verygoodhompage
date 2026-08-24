@@ -13,6 +13,7 @@ export const AU_PUBLIC_PRODUCT_IDS = Object.freeze({
     'almond-chocoball',
     'strawberry-bonbon',
     'eiffel-chocolate',
+    'pave-chocolate',
     'marshmallow-smores-stick',
   ]),
   tea: Object.freeze([
@@ -97,14 +98,14 @@ export const AU_CATEGORY_CONTENT = Object.freeze({
     tone: 'blue',
     copy: {
       en: {
-        kicker: 'Choco in Life',
-        title: 'Choco in Life',
+        kicker: 'Goods',
+        title: 'Goods',
         intro: 'Accessories, stationery, linen and tea accessories for life around chocolate. Only items with confirmed imagery are shown here.',
         actionLabel: 'View goods',
       },
       ko: {
-        kicker: '초코 인 라이프',
-        title: '초코 인 라이프',
+        kicker: '굿즈',
+        title: '굿즈',
         intro: '초콜릿과 함께하는 액세서리, 문구, 리넨, 티 액세서리를 소개합니다. 실제 이미지가 준비된 아이템만 이곳에서 보여드립니다.',
         actionLabel: '굿즈 보기',
       },
@@ -116,6 +117,15 @@ const noProductImage = Object.freeze({
   card: null,
   hero: null,
   gallery: [],
+  altEn: '',
+  altKo: '',
+})
+
+const placeholderProductImage = Object.freeze({
+  card: null,
+  hero: null,
+  gallery: [],
+  placeholder: true,
   altEn: '',
   altKo: '',
 })
@@ -171,7 +181,7 @@ export const AU_PRODUCTS = Object.freeze([
     slug: 'chocolate-pound-cake',
     status: 'published',
     availability: 'preorder',
-    action: { mode: 'external-booking', href: AU_BOOKING_PRODUCT_LINKS.chocolatePoundCakeAndCupcakes },
+    action: { mode: 'external-booking', href: AU_BOOKING_PRODUCT_LINKS.signatureGateauAuChocolat },
     copy: {
       en: {
         name: 'Chocolate Pound Cake',
@@ -192,7 +202,7 @@ export const AU_PRODUCTS = Object.freeze([
     slug: 'chocolate-cupcakes',
     status: 'published',
     availability: 'preorder',
-    action: { mode: 'external-booking', href: AU_BOOKING_PRODUCT_LINKS.chocolatePoundCakeAndCupcakes },
+    action: { mode: 'external-booking', href: AU_BOOKING_PRODUCT_LINKS.chocolateCupcakes },
     copy: {
       en: {
         name: 'Chocolate Cupcakes',
@@ -320,7 +330,7 @@ export const AU_PRODUCTS = Object.freeze([
     action: catalogueOnly,
     copy: {
       en: {
-        name: 'Eiffel Chocolate',
+        name: 'Eiffel Tower Chocolate',
         shortDescription: '',
         story: '',
       },
@@ -592,14 +602,14 @@ export const AU_PRODUCTS = Object.freeze([
     id: 'pave-chocolate',
     category: 'chocolate',
     slug: 'pave-chocolate',
-    status: 'draft',
-    availability: 'coming-soon',
+    status: 'published',
+    availability: null,
     action: catalogueOnly,
     copy: {
-      en: { name: 'Pave Chocolate', shortDescription: 'Not announced for the AU catalogue.', story: '' },
-      ko: { name: '파베 초콜릿', shortDescription: 'AU 카탈로그에 아직 안내되지 않았습니다.', story: '' },
+      en: { name: 'Pave Chocolate', shortDescription: 'A Verygood Chocolate piece.', story: '' },
+      ko: { name: '파베 초콜릿', shortDescription: '베리굿 초콜릿 컬렉션의 한 피스.', story: '' },
     },
-    media: noProductImage,
+    media: placeholderProductImage,
   },
   {
     id: 'marshmallow-smores-stick',
@@ -612,7 +622,7 @@ export const AU_PRODUCTS = Object.freeze([
       en: { name: "S'mores Stick", shortDescription: '', story: '' },
       ko: { name: '스모어 스틱', shortDescription: '', story: '' },
     },
-    media: noProductImage,
+    media: placeholderProductImage,
   },
   {
     id: 'hogeori-plush',
