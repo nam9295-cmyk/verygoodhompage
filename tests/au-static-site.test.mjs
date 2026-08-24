@@ -8,6 +8,8 @@ test('the public AU document is English-first and carries no advertising scripts
   assert.match(html, /<html lang="en-AU">/)
   assert.match(html, /family=Work\+Sans:wght@400;600;700;800/)
   assert.doesNotMatch(html, /Playfair|Manrope|Noto\+Sans/)
+  assert.match(html, /whole cakes, daily chocolate cakes, Something Fresh, chocolate and goods in Sydney/i)
+  assert.doesNotMatch(html, /Cacao Tea/i)
   assert.equal(/adsbygoogle|google-adsense-account|googletagmanager/.test(html), false)
   assert.equal(existsSync('public/ads.txt'), false)
 })

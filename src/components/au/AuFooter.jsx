@@ -29,11 +29,11 @@ const labels = {
 
 const koNavigationLabels = {
   about: '소개',
-  cakes: '케이크',
+  'whole-cakes': '홀 케이크',
+  daily: '데일리',
   'something-fresh': '썸띵 프레시',
   chocolate: '베리굿 초콜릿',
-  tea: '카카오 티',
-  goods: '초코 인 라이프',
+  goods: '굿즈',
 }
 
 export default function AuFooter({ locale }) {

@@ -7,11 +7,11 @@ import AuMobileMenu from './AuMobileMenu.jsx'
 import AuNavigationLink from './AuNavigationLink.jsx'
 
 const koNavigationLabels = {
-  cakes: '케이크',
+  'whole-cakes': '홀 케이크',
+  daily: '데일리',
   'something-fresh': '썸띵 프레시',
   chocolate: '베리굿 초콜릿',
-  tea: '카카오 티',
-  goods: '초코 인 라이프',
+  goods: '굿즈',
 }
 
 const labels = {
@@ -35,7 +35,7 @@ export default function AuHeader({ locale }) {
 
         <nav className="au-desktop-nav" aria-label="Primary navigation">
           {AU_NAVIGATION.map((item) => {
-            const active = stripLocalePath(location.pathname) === `/${item.id}`
+            const active = !item.sectionId && stripLocalePath(location.pathname) === `/${item.id}`
 
             return <AuNavigationLink key={item.id} item={item} locale={locale} active={active}>{navLabel(item)}</AuNavigationLink>
           })}

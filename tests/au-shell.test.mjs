@@ -33,11 +33,11 @@ test('AU shell exposes the five final categories without About or kids classes i
   const { AuFooter, AuHeader, close } = await loadAuShell()
   t.after(close)
 
-  const header = renderWithRoute(AuHeader, '/tea')
+  const header = renderWithRoute(AuHeader, '/chocolate')
   const footer = renderWithRoute(AuFooter, '/')
   const shell = header + footer
 
-  for (const label of ['Cakes', 'Something Fresh', 'Chocolate', 'Cacao Tea', 'Choco in Life', 'Korea', 'Book a Cake']) {
+  for (const label of ['Whole Cakes', 'Daily', 'Something Fresh', 'Chocolate', 'Goods', 'Korea', 'Book a Cake']) {
     assert.match(shell, new RegExp(label))
   }
 
@@ -50,7 +50,8 @@ test('AU shell exposes the five final categories without About or kids classes i
   assert.match(shell, /https:\/\/au\.verygood-chocolate\.com\/lookup/)
   assert.match(shell, /https:\/\/kr\.verygood-chocolate\.com/)
   assert.match(header, /aria-current="page"/)
-  assert.match(header, /href="\/tea"/)
+  assert.match(header, /href="\/chocolate"/)
+  assert.doesNotMatch(header, /Cacao Tea|href="\/tea"/)
   assert.match(header, /href="https:\/\/au\.verygood-chocolate\.com\/cakes"/)
   assert.doesNotMatch(header, />Bakes</)
   assert.match(header, /\/assets\/brand\/heart_logo\.png/)

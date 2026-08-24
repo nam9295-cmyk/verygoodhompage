@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import AuBookingProductCard from '../../components/au/AuBookingProductCard.jsx'
-import AuBookingProductQuickView from '../../components/au/AuBookingProductQuickView.jsx'
 import { getAuSiteContent } from '../../config/auSiteContent.js'
 import { categoryPath } from '../../utils/auPaths.js'
 
@@ -20,15 +18,6 @@ function BookingLink({ className = '', href, children }) {
 export default function AuHomePage({ locale }) {
   const content = getAuSiteContent(locale)
   const { ui } = content
-  const [quickView, setQuickView] = useState(null)
-
-  function openQuickView(product, event) {
-    setQuickView({ product, opener: event.currentTarget })
-  }
-
-  function closeQuickView() {
-    setQuickView(null)
-  }
 
   return (
     <div className="au-home">
@@ -54,7 +43,7 @@ export default function AuHomePage({ locale }) {
               <BookingLink className="au-button" href={content.coreExperiences[0].href}>
                 {content.hero.bookLabel}
               </BookingLink>
-              <Link className="au-button au-button--outline" to={`${locale === 'ko' ? '/ko' : '/'}#world`}>
+              <Link className="au-button au-button--outline" to={`${locale === 'ko' ? '/ko' : '/'}#whole-cakes`}>
                 {content.hero.exploreLabel}
               </Link>
             </div>
@@ -65,13 +54,13 @@ export default function AuHomePage({ locale }) {
       <section className="au-core-experiences" aria-label={ui.experienceLabel}>
         <div className="au-shell au-core-experiences__grid">
           {content.coreExperiences.map((experience) => (
-            <article key={experience.id} className={`au-experience au-experience--${experience.tone}`}>
+            <article id={experience.id} key={experience.id} className={`au-experience au-experience--${experience.tone}`}>
               <p className="au-kicker">{experience.kicker}</p>
               <h2 className="au-experience__heading">{experience.heading}</h2>
               <p>{experience.body}</p>
               <div className="au-experience__products">
                 {experience.products.map((product) => (
-                  <AuBookingProductCard key={product.id} product={product} onQuickView={openQuickView} />
+                  <AuBookingProductCard key={product.id} product={product} />
                 ))}
               </div>
             </article>
@@ -155,12 +144,6 @@ export default function AuHomePage({ locale }) {
           </div>
         </div>
       </section>
-      <AuBookingProductQuickView
-        product={quickView?.product}
-        opener={quickView?.opener}
-        onClose={closeQuickView}
-        closeLabel={locale === 'ko' ? '제품 상세 닫기' : 'Close product details'}
-      />
     </div>
   )
 }

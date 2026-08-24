@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { categoryPath } from '../../utils/auPaths.js'
+import { categoryPath, localePath } from '../../utils/auPaths.js'
 
 export default function AuNavigationLink({ active = false, children, className, item, locale, onClick }) {
   const commonProps = {
@@ -14,6 +14,10 @@ export default function AuNavigationLink({ active = false, children, className, 
         {children}
       </a>
     )
+  }
+
+  if (item.sectionId) {
+    return <a {...commonProps} href={`${localePath('/', locale)}#${item.sectionId}`}>{children}</a>
   }
 
   return <Link {...commonProps} to={categoryPath(item.id, locale)}>{children}</Link>

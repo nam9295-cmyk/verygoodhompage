@@ -21,11 +21,11 @@ const mobileLabels = {
 }
 
 const koNavigationLabels = {
-  cakes: '케이크',
+  'whole-cakes': '홀 케이크',
+  daily: '데일리',
   'something-fresh': '썸띵 프레시',
   chocolate: '베리굿 초콜릿',
-  tea: '카카오 티',
-  goods: '초코 인 라이프',
+  goods: '굿즈',
 }
 
 export default function AuMobileMenu({ locale, onClose, returnFocusRef }) {
@@ -93,7 +93,7 @@ export default function AuMobileMenu({ locale, onClose, returnFocusRef }) {
 
       <nav className="au-mobile-menu__links" aria-label={labels.menu}>
         {AU_NAVIGATION.map((item) => {
-          const active = stripLocalePath(location.pathname) === `/${item.id}`
+          const active = !item.sectionId && stripLocalePath(location.pathname) === `/${item.id}`
 
           return <AuNavigationLink key={item.id} item={item} locale={locale} active={active} onClick={closeMenu}>{navLabel(item)}</AuNavigationLink>
         })}
