@@ -243,7 +243,7 @@ function homeContent(locale) {
       exploreLabel: isKorean ? '전체 메뉴 보기' : 'Explore current menu',
       bookLabel: isKorean ? '파베 모찌 예약하기' : 'Order Pavé Mochi',
       bookHref: AU_BOOKING_PRODUCT_LINKS.chocolateMochi,
-      desktopImage: '/assets/mochi/mochi-street.webp',
+      desktopImage: BRAND_SITE.homeImage.path,
       mobileImage: '/assets/mochi/mochi-cafe.webp',
     },
     coreExperiences: bookingExperiences(language),

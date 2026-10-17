@@ -5,7 +5,7 @@ import { getPublicAuProduct } from './auCatalog.js'
 
 const absoluteUrl = (path) => `${BRAND_SITE.origin}${path}`
 
-export function getAuSeoMetadata({ locale = 'en', path = '/', title, description, noindex = false, status = 200 }) {
+export function getAuSeoMetadata({ locale = 'en', path = '/', title, description, noindex = false, status = 200, image = BRAND_SITE.image, imageAlt = BRAND_SITE.name }) {
   const language = locale === 'ko' ? 'ko' : 'en'
   const localPath = stripLocalePath(path).replace(/\/$/, '') || '/'
   return {
@@ -16,12 +16,13 @@ export function getAuSeoMetadata({ locale = 'en', path = '/', title, description
       en: absoluteUrl(localePath(localPath, 'en')),
       ko: absoluteUrl(localePath(localPath, 'ko')),
     },
-    image: BRAND_SITE.image,
+    image,
+    imageAlt,
     structuredData: null,
   }
 }
 
-function brandSchema() {
+function brandSchema(metadata) {
   const organizationId = `${BRAND_SITE.origin}/#organization`
   return {
     '@context': 'https://schema.org',
@@ -40,6 +41,22 @@ function brandSchema() {
         url: `${BRAND_SITE.origin}/`, inLanguage: ['en', 'ko'],
         publisher: { '@id': organizationId },
       },
+      {
+        '@type': 'WebPage', '@id': `${metadata.canonical}#webpage`,
+        url: metadata.canonical,
+        name: metadata.title,
+        inLanguage: metadata.language,
+        isPartOf: { '@id': `${BRAND_SITE.origin}/#website` },
+        about: { '@id': organizationId },
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          contentUrl: metadata.image,
+          url: metadata.image,
+          width: BRAND_SITE.homeImage.width,
+          height: BRAND_SITE.homeImage.height,
+          caption: metadata.imageAlt,
+        },
+      },
     ],
   }
 }
@@ -49,7 +66,12 @@ export function getPageSeo(pathname = '/') {
   const path = stripLocalePath(pathname).replace(/\/$/, '') || '/'
   const korean = locale === 'ko'
   if (path === '/') {
-    return { ...getAuSeoMetadata({ locale, path, ...BRAND_SITE.seo[locale] }), structuredData: brandSchema() }
+    const metadata = getAuSeoMetadata({
+      locale, path, ...BRAND_SITE.seo[locale],
+      image: absoluteUrl(BRAND_SITE.homeImage.path),
+      imageAlt: BRAND_SITE.homeImage.alt[locale],
+    })
+    return { ...metadata, structuredData: brandSchema(metadata) }
   }
   if (path === '/about') {
     return getAuSeoMetadata({ locale, path, ...BRAND_SITE.aboutSeo[locale] })
@@ -82,11 +104,12 @@ export function getSeoTags(metadata) {
     ['meta', { property: 'og:title', content: metadata.title }],
     ['meta', { property: 'og:description', content: metadata.description }],
     ['meta', { property: 'og:image', content: metadata.image }],
-    ['meta', { property: 'og:image:alt', content: 'Verygood Chocolate' }],
+    ['meta', { property: 'og:image:alt', content: metadata.imageAlt }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: metadata.title }],
     ['meta', { name: 'twitter:description', content: metadata.description }],
     ['meta', { name: 'twitter:image', content: metadata.image }],
+    ['meta', { name: 'twitter:image:alt', content: metadata.imageAlt }],
   ]
   if (metadata.canonical) {
     tags.push(['link', { rel: 'canonical', href: metadata.canonical }], ['meta', { property: 'og:url', content: metadata.canonical }])

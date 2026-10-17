@@ -4,6 +4,15 @@ export const BRAND_SITE = Object.freeze({
   origin: 'https://verygood-chocolate.com',
   name: 'Verygood Chocolate',
   image: 'https://verygood-chocolate.com/assets/main.png',
+  homeImage: {
+    path: '/assets/mochi/mochi-street.webp',
+    width: 1920,
+    height: 1080,
+    alt: {
+      en: 'Verygood Chocolate Pavé Mochi gift box in Sydney',
+      ko: '시드니 베리굿 초콜릿의 파베 모찌 선물박스',
+    },
+  },
   logo: 'https://verygood-chocolate.com/assets/brand/heart_logo.png',
   seo: {
     en: {

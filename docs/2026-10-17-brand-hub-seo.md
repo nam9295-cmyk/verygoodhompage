@@ -19,7 +19,7 @@ Keep verygood-chocolate.com as the bilingual brand hub for Korea and Australia. 
 ## Validation
 
 - New build integration tests first failed against the previous production output, then passed against the implementation.
-- Full automated suite: 44 tests passed, including the production build integration checks; ESLint and whitespace checks passed.
+- Full automated suite: 45 tests passed, including the production build integration checks; ESLint and whitespace checks passed.
 - Independent read-only code review found no merge blockers.
 - Cloudflare Pages local runtime: existing English/Korean pages return 200, retained legacy product aliases return 301, and deleted/unknown URLs return 404.
 - Browser checks across home/about/archive/redirect/error routes found one description and the expected canonical/robots settings, with no JavaScript or hydration errors. Expected 404 document requests were the only recorded console resource errors.
@@ -35,3 +35,9 @@ Use `npm run build`, not `vite build` alone, and publish the complete `dist/` di
 After publishing the root website, check `/`, `/ko`, `/about`, a preserved archive, an old product alias and an unknown URL. Verify metadata in the original HTTP response as well as after browser navigation. Re-submit the root sitemap and inspect the home/about URLs in Search Console. Check Australia-filtered branded queries and Google-selected canonical URLs separately; indexing and rankings are not immediate or guaranteed.
 
 No changes to AU/Korean repositories, local booking data, payments, DNS or external search accounts are included.
+
+## Homepage image follow-up
+
+The English and Korean home pages now prefer the current Sydney Pavé Mochi campaign photo for Open Graph, Twitter cards and `WebPage.primaryImageOfPage`. The campaign and metadata share the same image path to avoid stale search-image signals after a campaign change. Each translation identifies its own page URL, with the same 1920×1080 image. Brand identity, other page images and the favicon are unchanged.
+
+Google selects search-result images automatically. Once this change is deployed, request a recrawl of the home pages in Search Console and allow time for Google to process it; deployment does not immediately replace an existing Google thumbnail.

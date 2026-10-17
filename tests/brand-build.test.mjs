@@ -63,6 +63,27 @@ test('brand identity schema identifies the official sites without duplicating AU
   assert.equal(schema.some(x => ['Product', 'Offer', 'LocalBusiness', 'Bakery'].includes(x['@type'])), false)
 })
 
+test('home search and sharing images match the visible campaign in both languages', () => {
+  for (const [file, canonical] of [
+    ['index.html', 'https://verygood-chocolate.com/'],
+    ['ko.html', 'https://verygood-chocolate.com/ko'],
+  ]) {
+    const html = readPage(file)
+    const heroPath = html.match(/<picture class="au-hero__media">[\s\S]*?<img src="([^"]+)"/)[1]
+    const image = `https://verygood-chocolate.com${heroPath}`
+    const head = headOf(html)
+    assert.ok(head.includes(`property="og:image" content="${image}"`))
+    assert.ok(head.includes(`name="twitter:image" content="${image}"`))
+    const graph = JSON.parse(head.match(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/)[1])['@graph']
+    const page = graph.find(node => node['@type'] === 'WebPage' && node.url === canonical)
+    assert.ok(page, `${file} must identify its own page and primary image`)
+    assert.equal(page.primaryImageOfPage.contentUrl, image)
+    assert.equal(page.primaryImageOfPage.width, 1920)
+    assert.equal(page.primaryImageOfPage.height, 1080)
+    assert.match(head, /rel="icon" type="image\/png" href="\/favicon.png"/)
+  }
+})
+
 test('legacy collections stay accessible as noindex brand archives', () => {
   for (const file of ['tea.html', 'chocolate/almond-chocoball.html', 'ko/goods/hogeori-keyring.html']) {
     const html = readPage(file)
