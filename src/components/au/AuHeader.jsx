@@ -7,17 +7,17 @@ import AuMobileMenu from './AuMobileMenu.jsx'
 import AuNavigationLink from './AuNavigationLink.jsx'
 
 const koNavigationLabels = {
-  'whole-cakes': '홀 케이크',
-  daily: '데일리',
-  'something-fresh': '썸띵 프레시',
-  chocolate: '베리굿 초콜릿',
-  tea: '카카오 티',
-  goods: '굿즈',
+  about: '소개',
+  cakes: '케이크 & 베이크',
+  chocolates: '초콜릿',
+  celebrate: '셀러브레이트',
+  'custom-cakes': '커스텀 케이크',
+  business: '비즈니스',
 }
 
 const labels = {
-  en: { book: 'Book a Cake', korea: 'Korea', menu: 'Open menu' },
-  ko: { book: '케이크 예약', korea: '한국', menu: '메뉴 열기' },
+  en: { book: 'SHOP SYDNEY', korea: 'Korea', menu: 'Open menu' },
+  ko: { book: '시드니 예약', korea: '한국', menu: '메뉴 열기' },
 }
 
 export default function AuHeader({ locale }) {
@@ -46,13 +46,13 @@ export default function AuHeader({ locale }) {
           <a className="au-header__korea" href={AU_LINKS.korea} target="_blank" rel="noreferrer">
             {copy.korea} <span aria-hidden="true">↗</span>
           </a>
-          <a className="au-button au-button--small" href={AU_LINKS.booking.cakes} target="_blank" rel="noreferrer">
+          <a className="au-button au-button--small" href={AU_LINKS.booking.home} target="_blank" rel="noreferrer">
             {copy.book}
           </a>
         </div>
 
         <div className="au-mobile-actions">
-          <a className="au-mobile-book" href={AU_LINKS.booking.cakes} target="_blank" rel="noreferrer">
+          <a className="au-mobile-book" href={AU_LINKS.booking.home} target="_blank" rel="noreferrer">
             {copy.book}
           </a>
           <button ref={menuButtonRef} type="button" className="au-menu-button" onClick={() => setMenuOpen(true)} aria-expanded={menuOpen} aria-label={copy.menu}>

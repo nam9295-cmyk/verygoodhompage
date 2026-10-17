@@ -13,6 +13,7 @@ export default function AuBookingProductCard({ product }) {
         </div>
         <div className="au-booking-product-card__copy">
           <h3>{product.name}</h3>
+          {product.statusLabel && <span className="au-booking-product-card__status">{product.statusLabel}</span>}
           {product.description && <p>{product.description}</p>}
         </div>
       </a>

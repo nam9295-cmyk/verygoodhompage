@@ -11,7 +11,7 @@ const labels = {
     instagram: 'Instagram',
     reviews: 'Reviews',
     lookup: 'Find My Booking',
-    book: 'Book a Cake',
+    book: 'Shop Sydney',
     visit: 'Visit Korean Website',
   },
   ko: {
@@ -22,19 +22,18 @@ const labels = {
     instagram: '인스타그램',
     reviews: '후기',
     lookup: '예약 조회',
-    book: '케이크 예약',
+    book: '시드니 온라인 주문',
     visit: '한국 사이트 방문',
   },
 }
 
 const koNavigationLabels = {
   about: '소개',
-  'whole-cakes': '홀 케이크',
-  daily: '데일리',
-  'something-fresh': '썸띵 프레시',
-  chocolate: '베리굿 초콜릿',
-  tea: '카카오 티',
-  goods: '굿즈',
+  cakes: '케이크 & 베이크',
+  chocolates: '초콜릿',
+  celebrate: '셀러브레이트',
+  'custom-cakes': '커스텀 케이크',
+  business: '비즈니스',
 }
 
 export default function AuFooter({ locale }) {
@@ -60,7 +59,7 @@ export default function AuFooter({ locale }) {
 
         <div className="au-footer__group">
           <h2>{copy.sydney}</h2>
-          <a href={AU_LINKS.booking.cakes} target="_blank" rel="noreferrer">{copy.book} <span aria-hidden="true">↗</span></a>
+          <a href={AU_LINKS.booking.home} target="_blank" rel="noreferrer">{copy.book} <span aria-hidden="true">↗</span></a>
           <a href={AU_LINKS.booking.reviews} target="_blank" rel="noreferrer">{copy.reviews} <span aria-hidden="true">↗</span></a>
           <a href={AU_LINKS.booking.lookup} target="_blank" rel="noreferrer">{copy.lookup} <span aria-hidden="true">↗</span></a>
         </div>

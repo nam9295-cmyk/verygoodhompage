@@ -4,71 +4,36 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import { createServer } from 'vite'
+import { AU_LINKS } from '../src/config/auLinks.js'
 
-async function loadAuShell() {
-  const server = await createServer({
-    appType: 'custom',
-    server: { middlewareMode: true, ws: false },
-  })
-
-  const [{ default: AuHeader }, { default: AuFooter }] = await Promise.all([
-    server.ssrLoadModule('/src/components/au/AuHeader.jsx'),
-    server.ssrLoadModule('/src/components/au/AuFooter.jsx'),
+async function shell() {
+  const s=await createServer({appType:'custom',server:{middlewareMode:true,ws:false}})
+  const [{default: Header},{default: Footer},{default: Layout}] = await Promise.all([
+    s.ssrLoadModule('/src/components/au/AuHeader.jsx'),
+    s.ssrLoadModule('/src/components/au/AuFooter.jsx'),
+    s.ssrLoadModule('/src/components/au/AuLayout.jsx'),
   ])
-
-  return { AuFooter, AuHeader, close: () => server.close() }
+  return {s, Header, Footer, Layout}
 }
+const render=(C,locale='en')=>renderToStaticMarkup(createElement(MemoryRouter,{initialEntries:[locale==='en'?'/':'/ko']},createElement(C,{locale})))
 
-function renderWithRoute(Component, pathname) {
-  return renderToStaticMarkup(
-    createElement(
-      MemoryRouter,
-      { initialEntries: [pathname] },
-      createElement(Component, { locale: 'en' }),
-    ),
-  )
-}
-
-test('AU shell exposes the six final categories without About or kids classes in primary navigation', async (t) => {
-  const { AuFooter, AuHeader, close } = await loadAuShell()
-  t.after(close)
-
-  const header = renderWithRoute(AuHeader, '/chocolate')
-  const footer = renderWithRoute(AuFooter, '/')
-  const shell = header + footer
-
-  for (const label of ['Whole Cakes', 'Daily', 'Something Fresh', 'Chocolate', 'Cacao Tea', 'Goods', 'Korea', 'Book a Cake']) {
-    assert.match(shell, new RegExp(label))
-  }
-
-  assert.doesNotMatch(header, />About</)
-  assert.match(footer, />About</)
-  assert.doesNotMatch(shell, /Kids Classes|Kids Cake Classes/)
-  assert.match(shell, /https:\/\/au\.verygood-chocolate\.com\/cakes/)
-  assert.doesNotMatch(shell, /https:\/\/au\.verygood-chocolate\.com\/classes/)
-  assert.match(shell, /https:\/\/au\.verygood-chocolate\.com\/reviews/)
-  assert.match(shell, /https:\/\/au\.verygood-chocolate\.com\/lookup/)
-  assert.match(shell, /https:\/\/kr\.verygood-chocolate\.com/)
-  assert.match(header, /aria-current="page"/)
-  assert.match(header, /href="\/chocolate"/)
-  assert.match(header, /Cacao Tea/)
-  assert.match(header, /href="\/tea"/)
-  assert.match(header, /href="https:\/\/au\.verygood-chocolate\.com\/cakes"/)
-  assert.doesNotMatch(header, />Bakes</)
-  assert.match(header, /\/assets\/brand\/heart_logo\.png/)
-  assert.equal(/Cart|Checkout|Admin|Digital|Wellness App|AI Beta/.test(shell), false)
+test('root brand header and footer show current Sydney categories and keep the Korea portal',async t=>{
+  const {s,Header,Footer}=await shell();t.after(()=>s.close())
+  const header=render(Header),footer=render(Footer),all=header+footer
+  for (const label of ['Cake &amp; Bake','Chocolate','Celebrate','Custom Cake','Business','Korea','SHOP SYDNEY','Shop Sydney']) assert.match(all,new RegExp(label))
+  for (const url of [AU_LINKS.booking.home,AU_LINKS.booking.cakes,AU_LINKS.booking.chocolates,AU_LINKS.booking.celebrate,AU_LINKS.booking.customCakes,AU_LINKS.booking.business,AU_LINKS.booking.lookup,AU_LINKS.booking.reviews,AU_LINKS.korea]) assert.ok(all.includes(url),url)
+  assert.doesNotMatch(header, /Cacao Tea|Something Fresh|Whole Cakes|href="\/tea"|href="\/goods"/)
+  assert.doesNotMatch(header, /Kids Classes|Add to Cart|Checkout/i)
+  assert.match(header,/\/assets\/brand\/heart_logo\.png/)
+  const koHeader=render(Header,'ko')
+  assert.match(koHeader,/케이크 &amp; 베이크/)
+  assert.match(koHeader,/시드니 예약/)
+  assert.match(koHeader,/https:\/\/kr\.verygood-chocolate\.com/)
 })
 
-test('AU shell keeps the tiger wallpaper outside scrolling page content', async (t) => {
-  const server = await createServer({
-    appType: 'custom',
-    server: { middlewareMode: true, ws: false },
-  })
-  t.after(() => server.close())
-
-  const { default: AuLayout } = await server.ssrLoadModule('/src/components/au/AuLayout.jsx')
-  const html = renderWithRoute(AuLayout, '/')
-
+test('brand tiger wallpaper and existing regional layout remain intact',async t=>{
+  const {s,Layout}=await shell();t.after(()=>s.close())
+  const html=render(Layout)
   assert.match(html, /<div class="au-fixed-tiger-background" aria-hidden="true"><\/div>/)
-  assert.ok(html.indexOf('au-fixed-tiger-background') < html.indexOf('<main id="main-content">'))
+  assert.ok(html.indexOf('au-fixed-tiger-background')<html.indexOf('<main id="main-content">'))
 })

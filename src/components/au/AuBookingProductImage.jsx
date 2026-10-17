@@ -45,7 +45,7 @@ export default function AuBookingProductImage({ image, name, className = '', pla
   }
 
   if (source) {
-    return <img className={className} src={source} alt={image.alt || name} onError={handleImageError} />
+    return <img className={className} src={source} alt={image.alt || name} loading="lazy" decoding="async" onError={handleImageError} />
   }
 
   return (

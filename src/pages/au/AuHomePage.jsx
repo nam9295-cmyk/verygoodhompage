@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import AuBookingProductCard from '../../components/au/AuBookingProductCard.jsx'
 import { getAuSiteContent } from '../../config/auSiteContent.js'
-import { localePath } from '../../utils/auPaths.js'
+import { AU_LINKS } from '../../config/auLinks.js'
 
 function ExternalArrow() {
   return <span aria-hidden="true">↗</span>
@@ -40,10 +40,10 @@ export default function AuHomePage({ locale }) {
             <h1>{content.hero.heading}</h1>
             <p className="au-hero__body">{content.hero.body}</p>
             <div className="au-button-row">
-              <BookingLink className="au-button" href={content.coreExperiences[0].href}>
+              <BookingLink className="au-button" href={content.hero.bookHref}>
                 {content.hero.bookLabel}
               </BookingLink>
-              <Link className="au-button au-button--outline" to={`${locale === 'ko' ? '/ko' : '/'}#whole-cakes`}>
+              <Link className="au-button au-button--outline" to={`${locale === 'ko' ? '/ko' : '/'}#cakes`}>
                 {content.hero.exploreLabel}
               </Link>
             </div>
@@ -76,7 +76,7 @@ export default function AuHomePage({ locale }) {
           </div>
           <div className="au-home-collection-grid">
             {content.categories.map((category) => (
-              <Link key={category.id} className="au-home-collection-card" to={localePath(category.href, locale)}>
+              <a key={category.id} className="au-home-collection-card" href={category.href} target="_blank" rel="noreferrer">
                 <div className={`au-home-collection-card__image au-home-collection-card__image--${category.id}`}>
                   <img src={category.image} alt={category.imageAlt} loading="lazy" decoding="async" />
                 </div>
@@ -88,9 +88,21 @@ export default function AuHomePage({ locale }) {
                     {category.cta} <span aria-hidden="true">→</span>
                   </span>
                 </div>
-              </Link>
+              </a>
             ))}
           </div>
+          <nav className="au-home-service-links" aria-label={locale === 'ko' ? '시드니 맞춤 서비스' : 'More Sydney services'}>
+            <a href={AU_LINKS.booking.customCakes} target="_blank" rel="noreferrer">
+              <span>CUSTOM CAKE</span>
+              <strong>{locale === 'ko' ? '커스텀 케이크' : 'Custom Cake'}</strong>
+              <ExternalArrow />
+            </a>
+            <a href={AU_LINKS.booking.business} target="_blank" rel="noreferrer">
+              <span>BUSINESS</span>
+              <strong>{locale === 'ko' ? '기업 · 카페 및 협업' : 'Business & Collaboration'}</strong>
+              <ExternalArrow />
+            </a>
+          </nav>
         </div>
       </section>
 

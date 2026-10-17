@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import AuLayout from './components/au/AuLayout.jsx'
+import AuHomeSeo from './components/au/AuHomeSeo.jsx'
 import AuHomePage from './pages/au/AuHomePage.jsx'
 import AuNotFoundPage from './pages/au/AuNotFoundPage.jsx'
 import AuAboutPage from './pages/au/AuAboutPage.jsx'
@@ -12,7 +13,7 @@ export default function AuAppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<AuLayout locale="en" />}>
-        <Route index element={<AuHomePage locale="en" />} />
+        <Route index element={<><AuHomeSeo locale="en" /><AuHomePage locale="en" /></>} />
         <Route path="about" element={<AuAboutPage locale="en" />} />
         <Route path="cakes" element={<LegacyCakeRedirect locale="en" />} />
         <Route path="bakes" element={<LegacyCakeRedirect locale="en" />} />
@@ -25,7 +26,7 @@ export default function AuAppRoutes() {
         <Route path="product/:slug" element={<LegacyProductRedirect locale="en" />} />
       </Route>
       <Route path="/ko" element={<AuLayout locale="ko" />}>
-        <Route index element={<AuHomePage locale="ko" />} />
+        <Route index element={<><AuHomeSeo locale="ko" /><AuHomePage locale="ko" /></>} />
         <Route path="about" element={<AuAboutPage locale="ko" />} />
         <Route path="cakes" element={<LegacyCakeRedirect locale="ko" />} />
         <Route path="bakes" element={<LegacyCakeRedirect locale="ko" />} />

@@ -1,22 +1,20 @@
-import { AU_BOOKING_PRODUCT_LINKS, AU_LINKS } from './auLinks.js'
+import { AU_LINKS } from './auLinks.js'
 import { localePath } from '../utils/auPaths.js'
 
-export const AU_SECTION_IDS = Object.freeze([
-  'whole-cakes',
-  'daily',
-  'something-fresh',
-  'chocolate',
-  'tea',
-  'goods',
-])
+// The root site is a brand gateway, not a second checkout.
+// Public snapshot from au-cake RENEWAL_CARDS at 2035195 (2026-10-17).
+// The AU reservation site remains authoritative for live price and availability.
+const AU_ORIGIN = AU_LINKS.booking.home
+const AU_IMAGE = AU_ORIGIN + '/products/'
+
+export const AU_SECTION_IDS = Object.freeze(['cakes', 'chocolates', 'celebrate'])
 
 export const AU_NAVIGATION = Object.freeze([
-  { id: 'whole-cakes', label: 'Whole Cakes', sectionId: 'whole-cakes' },
-  { id: 'daily', label: 'Daily', sectionId: 'daily' },
-  { id: 'something-fresh', label: 'Something Fresh', sectionId: 'something-fresh' },
-  { id: 'chocolate', label: 'Chocolate' },
-  { id: 'tea', label: 'Cacao Tea' },
-  { id: 'goods', label: 'Goods' },
+  { id: 'cakes', label: 'Cake & Bake', href: AU_LINKS.booking.cakes },
+  { id: 'chocolates', label: 'Chocolate', href: AU_LINKS.booking.chocolates },
+  { id: 'celebrate', label: 'Celebrate', href: AU_LINKS.booking.celebrate },
+  { id: 'custom-cakes', label: 'Custom Cake', href: AU_LINKS.booking.customCakes },
+  { id: 'business', label: 'Business', href: AU_LINKS.booking.business },
 ])
 
 export const AU_FOOTER_NAVIGATION = Object.freeze([
@@ -25,156 +23,180 @@ export const AU_FOOTER_NAVIGATION = Object.freeze([
 ])
 
 export function homeSectionHref(id, locale = 'en') {
-  const basePath = localePath('/', locale)
-  return AU_SECTION_IDS.includes(id) ? `${basePath}#${id}` : basePath
+  return AU_SECTION_IDS.includes(id) ? localePath('/', locale) + '#' + id : localePath('/', locale)
 }
 
 const bookingProducts = Object.freeze({
-  'pave-chocolate-cake': {
-    href: AU_BOOKING_PRODUCT_LINKS.paveChocolateCake,
-    image: '/assets/au/whole-cakes/pave-chocolate-cake.webp',
-    alt: { en: 'Pave Chocolate Cake.', ko: '파베 초콜릿 케이크.' },
-    copy: {
-      en: { name: 'Pave Chocolate Cake', description: 'A chocolate celebration cake.' },
-      ko: { name: '파베 초콜릿 케이크', description: '초콜릿으로 만든 기념일 케이크.' },
-    },
+  pave: {
+    href: AU_LINKS.booking.cakes + '/pave-chocolate-cake',
+    image: AU_IMAGE + 'pave-chocolate-cake-sydney.webp',
+    en: 'Pavé Whole Cake', ko: '파베 홀케이크',
+    descriptionEn: 'Chocolate-forward whole cake for celebrations.',
+    descriptionKo: '기념일을 위한 진한 초콜릿 홀케이크.',
   },
-  'vanilla-fresh-cream-cake': {
-    href: AU_BOOKING_PRODUCT_LINKS.vanillaFreshCreamCake,
-    image: '/assets/au/whole-cakes/vanilla-fresh-cream-cake.webp',
-    alt: { en: 'Vanilla Fresh Cream Cake.', ko: '바닐라 생크림 케이크.' },
-    copy: {
-      en: { name: 'Vanilla Fresh Cream Cake', description: 'Fresh cream and chocolate cake.' },
-      ko: { name: '바닐라 생크림 케이크', description: '생크림과 초콜릿 케이크.' },
-    },
+  'gateau-loaf': {
+    href: AU_LINKS.booking.cakes + '/signature-gateau-au-chocolat',
+    image: AU_IMAGE + 'signature-gateau-au-chocolat-sydney.webp',
+    en: 'Signature Gâteau Loaf', ko: '시그니처 갸또 로프 파운드',
+    descriptionEn: 'Rich Gâteau au Chocolat, with a choice of finishes.',
+    descriptionKo: '마무리를 선택하는 시그니처 갸또 쇼콜라.',
   },
-  'buttercream-cake': {
-    href: AU_BOOKING_PRODUCT_LINKS.buttercreamCake,
-    image: '/assets/au/whole-cakes/buttercream-cake.webp',
-    alt: { en: 'Buttercream Cake.', ko: '버터크림 케이크.' },
-    copy: {
-      en: { name: 'Buttercream Cake', description: 'Buttercream-finished chocolate cake.' },
-      ko: { name: '버터크림 케이크', description: '버터크림으로 마무리한 초콜릿 케이크.' },
-    },
+  'brownie-whole': {
+    href: AU_LINKS.booking.cakes + '/brownie-cheesecake?form=whole',
+    image: AU_IMAGE + 'details/brownie-cheesecake/hero-1080.webp',
+    en: 'Brownie Basque Whole Cake', ko: '브라우니 바스크 홀케이크',
+    descriptionEn: 'Brownie and Basque cheesecake in one whole cake.',
+    descriptionKo: '브라우니와 바스크 치즈케이크가 만난 홀케이크.',
   },
-  'signature-gateau-au-chocolat': {
-    href: AU_BOOKING_PRODUCT_LINKS.signatureGateauAuChocolat,
-    image: '/assets/au/daily/signature-gateau-au-chocolat.webp',
-    alt: { en: 'Signature Gâteau au Chocolat.', ko: '시그니처 갸또 오 쇼콜라.' },
-    copy: {
-      en: { name: 'Signature Gâteau au Chocolat', description: 'Pound Cake' },
-      ko: { name: '시그니처 갸또 오 쇼콜라', description: '파운드 케이크' },
-    },
+  'brownie-loaf': {
+    href: AU_LINKS.booking.cakes + '/brownie-cheesecake?form=loaf',
+    image: AU_IMAGE + 'renewal-photos/cheese-pound-hero.webp',
+    en: 'Brownie Basque Loaf', ko: '브라우니 바스크 로프 파운드',
+    descriptionEn: 'A rich brownie Basque cake in a loaf format.',
+    descriptionKo: '로프 형태로 즐기는 브라우니 바스크 케이크.',
   },
-  'chocolate-cupcakes': {
-    href: AU_BOOKING_PRODUCT_LINKS.chocolateCupcakes,
-    image: '/assets/au/daily/chocolate-cupcakes.webp',
-    alt: { en: 'Chocolate Cupcakes.', ko: '초콜릿 컵케이크.' },
-    copy: {
-      en: { name: 'Chocolate Cupcakes', description: 'A chocolate cake collection for sharing.' },
-      ko: { name: '초콜릿 컵케이크', description: '함께 나누기 좋은 초콜릿 케이크 컬렉션.' },
-    },
+  cookies: {
+    href: AU_LINKS.booking.cakes + '/levain-cookies',
+    image: AU_IMAGE + 'renewal-photos/cookies-hero_v2.webp',
+    en: 'Levain Cookies · Six', ko: '르뱅쿠키 6개 세트',
+    descriptionEn: 'Three chocolate chip and three double chocolate.',
+    descriptionKo: '초코칩 3개와 더블초콜릿 3개로 구성.',
+    comingSoon: true,
   },
-  'lemon-cake': {
-    href: AU_BOOKING_PRODUCT_LINKS.lemonCake,
-    image: '/assets/au/something-fresh/lemon-cake.webp',
-    alt: { en: 'Lemon Cake.', ko: '레몬 케이크.' },
-    copy: {
-      en: { name: 'Lemon Cake', description: 'A bright lemon cake.' },
-      ko: { name: '레몬 케이크', description: '산뜻한 레몬 케이크.' },
-    },
+  mochi: {
+    href: AU_LINKS.booking.chocolates + '/chocolate-mochi',
+    image: AU_IMAGE + 'renewal-photos/mochi-hero-v2.webp',
+    en: 'Pavé Mochi', ko: '파베 모찌',
+    descriptionEn: 'Six flavours of chocolate mochi. Mix your own four-piece gift box.',
+    descriptionKo: '생초콜릿 모찌 6종. 원하는 맛으로 4구 선물박스를 구성하세요.',
   },
-  'brownie-cheesecake': {
-    href: AU_BOOKING_PRODUCT_LINKS.brownieCheesecake,
-    image: '/assets/au/something-fresh/brownie-cheesecake.webp',
-    alt: { en: 'Brownie Cheesecake.', ko: '브라우니 치즈케이크.' },
-    copy: {
-      en: { name: 'Brownie Cheesecake', description: 'Brownie cheesecake.' },
-      ko: { name: '브라우니 치즈케이크', description: '브라우니 치즈케이크.' },
-    },
+  almond: {
+    href: AU_LINKS.booking.chocolates + '/almond-chocoball',
+    image: AU_IMAGE + 'chocolates/almond-chocoball.webp',
+    en: 'Almond Chocolate', ko: '아몬드초콜릿',
+    descriptionEn: 'Chocolate-covered almonds and sharing bundles.',
+    descriptionKo: '고소한 아몬드 초콜릿과 선물 구성.',
+  },
+  'pave-chocolate': {
+    href: AU_LINKS.booking.chocolates + '/pave-chocolate',
+    image: AU_IMAGE + 'renewal-photos/pave-heart-cutout.webp',
+    en: 'Pavé Chocolate · Heart Tin 100g', ko: '파베초콜릿 · 하트 통 100g',
+    descriptionEn: 'Soft Pavé Chocolate in a heart-shaped gift tin.',
+    descriptionKo: '하트 모양 통에 담은 부드러운 파베초콜릿.',
+  },
+  eiffel: {
+    href: AU_LINKS.booking.chocolates + '/eiffel-tower-chocolate',
+    image: AU_IMAGE + 'chocolates/eiffel-tower-chocolate.webp',
+    en: 'Eiffel Tower Chocolate', ko: '에펠탑초콜릿',
+    descriptionEn: 'Chocolate Eiffel Tower pieces, ready for gifting.',
+    descriptionKo: '선물하기 좋은 에펠탑 모양 초콜릿.',
+  },
+  'gateau-cupcakes': {
+    href: AU_LINKS.booking.cakes + '/chocolate-cupcakes',
+    image: AU_IMAGE + 'details/cupcakes/packaging-480.webp',
+    en: 'Gâteau Cupcakes', ko: '갸또쇼콜라컵케이크',
+    descriptionEn: 'Cupcakes in six- and twelve-piece boxes.',
+    descriptionKo: '6구·12구로 선택하는 갸또 쇼콜라 컵케이크.',
+  },
+  'brownie-cupcakes': {
+    href: AU_LINKS.booking.cakes + '/brownie-cupcakes',
+    image: AU_IMAGE + 'renewal-photos/cheese-cupcake-hero.webp',
+    en: 'Brownie Basque Cupcakes', ko: '브라우니 바스크 컵케이크',
+    descriptionEn: 'Rich brownie Basque cupcakes for sharing.',
+    descriptionKo: '함께 나누기 좋은 브라우니 바스크 컵케이크.',
+    comingSoon: true,
+  },
+  smore: {
+    href: AU_LINKS.booking.cakes + '/smore-stick',
+    image: AU_IMAGE + 'details/smore/packaging-480.webp',
+    en: 'S’more Sticks', ko: '스모어스틱',
+    descriptionEn: 'Chocolate-coated s’more sticks for gatherings.',
+    descriptionKo: '모임과 선물에 어울리는 초콜릿 스모어스틱.',
   },
 })
 
 export const AU_HOME_BOOKING_CATEGORIES = Object.freeze([
   {
-    id: 'whole-cakes',
-    tone: 'pink',
-    productIds: ['pave-chocolate-cake', 'vanilla-fresh-cream-cake', 'buttercream-cake'],
+    id: 'cakes', tone: 'pink',
+    productIds: ['pave', 'gateau-loaf', 'brownie-whole', 'brownie-loaf', 'cookies'],
     copy: {
-      en: {
-        kicker: 'SIGNATURE GÂTEAU AU CHOCOLAT',
-        heading: 'Whole Cakes',
-        body: 'Three signature cakes for your celebration.',
-      },
-      ko: {
-        kicker: 'SIGNATURE GÂTEAU AU CHOCOLAT',
-        heading: '홀 케이크',
-        body: '기념일을 위한 세 가지 시그니처 케이크.',
-      },
+      en: { kicker: 'CAKE & BAKE · SYDNEY', heading: 'Cake & Bake', body: 'Made-to-order whole cakes, Gâteau and Brownie Basque, with Levain Cookies coming soon.' },
+      ko: { kicker: 'CAKE & BAKE · SYDNEY', heading: '케이크 & 베이크', body: '홀케이크와 갸또, 브라우니 바스크를 만나보세요. 르뱅쿠키는 준비 중입니다.' },
     },
   },
   {
-    id: 'daily',
-    tone: 'daily',
-    productIds: ['signature-gateau-au-chocolat', 'chocolate-cupcakes'],
+    id: 'chocolates', tone: 'daily',
+    productIds: ['mochi', 'almond', 'pave-chocolate', 'eiffel'],
     copy: {
-      en: {
-        kicker: 'SIGNATURE GÂTEAU AU CHOCOLAT',
-        heading: 'Daily',
-        body: 'Everyday chocolate cakes, ready to choose on the Sydney cake site.',
-      },
-      ko: {
-        kicker: 'SIGNATURE GÂTEAU AU CHOCOLAT',
-        heading: '데일리',
-        body: '시드니 케이크 사이트에서 선택할 수 있는 데일리 초콜릿 케이크.',
-      },
+      en: { kicker: 'CHOCOLATE · SYDNEY', heading: 'Chocolate', body: 'Pavé Mochi, Almond Chocolate, Pavé Chocolate and Eiffel Tower chocolate gifts.' },
+      ko: { kicker: 'CHOCOLATE · SYDNEY', heading: '초콜릿', body: '파베 모찌, 아몬드초콜릿, 파베초콜릿, 에펠탑초콜릿을 만나보세요.' },
     },
   },
   {
-    id: 'something-fresh',
-    tone: 'fresh',
-    productIds: ['lemon-cake', 'brownie-cheesecake'],
+    id: 'celebrate', tone: 'fresh',
+    productIds: ['gateau-cupcakes', 'brownie-cupcakes', 'smore'],
     copy: {
-      en: {
-        kicker: 'STH FRESH',
-        heading: 'Something Fresh',
-        body: 'A lemon cake and brownie cheesecake for the table.',
-      },
-      ko: {
-        kicker: 'STH FRESH',
-        heading: '썸띵 프레시',
-        body: '테이블을 위한 레몬 케이크와 브라우니 치즈케이크.',
-      },
+      en: { kicker: 'CELEBRATE · SYDNEY', heading: 'Celebrate', body: 'Cupcakes and s’more sticks for gatherings; Brownie Basque Cupcakes are coming soon.' },
+      ko: { kicker: 'CELEBRATE · SYDNEY', heading: '셀러브레이트', body: '축하의 순간을 위한 컵케이크와 스모어스틱. 브라우니 바스크 컵케이크는 준비 중입니다.' },
     },
   },
 ])
 
 function bookingCard(productId, locale) {
   const product = bookingProducts[productId]
-  const language = locale === 'ko' ? 'ko' : 'en'
-
+  const korean = locale === 'ko'
   return {
     id: productId,
     href: product.href,
-    ctaLabel: language === 'ko' ? '예약 보기' : 'View & Book',
-    ...product.copy[language],
+    ctaLabel: product.comingSoon
+      ? (korean ? '상품 정보 보기' : 'View details')
+      : (korean ? '상품 보기 & 예약' : 'View & Book'),
+    statusLabel: product.comingSoon
+      ? (korean ? '예약 준비 중' : 'Reservations coming soon')
+      : null,
+    name: korean ? product.ko : product.en,
+    description: korean ? product.descriptionKo : product.descriptionEn,
+    comingSoon: Boolean(product.comingSoon),
     image: {
       src: product.image,
-      alt: product.alt[language],
-      placeholderLabel: language === 'ko' ? '이미지 준비 중' : 'Image coming soon',
+      alt: korean ? product.ko : product.en,
+      placeholderLabel: korean ? '사진 준비 중' : 'Photo coming soon',
     },
   }
 }
 
 function bookingExperiences(locale) {
-  const language = locale === 'ko' ? 'ko' : 'en'
-
-  return AU_HOME_BOOKING_CATEGORIES.map((category) => ({
+  return AU_HOME_BOOKING_CATEGORIES.map(category => ({
     id: category.id,
     tone: category.tone,
-    href: AU_LINKS.booking.cakes,
-    ...category.copy[language],
-    products: category.productIds.map((productId) => bookingCard(productId, language)),
+    href: AU_LINKS.booking[category.id],
+    ...category.copy[locale === 'ko' ? 'ko' : 'en'],
+    products: category.productIds.map(id => bookingCard(id, locale)),
+  }))
+}
+
+function homeCategories(locale) {
+  const korean = locale === 'ko'
+  const presentation = [
+    { id: 'cakes', image: bookingProducts.pave.image,
+      eyebrow: 'CAKE & BAKE', labelEn: 'Cake & Bake', labelKo: '케이크 & 베이크',
+      descriptionEn: 'Cakes and bakes made to order in Sydney.', descriptionKo: '시드니에서 주문 제작하는 케이크와 베이크.' },
+    { id: 'chocolates', image: bookingProducts.mochi.image,
+      eyebrow: 'CHOCOLATE', labelEn: 'Chocolate', labelKo: '초콜릿',
+      descriptionEn: 'Pavé Mochi and chocolate gifts.', descriptionKo: '파베 모찌와 다양한 초콜릿 선물.' },
+    { id: 'celebrate', image: bookingProducts['gateau-cupcakes'].image,
+      eyebrow: 'CELEBRATE', labelEn: 'Celebrate', labelKo: '셀러브레이트',
+      descriptionEn: 'Cupcakes and treats for sharing.', descriptionKo: '함께 나누기 좋은 컵케이크와 디저트.' },
+  ]
+  return presentation.map(item => ({
+    id: item.id,
+    href: AU_LINKS.booking[item.id],
+    eyebrow: item.eyebrow,
+    label: korean ? item.labelKo : item.labelEn,
+    description: korean ? item.descriptionKo : item.descriptionEn,
+    cta: korean ? '시드니에서 주문하기' : 'Shop Sydney',
+    image: item.image,
+    imageAlt: korean ? item.labelKo : item.labelEn,
   }))
 }
 
@@ -183,122 +205,63 @@ function homeContent(locale) {
   const language = isKorean ? 'ko' : 'en'
 
   return {
+    seo: isKorean
+      ? {
+          title: '베리굿 초콜릿 | 시드니 케이크·파베 모찌 온라인 주문',
+          description: '대구에서 시작한 베리굿. 시드니의 파베 모찌, 초콜릿과 주문 제작 케이크를 만나보세요. 멜로즈 파크 사전 예약 픽업.',
+        }
+      : {
+          title: 'Verygood Chocolate | Shop Sydney Cakes, Pavé Mochi & Chocolate',
+          description: 'Born in Daegu, growing in Sydney. Shop made-to-order cakes, Pavé Mochi and chocolate gifts for pre-arranged Melrose Park pickup.',
+        },
     locale: isKorean ? 'ko-KR' : 'en-AU',
     ui: isKorean
       ? {
           announcementLabel: '베리굿 알림',
-          experienceLabel: '시드니 케이크',
+          experienceLabel: '시드니 메뉴',
           worldKicker: '베리굿의 세계',
           worldHeading: '컬렉션을 만나보세요.',
           storyKicker: '우리의 이야기',
           reviewsKicker: '후기',
-          bookLabel: '케이크 예약',
+          bookLabel: '시드니 온라인 주문',
           skipLabel: '본문으로 건너뛰기',
         }
       : {
           announcementLabel: 'Verygood announcements',
-          experienceLabel: 'Sydney cakes',
+          experienceLabel: 'Sydney menu',
           worldKicker: 'THE VERYGOOD WORLD',
           worldHeading: 'Explore the collections.',
           storyKicker: 'Our story',
           reviewsKicker: 'Reviews',
-          bookLabel: 'Book a Cake',
+          bookLabel: 'Shop Sydney',
           skipLabel: 'Skip to content',
         },
     announcement: isKorean
-      ? ['대구에서 시작한 베리굿', '시드니에서 자라는 중', '시드니 케이크 사전 예약', '멜로즈 파크 픽업']
-      : ['Born in Daegu', 'Growing in Sydney', 'Sydney cake pre-order', 'Melrose Park pickup'],
+      ? ['대구에서 시작한 베리굿', '시드니 온라인 예약 오픈', '파베 모찌 예약 진행 중', '멜로즈 파크 픽업']
+      : ['Born in Daegu', 'Growing in Sydney', 'Shop Sydney online', 'Pavé Mochi pre-orders open'],
     hero: isKorean
       ? {
           kicker: '대구에서 시작해, 시드니로',
           heading: '초콜릿이 생각날 땐, 베리굿.',
-          body: '홀 케이크, 데일리 갸또 쇼콜라, 썸띵 프레시와 베리굿의 초콜릿·카카오 티·굿즈를 소개합니다.',
-          exploreLabel: '제품 둘러보기',
-          bookLabel: '케이크 예약',
+          body: '시드니의 케이크 & 베이크, 파베 모찌와 초콜릿, 기념일 디저트를 만나보세요. 한국 베리굿의 이야기도 이어집니다.',
+          exploreLabel: '새 메뉴 보기',
+          bookLabel: '시드니 온라인 주문',
+          bookHref: AU_LINKS.booking.home,
           image: '/assets/main.png',
           imageAlt: '따뜻한 빛 아래 놓인 베리굿 초콜릿 패키지.',
         }
       : {
           kicker: 'BORN IN DAEGU · GROWING IN SYDNEY',
           heading: 'Chocolate makes every day verygood.',
-          body: 'Whole cakes, daily Gâteau au Chocolat, Something Fresh, chocolate, cacao tea and goods from Verygood.',
-          exploreLabel: 'Explore products',
-          bookLabel: 'Book a Cake',
+          body: 'Made-to-order cakes, Pavé Mochi and chocolate gifts in Sydney. Discover the latest collection and our story from Daegu.',
+          exploreLabel: 'Explore current menu',
+          bookLabel: 'SHOP SYDNEY · ORDER ONLINE',
+          bookHref: AU_LINKS.booking.home,
           image: '/assets/main.png',
           imageAlt: 'Verygood chocolate packages arranged in warm light.',
         },
     coreExperiences: bookingExperiences(language),
-    categories: isKorean
-      ? [
-          {
-            id: 'chocolate',
-            href: '/chocolate',
-            eyebrow: 'CHOCOLATE',
-            label: '베리굿 초콜릿',
-            description: '선물과 나눔, 일상의 작은 즐거움을 위한 초콜릿 컬렉션입니다.',
-            cta: '초콜릿 둘러보기',
-            visual: 'image',
-            image: '/assets/au/chocolate/strawberry-bonbon/straw.png',
-            imageAlt: '스트로베리 봉봉과 패키지.',
-          },
-          {
-            id: 'tea',
-            href: '/tea',
-            eyebrow: 'CACAO TEA',
-            label: '카카오 티',
-            description: '티, 향, 카카오를 중심으로 완성한 네 가지 시그니처 블렌드입니다.',
-            cta: '카카오 티 둘러보기',
-            visual: 'image',
-            image: '/assets/au/tea/british-black/british.png',
-            imageAlt: '브리티시 블랙 티 패키지.',
-          },
-          {
-            id: 'goods',
-            href: '/goods',
-            eyebrow: 'GOODS',
-            label: '굿즈',
-            description: '일상에 함께하는 베리굿의 작은 오브제와 동반자입니다.',
-            cta: '굿즈 둘러보기',
-            visual: 'image',
-            image: '/assets/au/goods/hogeori-keyring.png',
-            imageAlt: '호걸이 캐릭터 키링.',
-          },
-        ]
-      : [
-          {
-            id: 'chocolate',
-            href: '/chocolate',
-            eyebrow: 'CHOCOLATE',
-            label: 'Verygood Chocolate',
-            description: 'A small collection of chocolate made for gifting, sharing and everyday treats.',
-            cta: 'Explore Chocolate',
-            visual: 'image',
-            image: '/assets/au/chocolate/strawberry-bonbon/straw.png',
-            imageAlt: 'Strawberry Bonbon packaging with strawberry bonbons.',
-          },
-          {
-            id: 'tea',
-            href: '/tea',
-            eyebrow: 'CACAO TEA',
-            label: 'Cacao Tea',
-            description: 'Four signature blends built around tea, aroma and cacao.',
-            cta: 'Explore Cacao Tea',
-            visual: 'image',
-            image: '/assets/au/tea/british-black/british.png',
-            imageAlt: 'British Black tea packaging.',
-          },
-          {
-            id: 'goods',
-            href: '/goods',
-            eyebrow: 'GOODS',
-            label: 'Goods',
-            description: 'Verygood objects and small companions for everyday life.',
-            cta: 'Explore Goods',
-            visual: 'image',
-            image: '/assets/au/goods/hogeori-keyring.png',
-            imageAlt: 'Hogeori character keyring.',
-          },
-        ],
+    categories: homeCategories(language),
     story: isKorean
       ? {
           heading: '대구에서 시작해, 시드니로.',
@@ -312,9 +275,9 @@ function homeContent(locale) {
           },
           sydney: {
             title: '시드니',
-            body: '주문 제작 케이크를 멜로즈 파크 사전 약속 픽업으로 준비합니다.',
-            primaryLabel: '케이크 예약',
-            primaryHref: AU_LINKS.booking.cakes,
+            body: '케이크와 초콜릿·파베 모찌를 멜로즈 파크 사전 약속 픽업으로 준비합니다.',
+            primaryLabel: '시드니 온라인 주문',
+            primaryHref: AU_LINKS.booking.home,
           },
         }
       : {
@@ -329,9 +292,9 @@ function homeContent(locale) {
           },
           sydney: {
             title: 'Sydney',
-            body: 'Made-to-order cakes with pre-arranged Melrose Park pickup for celebrations and daily bakes.',
-            primaryLabel: 'Book a Cake',
-            primaryHref: AU_LINKS.booking.cakes,
+            body: 'Made-to-order cakes and chocolates including Pavé Mochi for pre-arranged Melrose Park pickup.',
+            primaryLabel: 'Shop Sydney',
+            primaryHref: AU_LINKS.booking.home,
           },
         },
     reviews: isKorean
@@ -353,7 +316,7 @@ function homeContent(locale) {
           items: [
             {
               title: '시드니',
-              body: '주문 제작 케이크를 멜로즈 파크 사전 약속 픽업으로 준비합니다. 워크인 매장은 없습니다.',
+              body: '시드니 케이크와 초콜릿·파베 모찌는 멜로즈 파크 사전 약속 픽업으로 준비합니다. 워크인 매장은 없습니다.',
               label: '예약 조회',
               href: AU_LINKS.booking.lookup,
             },
@@ -370,7 +333,7 @@ function homeContent(locale) {
           items: [
             {
               title: 'Sydney',
-              body: 'Made-to-order cakes with pre-arranged pickup in Melrose Park. No walk-in shop.',
+              body: 'Made-to-order cakes, Pavé Mochi and chocolates for pre-arranged pickup in Melrose Park. No walk-in shop.',
               label: 'Find my booking',
               href: AU_LINKS.booking.lookup,
             },

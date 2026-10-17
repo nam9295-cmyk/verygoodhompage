@@ -11,11 +11,18 @@ async function renderRoute(pathname) {
     server: { middlewareMode: true, ws: false },
   })
   const { default: AuAppRoutes } = await server.ssrLoadModule('/src/AuAppRoutes.jsx')
-  const html = renderToStaticMarkup(
-    createElement(MemoryRouter, { initialEntries: [pathname] }, createElement(AuAppRoutes)),
-  )
-  await server.close()
-  return html
+  const { HelmetProvider } = await server.ssrLoadModule('react-helmet-async')
+  try {
+    return renderToStaticMarkup(
+      createElement(
+        HelmetProvider,
+        { context: {} },
+        createElement(MemoryRouter, { initialEntries: [pathname] }, createElement(AuAppRoutes)),
+      ),
+    )
+  } finally {
+    await server.close()
+  }
 }
 
 test('root serves the English AU home and /ko serves its Korean translation', async () => {

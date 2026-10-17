@@ -2,6 +2,11 @@ const AU_ORIGIN = 'https://au.verygood-chocolate.com'
 
 export const AU_LINKS = Object.freeze({
   booking: Object.freeze({
+    home: AU_ORIGIN,
+    chocolates: AU_ORIGIN + '/chocolates',
+    celebrate: AU_ORIGIN + '/celebrate',
+    customCakes: AU_ORIGIN + '/custom-cakes',
+    business: AU_ORIGIN + '/business',
     cakes: `${AU_ORIGIN}/cakes`,
     classes: `${AU_ORIGIN}/classes`,
     reviews: `${AU_ORIGIN}/reviews`,

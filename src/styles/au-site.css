@@ -637,6 +637,17 @@ body {
   line-height: 1.45;
 }
 
+.au-booking-product-card__status {
+  display: inline-block;
+  width: fit-content;
+  color: var(--au-forest);
+  border: 1px solid currentColor;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 .au-booking-product-card__cta {
   display: inline-flex;
   align-items: center;
@@ -887,6 +898,9 @@ body {
   background: var(--au-surface-soft);
 }
 
+.au-home-collection-card__image--cakes { background: #eadfd8; }
+.au-home-collection-card__image--chocolates { background: #cfb59e; }
+.au-home-collection-card__image--celebrate { background: #dce8df; }
 .au-home-collection-card__image--chocolate { background: #cfb59e; }
 .au-home-collection-card__image--tea { background: var(--au-mint); }
 .au-home-collection-card__image--goods { background: var(--au-goods-blue); }
@@ -932,6 +946,41 @@ body {
   color: var(--au-muted);
   font-size: 14px;
   line-height: 1.5;
+}
+
+.au-home-service-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 2.5vw, 32px);
+  margin-top: clamp(32px, 5vw, 60px);
+}
+
+.au-home-service-links a {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+  padding: 20px 24px;
+  border: 1px solid color-mix(in srgb, var(--au-forest) 22%, transparent);
+  color: var(--au-forest);
+  background: var(--au-surface-soft);
+}
+
+.au-home-service-links a span {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.au-home-service-links a strong { font-size: clamp(17px, 2vw, 23px); }
+
+.au-home-service-links a > span:last-child { margin-left: auto; }
+
+.au-home-service-links a:hover,
+.au-home-service-links a:focus-visible { border-color: currentColor; }
+
+@media (max-width: 767px) {
+  .au-home-service-links { grid-template-columns: minmax(0, 1fr); }
 }
 
 .au-home-collection-card__cta {

@@ -4,6 +4,11 @@ import { AU_LINKS, isAllowedAuExternalUrl } from '../src/config/auLinks.js'
 
 test('uses the approved AU booking and regional destinations', () => {
   assert.deepEqual(AU_LINKS.booking, {
+    home: 'https://au.verygood-chocolate.com',
+    chocolates: 'https://au.verygood-chocolate.com/chocolates',
+    celebrate: 'https://au.verygood-chocolate.com/celebrate',
+    customCakes: 'https://au.verygood-chocolate.com/custom-cakes',
+    business: 'https://au.verygood-chocolate.com/business',
     cakes: 'https://au.verygood-chocolate.com/cakes',
     classes: 'https://au.verygood-chocolate.com/classes',
     reviews: 'https://au.verygood-chocolate.com/reviews',
