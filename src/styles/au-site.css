@@ -1728,7 +1728,7 @@ body {
   .au-hero--mochi h1.au-mochi-title {
     position: absolute;
     z-index: 1;
-    top: clamp(24px, 6vw, 44px);
+    top: clamp(42px, 10vw, 72px);
     left: var(--au-gutter);
     right: var(--au-gutter);
     margin: 0;
@@ -1736,7 +1736,7 @@ body {
     max-width: calc(100% - 2 * var(--au-gutter));
   }
   .au-mochi-title__intro { font-size: clamp(25px, 7vw, 32px); }
-  .au-mochi-title__main { font-size: clamp(41px, 11vw, 55px); line-height: 0.94; }
+  .au-mochi-title__main { font-size: clamp(48px, 13vw, 64px); line-height: 0.9; letter-spacing: -0.08em; }
   .au-mochi-details { margin: 0; padding: 27px var(--au-gutter) 36px; background: #fffaf1; }
   .au-mochi-release { font-size: clamp(27px, 7.1vw, 34px); white-space: normal; }
   .au-mochi-release__date { display: block; }
