@@ -1,10 +1,10 @@
 import { Link, useParams } from 'react-router-dom'
 import { AU_CATEGORY_CONTENT } from '../../data/auCatalog.js'
 import { getPublicAuProduct, getRelatedPublicAuProducts } from '../../utils/auCatalog.js'
-import { categoryPath, localePath, productPath } from '../../utils/auPaths.js'
+import { categoryPath, localePath } from '../../utils/auPaths.js'
 import AvailabilityBadge from '../../components/au/AvailabilityBadge.jsx'
 import AuProductCard from '../../components/au/AuProductCard.jsx'
-import AuSeo from '../../components/au/AuSeo.jsx'
+import AuArchiveNotice from '../../components/au/AuArchiveNotice.jsx'
 
 const labels = {
   en: {
@@ -123,7 +123,7 @@ export default function AuProductPage({ category, locale = 'en' }) {
 
   return (
     <>
-      <AuSeo locale={language} path={productPath(category, slug, language)} title={`${copy.name} | Verygood Chocolate`} description={copy.shortDescription} />
+      <AuArchiveNotice locale={language} />
       <section className="au-product-detail">
         <div className="au-shell">
           <nav className="au-breadcrumb" aria-label={language === 'ko' ? '이동 경로' : 'Breadcrumb'}>

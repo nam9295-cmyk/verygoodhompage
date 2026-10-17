@@ -1,5 +1,6 @@
 import { AU_LINKS, AU_BOOKING_PRODUCT_LINKS } from './auLinks.js'
 import { localePath } from '../utils/auPaths.js'
+import { BRAND_SITE } from './brandSite.js'
 
 // The root site is a brand gateway, not a second checkout.
 // Public snapshot from au-cake RENEWAL_CARDS at 2035195 (2026-10-17).
@@ -205,16 +206,8 @@ function homeContent(locale) {
   const language = isKorean ? 'ko' : 'en'
 
   return {
-    seo: isKorean
-      ? {
-          title: '베리굿 초콜릿 | 시드니 케이크·파베 모찌 온라인 주문',
-          description: '대구에서 시작한 베리굿. 시드니의 파베 모찌, 초콜릿과 주문 제작 케이크를 만나보세요. 멜로즈 파크 사전 예약 픽업.',
-        }
-      : {
-          title: 'Verygood Chocolate | Shop Sydney Cakes, Pavé Mochi & Chocolate',
-          description: 'Born in Daegu, growing in Sydney. Shop made-to-order cakes, Pavé Mochi and chocolate gifts for pre-arranged Melrose Park pickup.',
-        },
-    locale: isKorean ? 'ko-KR' : 'en-AU',
+    seo: BRAND_SITE.seo[language],
+    locale: language,
     ui: isKorean
       ? {
           announcementLabel: '베리굿 알림',
@@ -242,12 +235,11 @@ function homeContent(locale) {
     hero: {
       titlePrefix: 'CHOCOLATIER’S',
       heading: 'CHOCOLATE MOCHI',
-      preorderLabel: 'PRE-ORDERS OPEN 17th OCT',
-      preorderLead: 'PRE-ORDERS OPEN',
-      preorderDate: '17th OCT',
-      pickupLabel: 'Pick up',
-      pickupHours: ['WED - FRI 09:00 - 16:00', 'SAT - SUN 09:00 - 12:00'],
-      finePrint: 'LIMITED QUANTITY · MADE TO ORDER · UBER PICKUP AVAILABLE',
+      campaignLabel: isKorean ? '시드니에서 만나는 파베 모찌' : 'Discover Pavé Mochi in Sydney',
+      bookingNote: isKorean
+        ? '맛과 가격, 예약 가능 날짜와 픽업 안내는 시드니 공식 온라인 주문 사이트에서 확인해 주세요.'
+        : 'Find current flavours, prices, booking dates and pickup details on our official Sydney shop.',
+      finePrint: isKorean ? '베리굿 시드니 컬렉션' : 'PART OF THE VERYGOOD SYDNEY COLLECTION',
       exploreLabel: isKorean ? '전체 메뉴 보기' : 'Explore current menu',
       bookLabel: isKorean ? '파베 모찌 예약하기' : 'Order Pavé Mochi',
       bookHref: AU_BOOKING_PRODUCT_LINKS.chocolateMochi,
@@ -306,36 +298,54 @@ function homeContent(locale) {
         },
     locations: isKorean
       ? {
-          heading: '두 도시, 하나의 베리굿',
+          heading: '두 도시, 하나의 베리굿 초콜릿',
+          intro: '브랜드 이야기를 만나고 각 지역의 공식 사이트를 찾아보세요. 현재 메뉴와 가격, 예약 안내는 각 지역 사이트에서 확인할 수 있습니다.',
           items: [
             {
-              title: '시드니',
-              body: '시드니 케이크와 초콜릿·파베 모찌는 멜로즈 파크 사전 약속 픽업으로 준비합니다. 워크인 매장은 없습니다.',
-              label: '예약 조회',
-              href: AU_LINKS.booking.lookup,
+              title: '시드니 · 호주',
+              body: '시드니 케이크·초콜릿·파베 모찌의 공식 온라인 주문 사이트입니다. 현재 가격, 예약과 멜로즈 파크 픽업 안내를 확인하세요.',
+              label: '시드니 공식 온라인 주문',
+              href: AU_LINKS.booking.home,
+              secondaryLabel: '예약 조회',
+              secondaryHref: AU_LINKS.booking.lookup,
             },
             {
               title: '한국',
               body: '대구의 베리굿 초콜릿 매장, 메뉴와 한국 소식.',
-              label: '한국 사이트 방문',
+              label: '한국 공식 사이트',
               href: AU_LINKS.korea,
+            },
+            {
+              title: '한국 케이크 예약',
+              body: '대구 매장에서 픽업하는 케이크 예약과 주문제작 상담의 공식 사이트입니다.',
+              label: '한국 케이크 예약',
+              href: AU_LINKS.koreaCakes,
             },
           ],
         }
       : {
-          heading: 'Two places, one Verygood world',
+          heading: 'Verygood Chocolate in Daegu and Sydney',
+          intro: 'Explore our story and find our official local websites. Each site provides its current menus, prices and booking information.',
           items: [
             {
-              title: 'Sydney',
-              body: 'Made-to-order cakes, Pavé Mochi and chocolates for pre-arranged pickup in Melrose Park. No walk-in shop.',
-              label: 'Find my booking',
-              href: AU_LINKS.booking.lookup,
+              title: 'Sydney · Australia',
+              body: 'Our official online shop for Sydney cakes, chocolates and Pavé Mochi. Find current AUD prices, reservations and Melrose Park pickup details.',
+              label: 'Official Sydney shop',
+              href: AU_LINKS.booking.home,
+              secondaryLabel: 'Find my booking',
+              secondaryHref: AU_LINKS.booking.lookup,
             },
             {
               title: 'Korea',
               body: 'Verygood Chocolate in Daegu, with store, menu and Korean updates.',
-              label: 'Visit Korean website',
+              label: 'Official Korea website',
               href: AU_LINKS.korea,
+            },
+            {
+              title: 'Korea cake reservations',
+              body: 'The official website for cake reservations and custom cake enquiries, with pickup at our Daegu store.',
+              label: 'Book a cake in Korea',
+              href: AU_LINKS.koreaCakes,
             },
           ],
         },

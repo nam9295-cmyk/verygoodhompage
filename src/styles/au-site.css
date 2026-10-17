@@ -486,30 +486,15 @@ body {
   font-size: clamp(27px, 2.55vw, 39px);
   letter-spacing: -0.018em;
   line-height: 1.1;
-  white-space: nowrap;
+  white-space: normal;
 }
 
-.au-mochi-release__date { white-space: nowrap; }
-
-.au-mochi-pickup {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-top: 23px;
-  font-size: clamp(16px, 1.55vw, 22px);
-  line-height: 1.3;
-}
-
-.au-mochi-pickup__label {
-  flex: none;
-  padding: 2px 9px;
-  color: #241d1d;
-  background: #fffaf1;
-}
-
-.au-mochi-pickup__hours span {
-  display: block;
-  white-space: nowrap;
+.au-mochi-booking-note {
+  max-width: 470px;
+  margin-top: 20px;
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.5;
+  word-break: keep-all;
 }
 
 .au-mochi-fineprint {
@@ -1270,7 +1255,7 @@ body {
 
 .au-locations__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -1281,12 +1266,11 @@ body {
   background: transparent;
 }
 
-.au-locations article:last-child {
-  padding-inline: clamp(26px, 4vw, 55px);
-  border-top-color: transparent;
-  background: #dbe5f0;
-}
 .au-locations p { max-width: 405px; margin: 16px 0 30px; color: var(--au-muted); font-size: 16px; }
+
+.au-archive-notice { padding-block: 24px; border-bottom: 1px solid var(--au-line); }
+.au-archive-notice p { max-width: 800px; }
+.au-archive-notice .au-inline-links { margin-top: 12px; }
 
 .au-footer {
   padding: clamp(64px, 7vw, 100px) 0 24px;
@@ -1739,9 +1723,7 @@ body {
   .au-mochi-title__main { font-size: clamp(48px, 13vw, 64px); line-height: 0.9; letter-spacing: -0.08em; }
   .au-mochi-details { margin: 0; padding: 27px var(--au-gutter) 36px; background: #fffaf1; }
   .au-mochi-release { font-size: clamp(27px, 7.1vw, 34px); white-space: normal; }
-  .au-mochi-release__date { display: block; }
-  .au-mochi-pickup { margin-top: 17px; gap: 12px; font-size: clamp(14px, 3.9vw, 18px); }
-  .au-mochi-pickup__label { color: #fffaf1; background: #241d1d; }
+  .au-mochi-booking-note { margin-top: 16px; font-size: 17px; }
   .au-mochi-fineprint { margin-top: 19px; padding-top: 13px; border-color: rgba(54, 47, 49, 0.32); font-size: clamp(12px, 3.1vw, 14px); }
   .au-hero--mochi .au-button-row { margin-top: 24px; }
   .au-hero--mochi .au-button:not(.au-button--outline) { color: #fffaf1; border-color: var(--au-forest); background: var(--au-forest); }

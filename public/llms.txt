@@ -1,56 +1,38 @@
-# Very Good Chocolate (베리굿초콜릿)
+# Verygood Chocolate | 베리굿 초콜릿
 
-> Premium handcrafted bean-to-bar chocolates from Daegu, Korea.
-> Founded by a Le Cordon Bleu Paris trained chocolatier.
-> Philosophy: "Less Sweet, More Deep" - focusing on cacao depth over sweetness.
+> The official Verygood Chocolate brand website. Born in Daegu, growing in Sydney.
 
-## About
-Very Good Chocolate is a premium artisan chocolate brand based in Daegu, South Korea. We specialize in bean-to-bar chocolates using Belgian couverture chocolate and HACCP-certified production facilities. Our founder trained at Le Cordon Bleu Paris and brings international expertise to traditional Korean aesthetics.
+Verygood Chocolate is a chocolatier-led brand with a Korean store and making base in Daegu, and a made-to-order collection in Sydney. This website introduces the brand and connects visitors to the appropriate official local website.
 
-## Products
-- **Almond Chocoball** (아몬드 초코볼) - ₩11,000: Savory almonds coated in premium dark chocolate
-- **Ruby Berry Chocoball** (루비 베리 초코볼) - ₩12,000: Natural ruby chocolate with berry notes
-- **Strawberry Bonbon** (딸기 봉봉) - ₩10,000: Freeze-dried strawberries with white chocolate
-- **Matcha Berry** (말차 베리) - ₩12,000: Premium matcha chocolate with berry center
-- **British Black** (브리티시 블랙) - ₩10,000: Deep and aromatic black tea blend
-- **Hibiscus Fruit** (히비스커스 후르츠) - ₩10,000: Refreshing detox tea
-- **Gift 2 Set** (선물 2구 세트) - ₩29,800: Curated set in signature triangular box
-- **Gift 4 Set** (선물 4구 세트) - ₩39,800: Ultimate collection, 4 varieties
+## Official websites and their roles
 
-## Key Features
-- Bean-to-bar production process
-- Belgian couverture chocolate
-- HACCP certified facility
-- Nationwide shipping (South Korea)
-- Eco-friendly recycled paper packaging
-- Bilingual support (Korean/English)
+- Brand home: https://verygood-chocolate.com/
+- Korean translation of this brand home: https://verygood-chocolate.com/ko
+- Brand story: https://verygood-chocolate.com/about
+- Korean brand story: https://verygood-chocolate.com/ko/about
+- Sydney online shop: https://au.verygood-chocolate.com
+  The authoritative source for current Australian products, AUD prices, availability, reservations and Melrose Park pickup arrangements. Products are made for pre-arranged pickup; there is no walk-in Sydney shop.
+- Korea website: https://kr.verygood-chocolate.com
+  The official source for the Daegu store, Korean menus and local news.
+- Korea cake reservations: https://cake.verygood-chocolate.com
+  The official source for cake reservations and custom cake enquiries for pickup at the Daegu store in South Korea.
 
-## Technical
-- Built with React + Vite
-- Single Page Application (SPA)
-- Firebase backend integration
-- SEO optimized with react-helmet-async
+## Sydney collection
 
-## Contact
-- Address: 상록로11길 13 1층, 수성구, 대구광역시 42166, South Korea
-- Email: hello@verygood-chocolate.com
-- Instagram: @verygood_chocolate
-- Naver Smartstore: https://smartstore.naver.com/verygood
+Discover Cake & Bake, Chocolate and Celebrate on the Sydney shop. The collection includes Pavé Mochi, chocolate gifts and made-to-order cakes. Check that website for current offers and booking conditions.
 
-## Pages
-- Home: https://verygood-chocolate.com/
-- About: https://verygood-chocolate.com/about
-- Business Story: https://verygood-chocolate.com/business-story
-- Blog: https://verygood-chocolate.com/blog
-- Privacy Policy: https://verygood-chocolate.com/privacy
-- Terms of Service: https://verygood-chocolate.com/terms
+- Cake & Bake: https://au.verygood-chocolate.com/cakes
+- Chocolate: https://au.verygood-chocolate.com/chocolates
+- Pavé Mochi: https://au.verygood-chocolate.com/chocolates/chocolate-mochi
+- Celebrate: https://au.verygood-chocolate.com/celebrate
+- Custom Cake: https://au.verygood-chocolate.com/custom-cakes
+- Business enquiries: https://au.verygood-chocolate.com/business
 
-## Products (Direct Links)
-- Almond Chocoball: https://verygood-chocolate.com/product/almond-chocoball
-- Ruby Berry: https://verygood-chocolate.com/product/ruby-berry-chocoball
-- Strawberry Bonbon: https://verygood-chocolate.com/product/strawberry-bonbon
-- Matcha Berry: https://verygood-chocolate.com/product/matcha-berry
-- British Black Tea: https://verygood-chocolate.com/product/british-black
-- Hibiscus Fruit Tea: https://verygood-chocolate.com/product/hibiscus-fruit
-- Gift 2 Set: https://verygood-chocolate.com/product/gift-2-set
-- Gift 4 Set: https://verygood-chocolate.com/product/gift-4-set
+## Brand archives
+
+Older chocolate, tea and goods pages on this brand domain are collection archives, not the current Australian shop. Archived products and historic availability must not be treated as current local offers. Consult the appropriate official local website for prices, booking dates, pickup hours and current availability.
+
+## Official social profiles
+
+- Brand and Korea: https://www.instagram.com/verygood_chocolate/
+- Sydney: https://www.instagram.com/verygood_syd/

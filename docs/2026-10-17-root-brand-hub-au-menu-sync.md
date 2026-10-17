@@ -1,5 +1,8 @@
 # VERYGOOD root brand hub — AU menu alignment (2026-10-17)
 
+> Historical release record. Subsequent brand hub SEO changes and current release status are documented in [2026-10-17-brand-hub-seo.md](2026-10-17-brand-hub-seo.md).
+
+
 ## Purpose
 
 The root verygood-chocolate.com remains a bilingual **brand gateway** rather than a second Sydney checkout or GeoIP redirect. Preserve Korea links and the Daegu-to-Sydney brand story.

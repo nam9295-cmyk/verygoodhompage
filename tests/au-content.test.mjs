@@ -18,9 +18,8 @@ test('brand homepage keeps the Daegu-to-Sydney story and directs booking to Sydn
   const content = getAuSiteContent('en')
   assert.equal(content.hero.titlePrefix, 'CHOCOLATIER’S')
   assert.equal(content.hero.heading, 'CHOCOLATE MOCHI')
-  assert.equal(content.hero.preorderLabel, 'PRE-ORDERS OPEN 17th OCT')
-  assert.deepEqual(content.hero.pickupHours, ['WED - FRI 09:00 - 16:00', 'SAT - SUN 09:00 - 12:00'])
-  assert.equal(content.hero.finePrint, 'LIMITED QUANTITY · MADE TO ORDER · UBER PICKUP AVAILABLE')
+  assert.match(content.hero.bookingNote, /official Sydney shop/)
+  assert.doesNotMatch(JSON.stringify(content.hero), /17th OCT|WED - FRI|UBER PICKUP AVAILABLE/)
   assert.equal(content.hero.desktopImage, '/assets/mochi/mochi-street.webp')
   assert.equal(content.hero.mobileImage, '/assets/mochi/mochi-cafe.webp')
   assert.equal(content.hero.bookHref, AU_LINKS.booking.chocolates + '/chocolate-mochi')
@@ -30,7 +29,7 @@ test('brand homepage keeps the Daegu-to-Sydney story and directs booking to Sydn
   assert.equal(content.story.daegu.href, AU_LINKS.korea)
   assert.equal(content.story.sydney.primaryHref, AU_LINKS.booking.home)
   assert.match(content.story.heading, /Born in Daegu\. Growing in Sydney\./)
-  assert.match(content.seo.description, /Pavé Mochi/)
+  assert.match(content.seo.description, /official Korea and Sydney websites/)
 })
 
 test('brand hub does not implement another checkout or unsupported health claims', () => {

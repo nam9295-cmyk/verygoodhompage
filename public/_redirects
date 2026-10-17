@@ -12,4 +12,3 @@
 /cart                /                    302
 /checkout            /                    302
 /order-success       /                    302
-/*                   /index.html          200

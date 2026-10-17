@@ -40,20 +40,12 @@ export default function AuHomePage({ locale }) {
         <div className="au-hero__content au-shell">
           <div className="au-hero__copy">
             <h1 className="au-mochi-title">
-              <span className="au-mochi-title__intro">{content.hero.titlePrefix}</span>
+              <span className="au-mochi-title__intro">{content.hero.titlePrefix}</span>{' '}
               <span className="au-mochi-title__main">{content.hero.heading}</span>
             </h1>
             <div className="au-mochi-details">
-              <p className="au-mochi-release">
-                <span>{content.hero.preorderLead}</span>{' '}
-                <span className="au-mochi-release__date">{content.hero.preorderDate}</span>
-              </p>
-              <div className="au-mochi-pickup">
-                <span className="au-mochi-pickup__label">{content.hero.pickupLabel}</span>
-                <p className="au-mochi-pickup__hours">
-                  {content.hero.pickupHours.map((hours) => <span key={hours}>{hours}</span>)}
-                </p>
-              </div>
+              <p className="au-mochi-release">{content.hero.campaignLabel}</p>
+              <p className="au-mochi-booking-note">{content.hero.bookingNote}</p>
               <p className="au-mochi-fineprint">{content.hero.finePrint}</p>
               <div className="au-button-row">
                 <BookingLink className="au-button" href={content.hero.bookHref}>
@@ -64,6 +56,27 @@ export default function AuHomePage({ locale }) {
                 </Link>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="au-locations" aria-labelledby="official-websites-heading">
+        <div className="au-shell">
+          <div className="au-section-heading">
+            <h2 id="official-websites-heading">{content.locations.heading}</h2>
+            <p>{content.locations.intro}</p>
+          </div>
+          <div className="au-locations__grid">
+            {content.locations.items.map((location) => (
+              <article key={location.title}>
+                <h3>{location.title}</h3>
+                <p>{location.body}</p>
+                <div className="au-inline-links">
+                  <BookingLink className="au-text-link" href={location.href}>{location.label}</BookingLink>
+                  {location.secondaryHref && <BookingLink className="au-text-link" href={location.secondaryHref}>{location.secondaryLabel}</BookingLink>}
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -160,20 +173,6 @@ export default function AuHomePage({ locale }) {
         </div>
       </section>
 
-      <section className="au-locations">
-        <div className="au-shell">
-          <div className="au-section-heading"><h2>{content.locations.heading}</h2></div>
-          <div className="au-locations__grid">
-            {content.locations.items.map((location) => (
-              <article key={location.title}>
-                <h3>{location.title}</h3>
-                <p>{location.body}</p>
-                <BookingLink className="au-text-link" href={location.href}>{location.label}</BookingLink>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   )
 }

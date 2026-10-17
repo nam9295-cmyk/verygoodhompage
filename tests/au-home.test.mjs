@@ -18,7 +18,7 @@ async function renderHome(locale,t) {
 
 test('brand homepage presents current 5/4/3 AU menu and no discontinued Sydney product cards',async t=>{
   const html=await renderHome('en',t)
-  for(const value of ['CHOCOLATIER’S','CHOCOLATE MOCHI','PRE-ORDERS OPEN','17th OCT','Order Pavé Mochi','Cake &amp; Bake','Chocolate','Celebrate','Custom Cake'])assert.ok(html.includes(value),value)
+  for(const value of ['CHOCOLATIER’S','CHOCOLATE MOCHI','Official Sydney shop','Order Pavé Mochi','Cake &amp; Bake','Chocolate','Celebrate','Custom Cake'])assert.ok(html.includes(value),value)
   const content=getAuSiteContent('en')
   assert.deepEqual(content.coreExperiences.map(c=>c.products.length),[5,4,3])
   for(const p of content.coreExperiences.flatMap(c=>c.products))assert.ok(html.includes(p.name),p.name)
@@ -60,7 +60,7 @@ test('Mochi campaign uses correct responsive originals, editable type and direct
   assert.ok(hero)
   assert.match(hero, /<source media="\(max-width: 767px\)" srcSet="\/assets\/mochi\/mochi-cafe\.webp"/)
   assert.match(hero, /<img src="\/assets\/mochi\/mochi-street\.webp" alt=""/)
-  for (const text of ['CHOCOLATIER’S', 'CHOCOLATE MOCHI', 'PRE-ORDERS OPEN', '17th OCT', 'Pick up', 'WED - FRI 09:00 - 16:00', 'SAT - SUN 09:00 - 12:00', 'LIMITED QUANTITY · MADE TO ORDER · UBER PICKUP AVAILABLE']) {
+  for (const text of ['CHOCOLATIER’S', 'CHOCOLATE MOCHI', 'Discover Pavé Mochi in Sydney', 'official Sydney shop']) {
     assert.ok(hero.includes(text), text)
   }
   assert.match(hero, /href="https:\/\/au\.verygood-chocolate\.com\/chocolates\/chocolate-mochi"/)

@@ -29,8 +29,8 @@ test('root serves the English AU home and /ko serves its Korean translation', as
   const [english, korean] = await Promise.all([renderRoute('/'), renderRoute('/ko')])
 
   assert.match(english, /CHOCOLATE MOCHI/)
-  assert.match(english, /PRE-ORDERS OPEN/)
-  assert.match(english, /17th OCT/)
+  assert.match(english, /Official Sydney shop/)
+  assert.match(english, /https:\/\/cake\.verygood-chocolate\.com/)
   assert.match(korean, /CHOCOLATE MOCHI/)
   assert.match(korean, /파베 모찌 예약하기/)
   assert.match(korean, /베리굿의 세계/)
@@ -40,6 +40,6 @@ test('root serves the English AU home and /ko serves its Korean translation', as
 test('legacy commerce paths are no longer public AU destinations', async () => {
   const html = await renderRoute('/cart')
 
-  assert.match(html, /not part of the AU site/i)
+  assert.match(html, /Page not found/i)
   assert.equal(/Cart|Checkout|Add to Cart/.test(html), false)
 })

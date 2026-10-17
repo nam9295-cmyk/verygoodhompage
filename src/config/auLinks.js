@@ -13,7 +13,9 @@ export const AU_LINKS = Object.freeze({
     lookup: `${AU_ORIGIN}/lookup`,
   }),
   korea: 'https://kr.verygood-chocolate.com',
+  koreaCakes: 'https://cake.verygood-chocolate.com',
   instagram: 'https://www.instagram.com/verygood_chocolate/',
+  sydneyInstagram: 'https://www.instagram.com/verygood_syd/',
 })
 
 export const AU_BOOKING_PRODUCT_LINKS = Object.freeze({
@@ -34,7 +36,9 @@ const ALLOWED_URLS = new Set([
   ...Object.values(AU_LINKS.booking),
   ...Object.values(AU_BOOKING_PRODUCT_LINKS),
   AU_LINKS.korea,
+  AU_LINKS.koreaCakes,
   AU_LINKS.instagram,
+  AU_LINKS.sydneyInstagram,
 ])
 
 export function isAllowedAuExternalUrl(value) {

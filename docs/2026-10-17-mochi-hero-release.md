@@ -1,5 +1,8 @@
 # Sydney Chocolate Mochi Homepage Hero — 2026-10-17
 
+> Historical release record. Subsequent brand hub SEO changes and current release status are documented in [2026-10-17-brand-hub-seo.md](2026-10-17-brand-hub-seo.md).
+
+
 ## Current status
 - Worktree branch: codex/root-au-menu-20261017 (includes the prior AU menu alignment).
 - Booking app nam9295-cmyk/au-cake stays unchanged.
