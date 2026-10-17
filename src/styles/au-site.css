@@ -402,13 +402,20 @@ body {
   to { transform: translateX(-50%); }
 }
 
+/* Sydney Pavé Mochi launch: editable HTML type over dedicated responsive photography. */
 .au-hero {
   position: relative;
   isolation: isolate;
-  min-height: clamp(620px, 51vw, 700px);
+  min-height: clamp(640px, 51vw, 720px);
   overflow: hidden;
-  color: var(--au-surface);
-  background: var(--au-forest-deep);
+  color: #fffaf1;
+  background: #111513;
+}
+
+.au-hero__visual {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
 }
 
 .au-hero__media,
@@ -416,8 +423,6 @@ body {
   position: absolute;
   inset: 0;
 }
-
-.au-hero__media { z-index: -2; }
 
 .au-hero__media img {
   display: block;
@@ -428,69 +433,125 @@ body {
 }
 
 .au-hero__shade {
-  z-index: -1;
-  background: linear-gradient(90deg, rgba(10, 29, 22, 0.9) 0%, rgba(10, 29, 22, 0.72) 44%, rgba(10, 29, 22, 0.26) 100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.69) 31%, rgba(0, 0, 0, 0.21) 60%, rgba(0, 0, 0, 0) 83%);
 }
 
 .au-hero__content {
   display: flex;
   min-height: inherit;
   align-items: center;
-  padding-top: clamp(78px, 10vw, 150px);
-  padding-bottom: clamp(78px, 10vw, 150px);
+  padding-top: clamp(60px, 6vw, 90px);
+  padding-bottom: clamp(60px, 6vw, 90px);
 }
 
-.au-hero__copy { max-width: 700px; }
+.au-hero__copy {
+  width: 100%;
+  max-width: 590px;
+}
 
-.au-hero .au-kicker { color: var(--au-pink); }
-
-.au-hero h1 {
-  max-width: 680px;
-  margin-top: 18px;
-  color: var(--au-surface);
-  font-size: clamp(58px, 6.1vw, 88px);
+.au-hero h1.au-mochi-title {
+  margin: 0;
+  color: #fffaf1;
+  font-family: 'Work Sans', sans-serif;
   font-weight: 800;
-  line-height: 0.92;
+  text-transform: uppercase;
 }
 
-.au-hero__body {
-  max-width: 530px;
-  margin-top: 31px;
-  color: rgba(255, 255, 255, 0.88);
-  font-size: clamp(16px, 1.35vw, 19px);
-  line-height: 1.65;
+.au-mochi-title__intro,
+.au-mochi-title__main {
+  display: block;
+  letter-spacing: -0.06em;
+}
+
+.au-mochi-title__intro {
+  font-size: clamp(29px, 3.2vw, 46px);
+  line-height: 1.08;
+}
+
+.au-mochi-title__main {
+  max-width: 590px;
+  margin-top: 5px;
+  font-size: clamp(49px, 5.45vw, 78px);
+  line-height: 0.96;
+  letter-spacing: -0.075em;
+  text-wrap: balance;
+}
+
+.au-mochi-details {
+  margin-top: clamp(28px, 3.5vw, 45px);
+  font-family: 'Times New Roman', Georgia, serif;
+}
+
+.au-mochi-release {
+  font-size: clamp(27px, 2.55vw, 39px);
+  letter-spacing: -0.018em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.au-mochi-release__date { white-space: nowrap; }
+
+.au-mochi-pickup {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 23px;
+  font-size: clamp(16px, 1.55vw, 22px);
+  line-height: 1.3;
+}
+
+.au-mochi-pickup__label {
+  flex: none;
+  padding: 2px 9px;
+  color: #241d1d;
+  background: #fffaf1;
+}
+
+.au-mochi-pickup__hours span {
+  display: block;
+  white-space: nowrap;
+}
+
+.au-mochi-fineprint {
+  max-width: 590px;
+  margin-top: 24px;
+  padding-top: 17px;
+  border-top: 1px solid rgba(255, 250, 241, 0.52);
+  font-size: clamp(12px, 1.08vw, 16px);
+  letter-spacing: 0.004em;
+  line-height: 1.45;
 }
 
 .au-button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 11px;
-  margin-top: 34px;
+  margin-top: 29px;
 }
 
 .au-hero .au-button:not(.au-button--outline) {
-  border-color: var(--au-surface);
-  color: var(--au-forest-deep);
-  background: var(--au-surface);
+  border-color: #fffaf1;
+  color: #181a17;
+  background: #fffaf1;
 }
 
 .au-hero .au-button:not(.au-button--outline):hover,
 .au-hero .au-button:not(.au-button--outline):focus-visible {
-  color: var(--au-forest-deep);
+  color: #181a17;
   background: var(--au-pink);
 }
 
 .au-hero .au-button--outline {
-  border-color: rgba(255, 255, 255, 0.78);
-  color: var(--au-surface);
+  border-color: rgba(255, 250, 241, 0.78);
+  color: #fffaf1;
   background: transparent;
 }
 
 .au-hero .au-button--outline:hover,
 .au-hero .au-button--outline:focus-visible {
-  border-color: var(--au-surface);
-  color: var(--au-forest-deep);
-  background: var(--au-surface);
+  border-color: #fffaf1;
+  color: #181a17;
+  background: #fffaf1;
 }
 
 .au-core-experiences {
@@ -1658,12 +1719,35 @@ body {
   .au-announcement__track { width: 100%; animation: none; }
   .au-announcement span { display: none; }
   .au-announcement span:first-child { display: inline-flex; padding-left: var(--au-gutter); }
-  .au-hero { min-height: max(600px, calc(100svh - 100px)); }
-  .au-hero__shade { background: linear-gradient(180deg, rgba(10, 29, 22, 0.82) 0%, rgba(10, 29, 22, 0.68) 54%, rgba(10, 29, 22, 0.56) 100%); }
-  .au-hero__content { align-items: flex-end; padding-top: 52px; padding-bottom: 48px; }
-  .au-hero h1 { font-size: clamp(47px, 14vw, 65px); }
-  .au-hero__body { margin-top: 21px; font-size: 16px; }
-  .au-hero .au-button-row { margin-top: 27px; }
+  /* Keep the full 4:5 mobile photo and place serif booking details below it. */
+  .au-hero--mochi { display: block; min-height: 0; overflow: visible; color: var(--au-charcoal); background: #fffaf1; }
+  .au-hero--mochi .au-hero__visual { position: relative; inset: auto; z-index: 0; width: 100%; aspect-ratio: 4 / 5; overflow: hidden; }
+  .au-hero--mochi .au-hero__shade { background: linear-gradient(180deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.45) 25%, rgba(0, 0, 0, 0) 56%); }
+  .au-hero--mochi .au-hero__content { display: block; min-height: 0; padding: 0; }
+  .au-hero--mochi .au-hero__copy { max-width: none; }
+  .au-hero--mochi h1.au-mochi-title {
+    position: absolute;
+    z-index: 1;
+    top: clamp(24px, 6vw, 44px);
+    left: var(--au-gutter);
+    right: var(--au-gutter);
+    margin: 0;
+    color: #fffaf1;
+    max-width: calc(100% - 2 * var(--au-gutter));
+  }
+  .au-mochi-title__intro { font-size: clamp(25px, 7vw, 32px); }
+  .au-mochi-title__main { font-size: clamp(41px, 11vw, 55px); line-height: 0.94; }
+  .au-mochi-details { margin: 0; padding: 27px var(--au-gutter) 36px; background: #fffaf1; }
+  .au-mochi-release { font-size: clamp(27px, 7.1vw, 34px); white-space: normal; }
+  .au-mochi-release__date { display: block; }
+  .au-mochi-pickup { margin-top: 17px; gap: 12px; font-size: clamp(14px, 3.9vw, 18px); }
+  .au-mochi-pickup__label { color: #fffaf1; background: #241d1d; }
+  .au-mochi-fineprint { margin-top: 19px; padding-top: 13px; border-color: rgba(54, 47, 49, 0.32); font-size: clamp(12px, 3.1vw, 14px); }
+  .au-hero--mochi .au-button-row { margin-top: 24px; }
+  .au-hero--mochi .au-button:not(.au-button--outline) { color: #fffaf1; border-color: var(--au-forest); background: var(--au-forest); }
+  .au-hero--mochi .au-button--outline { color: var(--au-forest); border-color: var(--au-forest); }
+  .au-hero--mochi .au-button--outline:hover,
+  .au-hero--mochi .au-button--outline:focus-visible { color: #fffaf1; background: var(--au-forest); }
   .au-button { padding-inline: 17px; }
   .au-fixed-tiger-background {
     background-image: url('/assets/brand/tiger-pattern-mobile.webp');

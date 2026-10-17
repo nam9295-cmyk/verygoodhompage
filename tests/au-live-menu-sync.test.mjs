@@ -26,7 +26,7 @@ test('Sydney brand hub mirrors current AU shop groups and links, without legacy 
 test('English and Korean home cards match actual Sydney product URLs, image assets and availability', () => {
   for (const locale of ['en', 'ko']) {
     const content = getAuSiteContent(locale)
-    assert.equal(content.hero.bookHref, AU_LINKS.booking.home)
+    assert.equal(content.hero.bookHref, AU_LINKS.booking.chocolates + '/chocolate-mochi')
     assert.deepEqual(content.coreExperiences.map(x => x.id), Object.keys(currentProductIds))
     assert.deepEqual(content.categories.map(c => c.id), Object.keys(currentProductIds))
     const products = content.coreExperiences.flatMap(x => x.products)

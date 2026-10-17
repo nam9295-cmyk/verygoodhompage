@@ -29,23 +29,40 @@ export default function AuHomePage({ locale }) {
         </div>
       </section>
 
-      <section className="au-hero au-hero--image-led">
-        <div className="au-hero__media" aria-hidden="true">
-          <img src={content.hero.image} alt="" aria-hidden="true" />
+      <section className="au-hero au-hero--mochi">
+        <div className="au-hero__visual" aria-hidden="true">
+          <picture className="au-hero__media">
+            <source media="(max-width: 767px)" srcSet={content.hero.mobileImage} />
+            <img src={content.hero.desktopImage} alt="" loading="eager" fetchPriority="high" />
+          </picture>
+          <div className="au-hero__shade" />
         </div>
-        <div className="au-hero__shade" aria-hidden="true" />
         <div className="au-hero__content au-shell">
           <div className="au-hero__copy">
-            <p className="au-kicker">{content.hero.kicker}</p>
-            <h1>{content.hero.heading}</h1>
-            <p className="au-hero__body">{content.hero.body}</p>
-            <div className="au-button-row">
-              <BookingLink className="au-button" href={content.hero.bookHref}>
-                {content.hero.bookLabel}
-              </BookingLink>
-              <Link className="au-button au-button--outline" to={`${locale === 'ko' ? '/ko' : '/'}#cakes`}>
-                {content.hero.exploreLabel}
-              </Link>
+            <h1 className="au-mochi-title">
+              <span className="au-mochi-title__intro">{content.hero.titlePrefix}</span>
+              <span className="au-mochi-title__main">{content.hero.heading}</span>
+            </h1>
+            <div className="au-mochi-details">
+              <p className="au-mochi-release">
+                <span>{content.hero.preorderLead}</span>{' '}
+                <span className="au-mochi-release__date">{content.hero.preorderDate}</span>
+              </p>
+              <div className="au-mochi-pickup">
+                <span className="au-mochi-pickup__label">{content.hero.pickupLabel}</span>
+                <p className="au-mochi-pickup__hours">
+                  {content.hero.pickupHours.map((hours) => <span key={hours}>{hours}</span>)}
+                </p>
+              </div>
+              <p className="au-mochi-fineprint">{content.hero.finePrint}</p>
+              <div className="au-button-row">
+                <BookingLink className="au-button" href={content.hero.bookHref}>
+                  {content.hero.bookLabel}
+                </BookingLink>
+                <Link className="au-button au-button--outline" to={locale === 'ko' ? '/ko#cakes' : '/#cakes'}>
+                  {content.hero.exploreLabel}
+                </Link>
+              </div>
             </div>
           </div>
         </div>

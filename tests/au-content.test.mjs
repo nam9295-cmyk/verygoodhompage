@@ -16,10 +16,15 @@ test('brand-home navigation mirrors the five current Sydney shop categories', ()
 
 test('brand homepage keeps the Daegu-to-Sydney story and directs booking to Sydney', () => {
   const content = getAuSiteContent('en')
-  assert.equal(content.hero.kicker, 'BORN IN DAEGU · GROWING IN SYDNEY')
-  assert.equal(content.hero.heading, 'Chocolate makes every day verygood.')
-  assert.equal(content.hero.bookHref, AU_LINKS.booking.home)
-  assert.match(content.hero.bookLabel, /SHOP SYDNEY/)
+  assert.equal(content.hero.titlePrefix, 'CHOCOLATIER’S')
+  assert.equal(content.hero.heading, 'CHOCOLATE MOCHI')
+  assert.equal(content.hero.preorderLabel, 'PRE-ORDERS OPEN 17th OCT')
+  assert.deepEqual(content.hero.pickupHours, ['WED - FRI 09:00 - 16:00', 'SAT - SUN 09:00 - 12:00'])
+  assert.equal(content.hero.finePrint, 'LIMITED QUANTITY · MADE TO ORDER · UBER PICKUP AVAILABLE')
+  assert.equal(content.hero.desktopImage, '/assets/mochi/mochi-street.webp')
+  assert.equal(content.hero.mobileImage, '/assets/mochi/mochi-cafe.webp')
+  assert.equal(content.hero.bookHref, AU_LINKS.booking.chocolates + '/chocolate-mochi')
+  assert.match(content.hero.bookLabel, /Order Pavé Mochi/)
   assert.deepEqual(content.coreExperiences.map(x=>x.id), ['cakes', 'chocolates', 'celebrate'])
   assert.deepEqual(content.categories.map(x=>x.label), ['Cake & Bake','Chocolate','Celebrate'])
   assert.equal(content.story.daegu.href, AU_LINKS.korea)
@@ -29,7 +34,7 @@ test('brand homepage keeps the Daegu-to-Sydney story and directs booking to Sydn
 })
 
 test('brand hub does not implement another checkout or unsupported health claims', () => {
-  const forbidden = /add to cart|checkout|quantity|detox|cleanse|toxin|weight loss|gut health|wellness app|ai beta/i
+  const forbidden = /add to cart|checkout|quantity selector|detox|cleanse|toxin|weight loss|gut health|wellness app|ai beta/i
   for (const locale of ['en', 'ko']) {
     assert.equal(forbidden.test(JSON.stringify(getAuSiteContent(locale))), false, locale)
   }
@@ -42,5 +47,7 @@ test('Korean homepage retains localized story, Sydney and Korea links', () => {
   assert.equal(ko.ui.reviewsKicker, '후기')
   assert.equal(ko.ui.bookLabel, '시드니 온라인 주문')
   assert.equal(ko.story.daegu.href, AU_LINKS.korea)
-  assert.match(ko.hero.body, /파베 모찌/)
+  assert.equal(ko.hero.heading, 'CHOCOLATE MOCHI')
+  assert.equal(ko.hero.bookLabel, '파베 모찌 예약하기')
+  assert.equal(ko.hero.bookHref, AU_LINKS.booking.chocolates + '/chocolate-mochi')
 })

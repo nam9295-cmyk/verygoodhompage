@@ -1,4 +1,4 @@
-import { AU_LINKS } from './auLinks.js'
+import { AU_LINKS, AU_BOOKING_PRODUCT_LINKS } from './auLinks.js'
 import { localePath } from '../utils/auPaths.js'
 
 // The root site is a brand gateway, not a second checkout.
@@ -64,7 +64,7 @@ const bookingProducts = Object.freeze({
     comingSoon: true,
   },
   mochi: {
-    href: AU_LINKS.booking.chocolates + '/chocolate-mochi',
+    href: AU_BOOKING_PRODUCT_LINKS.chocolateMochi,
     image: AU_IMAGE + 'renewal-photos/mochi-hero-v2.webp',
     en: 'Pavé Mochi', ko: '파베 모찌',
     descriptionEn: 'Six flavours of chocolate mochi. Mix your own four-piece gift box.',
@@ -239,27 +239,21 @@ function homeContent(locale) {
     announcement: isKorean
       ? ['대구에서 시작한 베리굿', '시드니 온라인 예약 오픈', '파베 모찌 예약 진행 중', '멜로즈 파크 픽업']
       : ['Born in Daegu', 'Growing in Sydney', 'Shop Sydney online', 'Pavé Mochi pre-orders open'],
-    hero: isKorean
-      ? {
-          kicker: '대구에서 시작해, 시드니로',
-          heading: '초콜릿이 생각날 땐, 베리굿.',
-          body: '시드니의 케이크 & 베이크, 파베 모찌와 초콜릿, 기념일 디저트를 만나보세요. 한국 베리굿의 이야기도 이어집니다.',
-          exploreLabel: '새 메뉴 보기',
-          bookLabel: '시드니 온라인 주문',
-          bookHref: AU_LINKS.booking.home,
-          image: '/assets/main.png',
-          imageAlt: '따뜻한 빛 아래 놓인 베리굿 초콜릿 패키지.',
-        }
-      : {
-          kicker: 'BORN IN DAEGU · GROWING IN SYDNEY',
-          heading: 'Chocolate makes every day verygood.',
-          body: 'Made-to-order cakes, Pavé Mochi and chocolate gifts in Sydney. Discover the latest collection and our story from Daegu.',
-          exploreLabel: 'Explore current menu',
-          bookLabel: 'SHOP SYDNEY · ORDER ONLINE',
-          bookHref: AU_LINKS.booking.home,
-          image: '/assets/main.png',
-          imageAlt: 'Verygood chocolate packages arranged in warm light.',
-        },
+    hero: {
+      titlePrefix: 'CHOCOLATIER’S',
+      heading: 'CHOCOLATE MOCHI',
+      preorderLabel: 'PRE-ORDERS OPEN 17th OCT',
+      preorderLead: 'PRE-ORDERS OPEN',
+      preorderDate: '17th OCT',
+      pickupLabel: 'Pick up',
+      pickupHours: ['WED - FRI 09:00 - 16:00', 'SAT - SUN 09:00 - 12:00'],
+      finePrint: 'LIMITED QUANTITY · MADE TO ORDER · UBER PICKUP AVAILABLE',
+      exploreLabel: isKorean ? '전체 메뉴 보기' : 'Explore current menu',
+      bookLabel: isKorean ? '파베 모찌 예약하기' : 'Order Pavé Mochi',
+      bookHref: AU_BOOKING_PRODUCT_LINKS.chocolateMochi,
+      desktopImage: '/assets/mochi/mochi-street.webp',
+      mobileImage: '/assets/mochi/mochi-cafe.webp',
+    },
     coreExperiences: bookingExperiences(language),
     categories: homeCategories(language),
     story: isKorean

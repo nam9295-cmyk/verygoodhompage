@@ -28,8 +28,11 @@ async function renderRoute(pathname) {
 test('root serves the English AU home and /ko serves its Korean translation', async () => {
   const [english, korean] = await Promise.all([renderRoute('/'), renderRoute('/ko')])
 
-  assert.match(english, /Chocolate makes every day verygood\./)
-  assert.match(korean, /초콜릿이 생각날 땐, 베리굿\./)
+  assert.match(english, /CHOCOLATE MOCHI/)
+  assert.match(english, /PRE-ORDERS OPEN/)
+  assert.match(english, /17th OCT/)
+  assert.match(korean, /CHOCOLATE MOCHI/)
+  assert.match(korean, /파베 모찌 예약하기/)
   assert.match(korean, /베리굿의 세계/)
   assert.doesNotMatch(korean, /The Verygood world/)
 })

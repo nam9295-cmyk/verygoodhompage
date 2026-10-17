@@ -18,7 +18,7 @@ async function renderHome(locale,t) {
 
 test('brand homepage presents current 5/4/3 AU menu and no discontinued Sydney product cards',async t=>{
   const html=await renderHome('en',t)
-  for(const value of ['BORN IN DAEGU · GROWING IN SYDNEY','Chocolate makes every day verygood.','SHOP SYDNEY · ORDER ONLINE','Cake &amp; Bake','Chocolate','Celebrate','Custom Cake'])assert.ok(html.includes(value),value)
+  for(const value of ['CHOCOLATIER’S','CHOCOLATE MOCHI','PRE-ORDERS OPEN','17th OCT','Order Pavé Mochi','Cake &amp; Bake','Chocolate','Celebrate','Custom Cake'])assert.ok(html.includes(value),value)
   const content=getAuSiteContent('en')
   assert.deepEqual(content.coreExperiences.map(c=>c.products.length),[5,4,3])
   for(const p of content.coreExperiences.flatMap(c=>c.products))assert.ok(html.includes(p.name),p.name)
@@ -54,15 +54,18 @@ test('three collection tiles preserve desktop visual grid and mobile single colu
   assert.match(css,/@media \(max-width: 767px\) \{[\s\S]*?\.au-home-collection-grid\s*\{\s*grid-template-columns: 1fr/)
 })
 
-test('Sydney shopping call-to-action is first and brand photo stays intact',async t=>{
-  const html=await renderHome('en',t)
-  const hero=html.match(/<section class="au-hero au-hero--image-led">[\s\S]*?<\/section>/)?.[0]
+test('Mochi campaign uses correct responsive originals, editable type and direct booking CTA', async t => {
+  const html = await renderHome('en', t)
+  const hero = html.match(/<section class="au-hero au-hero--mochi">[\s\S]*?<\/section>/)?.[0]
   assert.ok(hero)
-  assert.match(hero,/<img src="\/assets\/main\.png" alt="" aria-hidden="true"/)
-  assert.match(hero,/<h1>Chocolate makes every day verygood\.<\/h1>/)
-  assert.match(hero,/href="https:\/\/au\.verygood-chocolate\.com"/)
-  assert.ok(hero.indexOf('SHOP SYDNEY · ORDER ONLINE') < hero.indexOf('Explore current menu'))
-  assert.match(hero,/href="\/#cakes"/)
+  assert.match(hero, /<source media="\(max-width: 767px\)" srcSet="\/assets\/mochi\/mochi-cafe\.webp"/)
+  assert.match(hero, /<img src="\/assets\/mochi\/mochi-street\.webp" alt=""/)
+  for (const text of ['CHOCOLATIER’S', 'CHOCOLATE MOCHI', 'PRE-ORDERS OPEN', '17th OCT', 'Pick up', 'WED - FRI 09:00 - 16:00', 'SAT - SUN 09:00 - 12:00', 'LIMITED QUANTITY · MADE TO ORDER · UBER PICKUP AVAILABLE']) {
+    assert.ok(hero.includes(text), text)
+  }
+  assert.match(hero, /href="https:\/\/au\.verygood-chocolate\.com\/chocolates\/chocolate-mochi"/)
+  assert.ok(hero.indexOf('Order Pavé Mochi') < hero.indexOf('Explore current menu'))
+  assert.match(hero, /href="\/#cakes"/)
 })
 
 test('each current product photo and action links to its actual AU detail',async t=>{
@@ -83,7 +86,7 @@ test('each current product photo and action links to its actual AU detail',async
 })
 
 test('home uses verified live AU public product photos and keeps local brand art',()=>{
-  for(const file of ['public/assets/main.png','public/assets/brand/heart_logo.png','public/assets/brand/tiger-pattern-desktop.webp','public/assets/brand/tiger-pattern-mobile.webp'])assert.ok(existsSync(resolve(file)),file)
+  for(const file of ['public/assets/mochi/mochi-street.webp','public/assets/mochi/mochi-cafe.webp','public/assets/brand/heart_logo.png','public/assets/brand/tiger-pattern-desktop.webp','public/assets/brand/tiger-pattern-mobile.webp'])assert.ok(existsSync(resolve(file)),file)
   const products=getAuSiteContent('en').coreExperiences.flatMap(x=>x.products)
   assert.equal(products.length,12)
   assert.ok(products.every(p=>p.image.src.startsWith('https://au.verygood-chocolate.com/products/')))
@@ -94,7 +97,8 @@ test('home uses verified live AU public product photos and keeps local brand art
 
 test('Korean edition preserves brand story and localized Sydney product routes',async t=>{
   const html=await renderHome('ko',t)
-  assert.match(html,/초콜릿이 생각날 땐, 베리굿/)
+  assert.match(html,/CHOCOLATIER’S/)
+  assert.match(html,/파베 모찌 예약하기/)
   assert.match(html,/시드니 온라인 주문/)
   assert.match(html,/파베 모찌/)
   assert.match(html,/href="https:\/\/kr\.verygood-chocolate\.com"/)

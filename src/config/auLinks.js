@@ -17,6 +17,7 @@ export const AU_LINKS = Object.freeze({
 })
 
 export const AU_BOOKING_PRODUCT_LINKS = Object.freeze({
+  chocolateMochi: AU_ORIGIN + '/chocolates/chocolate-mochi',
   paveChocolateCake: `${AU_ORIGIN}/cakes/pave-chocolate-cake`,
   vanillaFreshCreamCake: `${AU_ORIGIN}/cakes/vanilla-fresh-cream-cake`,
   buttercreamCake: `${AU_ORIGIN}/cakes/buttercream-cake`,
